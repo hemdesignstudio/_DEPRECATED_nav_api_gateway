@@ -8,9 +8,8 @@ import (
 	"net/http"
 	"projects/graphql/company"
 	"projects/graphql/config"
+	"projects/graphql/customer"
 )
-
-
 
 func main() {
 	conf := config.GetConfig()
@@ -18,7 +17,9 @@ func main() {
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
 		Query: graphql.NewObject(
 			createQueryType(
-				company.CreateCompanyType(),
+				company.CreateCompanyType(
+					customer.CreateCustomerType(),
+				),
 			),
 		),
 	})
