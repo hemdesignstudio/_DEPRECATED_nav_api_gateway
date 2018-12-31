@@ -6,11 +6,12 @@ import (
 )
 
 type Configuration struct {
-	BaseUrl         string
-	CompanyEndpoint string
-	Passwd          string
-	Username        string
-	Host            string
+	BaseUrl                string
+	CompanyEndpoint        string
+	CustomerCardWSEndpoint string
+	Passwd                 string
+	Username               string
+	Host                   string
 }
 
 func GetConfig() Configuration {
@@ -22,4 +23,3 @@ func GetConfig() Configuration {
 	}
 	return configuration
 }
-
