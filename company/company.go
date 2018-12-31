@@ -5,12 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"github.com/graphql-go/graphql"
-	"io/ioutil"
-	"net/http"
+	"log"
 	"projects/graphql/config"
+	"projects/graphql/customer"
+	"projects/graphql/request"
 )
-
-var conf = config.GetConfig()
 
 type Company struct {
 	ID          string `json:id`
@@ -18,7 +17,7 @@ type Company struct {
 	DisplayName string `json:displayName`
 }
 
-func CreateCompanyType() *graphql.Object {
+func CreateCompanyType(customerType *graphql.Object) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Company",
 		Fields: graphql.Fields{
@@ -32,33 +31,27 @@ func CreateCompanyType() *graphql.Object {
 			"displayName": &graphql.Field{
 				Type: graphql.String,
 			},
+			"CustomerCardWS": &graphql.Field{
+				Type: graphql.NewList(customerType),
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company, _ := p.Source.(*Company)
+					log.Printf("fetching customers of company: %s", company.Name)
+					return customer.FetchCustomersByCompanyName(company.Name)
+				},
+			},
 		},
 	})
 }
 
 func GetCompanyByName(name string) (*Company, error) {
-	var url = conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", name)
-
-	client := &http.Client{}
-	req, err := http.NewRequest("GET", url, nil)
-	req.SetBasicAuth(conf.Username, conf.Passwd)
-	resp, err := client.Do(req)
-
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("%s: %s", "could not fetch data", resp.Status)
-	}
-	b, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, errors.New("could not read data")
-	}
+	conf := config.GetConfig()
+	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", name)
+	resultByte, err := request.GET(name, url)
 	result := Company{}
-	err = json.Unmarshal(b, &result)
+
+	err = json.Unmarshal(resultByte, &result)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
-	return &result, nil
+	return &result, err
 }
