@@ -18,7 +18,7 @@ func main() {
 		Query: graphql.NewObject(
 			createQueryType(
 				company.CreateCompanyType(
-					customer.CreateCustomerType(),
+					customer.CreateCustomerCardType(),
 				),
 			),
 		),

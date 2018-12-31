@@ -12,9 +12,9 @@ import (
 )
 
 type Company struct {
-	ID          string `json:id`
-	Name        string `json:name`
-	DisplayName string `json:displayName`
+	Id          string `json:"id"`
+	Name        string `json:"name"`
+	DisplayName string `json:"displayName"`
 }
 
 func CreateCompanyType(customerType *graphql.Object) *graphql.Object {
@@ -31,12 +31,29 @@ func CreateCompanyType(customerType *graphql.Object) *graphql.Object {
 			"displayName": &graphql.Field{
 				Type: graphql.String,
 			},
-			"CustomerCardWS": &graphql.Field{
+
+			"CustomerCard": &graphql.Field{
+				Type: customerType,
+				Args: graphql.FieldConfigArgument{
+					"no": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company, _ := p.Source.(*Company)
+					log.Printf("fetching customers of company: %s", company.Name)
+					name := p.Args["no"]
+					no, _ := name.(string)
+					return customer.GetCustomerCardByNo(company.Name, no)
+				},
+			},
+
+			"AllCustomerCards": &graphql.Field{
 				Type: graphql.NewList(customerType),
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					company, _ := p.Source.(*Company)
 					log.Printf("fetching customers of company: %s", company.Name)
-					return customer.FetchCustomersByCompanyName(company.Name)
+					return customer.GetCustomerCardByCompanyName(company.Name)
 				},
 			},
 		},
@@ -47,11 +64,11 @@ func GetCompanyByName(name string) (*Company, error) {
 	conf := config.GetConfig()
 	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", name)
 	resultByte, err := request.GET(name, url)
-	result := Company{}
+	response := Company{}
 
-	err = json.Unmarshal(resultByte, &result)
+	err = json.Unmarshal(resultByte, &response)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
-	return &result, err
+	return &response, err
 }
