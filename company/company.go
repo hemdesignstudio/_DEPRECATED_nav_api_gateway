@@ -22,16 +22,9 @@ func CreateCompanyType(customerType *graphql.Object) *graphql.Object {
 		Name: "Company",
 		Fields: graphql.Fields{
 
-			"id": &graphql.Field{
-				Type: graphql.NewNonNull(graphql.String),
-			},
-			"name": &graphql.Field{
-				Type: graphql.String,
-			},
-			"displayName": &graphql.Field{
-				Type: graphql.String,
-			},
-
+			"id":          &graphql.Field{Type: graphql.NewNonNull(graphql.String)},
+			"name":        &graphql.Field{Type: graphql.String},
+			"displayName": &graphql.Field{Type: graphql.String},
 			"CustomerCard": &graphql.Field{
 				Type: customerType,
 				Args: graphql.FieldConfigArgument{
