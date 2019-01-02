@@ -10,6 +10,7 @@ import (
 	"projects/graphql/company"
 	"projects/graphql/config"
 	"projects/graphql/customer"
+	"projects/graphql/item"
 )
 
 func main() {
@@ -21,6 +22,7 @@ func main() {
 				company.CreateCompanyType(
 					customer.CreateCustomerCardType(),
 					assemblybom.CreateAssemblyBomType(),
+					item.CreateItemCardType(),
 				),
 			),
 		),
