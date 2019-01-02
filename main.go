@@ -6,6 +6,7 @@ import (
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
 	"log"
 	"net/http"
+	"projects/graphql/assemblybom"
 	"projects/graphql/company"
 	"projects/graphql/config"
 	"projects/graphql/customer"
@@ -19,6 +20,7 @@ func main() {
 			createQueryType(
 				company.CreateCompanyType(
 					customer.CreateCustomerCardType(),
+					assemblybom.CreateAssemblyBomType(),
 				),
 			),
 		),

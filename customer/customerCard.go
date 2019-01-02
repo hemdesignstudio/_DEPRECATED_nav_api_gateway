@@ -86,11 +86,11 @@ func GetCustomerCardByNo(companyName string, no string) (*CustomerCard, error) {
 		conf.CustomerCardWSEndpoint + fmt.Sprintf("('%s')", no)
 
 	resultByte, err := request.GET(no, url)
-	res := CustomerCard{}
-	err = json.Unmarshal(resultByte, &res)
+	response := CustomerCard{}
+	err = json.Unmarshal(resultByte, &response)
 
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
-	return &res, nil
+	return &response, nil
 }

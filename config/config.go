@@ -9,6 +9,7 @@ type Configuration struct {
 	BaseUrl                string
 	CompanyEndpoint        string
 	CustomerCardWSEndpoint string
+	AssemblyBomEndpoint    string
 	Passwd                 string
 	Username               string
 	Host                   string
