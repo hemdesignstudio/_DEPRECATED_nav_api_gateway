@@ -11,6 +11,7 @@ import (
 	"projects/graphql/customer"
 	"projects/graphql/item"
 	"projects/graphql/request"
+	"projects/graphql/salesorder"
 )
 
 type Company struct {
@@ -24,6 +25,7 @@ func CreateCompanyType(
 	customerType *graphql.Object,
 	assemblybomType *graphql.Object,
 	itemType *graphql.Object,
+	salesOrderType *graphql.Object,
 
 ) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
@@ -105,6 +107,31 @@ func CreateCompanyType(
 					name := p.Args["no"]
 					no, _ := name.(string)
 					return item.GetItemCardByNo(company.Name, no)
+				},
+			},
+
+			"AllSalesOrders": &graphql.Field{
+				Type: graphql.NewList(salesOrderType),
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company, _ := p.Source.(*Company)
+					log.Printf("fetching items of company: %s", company.Name)
+					return salesorder.GetSalesOrderByCompanyName(company.Name)
+				},
+			},
+
+			"SalesOrder": &graphql.Field{
+				Type: salesOrderType,
+				Args: graphql.FieldConfigArgument{
+					"no": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company, _ := p.Source.(*Company)
+					log.Printf("fetching customers of company: %s", company.Name)
+					name := p.Args["no"]
+					no, _ := name.(string)
+					return salesorder.GetSalesOrderByNo(company.Name, no)
 				},
 			},
 		},
