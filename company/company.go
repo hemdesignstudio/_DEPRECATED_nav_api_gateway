@@ -9,6 +9,7 @@ import (
 	"projects/graphql/assemblybom"
 	"projects/graphql/config"
 	"projects/graphql/customer"
+	"projects/graphql/item"
 	"projects/graphql/request"
 )
 
@@ -18,7 +19,13 @@ type Company struct {
 	DisplayName string `json:"displayName"`
 }
 
-func CreateCompanyType(customerType *graphql.Object, assemblybomType *graphql.Object) *graphql.Object {
+func CreateCompanyType(
+
+	customerType *graphql.Object,
+	assemblybomType *graphql.Object,
+	itemType *graphql.Object,
+
+) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Company",
 		Fields: graphql.Fields{
@@ -51,7 +58,7 @@ func CreateCompanyType(customerType *graphql.Object, assemblybomType *graphql.Ob
 				},
 			},
 
-			"AllAssemblyBOM": &graphql.Field{
+			"AllAssemblyBom": &graphql.Field{
 				Type: graphql.NewList(assemblybomType),
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					company, _ := p.Source.(*Company)
@@ -73,6 +80,31 @@ func CreateCompanyType(customerType *graphql.Object, assemblybomType *graphql.Ob
 					name := p.Args["no"]
 					no, _ := name.(string)
 					return assemblybom.GetAssemblyByNo(company.Name, no)
+				},
+			},
+
+			"AllItemCards": &graphql.Field{
+				Type: graphql.NewList(itemType),
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company, _ := p.Source.(*Company)
+					log.Printf("fetching items of company: %s", company.Name)
+					return item.GetItemCardByCompanyName(company.Name)
+				},
+			},
+
+			"ItemCard": &graphql.Field{
+				Type: itemType,
+				Args: graphql.FieldConfigArgument{
+					"no": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company, _ := p.Source.(*Company)
+					log.Printf("fetching customers of company: %s", company.Name)
+					name := p.Args["no"]
+					no, _ := name.(string)
+					return item.GetItemCardByNo(company.Name, no)
 				},
 			},
 		},
