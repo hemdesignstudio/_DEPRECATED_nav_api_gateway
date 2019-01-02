@@ -10,6 +10,7 @@ type Configuration struct {
 	CompanyEndpoint        string
 	CustomerCardWSEndpoint string
 	AssemblyBomEndpoint    string
+	ItemCardEndpoint       string
 	Passwd                 string
 	Username               string
 	Host                   string
