@@ -5,13 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"github.com/graphql-go/graphql"
+	"github.com/nav-api-gateway/assemblybom"
+	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/customer"
+	"github.com/nav-api-gateway/item"
+	"github.com/nav-api-gateway/request"
+	"github.com/nav-api-gateway/salesorder"
 	"log"
-	"projects/graphql/assemblybom"
-	"projects/graphql/config"
-	"projects/graphql/customer"
-	"projects/graphql/item"
-	"projects/graphql/request"
-	"projects/graphql/salesorder"
 )
 
 type Company struct {
@@ -141,7 +141,7 @@ func CreateCompanyType(
 func GetCompanyByName(name string) (*Company, error) {
 	conf := config.GetConfig()
 	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", name)
-	resultByte, err := request.GET(name, url)
+	resultByte, err := request.GET(url)
 	response := Company{}
 
 	err = json.Unmarshal(resultByte, &response)

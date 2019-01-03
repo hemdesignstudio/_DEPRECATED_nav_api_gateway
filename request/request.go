@@ -3,12 +3,12 @@ package request
 import (
 	"errors"
 	"fmt"
+	"github.com/nav-api-gateway/config"
 	"io/ioutil"
 	"net/http"
-	"projects/graphql/config"
 )
 
-func GET(name string, url string) ([]byte, error) {
+func GET(url string) ([]byte, error) {
 	conf := config.GetConfig()
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)

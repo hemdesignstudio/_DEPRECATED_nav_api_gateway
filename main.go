@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"github.com/graphql-go/graphql"
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
+	"github.com/nav-api-gateway/assemblybom"
+	"github.com/nav-api-gateway/company"
+	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/customer"
+	"github.com/nav-api-gateway/item"
+	"github.com/nav-api-gateway/salesorder"
 	"log"
 	"net/http"
-	"projects/graphql/assemblybom"
-	"projects/graphql/company"
-	"projects/graphql/config"
-	"projects/graphql/customer"
-	"projects/graphql/item"
-	"projects/graphql/salesorder"
 )
 
 func main() {

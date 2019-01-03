@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/graphql-go/graphql"
-	"projects/graphql/config"
-	"projects/graphql/request"
+	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/request"
 )
 
 type Response struct {
@@ -14,8 +14,7 @@ type Response struct {
 }
 
 type SalesOrder struct {
-	No string `json:"No"`
-
+	No                           string  `json:"No"`
 	SellToCustomerNo             string  `json:"Sell_to_Customer_No"`
 	SellToCustomerName           string  `json:"Sell_to_Customer_Name"`
 	SellToAddress                string  `json:"Sell_to_Address"`
@@ -127,7 +126,7 @@ func CreateSalesOrderType() *graphql.Object {
 func GetSalesOrderByCompanyName(name string) ([]SalesOrder, error) {
 	conf := config.GetConfig()
 	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')"+conf.SalesOrderEndpoint, name)
-	resultByte, err := request.GET(name, url)
+	resultByte, err := request.GET(url)
 	res := Response{}
 	err = json.Unmarshal(resultByte, &res)
 
@@ -143,7 +142,7 @@ func GetSalesOrderByNo(companyName string, no string) (*SalesOrder, error) {
 		conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) +
 		conf.SalesOrderEndpoint + fmt.Sprintf("('%s')", no)
 
-	resultByte, err := request.GET(no, url)
+	resultByte, err := request.GET(url)
 	response := SalesOrder{}
 	err = json.Unmarshal(resultByte, &response)
 
