@@ -5,12 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"github.com/graphql-go/graphql"
+	"github.com/nav-api-gateway/assemblybom"
+	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/customer"
+	"github.com/nav-api-gateway/item"
+	"github.com/nav-api-gateway/request"
+	"github.com/nav-api-gateway/salesorder"
 	"log"
-	"projects/graphql/assemblybom"
-	"projects/graphql/config"
-	"projects/graphql/customer"
-	"projects/graphql/item"
-	"projects/graphql/request"
 )
 
 type Company struct {
@@ -24,6 +25,7 @@ func CreateCompanyType(
 	customerType *graphql.Object,
 	assemblybomType *graphql.Object,
 	itemType *graphql.Object,
+	salesOrderType *graphql.Object,
 
 ) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
@@ -107,6 +109,15 @@ func CreateCompanyType(
 					return item.GetItemCardByNo(company.Name, no)
 				},
 			},
+
+			"AllSalesOrders": &graphql.Field{
+				Type: graphql.NewList(salesOrderType),
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company, _ := p.Source.(*Company)
+					log.Printf("fetching items of company: %s", company.Name)
+					return salesorder.GetSalesOrderByCompanyName(company.Name)
+				},
+			},
 		},
 	})
 }
@@ -114,7 +125,7 @@ func CreateCompanyType(
 func GetCompanyByName(name string) (*Company, error) {
 	conf := config.GetConfig()
 	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", name)
-	resultByte, err := request.GET(name, url)
+	resultByte, err := request.GET(url)
 	response := Company{}
 
 	err = json.Unmarshal(resultByte, &response)

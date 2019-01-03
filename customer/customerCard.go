@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/graphql-go/graphql"
-	"projects/graphql/config"
-	"projects/graphql/request"
+	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/request"
 )
 
 type Response struct {
@@ -69,7 +69,7 @@ func CreateCustomerCardType() *graphql.Object {
 func GetCustomerCardByCompanyName(name string) ([]CustomerCard, error) {
 	conf := config.GetConfig()
 	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')"+conf.CustomerCardWSEndpoint, name)
-	resultByte, err := request.GET(name, url)
+	resultByte, err := request.GET(url)
 	res := Response{}
 	err = json.Unmarshal(resultByte, &res)
 
@@ -85,7 +85,7 @@ func GetCustomerCardByNo(companyName string, no string) (*CustomerCard, error) {
 		conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) +
 		conf.CustomerCardWSEndpoint + fmt.Sprintf("('%s')", no)
 
-	resultByte, err := request.GET(no, url)
+	resultByte, err := request.GET(url)
 	response := CustomerCard{}
 	err = json.Unmarshal(resultByte, &response)
 

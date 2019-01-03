@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/graphql-go/graphql"
-	"projects/graphql/config"
-	"projects/graphql/request"
+	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/request"
 )
 
 type Response struct {
@@ -37,7 +37,7 @@ func CreateAssemblyBomType() *graphql.Object {
 func GetAssemblyBomByCompanyName(name string) ([]AssemblyBom, error) {
 	conf := config.GetConfig()
 	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')"+conf.AssemblyBomEndpoint, name)
-	resultByte, err := request.GET(name, url)
+	resultByte, err := request.GET(url)
 	res := Response{}
 	err = json.Unmarshal(resultByte, &res)
 
@@ -53,7 +53,7 @@ func GetAssemblyByNo(companyName string, no string) (*AssemblyBom, error) {
 		conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) +
 		conf.AssemblyBomEndpoint + fmt.Sprintf("('%s')", no)
 
-	resultByte, err := request.GET(no, url)
+	resultByte, err := request.GET(url)
 	response := AssemblyBom{}
 	err = json.Unmarshal(resultByte, &response)
 
