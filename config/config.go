@@ -12,6 +12,7 @@ type Configuration struct {
 	AssemblyBomEndpoint    string
 	ItemCardEndpoint       string
 	SalesOrderEndpoint     string
+	SalesLineEndpoint      string
 	Passwd                 string
 	Username               string
 	Host                   string

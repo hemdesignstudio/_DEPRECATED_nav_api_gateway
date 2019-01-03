@@ -10,6 +10,7 @@ import (
 	"github.com/nav-api-gateway/customer"
 	"github.com/nav-api-gateway/item"
 	"github.com/nav-api-gateway/request"
+	"github.com/nav-api-gateway/salesline"
 	"github.com/nav-api-gateway/salesorder"
 	"log"
 )
@@ -20,14 +21,7 @@ type Company struct {
 	DisplayName string `json:"displayName"`
 }
 
-func CreateCompanyType(
-
-	customerType *graphql.Object,
-	assemblybomType *graphql.Object,
-	itemType *graphql.Object,
-	salesOrderType *graphql.Object,
-
-) *graphql.Object {
+func CreateCompanyType(args map[string]*graphql.Object) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Company",
 		Fields: graphql.Fields{
@@ -36,7 +30,7 @@ func CreateCompanyType(
 			"displayName": &graphql.Field{Type: graphql.String},
 
 			"AllCustomerCards": &graphql.Field{
-				Type: graphql.NewList(customerType),
+				Type: graphql.NewList(args["customerType"]),
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					company, _ := p.Source.(*Company)
 					log.Printf("fetching customers of company: %s", company.Name)
@@ -45,7 +39,7 @@ func CreateCompanyType(
 			},
 
 			"CustomerCard": &graphql.Field{
-				Type: customerType,
+				Type: args["customerType"],
 				Args: graphql.FieldConfigArgument{
 					"no": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
@@ -61,7 +55,7 @@ func CreateCompanyType(
 			},
 
 			"AllAssemblyBom": &graphql.Field{
-				Type: graphql.NewList(assemblybomType),
+				Type: graphql.NewList(args["assemblyBomType"]),
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					company, _ := p.Source.(*Company)
 					log.Printf("fetching Assembly BOM of company: %s", company.Name)
@@ -70,7 +64,7 @@ func CreateCompanyType(
 			},
 
 			"AssemblyBom": &graphql.Field{
-				Type: assemblybomType,
+				Type: args["assemblyBomType"],
 				Args: graphql.FieldConfigArgument{
 					"no": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
@@ -86,7 +80,7 @@ func CreateCompanyType(
 			},
 
 			"AllItemCards": &graphql.Field{
-				Type: graphql.NewList(itemType),
+				Type: graphql.NewList(args["itemType"]),
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					company, _ := p.Source.(*Company)
 					log.Printf("fetching items of company: %s", company.Name)
@@ -95,7 +89,7 @@ func CreateCompanyType(
 			},
 
 			"ItemCard": &graphql.Field{
-				Type: itemType,
+				Type: args["itemType"],
 				Args: graphql.FieldConfigArgument{
 					"no": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
@@ -103,7 +97,7 @@ func CreateCompanyType(
 				},
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					company, _ := p.Source.(*Company)
-					log.Printf("fetching customers of company: %s", company.Name)
+					log.Printf("fetching item cards of company: %s", company.Name)
 					name := p.Args["no"]
 					no, _ := name.(string)
 					return item.GetItemCardByNo(company.Name, no)
@@ -111,11 +105,20 @@ func CreateCompanyType(
 			},
 
 			"AllSalesOrders": &graphql.Field{
-				Type: graphql.NewList(salesOrderType),
+				Type: graphql.NewList(args["salesOrderType"]),
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					company, _ := p.Source.(*Company)
-					log.Printf("fetching items of company: %s", company.Name)
+					log.Printf("fetching sales orders of company: %s", company.Name)
 					return salesorder.GetSalesOrderByCompanyName(company.Name)
+				},
+			},
+
+			"AllSalesLines": &graphql.Field{
+				Type: graphql.NewList(args["salesLineType"]),
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company, _ := p.Source.(*Company)
+					log.Printf("fetching sales lines of company: %s", company.Name)
+					return salesline.GetSalesLineByCompanyName(company.Name)
 				},
 			},
 		},
