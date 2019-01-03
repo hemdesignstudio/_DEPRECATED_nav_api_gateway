@@ -71,7 +71,6 @@ func getAll(companyName string) string {
 func filter(companyName string, args map[string]interface{}) string {
 	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + conf.SalesLineEndpoint
 	filter := fmt.Sprintf("?$filter=%s+eq+'%s'", args["name"], args["value"])
-
 	return url + filter
 }
 
@@ -80,7 +79,6 @@ func GetSalesLineByCompanyName(name string) ([]SalesLine, error) {
 	resultByte, err := request.GET(url)
 	res := Response{}
 	err = json.Unmarshal(resultByte, &res)
-
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
@@ -88,13 +86,10 @@ func GetSalesLineByCompanyName(name string) ([]SalesLine, error) {
 }
 
 func GetSalesLineByFilter(companyName string, args map[string]interface{}) ([]SalesLine, error) {
-
 	url := filter(companyName, args)
-
 	resultByte, err := request.GET(url)
 	res := Response{}
 	err = json.Unmarshal(resultByte, &res)
-
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
