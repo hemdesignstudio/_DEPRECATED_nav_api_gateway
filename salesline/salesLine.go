@@ -68,14 +68,27 @@ func getAll(companyName string) string {
 	return url
 }
 
-func filterByStringValue(companyName, key, value string) string {
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + conf.SalesLineEndpoint
-	filter := fmt.Sprintf("?$filter=%s eq '%s'", key, value)
+func filter(args map[string]string) string {
+	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", args["companyName"]) + conf.SalesLineEndpoint
+	filter := fmt.Sprintf("?$filter=%s eq '%s'", args["key"], args["value"])
 	return url + filter
 }
 
 func GetSalesLineByCompanyName(name string) ([]SalesLine, error) {
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", name) + conf.SalesLineEndpoint
+	url := getAll(name)
+	resultByte, err := request.GET(url)
+	res := Response{}
+	err = json.Unmarshal(resultByte, &res)
+
+	if err != nil {
+		return nil, errors.New("could not unmarshal data")
+	}
+	return res.Value, nil
+}
+
+func GetSalesLineByFilter(args map[string]string) ([]SalesLine, error) {
+
+	url := filter(args)
 
 	resultByte, err := request.GET(url)
 	res := Response{}
