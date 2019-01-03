@@ -135,19 +135,3 @@ func GetSalesOrderByCompanyName(name string) ([]SalesOrder, error) {
 	}
 	return res.Value, nil
 }
-
-func GetSalesOrderByNo(companyName string, no string) (*SalesOrder, error) {
-	conf := config.GetConfig()
-	url := conf.BaseUrl +
-		conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) +
-		conf.SalesOrderEndpoint + fmt.Sprintf("('%s')", no)
-
-	resultByte, err := request.GET(url)
-	response := SalesOrder{}
-	err = json.Unmarshal(resultByte, &response)
-
-	if err != nil {
-		return nil, errors.New("could not unmarshal data")
-	}
-	return &response, nil
-}

@@ -118,22 +118,6 @@ func CreateCompanyType(
 					return salesorder.GetSalesOrderByCompanyName(company.Name)
 				},
 			},
-
-			"SalesOrder": &graphql.Field{
-				Type: salesOrderType,
-				Args: graphql.FieldConfigArgument{
-					"no": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.String),
-					},
-				},
-				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					company, _ := p.Source.(*Company)
-					log.Printf("fetching customers of company: %s", company.Name)
-					name := p.Args["no"]
-					no, _ := name.(string)
-					return salesorder.GetSalesOrderByNo(company.Name, no)
-				},
-			},
 		},
 	})
 }
