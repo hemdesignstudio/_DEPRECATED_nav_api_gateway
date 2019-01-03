@@ -121,6 +121,20 @@ func CreateCompanyType(args map[string]*graphql.Object) *graphql.Object {
 					return salesline.GetSalesLineByCompanyName(company.Name)
 				},
 			},
+
+			"SalesLineFilter": &graphql.Field{
+				Type: graphql.NewList(args["salesLineType"]),
+				Args: graphql.FieldConfigArgument{
+					"name":  &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+					"value": &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company, _ := p.Source.(*Company)
+					log.Printf("fetching sales lines of company: %s", company.Name)
+
+					return salesline.GetSalesLineByFilter(company.Name, p.Args)
+				},
+			},
 		},
 	})
 }

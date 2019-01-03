@@ -68,9 +68,10 @@ func getAll(companyName string) string {
 	return url
 }
 
-func filter(args map[string]string) string {
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", args["companyName"]) + conf.SalesLineEndpoint
-	filter := fmt.Sprintf("?$filter=%s eq '%s'", args["key"], args["value"])
+func filter(companyName string, args map[string]interface{}) string {
+	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + conf.SalesLineEndpoint
+	filter := fmt.Sprintf("?$filter=%s+eq+'%s'", args["name"], args["value"])
+
 	return url + filter
 }
 
@@ -86,9 +87,9 @@ func GetSalesLineByCompanyName(name string) ([]SalesLine, error) {
 	return res.Value, nil
 }
 
-func GetSalesLineByFilter(args map[string]string) ([]SalesLine, error) {
+func GetSalesLineByFilter(companyName string, args map[string]interface{}) ([]SalesLine, error) {
 
-	url := filter(args)
+	url := filter(companyName, args)
 
 	resultByte, err := request.GET(url)
 	res := Response{}
