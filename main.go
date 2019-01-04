@@ -9,6 +9,7 @@ import (
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/customer"
 	"github.com/nav-api-gateway/item"
+	"github.com/nav-api-gateway/salesline"
 	"github.com/nav-api-gateway/salesorder"
 	"log"
 	"net/http"
@@ -16,16 +17,18 @@ import (
 
 func main() {
 	conf := config.GetConfig()
-	// our schema is generated here
+
+	types := make(map[string]*graphql.Object) // our schema is generated here
+	types["customerType"] = customer.CreateCustomerCardType()
+	types["assemblyBomType"] = assemblybom.CreateAssemblyBomType()
+	types["itemType"] = item.CreateItemCardType()
+	types["salesOrderType"] = salesorder.CreateSalesOrderType()
+	types["salesLineType"] = salesline.CreateSalesLineType()
+
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
 		Query: graphql.NewObject(
 			createQueryType(
-				company.CreateCompanyType(
-					customer.CreateCustomerCardType(),
-					assemblybom.CreateAssemblyBomType(),
-					item.CreateItemCardType(),
-					salesorder.CreateSalesOrderType(),
-				),
+				company.CreateCompanyType(types),
 			),
 		),
 	})
