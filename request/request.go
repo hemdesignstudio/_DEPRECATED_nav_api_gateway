@@ -8,6 +8,8 @@ import (
 	"net/http"
 )
 
+var conf = config.GetConfig()
+
 func GET(url string) ([]byte, error) {
 	conf := config.GetConfig()
 	client := &http.Client{}
@@ -28,4 +30,19 @@ func GET(url string) ([]byte, error) {
 	}
 
 	return resultByte, nil
+}
+
+func GetAll(companyName string, endpoint string) []byte {
+	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + endpoint
+	resultByte, _ := GET(url)
+
+	return resultByte
+}
+
+func Filter(companyName, endpoint string, args map[string]interface{}) []byte {
+	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + endpoint
+	filter := fmt.Sprintf("?$filter=%s+eq+'%s'", args["name"], args["value"])
+	resultByte, _ := GET(url + filter)
+
+	return resultByte
 }

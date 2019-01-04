@@ -3,7 +3,6 @@ package salesline
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/request"
@@ -63,22 +62,10 @@ func CreateSalesLineType() *graphql.Object {
 	})
 }
 
-func getAll(companyName string) string {
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + conf.SalesLineEndpoint
-	return url
-}
-
-func filter(companyName string, args map[string]interface{}) string {
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + conf.SalesLineEndpoint
-	filter := fmt.Sprintf("?$filter=%s+eq+'%s'", args["name"], args["value"])
-	return url + filter
-}
-
 func GetSalesLineByCompanyName(name string) ([]SalesLine, error) {
-	url := getAll(name)
-	resultByte, err := request.GET(url)
+	resByte := request.GetAll(name, conf.SalesLineEndpoint)
 	res := Response{}
-	err = json.Unmarshal(resultByte, &res)
+	err := json.Unmarshal(resByte, &res)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
@@ -86,10 +73,9 @@ func GetSalesLineByCompanyName(name string) ([]SalesLine, error) {
 }
 
 func GetSalesLineByFilter(companyName string, args map[string]interface{}) ([]SalesLine, error) {
-	url := filter(companyName, args)
-	resultByte, err := request.GET(url)
+	resByte := request.Filter(companyName, conf.SalesLineEndpoint, args)
 	res := Response{}
-	err = json.Unmarshal(resultByte, &res)
+	err := json.Unmarshal(resByte, &res)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
