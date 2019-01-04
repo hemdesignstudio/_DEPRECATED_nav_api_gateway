@@ -13,6 +13,7 @@ type Configuration struct {
 	ItemCardEndpoint       string
 	SalesOrderEndpoint     string
 	SalesLineEndpoint      string
+	PostShipEndpoint       string
 	Passwd                 string
 	Username               string
 	Host                   string
