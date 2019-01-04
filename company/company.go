@@ -39,18 +39,16 @@ func CreateCompanyType(args map[string]*graphql.Object) *graphql.Object {
 			},
 
 			"CustomerCard": &graphql.Field{
-				Type: args["customerType"],
+				Type: graphql.NewList(args["customerType"]),
 				Args: graphql.FieldConfigArgument{
-					"no": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.String),
-					},
+					"key":   &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+					"value": &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
 				},
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					company, _ := p.Source.(*Company)
-					log.Printf("fetching customers of company: %s", company.Name)
-					name := p.Args["no"]
-					no, _ := name.(string)
-					return customer.GetCustomerCardByNo(company.Name, no)
+					log.Printf("fetching Assembly BOM of company: %s", company.Name)
+
+					return customer.GetCustomerCardByFilter(company.Name, p.Args)
 				},
 			},
 
@@ -64,18 +62,16 @@ func CreateCompanyType(args map[string]*graphql.Object) *graphql.Object {
 			},
 
 			"AssemblyBom": &graphql.Field{
-				Type: args["assemblyBomType"],
+				Type: graphql.NewList(args["assemblyBomType"]),
 				Args: graphql.FieldConfigArgument{
-					"no": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.String),
-					},
+					"key":   &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+					"value": &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
 				},
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					company, _ := p.Source.(*Company)
-					log.Printf("fetching AssemblyBom of company: %s", company.Name)
-					name := p.Args["no"]
-					no, _ := name.(string)
-					return assemblybom.GetAssemblyByNo(company.Name, no)
+					log.Printf("fetching Assembly BOM of company: %s", company.Name)
+
+					return assemblybom.GetAssemblyBomByFilter(company.Name, p.Args)
 				},
 			},
 
@@ -89,18 +85,16 @@ func CreateCompanyType(args map[string]*graphql.Object) *graphql.Object {
 			},
 
 			"ItemCard": &graphql.Field{
-				Type: args["itemType"],
+				Type:        graphql.NewList(args["itemType"]),
+				Description: "asdasd",
 				Args: graphql.FieldConfigArgument{
-					"no": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.String),
-					},
+					"key":   &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+					"value": &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
 				},
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					company, _ := p.Source.(*Company)
-					log.Printf("fetching item cards of company: %s", company.Name)
-					name := p.Args["no"]
-					no, _ := name.(string)
-					return item.GetItemCardByNo(company.Name, no)
+					log.Printf("fetching sales lines of company: %s", company.Name)
+					return item.GetItemCardByFilter(company.Name, p.Args)
 				},
 			},
 
@@ -113,6 +107,20 @@ func CreateCompanyType(args map[string]*graphql.Object) *graphql.Object {
 				},
 			},
 
+			"SalesOrder": &graphql.Field{
+				Type: graphql.NewList(args["salesOrderType"]),
+				Args: graphql.FieldConfigArgument{
+					"key":   &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+					"value": &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company, _ := p.Source.(*Company)
+					log.Printf("fetching sales lines of company: %s", company.Name)
+
+					return salesorder.GetSalesOrderByFilter(company.Name, p.Args)
+				},
+			},
+
 			"AllSalesLines": &graphql.Field{
 				Type: graphql.NewList(args["salesLineType"]),
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
@@ -122,10 +130,10 @@ func CreateCompanyType(args map[string]*graphql.Object) *graphql.Object {
 				},
 			},
 
-			"SalesLineFilter": &graphql.Field{
+			"SalesLine": &graphql.Field{
 				Type: graphql.NewList(args["salesLineType"]),
 				Args: graphql.FieldConfigArgument{
-					"name":  &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+					"key":   &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
 					"value": &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
 				},
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {

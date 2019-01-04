@@ -3,11 +3,12 @@ package customer
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/request"
 )
+
+var conf = config.GetConfig()
 
 type Response struct {
 	Value []CustomerCard `json:"value"`
@@ -67,11 +68,9 @@ func CreateCustomerCardType() *graphql.Object {
 }
 
 func GetCustomerCardByCompanyName(name string) ([]CustomerCard, error) {
-	conf := config.GetConfig()
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')"+conf.CustomerCardWSEndpoint, name)
-	resultByte, err := request.GET(url)
+	resByte := request.GetAll(name, conf.CustomerCardWSEndpoint)
 	res := Response{}
-	err = json.Unmarshal(resultByte, &res)
+	err := json.Unmarshal(resByte, &res)
 
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
@@ -79,18 +78,12 @@ func GetCustomerCardByCompanyName(name string) ([]CustomerCard, error) {
 	return res.Value, nil
 }
 
-func GetCustomerCardByNo(companyName string, no string) (*CustomerCard, error) {
-	conf := config.GetConfig()
-	url := conf.BaseUrl +
-		conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) +
-		conf.CustomerCardWSEndpoint + fmt.Sprintf("('%s')", no)
-
-	resultByte, err := request.GET(url)
-	response := CustomerCard{}
-	err = json.Unmarshal(resultByte, &response)
-
+func GetCustomerCardByFilter(companyName string, args map[string]interface{}) ([]CustomerCard, error) {
+	resByte := request.Filter(companyName, conf.CustomerCardWSEndpoint, args)
+	res := Response{}
+	err := json.Unmarshal(resByte, &res)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
-	return &response, nil
+	return res.Value, nil
 }

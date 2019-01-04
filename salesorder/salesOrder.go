@@ -3,11 +3,12 @@ package salesorder
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/request"
 )
+
+var conf = config.GetConfig()
 
 type Response struct {
 	Value []SalesOrder `json:"value"`
@@ -125,11 +126,20 @@ func CreateSalesOrderType() *graphql.Object {
 
 func GetSalesOrderByCompanyName(name string) ([]SalesOrder, error) {
 	conf := config.GetConfig()
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')"+conf.SalesOrderEndpoint, name)
-	resultByte, err := request.GET(url)
+	resultByte := request.GetAll(name, conf.SalesOrderEndpoint)
 	res := Response{}
-	err = json.Unmarshal(resultByte, &res)
+	err := json.Unmarshal(resultByte, &res)
 
+	if err != nil {
+		return nil, errors.New("could not unmarshal data")
+	}
+	return res.Value, nil
+}
+
+func GetSalesOrderByFilter(companyName string, args map[string]interface{}) ([]SalesOrder, error) {
+	resByte := request.Filter(companyName, conf.SalesOrderEndpoint, args)
+	res := Response{}
+	err := json.Unmarshal(resByte, &res)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}

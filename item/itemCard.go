@@ -3,11 +3,12 @@ package item
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/request"
 )
+
+var conf = config.GetConfig()
 
 type Response struct {
 	Value []ItemCard `json:"value"`
@@ -67,33 +68,21 @@ func CreateItemCardType() *graphql.Object {
 }
 
 func GetItemCardByCompanyName(name string) ([]ItemCard, error) {
-	conf := config.GetConfig()
-	url := conf.BaseUrl +
-		conf.CompanyEndpoint +
-		fmt.Sprintf("('%s')"+conf.ItemCardEndpoint, name)
-
-	resultByte, err := request.GET(url)
+	resByte := request.GetAll(name, conf.ItemCardEndpoint)
 	res := Response{}
-	err = json.Unmarshal(resultByte, &res)
+	err := json.Unmarshal(resByte, &res)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
 	return res.Value, nil
 }
 
-func GetItemCardByNo(companyName string, no string) (*ItemCard, error) {
-	conf := config.GetConfig()
-	url := conf.BaseUrl +
-		conf.CompanyEndpoint +
-		fmt.Sprintf("('%s')", companyName) +
-		conf.ItemCardEndpoint +
-		fmt.Sprintf("('%s')", no)
-
-	resultByte, err := request.GET(url)
-	response := ItemCard{}
-	err = json.Unmarshal(resultByte, &response)
+func GetItemCardByFilter(companyName string, args map[string]interface{}) ([]ItemCard, error) {
+	resByte := request.Filter(companyName, conf.ItemCardEndpoint, args)
+	res := Response{}
+	err := json.Unmarshal(resByte, &res)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
-	return &response, nil
+	return res.Value, nil
 }

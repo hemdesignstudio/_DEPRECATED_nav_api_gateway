@@ -6,14 +6,21 @@ import (
 	"github.com/nav-api-gateway/config"
 	"io/ioutil"
 	"net/http"
+	"net/url"
+	"reflect"
 )
 
 var conf = config.GetConfig()
 
-func GET(url string) ([]byte, error) {
-	conf := config.GetConfig()
+func GET(uri string) ([]byte, error) {
+	u, err := url.Parse(uri)
+	if err != nil {
+		panic(err)
+	}
+	u.RawQuery = u.Query().Encode()
+
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", u.String(), nil)
 	req.SetBasicAuth(conf.Username, conf.Passwd)
 	resp, err := client.Do(req)
 
@@ -33,16 +40,23 @@ func GET(url string) ([]byte, error) {
 }
 
 func GetAll(companyName string, endpoint string) []byte {
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + endpoint
-	resultByte, _ := GET(url)
+	uri := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + endpoint
+	resultByte, _ := GET(uri)
 
 	return resultByte
 }
 
 func Filter(companyName, endpoint string, args map[string]interface{}) []byte {
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + endpoint
-	filter := fmt.Sprintf("?$filter=%s+eq+'%s'", args["name"], args["value"])
-	resultByte, _ := GET(url + filter)
+	uri := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + endpoint
+	key := args["key"]
+	value := args["value"]
+	valueType := reflect.TypeOf(args["value"]).Kind()
+	filter := fmt.Sprintf("?$filter=%s eq %s", key, value)
 
+	if valueType == reflect.String {
+		filter = fmt.Sprintf("?$filter=%s eq '%s'", key, value)
+	}
+
+	resultByte, _ := GET(uri + filter)
 	return resultByte
 }
