@@ -4,31 +4,18 @@ import (
 	"fmt"
 	"github.com/graphql-go/graphql"
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
-	"github.com/nav-api-gateway/assemblybom"
 	"github.com/nav-api-gateway/company"
 	"github.com/nav-api-gateway/config"
-	"github.com/nav-api-gateway/customer"
-	"github.com/nav-api-gateway/item"
-	"github.com/nav-api-gateway/salesline"
-	"github.com/nav-api-gateway/salesorder"
 	"log"
 	"net/http"
 )
 
 func main() {
 	conf := config.GetConfig()
-
-	types := make(map[string]*graphql.Object) // our schema is generated here
-	types["customerType"] = customer.CreateCustomerCardType()
-	types["assemblyBomType"] = assemblybom.CreateAssemblyBomType()
-	types["itemType"] = item.CreateItemCardType()
-	types["salesOrderType"] = salesorder.CreateSalesOrderType()
-	types["salesLineType"] = salesline.CreateSalesLineType()
-
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
 		Query: graphql.NewObject(
 			createQueryType(
-				company.CreateCompanyType(types),
+				company.CreateCompanyType(),
 			),
 		),
 	})
