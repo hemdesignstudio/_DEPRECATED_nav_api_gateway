@@ -11,10 +11,10 @@ import (
 var conf = config.GetConfig()
 
 type Response struct {
-	Value []SalesLine `json:"value"`
+	Value []PostShip `json:"value"`
 }
 
-type SalesLine struct {
+type PostShip struct {
 	No                       string `json:"No"`
 	SellToCustomerNo         string `json:"Sell_to_Customer_No"`
 	SellToContactNo          string `json:"Sell_to_Contact_No"`
@@ -24,8 +24,8 @@ type SalesLine struct {
 	SellToPostCode           string `json:"Sell_to_Post_Code"`
 	SellToCity               string `json:"Sell_to_City"`
 	SellToContact            string `json:"Sell_to_Contact"`
-	NoteOfGoods              string `json:"Note_of_Goods"`
-	NoPrinted                string `json:"No_Printed"`
+	NoteOfGoods              string `json:"PEB_Note_of_Goods"`
+	NoPrinted                int    `json:"No_Printed"`
 	PostingDate              string `json:"Posting_Date"`
 	DocumentDate             string `json:"Document_Date"`
 	RequestedDeliveryDate    string `json:"Requested_Delivery_Date"`
@@ -34,7 +34,7 @@ type SalesLine struct {
 	OrderNo                  string `json:"Order_No"`
 	ExternalDocumentNo       string `json:"External_Document_No"`
 	SalespersonCode          string `json:"Salesperson_Code"`
-	ResponsibilityCenter     string `json:"ResponsibilityCenter"`
+	ResponsibilityCenter     string `json:"Responsibility_Center"`
 	BillToCustomerNo         string `json:"Bill_to_Customer_No"`
 	BilltoContactNo          string `json:"Bill_to_Contact_No"`
 	BillToName               string `json:"Bill_to_Name"`
@@ -58,7 +58,7 @@ type SalesLine struct {
 	ShippingTime             string `json:"Shipping_Time"`
 	ShipmentMethodCode       string `json:"Shipment_Method_Code"`
 	ShippingAgentCode        string `json:"Shipping_Agent_Code"`
-	ShippingAgentServiceCode string `json:"ShippingAgentServiceCode"`
+	ShippingAgentServiceCode string `json:"Shipping_Agent_Service_Code"`
 	PackageTrackingNo        string `json:"Package_Tracking_No"`
 	ShipmentDate             string `json:"Shipment_Date"`
 }
@@ -74,8 +74,8 @@ func CreateType() *graphql.Object {
 		"Sell_to_Post_Code":           &graphql.Field{Type: graphql.String},
 		"Sell_to_City":                &graphql.Field{Type: graphql.String},
 		"Sell_to_Contact":             &graphql.Field{Type: graphql.String},
-		"Note_of_Goods":               &graphql.Field{Type: graphql.String},
-		"No_Printed":                  &graphql.Field{Type: graphql.String},
+		"PEB_Note_of_Goods":           &graphql.Field{Type: graphql.String},
+		"No_Printed":                  &graphql.Field{Type: graphql.Int},
 		"Posting_Date":                &graphql.Field{Type: graphql.String},
 		"Document_Date":               &graphql.Field{Type: graphql.String},
 		"Requested_Delivery_Date":     &graphql.Field{Type: graphql.String},
@@ -113,12 +113,12 @@ func CreateType() *graphql.Object {
 		"Shipment_Date":               &graphql.Field{Type: graphql.String},
 	}
 	return graphql.NewObject(graphql.ObjectConfig{
-		Name:   "SalesLine",
+		Name:   "PostShip",
 		Fields: fields,
 	})
 }
 
-func GetAll(name string) ([]SalesLine, error) {
+func GetAll(name string) ([]PostShip, error) {
 	resByte := request.GetAll(name, conf.PostShipEndpoint)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
@@ -128,8 +128,8 @@ func GetAll(name string) ([]SalesLine, error) {
 	return res.Value, nil
 }
 
-func Filter(companyName string, args map[string]interface{}) ([]SalesLine, error) {
-	resByte := request.Filter(companyName, conf.SalesLineEndpoint, args)
+func Filter(companyName string, args map[string]interface{}) ([]PostShip, error) {
+	resByte := request.Filter(companyName, conf.PostShipEndpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
