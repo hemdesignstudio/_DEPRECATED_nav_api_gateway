@@ -8,6 +8,7 @@ import (
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/request"
 	"github.com/nav-api-gateway/salesline"
+	//"github.com/nav-api-gateway/salesline"
 )
 
 var conf = config.GetConfig()
@@ -120,7 +121,7 @@ func CreateSalesOrderType() *graphql.Object {
 		"Prepayment_Due_Date":             &graphql.Field{Type: graphql.String},
 		"Prepmt_Payment_Discount_Percent": &graphql.Field{Type: graphql.Float},
 		"Prepmt_Pmt_Discount_Date":        &graphql.Field{Type: graphql.String},
-		"Sales_Lines":                     getSalesLinesFields(),
+		//"Sales_Lines":                     getSalesLinesFields(),
 	}
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name:   "SalesOrder",
