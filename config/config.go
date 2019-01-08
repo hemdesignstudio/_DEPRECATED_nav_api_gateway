@@ -21,7 +21,7 @@ type Configuration struct {
 
 func GetConfig() Configuration {
 	configuration := Configuration{}
-	path := "./config/config.json"
+	path := "config.json"
 	err := gonfig.GetConf(path, &configuration)
 	if err != nil {
 		log.Printf("unable to find config file in the following path: %s", path)
