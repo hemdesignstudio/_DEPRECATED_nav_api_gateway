@@ -2,15 +2,15 @@ package salesorder
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/nav-api-gateway/company"
+	//"github.com/nav-api-gateway/company"
 	"github.com/nav-api-gateway/salesline"
-	"log"
 )
 
 var types = map[string]*graphql.Object{
 	"salesLine": salesline.CreateSalesLineType(),
 }
 
+/*
 func getSalesLinesFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(types["salesLine"]),
@@ -26,3 +26,4 @@ func getSalesLinesFields() *graphql.Field {
 	}
 	return field
 }
+*/
