@@ -24,7 +24,6 @@ FROM alpine
 RUN apk --no-cache --update add ca-certificates
 
 COPY --from=builder /go/src/github.com/nav-api-gateway/main /
-COPY --from=builder /go/src/github.com/nav-api-gateway/config/config.json /config.json
 
 EXPOSE 6789
 
