@@ -31,7 +31,7 @@ func main() {
 	})
 
 	http.Handle("/graphql", handler)
-	fmt.Println("Server started at http://localhost:3000/graphql")
+	fmt.Println("Server started at http://localhost:6789/graphql")
 	log.Fatal(http.ListenAndServe(conf.Host, nil))
 }
 
