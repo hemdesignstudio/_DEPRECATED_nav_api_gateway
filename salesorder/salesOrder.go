@@ -3,7 +3,6 @@ package salesorder
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/request"
@@ -139,8 +138,6 @@ func linkTables(companyName string, orders []SalesOrder) []SalesOrder {
 		lines, _ := salesline.GetSalesLineByFilter(companyName, args)
 		element.SalesLines = lines
 	}
-
-	fmt.Println(orders)
 
 	return orders
 
