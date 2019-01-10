@@ -8,8 +8,6 @@ import (
 	"github.com/nav-api-gateway/request"
 )
 
-var conf = config.GetConfig()
-
 type Response struct {
 	Value []SalesLine `json:"value"`
 }
@@ -36,6 +34,7 @@ type SalesLine struct {
 }
 
 func CreateSalesLineType() *graphql.Object {
+
 	fields := graphql.Fields{
 		"No":                    &graphql.Field{Type: graphql.String},
 		"Document_No":           &graphql.Field{Type: graphql.String},
@@ -56,24 +55,15 @@ func CreateSalesLineType() *graphql.Object {
 		"Qty_to_Invoice":        &graphql.Field{Type: graphql.Int},
 		"Quantity_Invoiced":     &graphql.Field{Type: graphql.Int},
 	}
+
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name:   "SalesLine",
 		Fields: fields,
 	})
 }
 
-func GetSalesLineByCompanyName(name string) ([]SalesLine, error) {
-	resByte := request.GetAll(name, conf.SalesLineEndpoint)
-	res := Response{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return nil, errors.New("could not unmarshal data")
-	}
-	return res.Value, nil
-}
-
-func GetSalesLineByFilter(companyName string, args map[string]interface{}) ([]SalesLine, error) {
-	resByte := request.Filter(companyName, conf.SalesLineEndpoint, args)
+func Filter(args map[string]interface{}) ([]SalesLine, error) {
+	resByte := request.Filter(config.CompanyName, config.SalesLineEndpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {

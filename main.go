@@ -11,13 +11,11 @@ import (
 )
 
 func main() {
-	conf := config.GetConfig()
+	companyType := company.CreateCompanyType()
+	query := graphql.NewObject(createQueryType(companyType))
+
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
-		Query: graphql.NewObject(
-			createQueryType(
-				company.CreateCompanyType(),
-			),
-		),
+		Query: query,
 	})
 	if err != nil {
 		log.Fatalf("failed to create new schema, error: %v", err)
@@ -32,7 +30,7 @@ func main() {
 
 	http.Handle("/graphql", handler)
 	fmt.Println("Server started at http://localhost:6789/graphql")
-	log.Fatal(http.ListenAndServe(conf.Host, nil))
+	log.Fatal(http.ListenAndServe(config.Host, nil))
 }
 
 func createQueryType(companyType *graphql.Object) graphql.ObjectConfig {
@@ -47,9 +45,9 @@ func createQueryType(companyType *graphql.Object) graphql.ObjectConfig {
 
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				name := p.Args["name"]
-				s, _ := name.(string)
-				log.Printf("fetching companies with name: %s", s)
-				return company.GetCompanyByName(s)
+				config.CompanyName, _ = name.(string)
+				log.Printf("fetching companies with name: %s", config.CompanyName)
+				return company.GetCompanyByName(config.CompanyName)
 			},
 		},
 	}}

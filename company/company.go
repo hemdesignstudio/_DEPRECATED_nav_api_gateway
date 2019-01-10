@@ -16,33 +16,26 @@ type Company struct {
 }
 
 func CreateCompanyType() *graphql.Object {
-
 	companyFields := getCompanyFields()
-
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Company",
 		Fields: graphql.Fields{
-
-			"id":          companyFields["id"],
-			"name":        companyFields["name"],
-			"displayName": companyFields["displayName"],
-
+			"id":                  companyFields["id"],
+			"name":                companyFields["name"],
+			"displayName":         companyFields["displayName"],
 			"AssemblyBom":         getAssemblyBomFields(),
 			"customerCard":        getCustomerCardFields(),
 			"ItemCard":            getItemCardFields(),
 			"SalesOrder":          getSalesOrdersFields(),
-			"SalesLine":           getSalesLinesFields(),
 			"PostedSalesShipment": getPostShipFields(),
 		},
 	})
 }
 
 func GetCompanyByName(name string) (*Company, error) {
-	conf := config.GetConfig()
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", name)
+	url := config.BaseUrl + config.CompanyEndpoint + fmt.Sprintf("('%s')", name)
 	resultByte, err := request.GET(url)
 	response := Company{}
-
 	err = json.Unmarshal(resultByte, &response)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")

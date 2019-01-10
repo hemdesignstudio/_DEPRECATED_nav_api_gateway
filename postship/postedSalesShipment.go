@@ -8,8 +8,6 @@ import (
 	"github.com/nav-api-gateway/request"
 )
 
-var conf = config.GetConfig()
-
 type Response struct {
 	Value []PostShip `json:"value"`
 }
@@ -118,8 +116,8 @@ func CreateType() *graphql.Object {
 	})
 }
 
-func GetAll(name string) ([]PostShip, error) {
-	resByte := request.GetAll(name, conf.PostShipEndpoint)
+func GetAll() ([]PostShip, error) {
+	resByte := request.GetAll(config.CompanyName, config.PostShipEndpoint)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
@@ -128,8 +126,8 @@ func GetAll(name string) ([]PostShip, error) {
 	return res.Value, nil
 }
 
-func Filter(companyName string, args map[string]interface{}) ([]PostShip, error) {
-	resByte := request.Filter(companyName, conf.PostShipEndpoint, args)
+func Filter(args map[string]interface{}) ([]PostShip, error) {
+	resByte := request.Filter(config.CompanyName, config.PostShipEndpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {

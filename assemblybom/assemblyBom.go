@@ -9,8 +9,6 @@ import (
 	"github.com/nav-api-gateway/request"
 )
 
-var conf = config.GetConfig()
-
 type Response struct {
 	Value []AssemblyBom `json:"value"`
 }
@@ -36,8 +34,8 @@ func CreateAssemblyBomType() *graphql.Object {
 	})
 }
 
-func GetAssemblyBomByCompanyName(name string) ([]AssemblyBom, error) {
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')"+conf.AssemblyBomEndpoint, name)
+func GetAll() ([]AssemblyBom, error) {
+	url := config.BaseUrl + config.CompanyEndpoint + fmt.Sprintf("('%s')", config.CompanyName) + config.AssemblyBomEndpoint
 	resultByte, err := request.GET(url)
 	res := Response{}
 	err = json.Unmarshal(resultByte, &res)
@@ -48,8 +46,8 @@ func GetAssemblyBomByCompanyName(name string) ([]AssemblyBom, error) {
 	return res.Value, nil
 }
 
-func GetAssemblyBomByFilter(companyName string, args map[string]interface{}) ([]AssemblyBom, error) {
-	resByte := request.Filter(companyName, conf.AssemblyBomEndpoint, args)
+func Filter(args map[string]interface{}) ([]AssemblyBom, error) {
+	resByte := request.Filter(config.CompanyName, config.AssemblyBomEndpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {

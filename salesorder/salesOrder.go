@@ -7,10 +7,7 @@ import (
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/request"
 	"github.com/nav-api-gateway/salesline"
-	//"github.com/nav-api-gateway/salesline"
 )
-
-var conf = config.GetConfig()
 
 type Response struct {
 	Value []SalesOrder `json:"value"`
@@ -120,7 +117,7 @@ func CreateSalesOrderType() *graphql.Object {
 		"Prepayment_Due_Date":             &graphql.Field{Type: graphql.String},
 		"Prepmt_Payment_Discount_Percent": &graphql.Field{Type: graphql.Float},
 		"Prepmt_Pmt_Discount_Date":        &graphql.Field{Type: graphql.String},
-		//"Sales_Lines":                     getSalesLinesFields(),
+		"Sales_Lines":                     getSalesLinesFields(),
 	}
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name:   "SalesOrder",
@@ -128,24 +125,8 @@ func CreateSalesOrderType() *graphql.Object {
 	})
 }
 
-func linkTables(companyName string, orders []SalesOrder) []SalesOrder {
-	args := make(map[string]interface{})
-
-	for index := range orders {
-		element := &orders[index]
-		args["key"] = "Document_No"
-		args["value"] = element.No
-		lines, _ := salesline.GetSalesLineByFilter(companyName, args)
-		element.SalesLines = lines
-	}
-
-	return orders
-
-}
-
-func GetSalesOrderByCompanyName(name string) ([]SalesOrder, error) {
-	conf := config.GetConfig()
-	resultByte := request.GetAll(name, conf.SalesOrderEndpoint)
+func GetAll() ([]SalesOrder, error) {
+	resultByte := request.GetAll(config.CompanyName, config.SalesOrderEndpoint)
 	res := Response{}
 	err := json.Unmarshal(resultByte, &res)
 	if err != nil {
@@ -154,13 +135,12 @@ func GetSalesOrderByCompanyName(name string) ([]SalesOrder, error) {
 	return res.Value, nil
 }
 
-func GetSalesOrderByFilter(companyName string, args map[string]interface{}) ([]SalesOrder, error) {
-	resByte := request.Filter(companyName, conf.SalesOrderEndpoint, args)
+func Filter(args map[string]interface{}) ([]SalesOrder, error) {
+	resByte := request.Filter(config.CompanyName, config.SalesOrderEndpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
-	response := linkTables(companyName, res.Value)
-	return response, nil
+	return res.Value, nil
 }
