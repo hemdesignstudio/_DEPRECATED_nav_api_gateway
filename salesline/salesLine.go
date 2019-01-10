@@ -8,8 +8,6 @@ import (
 	"github.com/nav-api-gateway/request"
 )
 
-var conf = config.GetConfig()
-
 type Response struct {
 	Value []SalesLine `json:"value"`
 }
@@ -63,7 +61,7 @@ func CreateSalesLineType() *graphql.Object {
 }
 
 func GetSalesLineByCompanyName(name string) ([]SalesLine, error) {
-	resByte := request.GetAll(name, conf.SalesLineEndpoint)
+	resByte := request.GetAll(name, config.SalesLineEndpoint)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
@@ -73,7 +71,7 @@ func GetSalesLineByCompanyName(name string) ([]SalesLine, error) {
 }
 
 func GetSalesLineByFilter(companyName string, args map[string]interface{}) ([]SalesLine, error) {
-	resByte := request.Filter(companyName, conf.SalesLineEndpoint, args)
+	resByte := request.Filter(companyName, config.SalesLineEndpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {

@@ -8,8 +8,6 @@ import (
 	"github.com/nav-api-gateway/request"
 )
 
-var conf = config.GetConfig()
-
 type Response struct {
 	Value []ItemCard `json:"value"`
 }
@@ -68,7 +66,7 @@ func CreateItemCardType() *graphql.Object {
 }
 
 func GetItemCardByCompanyName(name string) ([]ItemCard, error) {
-	resByte := request.GetAll(name, conf.ItemCardEndpoint)
+	resByte := request.GetAll(name, config.ItemCardEndpoint)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
@@ -78,7 +76,7 @@ func GetItemCardByCompanyName(name string) ([]ItemCard, error) {
 }
 
 func GetItemCardByFilter(companyName string, args map[string]interface{}) ([]ItemCard, error) {
-	resByte := request.Filter(companyName, conf.ItemCardEndpoint, args)
+	resByte := request.Filter(companyName, config.ItemCardEndpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {

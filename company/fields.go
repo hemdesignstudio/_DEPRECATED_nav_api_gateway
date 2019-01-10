@@ -1,7 +1,6 @@
 package company
 
 import (
-	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/assemblybom"
 	"github.com/nav-api-gateway/customer"
@@ -106,7 +105,6 @@ func getSalesLinesFields() *graphql.Field {
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			company, _ := p.Source.(*Company)
 			log.Printf("fetching sales lines of company: %s", company.Name)
-			fmt.Println(p.Args)
 			if len(p.Args) != 2 {
 				return salesline.GetSalesLineByCompanyName(company.Name)
 			}

@@ -10,8 +10,6 @@ import (
 	"reflect"
 )
 
-var conf = config.GetConfig()
-
 func GET(uri string) ([]byte, error) {
 	u, err := url.Parse(uri)
 	if err != nil {
@@ -21,7 +19,7 @@ func GET(uri string) ([]byte, error) {
 
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", u.String(), nil)
-	req.SetBasicAuth(conf.Username, conf.Passwd)
+	req.SetBasicAuth(config.Username, config.Passwd)
 	resp, err := client.Do(req)
 
 	if err != nil {
@@ -40,14 +38,14 @@ func GET(uri string) ([]byte, error) {
 }
 
 func GetAll(companyName string, endpoint string) []byte {
-	uri := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + endpoint
+	uri := config.BaseUrl + config.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + endpoint
 	resultByte, _ := GET(uri)
 
 	return resultByte
 }
 
 func Filter(companyName, endpoint string, args map[string]interface{}) []byte {
-	uri := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + endpoint
+	uri := config.BaseUrl + config.CompanyEndpoint + fmt.Sprintf("('%s')", companyName) + endpoint
 	key := args["key"]
 	value := args["value"]
 	valueType := reflect.TypeOf(args["value"]).Kind()

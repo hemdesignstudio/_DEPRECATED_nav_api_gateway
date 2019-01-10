@@ -10,8 +10,6 @@ import (
 	//"github.com/nav-api-gateway/salesline"
 )
 
-var conf = config.GetConfig()
-
 type Response struct {
 	Value []SalesOrder `json:"value"`
 }
@@ -144,8 +142,7 @@ func linkTables(companyName string, orders []SalesOrder) []SalesOrder {
 }
 
 func GetSalesOrderByCompanyName(name string) ([]SalesOrder, error) {
-	conf := config.GetConfig()
-	resultByte := request.GetAll(name, conf.SalesOrderEndpoint)
+	resultByte := request.GetAll(name, config.SalesOrderEndpoint)
 	res := Response{}
 	err := json.Unmarshal(resultByte, &res)
 	if err != nil {
@@ -155,7 +152,7 @@ func GetSalesOrderByCompanyName(name string) ([]SalesOrder, error) {
 }
 
 func GetSalesOrderByFilter(companyName string, args map[string]interface{}) ([]SalesOrder, error) {
-	resByte := request.Filter(companyName, conf.SalesOrderEndpoint, args)
+	resByte := request.Filter(companyName, config.SalesOrderEndpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {

@@ -38,8 +38,7 @@ func CreateCompanyType() *graphql.Object {
 }
 
 func GetCompanyByName(name string) (*Company, error) {
-	conf := config.GetConfig()
-	url := conf.BaseUrl + conf.CompanyEndpoint + fmt.Sprintf("('%s')", name)
+	url := config.BaseUrl + config.CompanyEndpoint + fmt.Sprintf("('%s')", name)
 	resultByte, err := request.GET(url)
 	response := Company{}
 
