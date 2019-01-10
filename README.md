@@ -33,9 +33,9 @@ Deployment requires docker ...
 
 ## Built With
 
-* [GO](https://golang.org/) - Golang Programming Language
-* [DEP](https://github.com/golang/dep) - Dependency Management Tool
-* [GRAPHQL-GO](https://github.com/graphql-go/graphql) - Used to generate RSS Feeds
+* [go](https://golang.org/) - Golang Programming Language
+* [dep](https://github.com/golang/dep) - Dependency Management Tool
+* [graph-go](https://github.com/graphql-go/graphql) - Used to generate RSS Feeds
 
 
 
