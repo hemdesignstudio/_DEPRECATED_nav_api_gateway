@@ -12,10 +12,10 @@ import (
 )
 
 var types = map[string]*graphql.Object{
-	"customer":    customer.CreateCustomerCardType(),
-	"assemblyBom": assemblybom.CreateAssemblyBomType(),
-	"item":        item.CreateItemCardType(),
-	"salesOrder":  salesorder.CreateSalesOrderType(),
+	"customer":    customer.CreateType(),
+	"assemblyBom": assemblybom.CreateType(),
+	"item":        item.CreateType(),
+	"salesOrder":  salesorder.CreateType(),
 	"postShip":    postship.CreateType(),
 }
 
@@ -26,9 +26,9 @@ var filterArgs = map[string]*graphql.ArgumentConfig{
 
 func getCompanyFields() map[string]*graphql.Field {
 	fields := map[string]*graphql.Field{
-		"id":          {Type: graphql.String},
-		"name":        {Type: graphql.String},
-		"displayName": {Type: graphql.String},
+		"Id":          {Type: graphql.String},
+		"Name":        {Type: graphql.String},
+		"DisplayName": {Type: graphql.String},
 	}
 	return fields
 }
