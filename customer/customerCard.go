@@ -36,7 +36,7 @@ type CustomerCard struct {
 	WebEnabled                  bool   `json:"Web_Customer"`
 }
 
-func CreateCustomerCardType() *graphql.Object {
+func CreateType() *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "CustomerCard",
 		Fields: graphql.Fields{
