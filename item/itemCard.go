@@ -36,7 +36,7 @@ type ItemCard struct {
 	WebStatus                 string  `json:"Web_Status"`
 }
 
-func CreateItemCardType() *graphql.Object {
+func CreateType() *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "ItemCard",
 		Fields: graphql.Fields{
