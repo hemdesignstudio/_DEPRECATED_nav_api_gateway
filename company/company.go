@@ -10,9 +10,9 @@ import (
 )
 
 type Company struct {
-	Id          string `json:"id"`
-	Name        string `json:"name"`
-	DisplayName string `json:"displayName"`
+	Id          string `json:"Id"`
+	Name        string `json:"Name"`
+	DisplayName string `json:"DisplayName"`
 }
 
 func CreateCompanyType() *graphql.Object {
@@ -20,9 +20,9 @@ func CreateCompanyType() *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Company",
 		Fields: graphql.Fields{
-			"id":                  companyFields["id"],
-			"name":                companyFields["name"],
-			"displayName":         companyFields["displayName"],
+			"Id":                  companyFields["Id"],
+			"Name":                companyFields["Name"],
+			"DisplayName":         companyFields["DisplayName"],
 			"AssemblyBom":         getAssemblyBomFields(),
 			"customerCard":        getCustomerCardFields(),
 			"ItemCard":            getItemCardFields(),
@@ -32,8 +32,8 @@ func CreateCompanyType() *graphql.Object {
 	})
 }
 
-func GetCompanyByName(name string) (*Company, error) {
-	url := config.BaseUrl + config.CompanyEndpoint + fmt.Sprintf("('%s')", name)
+func GetCompanyByName() (*Company, error) {
+	url := config.BaseUrl + config.CompanyEndpoint + fmt.Sprintf("('%s')", config.CompanyName)
 	resultByte, err := request.GET(url)
 	response := Company{}
 	err = json.Unmarshal(resultByte, &response)
