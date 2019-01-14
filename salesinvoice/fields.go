@@ -17,7 +17,6 @@ func getSalesLinesFields() *graphql.Field {
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("fetching sales lines of company: %s", config.CompanyName)
 			salesInvoice, _ := p.Source.(SalesInvoice)
-			print(salesInvoice.No)
 			p.Args["key"] = "Document_No"
 			p.Args["value"] = salesInvoice.No
 			return salesline.Filter(p.Args)
