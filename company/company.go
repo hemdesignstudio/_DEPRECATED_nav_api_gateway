@@ -15,21 +15,22 @@ type Company struct {
 	DisplayName string `json:"DisplayName"`
 }
 
-func CreateCompanyType() *graphql.Object {
+func QueryType() *graphql.Object {
 	companyFields := getCompanyFields()
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Company",
 		Fields: graphql.Fields{
-			"Id":                  companyFields["Id"],
-			"Name":                companyFields["Name"],
-			"DisplayName":         companyFields["DisplayName"],
-			"AssemblyBom":         getAssemblyBomFields(),
-			"customerCard":        getCustomerCardFields(),
-			"updateCustomerCard":  updateCustomerCardFields(),
-			"ItemCard":            getItemCardFields(),
-			"updateItemCard":      updateItemCardFields(),
-			"SalesOrder":          getSalesOrdersFields(),
-			"PostedSalesShipment": getPostShipFields(),
+			"Id":                        companyFields["Id"],
+			"Name":                      companyFields["Name"],
+			"DisplayName":               companyFields["DisplayName"],
+			"AssemblyBom":               getAssemblyBomFields(),
+			"customerCard":              getCustomerCardFields(),
+			"ItemCard":                  getItemCardFields(),
+			"UpdateItemCard":            updateItemCardFields(),
+			"SalesOrder":                getSalesOrdersFields(),
+			"PostedSalesShipment":       getPostShipFields(),
+			"UpdateCustomerCard":        updateCustomerCardFields(),
+			"UpdatePostedSalesShipment": updatePostShipFields(),
 		},
 	})
 }
