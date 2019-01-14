@@ -43,7 +43,7 @@ Deployment requires docker ...
 
 * [go](https://golang.org/) - Golang Programming Language
 * [dep](https://github.com/golang/dep) - Dependency Management Tool
-* [graph-go](https://github.com/graphql-go/graphql) - Used to generate RSS Feeds
+* [graphql-go](https://github.com/graphql-go/graphql) - graphql library for go
 
 
 
