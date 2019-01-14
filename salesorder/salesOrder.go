@@ -145,7 +145,7 @@ func Filter(args map[string]interface{}) ([]SalesOrder, error) {
 	return res.Value, nil
 }
 
-func create(args map[string]interface{}) ([]SalesOrder, error) {
+func Update(args map[string]interface{}) ([]SalesOrder, error) {
 	resByte := request.Filter(config.CompanyName, config.SalesOrderEndpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
