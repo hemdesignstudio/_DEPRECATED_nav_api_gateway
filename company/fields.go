@@ -43,18 +43,6 @@ func getAssemblyBomFields() *graphql.Field {
 	return field
 }
 
-func updateCustomerCardFields() *graphql.Field {
-	field := &graphql.Field{
-		Type: graphql.NewList(types["customer"]),
-		Args: customerCardArgs,
-		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
-			return customer.Update(p.Args)
-		},
-	}
-	return field
-}
-
 func getCustomerCardFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(types["customer"]),
@@ -70,6 +58,18 @@ func getCustomerCardFields() *graphql.Field {
 	return field
 }
 
+func updateCustomerCardFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: graphql.String,
+		Args: customerCardArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+			return customer.Update(p.Args)
+		},
+	}
+	return field
+}
+
 func getItemCardFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(types["item"]),
@@ -80,6 +80,18 @@ func getItemCardFields() *graphql.Field {
 				return item.GetAll()
 			}
 			return item.Filter(p.Args)
+		},
+	}
+	return field
+}
+
+func updateItemCardFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: graphql.String,
+		Args: itemCardArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("update item card of company: %s", config.CompanyName)
+			return item.Update(p.Args)
 		},
 	}
 	return field
