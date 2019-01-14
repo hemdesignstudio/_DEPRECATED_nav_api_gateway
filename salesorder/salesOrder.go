@@ -66,7 +66,7 @@ type SalesOrder struct {
 	SalesLines                   []salesline.SalesLine `json:"Sales_Lines"`
 }
 
-func CreateSalesOrderType() *graphql.Object {
+func CreateType() *graphql.Object {
 	fields := graphql.Fields{
 		"No":                              &graphql.Field{Type: graphql.String},
 		"Sell_to_Customer_No":             &graphql.Field{Type: graphql.String},
@@ -136,6 +136,16 @@ func GetAll() ([]SalesOrder, error) {
 }
 
 func Filter(args map[string]interface{}) ([]SalesOrder, error) {
+	resByte := request.Filter(config.CompanyName, config.SalesOrderEndpoint, args)
+	res := Response{}
+	err := json.Unmarshal(resByte, &res)
+	if err != nil {
+		return nil, errors.New("could not unmarshal data")
+	}
+	return res.Value, nil
+}
+
+func Update(args map[string]interface{}) ([]SalesOrder, error) {
 	resByte := request.Filter(config.CompanyName, config.SalesOrderEndpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)

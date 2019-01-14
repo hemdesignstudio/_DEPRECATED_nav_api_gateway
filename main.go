@@ -13,9 +13,11 @@ import (
 func main() {
 	companyType := company.CreateCompanyType()
 	query := graphql.NewObject(createQueryType(companyType))
+	mutation := graphql.NewObject(createMutationType(companyType))
 
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
-		Query: query,
+		Query:    query,
+		Mutation: mutation,
 	})
 	if err != nil {
 		log.Fatalf("failed to create new schema, error: %v", err)
@@ -34,21 +36,47 @@ func main() {
 }
 
 func createQueryType(companyType *graphql.Object) graphql.ObjectConfig {
-	return graphql.ObjectConfig{Name: "QueryType", Fields: graphql.Fields{
-		"company": &graphql.Field{
-			Type: companyType,
-			Args: graphql.FieldConfigArgument{
-				"name": &graphql.ArgumentConfig{
-					Type: graphql.NewNonNull(graphql.String),
+	rootQuery := graphql.ObjectConfig{
+		Name: "QueryType",
+		Fields: graphql.Fields{
+			"company": &graphql.Field{
+				Type: companyType,
+				Args: graphql.FieldConfigArgument{
+					"name": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					name := p.Args["name"]
+					config.CompanyName, _ = name.(string)
+					log.Printf("fetching companies with name: %s", config.CompanyName)
+					return company.GetCompanyByName()
 				},
 			},
+		}}
+	return rootQuery
+}
 
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				name := p.Args["name"]
-				config.CompanyName, _ = name.(string)
-				log.Printf("fetching companies with name: %s", config.CompanyName)
-				return company.GetCompanyByName(config.CompanyName)
+func createMutationType(companyType *graphql.Object) graphql.ObjectConfig {
+	rootMutation := graphql.ObjectConfig{
+		Name: "RootMutation",
+		Fields: graphql.Fields{
+			"company": &graphql.Field{
+				Type: companyType, // the return type for this field
+				Args: graphql.FieldConfigArgument{
+					"name": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					// marshall and cast the argument value
+					name := p.Args["name"]
+					config.CompanyName, _ = name.(string)
+					return company.GetCompanyByName()
+				},
 			},
 		},
-	}}
+	}
+	return rootMutation
 }

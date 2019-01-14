@@ -36,7 +36,7 @@ type CustomerCard struct {
 	WebEnabled                  bool   `json:"Web_Customer"`
 }
 
-func CreateCustomerCardType() *graphql.Object {
+func CreateType() *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "CustomerCard",
 		Fields: graphql.Fields{
@@ -84,4 +84,12 @@ func Filter(args map[string]interface{}) ([]CustomerCard, error) {
 		return nil, errors.New("could not unmarshal data")
 	}
 	return res.Value, nil
+}
+
+func Update(args map[string]interface{}) (string, error) {
+	no := args["No"].(string)
+	body, _ := json.Marshal(args)
+	status := request.Update(config.CompanyName, config.CustomerCardWSEndpoint, no, body)
+
+	return status, nil
 }

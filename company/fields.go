@@ -12,23 +12,18 @@ import (
 )
 
 var types = map[string]*graphql.Object{
-	"customer":    customer.CreateCustomerCardType(),
-	"assemblyBom": assemblybom.CreateAssemblyBomType(),
-	"item":        item.CreateItemCardType(),
-	"salesOrder":  salesorder.CreateSalesOrderType(),
+	"customer":    customer.CreateType(),
+	"assemblyBom": assemblybom.CreateType(),
+	"item":        item.CreateType(),
+	"salesOrder":  salesorder.CreateType(),
 	"postShip":    postship.CreateType(),
-}
-
-var filterArgs = map[string]*graphql.ArgumentConfig{
-	"key":   {Type: graphql.String},
-	"value": {Type: graphql.String},
 }
 
 func getCompanyFields() map[string]*graphql.Field {
 	fields := map[string]*graphql.Field{
-		"id":          {Type: graphql.String},
-		"name":        {Type: graphql.String},
-		"displayName": {Type: graphql.String},
+		"Id":          {Type: graphql.String},
+		"Name":        {Type: graphql.String},
+		"DisplayName": {Type: graphql.String},
 	}
 	return fields
 }
@@ -43,6 +38,18 @@ func getAssemblyBomFields() *graphql.Field {
 				return assemblybom.GetAll()
 			}
 			return assemblybom.Filter(p.Args)
+		},
+	}
+	return field
+}
+
+func updateCustomerCardFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: graphql.NewList(types["customer"]),
+		Args: customerCardArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+			return customer.Update(p.Args)
 		},
 	}
 	return field

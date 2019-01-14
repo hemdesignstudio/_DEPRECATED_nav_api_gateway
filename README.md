@@ -3,8 +3,16 @@
 GraphQL API Gateway for Microsoft Navision Written in GO
 
 ## Getting Started
+Microsoft NAV web client
+```
+https://webmyway182.navmoln.se/myway182/
+```
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Microsoft NAV Odata API
+
+```
+https://odatamyway182.navmoln.se:18202/MyWay182Services/ODataV4
+```
 
 ### Prerequisites
 

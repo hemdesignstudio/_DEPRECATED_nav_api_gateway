@@ -21,7 +21,7 @@ type AssemblyBom struct {
 	UnitOfMeasureCode string  `json:"Unit_of_Measure_Code"`
 }
 
-func CreateAssemblyBomType() *graphql.Object {
+func CreateType() *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "AssemblyBom",
 		Fields: graphql.Fields{
