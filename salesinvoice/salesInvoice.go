@@ -1,9 +1,17 @@
 package salesinvoice
 
 import (
+	"encoding/json"
+	"errors"
 	"github.com/graphql-go/graphql"
+	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/request"
 	"github.com/nav-api-gateway/salesline"
 )
+
+type Response struct {
+	Value []SalesInvoice `json:"value"`
+}
 
 type SalesInvoice struct {
 	No                       string                `json:"No"`
@@ -11,7 +19,7 @@ type SalesInvoice struct {
 	SellToContactNo          string                `json:"Sell_to_Contact_No"`
 	SellToCustomerName       string                `json:"Sell_to_Customer_Name"`
 	SellToAddress            string                `json:"Sell_to_Address"`
-	SellToAddress2           string                `json:"Sell_to_Address2"`
+	SellToAddress2           string                `json:"Sell_to_Address_2"`
 	SellToPostCode           string                `json:"Sell_to_Post_Code"`
 	SellToCity               string                `json:"Sell_to_City"`
 	SellToContact            string                `json:"Sell_to_Contact"`
@@ -43,7 +51,7 @@ type SalesInvoice struct {
 	PackageTrackingNo        string                `json:"Package_Tracking_No"`
 	ShipmentDate             string                `json:"Shipment_Date"`
 	YourReference            string                `json:"Your_Reference"`
-	IncomingDocumentEntryNo  string                `json:"Incoming_Document_Entry_No"`
+	IncomingDocumentEntryNo  int                   `json:"Incoming_Document_Entry_No"`
 	ExternalDocumentNo       string                `json:"External_Document_No"`
 	CampaignNo               string                `json:"Campaign_No"`
 	AssignedUserID           string                `json:"Assigned_User_ID"`
@@ -51,16 +59,16 @@ type SalesInvoice struct {
 	Status                   string                `json:"Status"`
 	PaymentTermsCode         string                `json:"Payment_Terms_Code"`
 	DueDate                  string                `json:"Due_Date"`
-	PaymentDiscountPercent   string                `json:"Payment_Discount_Percent"`
+	PaymentDiscountPercent   float64               `json:"Payment_Discount_Percent"`
 	PmtDiscountDate          string                `json:"Pmt_Discount_Date"`
 	PaymentMethodCode        string                `json:"Payment_Method_Code"`
 	DirectDebitMandateID     string                `json:"Direct_Debit_Mandate_ID"`
-	PricesIncludingVAT       string                `json:"Prices_Including_VAT"`
+	PricesIncludingVAT       bool                  `json:"Prices_Including_VAT"`
 	VATBusPostingGroup       string                `json:"VAT_Bus_Posting_Group"`
 	CreditCardNo             string                `json:"Credit_Card_No"`
 	GetCreditCardNumber      string                `json:"Get_Credit_Card_Number"`
 	CurrencyCode             string                `json:"Currency_Code"`
-	EU3PartyTrade            string                `json:"EU_3_Party_Trade"`
+	EU3PartyTrade            bool                  `json:"EU_3_Party_Trade"`
 	TransactionType          string                `json:"Transaction_Type"`
 	TransactionSpecification string                `json:"Transaction_Specification"`
 	TransportMethod          string                `json:"Transport_Method"`
@@ -108,7 +116,7 @@ func CreateType() *graphql.Object {
 		"Package_Tracking_No":        &graphql.Field{Type: graphql.String},
 		"Shipment_Date":              &graphql.Field{Type: graphql.String},
 		"Your_Reference":             &graphql.Field{Type: graphql.String},
-		"Incoming_Document_Entry_No": &graphql.Field{Type: graphql.String},
+		"Incoming_Document_Entry_No": &graphql.Field{Type: graphql.Int},
 		"External_Document_No":       &graphql.Field{Type: graphql.String},
 		"Campaign_No":                &graphql.Field{Type: graphql.String},
 		"Assigned_User_ID":           &graphql.Field{Type: graphql.String},
@@ -116,16 +124,16 @@ func CreateType() *graphql.Object {
 		"Status":                     &graphql.Field{Type: graphql.String},
 		"Payment_Terms_Code":         &graphql.Field{Type: graphql.String},
 		"Due_Date":                   &graphql.Field{Type: graphql.String},
-		"Payment_Discount_Percent":   &graphql.Field{Type: graphql.String},
+		"Payment_Discount_Percent":   &graphql.Field{Type: graphql.Float},
 		"Pmt_Discount_Date":          &graphql.Field{Type: graphql.String},
 		"Payment_Method_Code":        &graphql.Field{Type: graphql.String},
 		"Direct_Debit_Mandate_ID":    &graphql.Field{Type: graphql.String},
-		"Prices_Including_VAT":       &graphql.Field{Type: graphql.String},
+		"Prices_Including_VAT":       &graphql.Field{Type: graphql.Boolean},
 		"VAT_Bus_Posting_Group":      &graphql.Field{Type: graphql.String},
 		"Credit_Card_No":             &graphql.Field{Type: graphql.String},
-		"Get_Credit_card_Number":     &graphql.Field{Type: graphql.String},
+		"Get_Credit_Card_Number":     &graphql.Field{Type: graphql.String},
 		"Currency_Code":              &graphql.Field{Type: graphql.String},
-		"EU_3_Party_Trade":           &graphql.Field{Type: graphql.String},
+		"EU_3_Party_Trade":           &graphql.Field{Type: graphql.Boolean},
 		"Transaction_Type":           &graphql.Field{Type: graphql.String},
 		"Transaction_Specification":  &graphql.Field{Type: graphql.String},
 		"Transport_Method":           &graphql.Field{Type: graphql.String},
@@ -138,4 +146,24 @@ func CreateType() *graphql.Object {
 		Name:   "SalesInvoice",
 		Fields: fields,
 	})
+}
+
+func GetAll() ([]SalesInvoice, error) {
+	resultByte := request.GetAll(config.CompanyName, config.SalesInvoiceEndpoint)
+	res := Response{}
+	err := json.Unmarshal(resultByte, &res)
+	if err != nil {
+		return nil, errors.New("could not unmarshal data")
+	}
+	return res.Value, nil
+}
+
+func Filter(args map[string]interface{}) ([]SalesInvoice, error) {
+	resByte := request.Filter(config.CompanyName, config.SalesInvoiceEndpoint, args)
+	res := Response{}
+	err := json.Unmarshal(resByte, &res)
+	if err != nil {
+		return nil, errors.New("could not unmarshal data")
+	}
+	return res.Value, nil
 }
