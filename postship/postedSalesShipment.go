@@ -135,3 +135,10 @@ func Filter(args map[string]interface{}) ([]PostShip, error) {
 	}
 	return res.Value, nil
 }
+
+func Update(args map[string]interface{}) (string, error) {
+	no := args["No"].(string)
+	body, _ := json.Marshal(args)
+	status := request.Update(config.CompanyName, config.PostShipEndpoint, no, body)
+	return status, nil
+}

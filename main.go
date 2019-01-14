@@ -11,13 +11,11 @@ import (
 )
 
 func main() {
-	companyType := company.CreateCompanyType()
-	query := graphql.NewObject(createQueryType(companyType))
-	mutation := graphql.NewObject(createMutationType(companyType))
+	companyQuery := company.QueryType()
+	query := graphql.NewObject(createQueryType(companyQuery))
 
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
-		Query:    query,
-		Mutation: mutation,
+		Query: query,
 	})
 	if err != nil {
 		log.Fatalf("failed to create new schema, error: %v", err)
@@ -56,27 +54,4 @@ func createQueryType(companyType *graphql.Object) graphql.ObjectConfig {
 			},
 		}}
 	return rootQuery
-}
-
-func createMutationType(companyType *graphql.Object) graphql.ObjectConfig {
-	rootMutation := graphql.ObjectConfig{
-		Name: "RootMutation",
-		Fields: graphql.Fields{
-			"company": &graphql.Field{
-				Type: companyType, // the return type for this field
-				Args: graphql.FieldConfigArgument{
-					"name": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.String),
-					},
-				},
-				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					// marshall and cast the argument value
-					name := p.Args["name"]
-					config.CompanyName, _ = name.(string)
-					return company.GetCompanyByName()
-				},
-			},
-		},
-	}
-	return rootMutation
 }

@@ -100,7 +100,10 @@ func Update(companyName string, endpoint string, id string, body []byte) string 
 		fmt.Sprintf("('%s')", companyName) +
 		endpoint + fmt.Sprintf("('%s')", id)
 
-	status, _ := PATCH(uri, body)
+	status, err := PATCH(uri, body)
+	if err != nil {
+		return err.Error()
+	}
 	return status
 
 }
