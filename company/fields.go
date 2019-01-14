@@ -19,11 +19,6 @@ var types = map[string]*graphql.Object{
 	"postShip":    postship.CreateType(),
 }
 
-var filterArgs = map[string]*graphql.ArgumentConfig{
-	"key":   {Type: graphql.String},
-	"value": {Type: graphql.String},
-}
-
 func getCompanyFields() map[string]*graphql.Field {
 	fields := map[string]*graphql.Field{
 		"Id":          {Type: graphql.String},
@@ -43,6 +38,18 @@ func getAssemblyBomFields() *graphql.Field {
 				return assemblybom.GetAll()
 			}
 			return assemblybom.Filter(p.Args)
+		},
+	}
+	return field
+}
+
+func updateCustomerCardFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: graphql.NewList(types["customer"]),
+		Args: customerCardArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+			return customer.Update(p.Args)
 		},
 	}
 	return field
