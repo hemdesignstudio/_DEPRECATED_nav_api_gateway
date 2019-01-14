@@ -38,7 +38,7 @@ func GET(uri string) ([]byte, error) {
 	return resultByte, nil
 }
 
-func PATCH(uri string, body []byte) ([]byte, error) {
+func PATCH(uri string, body []byte) (string, error) {
 	u, err := url.Parse(uri)
 	if err != nil {
 		panic(err)
@@ -55,18 +55,14 @@ func PATCH(uri string, body []byte) ([]byte, error) {
 	resp, err := client.Do(req)
 
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("%s: %s", "could not fetch data", resp.Status)
-	}
-	resultByte, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, errors.New("could not read data")
+		return "", fmt.Errorf("%s: %s", "could not fetch data", resp.Status)
 	}
 
-	return resultByte, nil
+	return resp.Status, nil
 }
 
 func GetAll(companyName string, endpoint string) []byte {
@@ -98,13 +94,13 @@ func Filter(companyName, endpoint string, args map[string]interface{}) []byte {
 	return resultByte
 }
 
-func Update(companyName string, endpoint string, id string, body []byte) []byte {
+func Update(companyName string, endpoint string, id string, body []byte) string {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
 		fmt.Sprintf("('%s')", companyName) +
 		endpoint + fmt.Sprintf("('%s')", id)
 
-	resultByte, _ := PATCH(uri, body)
-	return resultByte
+	status, _ := PATCH(uri, body)
+	return status
 
 }
