@@ -86,13 +86,10 @@ func Filter(args map[string]interface{}) ([]CustomerCard, error) {
 	return res.Value, nil
 }
 
-func Update(id string, body []byte) ([]CustomerCard, error) {
+func Update(args map[string]interface{}) (string, error) {
+	no := args["No"].(string)
+	body, _ := json.Marshal(args)
+	status := request.Update(config.CompanyName, config.CustomerCardWSEndpoint, no, body)
 
-	resByte := request.Update(config.CompanyName, config.CustomerCardWSEndpoint, id, body)
-	res := Response{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return nil, errors.New("could not unmarshal data")
-	}
-	return res.Value, nil
+	return status, nil
 }
