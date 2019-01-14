@@ -8,7 +8,7 @@ import (
 )
 
 var types = map[string]*graphql.Object{
-	"salesLine": salesline.CreateSalesLineType(),
+	"salesLine": salesline.CreateSalesLineType("Order_SalesLines"),
 }
 
 func getSalesLinesFields() *graphql.Field {

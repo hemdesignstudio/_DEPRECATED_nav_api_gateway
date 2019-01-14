@@ -33,7 +33,7 @@ type SalesLine struct {
 	QuantityInvoiced    int     `json:"Quantity_Invoiced"`
 }
 
-func CreateSalesLineType() *graphql.Object {
+func CreateSalesLineType(name string) *graphql.Object {
 
 	fields := graphql.Fields{
 		"No":                    &graphql.Field{Type: graphql.String},
@@ -57,7 +57,7 @@ func CreateSalesLineType() *graphql.Object {
 	}
 
 	return graphql.NewObject(graphql.ObjectConfig{
-		Name:   "SalesLine",
+		Name:   name,
 		Fields: fields,
 	})
 }
