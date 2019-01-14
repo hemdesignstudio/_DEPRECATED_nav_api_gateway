@@ -84,3 +84,10 @@ func Filter(args map[string]interface{}) ([]ItemCard, error) {
 	}
 	return res.Value, nil
 }
+
+func Update(args map[string]interface{}) (string, error) {
+	no := args["No"].(string)
+	body, _ := json.Marshal(args)
+	status := request.Update(config.CompanyName, config.ItemCardEndpoint, no, body)
+	return status, nil
+}
