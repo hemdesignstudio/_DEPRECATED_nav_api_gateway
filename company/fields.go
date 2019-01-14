@@ -126,3 +126,15 @@ func getPostShipFields() *graphql.Field {
 	}
 	return field
 }
+
+func updatePostShipFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: graphql.String,
+		Args: postShipArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("update item card of company: %s", config.CompanyName)
+			return postship.Update(p.Args)
+		},
+	}
+	return field
+}
