@@ -7,16 +7,18 @@ import (
 	"github.com/nav-api-gateway/customer"
 	"github.com/nav-api-gateway/item"
 	"github.com/nav-api-gateway/postship"
+	"github.com/nav-api-gateway/salesinvoice"
 	"github.com/nav-api-gateway/salesorder"
 	"log"
 )
 
 var types = map[string]*graphql.Object{
-	"customer":    customer.CreateType(),
-	"assemblyBom": assemblybom.CreateType(),
-	"item":        item.CreateType(),
-	"salesOrder":  salesorder.CreateType(),
-	"postShip":    postship.CreateType(),
+	"customer":     customer.CreateType(),
+	"assemblyBom":  assemblybom.CreateType(),
+	"item":         item.CreateType(),
+	"salesOrder":   salesorder.CreateType(),
+	"postShip":     postship.CreateType(),
+	"salesInvoice": salesinvoice.CreateType(),
 }
 
 func getCompanyFields() map[string]*graphql.Field {
@@ -134,6 +136,21 @@ func updatePostShipFields() *graphql.Field {
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("update item card of company: %s", config.CompanyName)
 			return postship.Update(p.Args)
+		},
+	}
+	return field
+}
+
+func getSalesInvoiceFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: graphql.NewList(types["salesInvoice"]),
+		Args: filterArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("get sales invoices of company: %s", config.CompanyName)
+			if len(p.Args) != 2 {
+				return salesinvoice.GetAll()
+			}
+			return salesinvoice.Filter(p.Args)
 		},
 	}
 	return field
