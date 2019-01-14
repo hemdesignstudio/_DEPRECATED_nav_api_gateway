@@ -25,6 +25,7 @@ func CreateCompanyType() *graphql.Object {
 			"DisplayName":         companyFields["DisplayName"],
 			"AssemblyBom":         getAssemblyBomFields(),
 			"customerCard":        getCustomerCardFields(),
+			"updateCustomerCard":  updateCustomerCardFields(),
 			"ItemCard":            getItemCardFields(),
 			"SalesOrder":          getSalesOrdersFields(),
 			"PostedSalesShipment": getPostShipFields(),
