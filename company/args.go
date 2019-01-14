@@ -30,3 +30,27 @@ var customerCardArgs = map[string]*graphql.ArgumentConfig{
 	"Web_E_Mail":              {Type: graphql.String},
 	"Web_Customer":            {Type: graphql.Boolean},
 }
+
+var itemCardArgs = map[string]*graphql.ArgumentConfig{
+	"No":                            {Type: graphql.NewNonNull(graphql.String)},
+	"Description":                   {Type: graphql.String},
+	"Base_Unit_of_Measure":          {Type: graphql.String},
+	"Assembly_BOM":                  {Type: graphql.Boolean},
+	"Item_Category_Code":            {Type: graphql.String},
+	"Product_Group_Code":            {Type: graphql.String},
+	"Inventory":                     {Type: graphql.Int},
+	"Qty_on_Purch_Order":            {Type: graphql.Int},
+	"Qty_on_Sales_Order":            {Type: graphql.Int},
+	"Last_Date_Modified":            {Type: graphql.String},
+	"Freight_Type":                  {Type: graphql.String},
+	"Assembly_Policy":               {Type: graphql.String},
+	"Country_Region_of_Origin_Code": {Type: graphql.String},
+	"Net_Weight":                    {Type: graphql.Float},
+	"Gross_Weight":                  {Type: graphql.Float},
+	"Unit_Volume":                   {Type: graphql.Float},
+	"Length":                        {Type: graphql.Float},
+	"Width":                         {Type: graphql.Float},
+	"Height":                        {Type: graphql.Float},
+	"Designer":                      {Type: graphql.String},
+	"Web_Status":                    {Type: graphql.String},
+}
