@@ -8,6 +8,7 @@ import (
 	"github.com/nav-api-gateway/item"
 	"github.com/nav-api-gateway/postship"
 	"github.com/nav-api-gateway/salesinvoice"
+	"github.com/nav-api-gateway/salesline"
 	"github.com/nav-api-gateway/salesorder"
 	"log"
 )
@@ -17,6 +18,7 @@ var types = map[string]*graphql.Object{
 	"assemblyBom":  assemblybom.CreateType(),
 	"item":         item.CreateType(),
 	"salesOrder":   salesorder.CreateType(),
+	"salesLine":    salesline.CreateType("Company_SalesLine"),
 	"postShip":     postship.CreateType(),
 	"salesInvoice": salesinvoice.CreateType(),
 }
@@ -121,6 +123,33 @@ func updateSalesOrderFields() *graphql.Field {
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("update item card of company: %s", config.CompanyName)
 			return salesorder.Update(p.Args)
+		},
+	}
+	return field
+}
+
+func getSalesLinesFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: graphql.NewList(types["salesLine"]),
+		Args: filterArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("fetching sales lines of company: %s", config.CompanyName)
+			if len(p.Args) != 2 {
+				return salesline.GetAll()
+			}
+			return salesline.Filter(p.Args)
+		},
+	}
+	return field
+}
+
+func updateSalesLineFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: graphql.String,
+		Args: salesLineArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("update item card of company: %s", config.CompanyName)
+			return salesline.Update(p.Args)
 		},
 	}
 	return field
