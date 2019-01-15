@@ -7,7 +7,7 @@ var filterArgs = map[string]*graphql.ArgumentConfig{
 	"value": {Type: graphql.String},
 }
 
-var customerCardArgs = map[string]*graphql.ArgumentConfig{
+var CustomerCardArgs = map[string]*graphql.ArgumentConfig{
 	"No":                      {Type: graphql.NewNonNull(graphql.String)},
 	"Name":                    {Type: graphql.String},
 	"Address":                 {Type: graphql.String},
