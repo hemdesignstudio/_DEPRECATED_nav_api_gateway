@@ -28,13 +28,14 @@ func QueryType() *graphql.Object {
 			"CustomerCard":        getCustomerCardFields(),
 			"ItemCard":            getItemCardFields(),
 			"SalesOrder":          getSalesOrdersFields(),
-			"SalesLine":           getSalesLinesFields(),
+			"SalesLine":           getSalesLineFields(),
 			"PostedSalesShipment": getPostShipFields(),
 			"SalesInvoice":        getSalesInvoiceFields(),
 
 			"CreateCustomerCard": createCustomerCardFields(),
 			"CreateItemCard":     createItemCardFields(),
 			"CreateSalesOrder":   createSalesOrderFields(),
+			"CreateSalesLine":    createSalesLineFields(),
 			"CreateSalesInvoice": createSalesInvoiceFields(),
 
 			"UpdateCustomerCard":        updateCustomerCardFields(),
