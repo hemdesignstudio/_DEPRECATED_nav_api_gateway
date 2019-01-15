@@ -218,6 +218,18 @@ func getPostShipFields() *graphql.Field {
 	return field
 }
 
+func createPostShipFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: types["postShip"],
+		Args: postShipArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("Creating Posted Sales Shipment of company: %s", config.CompanyName)
+			return postship.Create(p.Args)
+		},
+	}
+	return field
+}
+
 func updatePostShipFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.String,
