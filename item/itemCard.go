@@ -85,6 +85,17 @@ func Filter(args map[string]interface{}) ([]ItemCard, error) {
 	return res.Value, nil
 }
 
+func Create(args map[string]interface{}) (ItemCard, error) {
+	body, _ := json.Marshal(args)
+	resByte := request.Create(config.CompanyName, config.ItemCardEndpoint, body)
+	res := ItemCard{}
+	err := json.Unmarshal(resByte, &res)
+	if err != nil {
+		return res, errors.New("could not unmarshal data")
+	}
+	return res, nil
+}
+
 func Update(args map[string]interface{}) (string, error) {
 	no := args["No"].(string)
 	body, _ := json.Marshal(args)
