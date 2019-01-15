@@ -167,3 +167,11 @@ func Filter(args map[string]interface{}) ([]SalesInvoice, error) {
 	}
 	return res.Value, nil
 }
+
+func Update(args map[string]interface{}) (string, error) {
+	no := args["No"].(string)
+	body, _ := json.Marshal(args)
+	status := request.Update(config.CompanyName, config.SalesInvoiceEndpoint, no, body)
+
+	return status, nil
+}
