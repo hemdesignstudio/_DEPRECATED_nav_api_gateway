@@ -33,7 +33,7 @@ type SalesLine struct {
 	QuantityInvoiced    int     `json:"Quantity_Invoiced"`
 }
 
-func CreateSalesLineType(name string) *graphql.Object {
+func CreateType(name string) *graphql.Object {
 
 	fields := graphql.Fields{
 		"No":                    &graphql.Field{Type: graphql.String},
@@ -62,6 +62,16 @@ func CreateSalesLineType(name string) *graphql.Object {
 	})
 }
 
+func GetAll() ([]SalesLine, error) {
+	resultByte := request.GetAll(config.CompanyName, config.SalesLineEndpoint)
+	res := Response{}
+	err := json.Unmarshal(resultByte, &res)
+	if err != nil {
+		return nil, errors.New("could not unmarshal data")
+	}
+	return res.Value, nil
+}
+
 func Filter(args map[string]interface{}) ([]SalesLine, error) {
 	resByte := request.Filter(config.CompanyName, config.SalesLineEndpoint, args)
 	res := Response{}
@@ -70,4 +80,11 @@ func Filter(args map[string]interface{}) ([]SalesLine, error) {
 		return nil, errors.New("could not unmarshal data")
 	}
 	return res.Value, nil
+}
+
+func Update(args map[string]interface{}) (string, error) {
+	no := args["No"].(string)
+	body, _ := json.Marshal(args)
+	status := request.Update(config.CompanyName, config.SalesLineEndpoint, no, body)
+	return status, nil
 }
