@@ -106,7 +106,7 @@ func createItemCardFields() *graphql.Field {
 		Type: types["item"],
 		Args: itemCardArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+			log.Printf("fetching Item cards of company: %s", config.CompanyName)
 			return item.Create(p.Args)
 		},
 	}
@@ -118,7 +118,7 @@ func updateItemCardFields() *graphql.Field {
 		Type: graphql.String,
 		Args: itemCardArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("update item card of company: %s", config.CompanyName)
+			log.Printf("update Item card of company: %s", config.CompanyName)
 			return item.Update(p.Args)
 		},
 	}
@@ -145,7 +145,7 @@ func createSalesOrderFields() *graphql.Field {
 		Type: types["salesOrder"],
 		Args: salesOrderArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+			log.Printf("fetching Sales Order of company: %s", config.CompanyName)
 			return salesorder.Create(p.Args)
 		},
 	}
@@ -157,7 +157,7 @@ func updateSalesOrderFields() *graphql.Field {
 		Type: graphql.String,
 		Args: salesOrderArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("update item card of company: %s", config.CompanyName)
+			log.Printf("update Sales Order of company: %s", config.CompanyName)
 			return salesorder.Update(p.Args)
 		},
 	}
@@ -184,7 +184,7 @@ func updateSalesLineFields() *graphql.Field {
 		Type: graphql.String,
 		Args: salesLineArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("update item card of company: %s", config.CompanyName)
+			log.Printf("update Sales Lines of company: %s", config.CompanyName)
 			return salesline.Update(p.Args)
 		},
 	}
@@ -211,7 +211,7 @@ func updatePostShipFields() *graphql.Field {
 		Type: graphql.String,
 		Args: postShipArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("update item card of company: %s", config.CompanyName)
+			log.Printf("update Posted Sales Shipment of company: %s", config.CompanyName)
 			return postship.Update(p.Args)
 		},
 	}
@@ -228,6 +228,18 @@ func getSalesInvoiceFields() *graphql.Field {
 				return salesinvoice.GetAll()
 			}
 			return salesinvoice.Filter(p.Args)
+		},
+	}
+	return field
+}
+
+func createSalesInvoiceFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: types["salesInvoice"],
+		Args: salesInvoiceArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("fetching Sales Invoice of company: %s", config.CompanyName)
+			return salesinvoice.Create(p.Args)
 		},
 	}
 	return field
