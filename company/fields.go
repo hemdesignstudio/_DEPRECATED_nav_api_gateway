@@ -164,7 +164,7 @@ func updateSalesOrderFields() *graphql.Field {
 	return field
 }
 
-func getSalesLinesFields() *graphql.Field {
+func getSalesLineFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(types["salesLine"]),
 		Args: filterArgs,
@@ -174,6 +174,18 @@ func getSalesLinesFields() *graphql.Field {
 				return salesline.GetAll()
 			}
 			return salesline.Filter(p.Args)
+		},
+	}
+	return field
+}
+
+func createSalesLineFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: types["salesLine"],
+		Args: salesLineArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("fetching Sales Lines of company: %s", config.CompanyName)
+			return salesline.Create(p.Args)
 		},
 	}
 	return field
