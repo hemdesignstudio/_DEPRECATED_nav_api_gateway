@@ -34,6 +34,7 @@ func QueryType() *graphql.Object {
 
 			"CreateCustomerCard": createCustomerCardFields(),
 			"CreateItemCard":     createItemCardFields(),
+			"CreateSalesOrder":   createSalesOrderFields(),
 
 			"UpdateCustomerCard":        updateCustomerCardFields(),
 			"UpdateItemCard":            updateItemCardFields(),

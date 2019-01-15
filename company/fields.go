@@ -140,6 +140,18 @@ func getSalesOrdersFields() *graphql.Field {
 	return field
 }
 
+func createSalesOrderFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: types["salesOrder"],
+		Args: salesOrderArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+			return salesorder.Create(p.Args)
+		},
+	}
+	return field
+}
+
 func updateSalesOrderFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.String,

@@ -145,6 +145,17 @@ func Filter(args map[string]interface{}) ([]SalesOrder, error) {
 	return res.Value, nil
 }
 
+func Create(args map[string]interface{}) (SalesOrder, error) {
+	body, _ := json.Marshal(args)
+	resByte := request.Create(config.CompanyName, config.SalesOrderEndpoint, body)
+	res := SalesOrder{}
+	err := json.Unmarshal(resByte, &res)
+	if err != nil {
+		return res, errors.New("could not unmarshal data")
+	}
+	return res, nil
+}
+
 func Update(args map[string]interface{}) (string, error) {
 	no := args["No"].(string)
 	body, _ := json.Marshal(args)
