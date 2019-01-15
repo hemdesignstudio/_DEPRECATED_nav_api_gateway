@@ -20,16 +20,20 @@ func QueryType() *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Company",
 		Fields: graphql.Fields{
-			"Id":                        companyFields["Id"],
-			"Name":                      companyFields["Name"],
-			"DisplayName":               companyFields["DisplayName"],
-			"AssemblyBom":               getAssemblyBomFields(),
-			"customerCard":              getCustomerCardFields(),
-			"ItemCard":                  getItemCardFields(),
-			"SalesOrder":                getSalesOrdersFields(),
-			"SalesLine":                 getSalesLinesFields(),
-			"PostedSalesShipment":       getPostShipFields(),
-			"SalesInvoice":              getSalesInvoiceFields(),
+			"Id":          companyFields["Id"],
+			"Name":        companyFields["Name"],
+			"DisplayName": companyFields["DisplayName"],
+
+			"AssemblyBom":         getAssemblyBomFields(),
+			"CustomerCard":        getCustomerCardFields(),
+			"ItemCard":            getItemCardFields(),
+			"SalesOrder":          getSalesOrdersFields(),
+			"SalesLine":           getSalesLinesFields(),
+			"PostedSalesShipment": getPostShipFields(),
+			"SalesInvoice":        getSalesInvoiceFields(),
+
+			"CreateCustomerCard": createCustomerCardFields(),
+
 			"UpdateCustomerCard":        updateCustomerCardFields(),
 			"UpdateItemCard":            updateItemCardFields(),
 			"UpdateSalesOrder":          updateSalesOrderFields(),
