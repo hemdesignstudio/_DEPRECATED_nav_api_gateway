@@ -87,7 +87,7 @@ func Filter(args map[string]interface{}) ([]SalesLine, error) {
 
 func Create(args map[string]interface{}) (SalesLine, error) {
 	body, _ := json.Marshal(args)
-	resByte := request.Create(config.CompanyName, endpoint, body)
+	resByte := request.Create(companyName, endpoint, body)
 	res := SalesLine{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
