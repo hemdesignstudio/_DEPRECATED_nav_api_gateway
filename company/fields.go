@@ -114,6 +114,18 @@ func getSalesOrdersFields() *graphql.Field {
 	return field
 }
 
+func updateSalesOrderFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: graphql.String,
+		Args: salesOrderArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("update item card of company: %s", config.CompanyName)
+			return salesorder.Update(p.Args)
+		},
+	}
+	return field
+}
+
 func getPostShipFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(types["postShip"]),
