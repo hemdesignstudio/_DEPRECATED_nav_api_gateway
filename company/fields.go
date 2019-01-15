@@ -155,3 +155,15 @@ func getSalesInvoiceFields() *graphql.Field {
 	}
 	return field
 }
+
+func updateSalesInvoiceFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: graphql.String,
+		Args: salesInvoiceArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("update Sales Invoices of company: %s", config.CompanyName)
+			return salesinvoice.Update(p.Args)
+		},
+	}
+	return field
+}
