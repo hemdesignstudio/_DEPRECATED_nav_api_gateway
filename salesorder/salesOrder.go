@@ -145,12 +145,10 @@ func Filter(args map[string]interface{}) ([]SalesOrder, error) {
 	return res.Value, nil
 }
 
-func Update(args map[string]interface{}) ([]SalesOrder, error) {
-	resByte := request.Filter(config.CompanyName, config.SalesOrderEndpoint, args)
-	res := Response{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return nil, errors.New("could not unmarshal data")
-	}
-	return res.Value, nil
+func Update(args map[string]interface{}) (string, error) {
+	no := args["No"].(string)
+	body, _ := json.Marshal(args)
+	status := request.Update(config.CompanyName, config.SalesOrderEndpoint, no, body)
+
+	return status, nil
 }
