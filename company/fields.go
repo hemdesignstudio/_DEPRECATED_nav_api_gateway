@@ -65,7 +65,7 @@ func getCustomerCardFields() *graphql.Field {
 func createCustomerCardFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: types["customer"],
-		Args: createCustomerCardArgs,
+		Args: CustomerCardArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
 			return customer.Create(p.Args)
@@ -77,7 +77,7 @@ func createCustomerCardFields() *graphql.Field {
 func updateCustomerCardFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.String,
-		Args: updateCustomerCardArgs,
+		Args: CustomerCardArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
 			return customer.Update(p.Args)
