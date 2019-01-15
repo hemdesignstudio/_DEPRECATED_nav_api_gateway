@@ -8,6 +8,9 @@ import (
 	"github.com/nav-api-gateway/request"
 )
 
+var endpoint = config.PostShipEndpoint
+var companyName = config.CompanyName
+
 type Response struct {
 	Value []PostShip `json:"value"`
 }
@@ -117,7 +120,7 @@ func CreateType() *graphql.Object {
 }
 
 func GetAll() ([]PostShip, error) {
-	resByte := request.GetAll(config.CompanyName, config.PostShipEndpoint)
+	resByte := request.GetAll(companyName, endpoint)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
@@ -127,7 +130,7 @@ func GetAll() ([]PostShip, error) {
 }
 
 func Filter(args map[string]interface{}) ([]PostShip, error) {
-	resByte := request.Filter(config.CompanyName, config.PostShipEndpoint, args)
+	resByte := request.Filter(companyName, endpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
@@ -136,9 +139,20 @@ func Filter(args map[string]interface{}) ([]PostShip, error) {
 	return res.Value, nil
 }
 
+func Create(args map[string]interface{}) (PostShip, error) {
+	body, _ := json.Marshal(args)
+	resByte := request.Create(companyName, endpoint, body)
+	res := PostShip{}
+	err := json.Unmarshal(resByte, &res)
+	if err != nil {
+		return res, errors.New("could not unmarshal data")
+	}
+	return res, nil
+}
+
 func Update(args map[string]interface{}) (string, error) {
 	no := args["No"].(string)
 	body, _ := json.Marshal(args)
-	status := request.Update(config.CompanyName, config.PostShipEndpoint, no, body)
+	status := request.Update(companyName, endpoint, no, body)
 	return status, nil
 }
