@@ -101,6 +101,18 @@ func getItemCardFields() *graphql.Field {
 	return field
 }
 
+func createItemCardFields() *graphql.Field {
+	field := &graphql.Field{
+		Type: types["item"],
+		Args: itemCardArgs,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+			return item.Create(p.Args)
+		},
+	}
+	return field
+}
+
 func updateItemCardFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.String,
