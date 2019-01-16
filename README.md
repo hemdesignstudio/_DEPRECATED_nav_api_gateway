@@ -19,6 +19,8 @@ https://odatamyway182.navmoln.se:18202/MyWay182Services/ODataV4
 
 ```
 go version: 1.11.4
+```
+```
 dep version: v0.5.0
 ```
 
@@ -26,13 +28,15 @@ dep version: v0.5.0
 
 ```
 git clone https://github.com/hemdesignstudio/hem-nav-gateway.git
-
+```
+```
 cd hem-nav-gateway
-
+```
+```
 dep ensure
-
+```
+```
 go run main.go
-
 ```
 
 ## Deployment
@@ -43,7 +47,7 @@ Deployment requires docker ...
 
 * [go](https://golang.org/) - Golang Programming Language
 * [dep](https://github.com/golang/dep) - Dependency Management Tool
-* [graphql-go](https://github.com/graphql-go/graphql) - graphql library for go
+* [graphql-go](https://github.com/graphql-go/graphql) - Graphql Library for Go
 
 
 
