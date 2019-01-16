@@ -1,4 +1,4 @@
-package company
+package utils
 
 import "github.com/graphql-go/graphql"
 
