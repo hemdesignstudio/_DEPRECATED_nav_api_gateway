@@ -3,11 +3,13 @@ package assemblybom
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/request"
 )
+
+var endpoint = config.AssemblyBomEndpoint
+var companyName = config.CompanyName
 
 type Response struct {
 	Value []AssemblyBom `json:"value"`
@@ -35,11 +37,9 @@ func CreateType() *graphql.Object {
 }
 
 func GetAll() ([]AssemblyBom, error) {
-	url := config.BaseUrl + config.CompanyEndpoint + fmt.Sprintf("('%s')", config.CompanyName) + config.AssemblyBomEndpoint
-	resultByte, err := request.GET(url)
+	resByte := request.GetAll(companyName, endpoint)
 	res := Response{}
-	err = json.Unmarshal(resultByte, &res)
-
+	err := json.Unmarshal(resByte, &res)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
 	}
@@ -47,7 +47,7 @@ func GetAll() ([]AssemblyBom, error) {
 }
 
 func Filter(args map[string]interface{}) ([]AssemblyBom, error) {
-	resByte := request.Filter(config.CompanyName, config.AssemblyBomEndpoint, args)
+	resByte := request.Filter(companyName, endpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
