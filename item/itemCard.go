@@ -8,6 +8,9 @@ import (
 	"github.com/nav-api-gateway/request"
 )
 
+var endpoint = config.ItemCardEndpoint
+var companyName = config.CompanyName
+
 type Response struct {
 	Value []ItemCard `json:"value"`
 }
@@ -66,7 +69,7 @@ func CreateType() *graphql.Object {
 }
 
 func GetAll() ([]ItemCard, error) {
-	resByte := request.GetAll(config.CompanyName, config.ItemCardEndpoint)
+	resByte := request.GetAll(config.CompanyName, endpoint)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
@@ -76,7 +79,7 @@ func GetAll() ([]ItemCard, error) {
 }
 
 func Filter(args map[string]interface{}) ([]ItemCard, error) {
-	resByte := request.Filter(config.CompanyName, config.ItemCardEndpoint, args)
+	resByte := request.Filter(companyName, endpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
@@ -87,7 +90,7 @@ func Filter(args map[string]interface{}) ([]ItemCard, error) {
 
 func Create(args map[string]interface{}) (ItemCard, error) {
 	body, _ := json.Marshal(args)
-	resByte := request.Create(config.CompanyName, config.ItemCardEndpoint, body)
+	resByte := request.Create(companyName, endpoint, body)
 	res := ItemCard{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
@@ -99,6 +102,6 @@ func Create(args map[string]interface{}) (ItemCard, error) {
 func Update(args map[string]interface{}) (string, error) {
 	no := args["No"].(string)
 	body, _ := json.Marshal(args)
-	status := request.Update(config.CompanyName, config.ItemCardEndpoint, no, body)
+	status := request.Update(companyName, endpoint, no, body)
 	return status, nil
 }
