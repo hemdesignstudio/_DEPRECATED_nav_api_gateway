@@ -76,10 +76,10 @@ func createCustomerCardFields() *graphql.Field {
 
 func updateCustomerCardFields() *graphql.Field {
 	field := &graphql.Field{
-		Type: graphql.String,
+		Type: types["customer"],
 		Args: CustomerCardArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+			log.Printf("updating Customer cards of company: %s", config.CompanyName)
 			return customer.Update(p.Args)
 		},
 	}
@@ -115,7 +115,7 @@ func createItemCardFields() *graphql.Field {
 
 func updateItemCardFields() *graphql.Field {
 	field := &graphql.Field{
-		Type: graphql.String,
+		Type: types["item"],
 		Args: itemCardArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("update Item card of company: %s", config.CompanyName)
@@ -145,7 +145,7 @@ func createSalesOrderFields() *graphql.Field {
 		Type: types["salesOrder"],
 		Args: salesOrderArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching Sales Order of company: %s", config.CompanyName)
+			log.Printf("create Sales Order of company: %s", config.CompanyName)
 			return salesorder.Create(p.Args)
 		},
 	}
@@ -154,7 +154,7 @@ func createSalesOrderFields() *graphql.Field {
 
 func updateSalesOrderFields() *graphql.Field {
 	field := &graphql.Field{
-		Type: graphql.String,
+		Type: types["salesOrder"],
 		Args: salesOrderArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("update Sales Order of company: %s", config.CompanyName)
@@ -184,7 +184,7 @@ func createSalesLineFields() *graphql.Field {
 		Type: types["salesLine"],
 		Args: salesLineArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching Sales Lines of company: %s", config.CompanyName)
+			log.Printf("create Sales Lines of company: %s", config.CompanyName)
 			return salesline.Create(p.Args)
 		},
 	}
@@ -193,7 +193,7 @@ func createSalesLineFields() *graphql.Field {
 
 func updateSalesLineFields() *graphql.Field {
 	field := &graphql.Field{
-		Type: graphql.String,
+		Type: types["salesLine"],
 		Args: salesLineArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("update Sales Lines of company: %s", config.CompanyName)
@@ -223,7 +223,7 @@ func createPostShipFields() *graphql.Field {
 		Type: types["postShip"],
 		Args: postShipArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("Creating Posted Sales Shipment of company: %s", config.CompanyName)
+			log.Printf("creating Posted Sales Shipment of company: %s", config.CompanyName)
 			return postship.Create(p.Args)
 		},
 	}
@@ -232,7 +232,7 @@ func createPostShipFields() *graphql.Field {
 
 func updatePostShipFields() *graphql.Field {
 	field := &graphql.Field{
-		Type: graphql.String,
+		Type: types["postShip"],
 		Args: postShipArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("update Posted Sales Shipment of company: %s", config.CompanyName)
@@ -247,7 +247,7 @@ func getSalesInvoiceFields() *graphql.Field {
 		Type: graphql.NewList(types["salesInvoice"]),
 		Args: filterArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("get sales invoices of company: %s", config.CompanyName)
+			log.Printf("fetch sales invoices of company: %s", config.CompanyName)
 			if len(p.Args) != 2 {
 				return salesinvoice.GetAll()
 			}
@@ -262,7 +262,7 @@ func createSalesInvoiceFields() *graphql.Field {
 		Type: types["salesInvoice"],
 		Args: salesInvoiceArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching Sales Invoice of company: %s", config.CompanyName)
+			log.Printf("create Sales Invoice of company: %s", config.CompanyName)
 			return salesinvoice.Create(p.Args)
 		},
 	}
@@ -271,7 +271,7 @@ func createSalesInvoiceFields() *graphql.Field {
 
 func updateSalesInvoiceFields() *graphql.Field {
 	field := &graphql.Field{
-		Type: graphql.String,
+		Type: types["salesInvoice"],
 		Args: salesInvoiceArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("update Sales Invoices of company: %s", config.CompanyName)
