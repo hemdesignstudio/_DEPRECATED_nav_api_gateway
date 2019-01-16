@@ -18,7 +18,7 @@ var types = map[string]*graphql.Object{
 	"assemblyBom":  assemblybom.CreateType(),
 	"item":         item.CreateType(),
 	"salesOrder":   salesorder.CreateType(),
-	"salesLine":    salesline.CreateType("Company_SalesLine"),
+	"salesLine":    salesline.CreateType("SalesLine"),
 	"postShip":     postship.CreateType(),
 	"salesInvoice": salesinvoice.CreateType(),
 }
