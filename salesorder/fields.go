@@ -15,7 +15,7 @@ func getSalesLinesFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(types["salesLine"]),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching sales lines of company: %s", config.CompanyName)
+			log.Printf("fetching sales lines of Company: %s which are related to Sales orders", config.CompanyName)
 			salesOrder, _ := p.Source.(SalesOrder)
 			p.Args["key"] = "Document_No"
 			p.Args["value"] = salesOrder.No
