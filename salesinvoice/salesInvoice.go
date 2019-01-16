@@ -182,10 +182,14 @@ func Create(args map[string]interface{}) (SalesInvoice, error) {
 	return res, nil
 }
 
-func Update(args map[string]interface{}) (string, error) {
+func Update(args map[string]interface{}) (SalesInvoice, error) {
 	no := args["No"].(string)
 	body, _ := json.Marshal(args)
-	status := request.Update(companyName, endpoint, no, body)
-
-	return status, nil
+	resByte := request.Update(companyName, endpoint, no, body)
+	res := SalesInvoice{}
+	err := json.Unmarshal(resByte, &res)
+	if err != nil {
+		return res, errors.New("could not unmarshal data")
+	}
+	return res, nil
 }
