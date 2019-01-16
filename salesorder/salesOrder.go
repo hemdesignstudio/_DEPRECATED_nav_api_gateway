@@ -9,6 +9,9 @@ import (
 	"github.com/nav-api-gateway/salesline"
 )
 
+var endpoint = config.SalesOrderEndpoint
+var companyName = config.CompanyName
+
 type Response struct {
 	Value []SalesOrder `json:"value"`
 }
@@ -126,7 +129,7 @@ func CreateType() *graphql.Object {
 }
 
 func GetAll() ([]SalesOrder, error) {
-	resultByte := request.GetAll(config.CompanyName, config.SalesOrderEndpoint)
+	resultByte := request.GetAll(companyName, endpoint)
 	res := Response{}
 	err := json.Unmarshal(resultByte, &res)
 	if err != nil {
@@ -136,7 +139,7 @@ func GetAll() ([]SalesOrder, error) {
 }
 
 func Filter(args map[string]interface{}) ([]SalesOrder, error) {
-	resByte := request.Filter(config.CompanyName, config.SalesOrderEndpoint, args)
+	resByte := request.Filter(companyName, endpoint, args)
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
@@ -147,7 +150,7 @@ func Filter(args map[string]interface{}) ([]SalesOrder, error) {
 
 func Create(args map[string]interface{}) (SalesOrder, error) {
 	body, _ := json.Marshal(args)
-	resByte := request.Create(config.CompanyName, config.SalesOrderEndpoint, body)
+	resByte := request.Create(companyName, endpoint, body)
 	res := SalesOrder{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
@@ -159,7 +162,7 @@ func Create(args map[string]interface{}) (SalesOrder, error) {
 func Update(args map[string]interface{}) (string, error) {
 	no := args["No"].(string)
 	body, _ := json.Marshal(args)
-	status := request.Update(config.CompanyName, config.SalesOrderEndpoint, no, body)
+	status := request.Update(companyName, endpoint, no, body)
 
 	return status, nil
 }
