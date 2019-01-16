@@ -39,15 +39,7 @@ func createQueryType(companyType *graphql.Object) graphql.ObjectConfig {
 		Fields: graphql.Fields{
 			"company": &graphql.Field{
 				Type: companyType,
-				Args: graphql.FieldConfigArgument{
-					"name": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.String),
-					},
-				},
-
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					name := p.Args["name"]
-					config.CompanyName, _ = name.(string)
 					log.Printf("fetching companies with name: %s", config.CompanyName)
 					return company.GetCompanyByName()
 				},
