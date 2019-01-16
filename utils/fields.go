@@ -1,4 +1,4 @@
-package company
+package utils
 
 import (
 	"github.com/graphql-go/graphql"
@@ -23,21 +23,12 @@ var types = map[string]*graphql.Object{
 	"salesInvoice": salesinvoice.CreateType(),
 }
 
-func getCompanyFields() map[string]*graphql.Field {
-	fields := map[string]*graphql.Field{
-		"Id":          {Type: graphql.String},
-		"Name":        {Type: graphql.String},
-		"DisplayName": {Type: graphql.String},
-	}
-	return fields
-}
-
 func getAssemblyBomFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(types["assemblyBom"]),
 		Args: filterArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching Assembly BOM of company: %s", config.CompanyName)
+			log.Printf("fetching Assembly BOM of utils: %s", config.CompanyName)
 			if len(p.Args) != 2 {
 				return assemblybom.GetAll()
 			}
