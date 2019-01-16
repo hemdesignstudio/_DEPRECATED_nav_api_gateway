@@ -68,7 +68,7 @@ func POST(uri string, body []byte) ([]byte, error) {
 	return resultByte, nil
 }
 
-func PATCH(uri string, body []byte) (string, error) {
+func PATCH(uri string, body []byte) ([]byte, error) {
 	u, err := url.Parse(uri)
 	if err != nil {
 		panic(err)
@@ -85,14 +85,17 @@ func PATCH(uri string, body []byte) (string, error) {
 	resp, err := client.Do(req)
 
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return "", fmt.Errorf("%s: %s", "could not update data", resp.Status)
+		return nil, fmt.Errorf("%s: %s", "could not Patch data", resp.Status)
 	}
-
-	return resp.Status, nil
+	resultByte, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, errors.New("could not read data")
+	}
+	return resultByte, nil
 }
 
 func GetAll(companyName string, endpoint string) []byte {
@@ -135,16 +138,14 @@ func Create(companyName string, endpoint string, body []byte) []byte {
 
 }
 
-func Update(companyName string, endpoint string, id string, body []byte) string {
+func Update(companyName string, endpoint string, id string, body []byte) []byte {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
 		fmt.Sprintf("('%s')", companyName) +
 		endpoint + fmt.Sprintf("('%s')", id)
 
-	status, err := PATCH(uri, body)
-	if err != nil {
-		return err.Error()
-	}
-	return status
+	resultByte, _ := PATCH(uri, body)
+
+	return resultByte
 
 }
