@@ -6,17 +6,17 @@ import (
 	"reflect"
 )
 
-func GetAll(companyName string, endpoint string) []byte {
+func getAllEntitiesByCompanyName(companyName string, endpoint string) []byte {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
 		fmt.Sprintf("('%s')", companyName) +
 		endpoint
 
-	resultByte, _ := GET(uri)
+	resultByte, _ := get(uri)
 	return resultByte
 }
 
-func Filter(companyName, endpoint string, args map[string]interface{}) ([]byte, error) {
+func filterByArgs(companyName, endpoint string, args map[string]interface{}) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
 		fmt.Sprintf("('%s')", companyName) +
@@ -31,29 +31,28 @@ func Filter(companyName, endpoint string, args map[string]interface{}) ([]byte, 
 		filter = fmt.Sprintf("?$filter=%s eq '%s'", key, value)
 	}
 
-	resultByte, err := GET(uri + filter)
+	resultByte, err := get(uri + filter)
 	return resultByte, err
 }
 
-func Create(companyName string, endpoint string, body []byte) []byte {
+func createEntity(companyName string, endpoint string, body []byte) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
 		fmt.Sprintf("('%s')", companyName) +
 		endpoint
 
-	resultByte, _ := POST(uri, body)
-	return resultByte
+	resultByte, err := post(uri, body)
+	return resultByte, err
 
 }
 
-func Update(companyName string, endpoint string, id string, body []byte) []byte {
+func updateEntitybyId(companyName string, endpoint string, id string, body []byte) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
 		fmt.Sprintf("('%s')", companyName) +
 		endpoint + fmt.Sprintf("('%s')", id)
 
-	resultByte, _ := PATCH(uri, body)
-
-	return resultByte
+	resultByte, err := patch(uri, body)
+	return resultByte, err
 
 }

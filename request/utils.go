@@ -5,8 +5,8 @@ import (
 	"github.com/nav-api-gateway/errorhandler"
 )
 
-func GetAllByCompanyName(companyName string, endpoint string, response interface{}) (interface{}, error) {
-	resByte := GetAll(companyName, endpoint)
+func GetAll(companyName string, endpoint string, response interface{}) (interface{}, error) {
+	resByte := getAllEntitiesByCompanyName(companyName, endpoint)
 	err := json.Unmarshal(resByte, &response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
@@ -15,8 +15,8 @@ func GetAllByCompanyName(companyName string, endpoint string, response interface
 	return res["value"], nil
 }
 
-func FilterByArgs(companyName, endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
-	resByte, resError := Filter(companyName, endpoint, args)
+func Filter(companyName, endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+	resByte, resError := filterByArgs(companyName, endpoint, args)
 	if resError != nil {
 		return nil, resError
 	}
@@ -25,9 +25,36 @@ func FilterByArgs(companyName, endpoint string, args map[string]interface{}, res
 		return nil, errorhandler.CouldNotUnmarshalData()
 	}
 	res := response.(map[string]interface{})
-
-	if len(res) == 0 {
+	values := res["value"].([]interface{})
+	if len(values) == 0 {
 		return nil, errorhandler.ValueIsNotCorrect(args)
 	}
-	return res["value"], nil
+	return values, nil
+}
+
+func Create(companyName, endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+	body, _ := json.Marshal(args)
+	resByte, resError := createEntity(companyName, endpoint, body)
+	if resError != nil {
+		return nil, resError
+	}
+	err := json.Unmarshal(resByte, &response)
+	if err != nil {
+		return nil, errorhandler.CouldNotUnmarshalData()
+	}
+	return response, nil
+}
+
+func Update(companyName, endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+	no := args["No"].(string)
+	body, _ := json.Marshal(args)
+	resByte, resError := updateEntitybyId(companyName, endpoint, no, body)
+	if resError != nil {
+		return nil, resError
+	}
+	err := json.Unmarshal(resByte, &response)
+	if err != nil {
+		return nil, errorhandler.CouldNotUnmarshalData()
+	}
+	return response, nil
 }
