@@ -139,7 +139,10 @@ func GetAll() ([]SalesOrder, error) {
 }
 
 func Filter(args map[string]interface{}) ([]SalesOrder, error) {
-	resByte := request.Filter(companyName, endpoint, args)
+	resByte, resError := request.Filter(companyName, endpoint, args)
+	if resError != nil {
+		return nil, resError
+	}
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
