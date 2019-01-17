@@ -1,10 +1,8 @@
 package customer
 
 import (
-	"encoding/json"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
-	"github.com/nav-api-gateway/errorhandler"
 	"github.com/nav-api-gateway/request"
 )
 
@@ -68,48 +66,22 @@ func CreateType() *graphql.Object {
 	})
 }
 
-func GetAll() ([]CustomerCard, error) {
-	resByte := request.GetAll(companyName, endpoint)
+func GetAll() (interface{}, error) {
 	res := Response{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return nil, errorhandler.CouldNotUnmarshalData()
-	}
-	return res.Value, nil
+	return request.GetAll(companyName, endpoint, res)
 }
 
-func Filter(args map[string]interface{}) ([]CustomerCard, error) {
-	resByte, resError := request.Filter(companyName, endpoint, args)
-	if resError != nil {
-		return nil, resError
-	}
+func Filter(args map[string]interface{}) (interface{}, error) {
 	res := Response{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return nil, errorhandler.CouldNotUnmarshalData()
-	}
-	return res.Value, nil
+	return request.Filter(companyName, endpoint, args, res)
 }
 
-func Create(args map[string]interface{}) (CustomerCard, error) {
-	body, _ := json.Marshal(args)
-	resByte := request.Create(companyName, endpoint, body)
-	res := CustomerCard{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return res, errorhandler.CouldNotUnmarshalData()
-	}
-	return res, nil
+func Create(args map[string]interface{}) (interface{}, error) {
+	res := Response{}
+	return request.Create(companyName, endpoint, args, res)
 }
 
-func Update(args map[string]interface{}) (CustomerCard, error) {
-	no := args["No"].(string)
-	body, _ := json.Marshal(args)
-	resByte := request.Update(companyName, endpoint, no, body)
-	res := CustomerCard{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return res, errorhandler.CouldNotUnmarshalData()
-	}
-	return res, nil
+func Update(args map[string]interface{}) (interface{}, error) {
+	res := Response{}
+	return request.Update(companyName, endpoint, args, res)
 }
