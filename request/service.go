@@ -3,7 +3,6 @@ package request
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/errorhandler"
 	"io/ioutil"
@@ -26,11 +25,11 @@ func get(uri string) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
+	resByte, err := ioutil.ReadAll(resp.Body)
 	if resp.StatusCode != http.StatusOK {
-		return nil, errorhandler.Handle(resp.StatusCode, body)
+		return nil, errorhandler.Handle(resp.StatusCode, resByte)
 	}
-	return body, nil
+	return resByte, nil
 }
 
 func post(uri string, body []byte) ([]byte, error) {
@@ -53,10 +52,10 @@ func post(uri string, body []byte) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusCreated {
-		return nil, fmt.Errorf("%d: %s", resp.StatusCode, resp.Body)
-	}
 	resultByte, err := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusCreated {
+		return nil, errorhandler.Handle(resp.StatusCode, resultByte)
+	}
 	if err != nil {
 		return nil, errors.New("could not read data")
 	}
@@ -83,10 +82,10 @@ func patch(uri string, body []byte) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("%d: %s", resp.StatusCode, resp.Body)
-	}
 	resultByte, err := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK {
+		return nil, errorhandler.Handle(resp.StatusCode, resultByte)
+	}
 	if err != nil {
 		return nil, errors.New("could not read data")
 	}

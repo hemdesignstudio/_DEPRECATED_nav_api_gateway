@@ -56,7 +56,7 @@ var itemCardArgs = map[string]*graphql.ArgumentConfig{
 }
 
 var postShipArgs = map[string]*graphql.ArgumentConfig{
-	"No":                          {Type: graphql.String},
+	"No":                          {Type: graphql.NewNonNull(graphql.String)},
 	"Sell_to_Customer_No":         {Type: graphql.String},
 	"Sell_to_Contact_No":          {Type: graphql.String},
 	"Sell_to_Customer_Name":       {Type: graphql.String},
@@ -105,7 +105,7 @@ var postShipArgs = map[string]*graphql.ArgumentConfig{
 }
 
 var salesInvoiceArgs = map[string]*graphql.ArgumentConfig{
-	"No":                         {Type: graphql.String},
+	"No":                         {Type: graphql.NewNonNull(graphql.String)},
 	"Sell_to_Customer_No":        {Type: graphql.String},
 	"Sell_to_Contact_No":         {Type: graphql.String},
 	"Sell_to_Customer_Name":      {Type: graphql.String},
@@ -169,7 +169,7 @@ var salesInvoiceArgs = map[string]*graphql.ArgumentConfig{
 
 var salesOrderArgs = map[string]*graphql.ArgumentConfig{
 
-	"No":                              {Type: graphql.String},
+	"No":                              {Type: graphql.NewNonNull(graphql.String)},
 	"Sell_to_Customer_No":             {Type: graphql.String},
 	"Sell_to_Customer_Name":           {Type: graphql.String},
 	"Sell_to_Address":                 {Type: graphql.String},
@@ -223,7 +223,7 @@ var salesOrderArgs = map[string]*graphql.ArgumentConfig{
 var salesLineArgs = map[string]*graphql.ArgumentConfig{
 
 	"No":                    {Type: graphql.String},
-	"Document_No":           {Type: graphql.String},
+	"Document_No":           {Type: graphql.NewNonNull(graphql.String)},
 	"Type":                  {Type: graphql.String},
 	"Description":           {Type: graphql.String},
 	"Reserve":               {Type: graphql.String},
