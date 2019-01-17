@@ -2,9 +2,9 @@ package salesline
 
 import (
 	"encoding/json"
-	"errors"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
+	errhandler "github.com/nav-api-gateway/error"
 	"github.com/nav-api-gateway/request"
 )
 
@@ -70,7 +70,7 @@ func GetAll() ([]SalesLine, error) {
 	res := Response{}
 	err := json.Unmarshal(resultByte, &res)
 	if err != nil {
-		return nil, errors.New("could not unmarshal data")
+		return nil, errhandler.CouldNotUnmarshalData()
 	}
 	return res.Value, nil
 }
@@ -83,7 +83,7 @@ func Filter(args map[string]interface{}) ([]SalesLine, error) {
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
-		return nil, errors.New("could not unmarshal data")
+		return nil, errhandler.CouldNotUnmarshalData()
 	}
 	return res.Value, nil
 }
@@ -94,7 +94,7 @@ func Create(args map[string]interface{}) (SalesLine, error) {
 	res := SalesLine{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
-		return res, errors.New("could not unmarshal data")
+		return res, errhandler.CouldNotUnmarshalData()
 	}
 	return res, nil
 }
@@ -106,7 +106,7 @@ func Update(args map[string]interface{}) (SalesLine, error) {
 	res := SalesLine{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
-		return res, errors.New("could not unmarshal data")
+		return res, errhandler.CouldNotUnmarshalData()
 	}
 	return res, nil
 }
