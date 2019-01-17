@@ -36,10 +36,10 @@ func CreateType() *graphql.Object {
 
 func GetAll() (interface{}, error) {
 	res := Response{}
-	return request.GetAllByCompanyName(companyName, endpoint, res)
+	return request.GetAll(companyName, endpoint, res)
 }
 
 func Filter(args map[string]interface{}) (interface{}, error) {
 	res := Response{}
-	return request.FilterByArgs(companyName, endpoint, args, res)
+	return request.Filter(companyName, endpoint, args, res)
 }
