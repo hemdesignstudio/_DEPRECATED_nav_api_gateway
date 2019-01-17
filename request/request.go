@@ -5,11 +5,21 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nav-api-gateway/config"
+	errhandler "github.com/nav-api-gateway/error"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"reflect"
 )
+
+type Error struct {
+	Content Content `json:"error"`
+}
+
+type Content struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
+}
 
 func GET(uri string) ([]byte, error) {
 	u, err := url.Parse(uri)
@@ -22,20 +32,15 @@ func GET(uri string) ([]byte, error) {
 	req, err := http.NewRequest("GET", u.String(), nil)
 	req.SetBasicAuth(config.Username, config.Passwd)
 	resp, err := client.Do(req)
-
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("%s: %s", "could not fetch data", resp.Status)
+	body, err := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK {
+		return nil, errhandler.Handle(resp.StatusCode, body)
 	}
-	resultByte, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, errors.New("could not read data")
-	}
-
-	return resultByte, nil
+	return body, nil
 }
 
 func POST(uri string, body []byte) ([]byte, error) {
@@ -58,8 +63,8 @@ func POST(uri string, body []byte) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != 201 {
-		return nil, fmt.Errorf("%s: %s", "could not Post data", resp.Status)
+	if resp.StatusCode != http.StatusCreated {
+		return nil, fmt.Errorf("%d: %s", resp.StatusCode, resp.Body)
 	}
 	resultByte, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -88,8 +93,8 @@ func PATCH(uri string, body []byte) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("%s: %s", "could not Patch data", resp.Status)
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("%d: %s", resp.StatusCode, resp.Body)
 	}
 	resultByte, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -108,7 +113,7 @@ func GetAll(companyName string, endpoint string) []byte {
 	return resultByte
 }
 
-func Filter(companyName, endpoint string, args map[string]interface{}) []byte {
+func Filter(companyName, endpoint string, args map[string]interface{}) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
 		fmt.Sprintf("('%s')", companyName) +
@@ -123,8 +128,8 @@ func Filter(companyName, endpoint string, args map[string]interface{}) []byte {
 		filter = fmt.Sprintf("?$filter=%s eq '%s'", key, value)
 	}
 
-	resultByte, _ := GET(uri + filter)
-	return resultByte
+	resultByte, err := GET(uri + filter)
+	return resultByte, err
 }
 
 func Create(companyName string, endpoint string, body []byte) []byte {
