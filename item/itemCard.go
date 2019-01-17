@@ -1,11 +1,8 @@
 package item
 
 import (
-	"encoding/json"
-	"errors"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
-	errhandler "github.com/nav-api-gateway/error"
 	"github.com/nav-api-gateway/request"
 )
 
@@ -69,48 +66,22 @@ func CreateType() *graphql.Object {
 	})
 }
 
-func GetAll() ([]ItemCard, error) {
-	resByte := request.GetAll(config.CompanyName, endpoint)
+func GetAll() (interface{}, error) {
 	res := Response{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return nil, errhandler.CouldNotUnmarshalData()
-	}
-	return res.Value, nil
+	return request.GetAll(companyName, endpoint, res)
 }
 
-func Filter(args map[string]interface{}) ([]ItemCard, error) {
-	resByte, resError := request.Filter(companyName, endpoint, args)
-	if resError != nil {
-		return nil, resError
-	}
+func Filter(args map[string]interface{}) (interface{}, error) {
 	res := Response{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return nil, errhandler.CouldNotUnmarshalData()
-	}
-	return res.Value, nil
+	return request.Filter(companyName, endpoint, args, res)
 }
 
-func Create(args map[string]interface{}) (ItemCard, error) {
-	body, _ := json.Marshal(args)
-	resByte := request.Create(companyName, endpoint, body)
-	res := ItemCard{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return res, errhandler.CouldNotUnmarshalData()
-	}
-	return res, nil
+func Create(args map[string]interface{}) (interface{}, error) {
+	res := Response{}
+	return request.Create(companyName, endpoint, args, res)
 }
 
-func Update(args map[string]interface{}) (ItemCard, error) {
-	no := args["No"].(string)
-	body, _ := json.Marshal(args)
-	resByte := request.Update(companyName, endpoint, no, body)
-	res := ItemCard{}
-	err := json.Unmarshal(resByte, &res)
-	if err != nil {
-		return res, errors.New("could not unmarshal data")
-	}
-	return res, nil
+func Update(args map[string]interface{}) (interface{}, error) {
+	res := Response{}
+	return request.Update(companyName, endpoint, args, res)
 }
