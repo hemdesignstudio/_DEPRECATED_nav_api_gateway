@@ -47,11 +47,17 @@ func GetAll() ([]AssemblyBom, error) {
 }
 
 func Filter(args map[string]interface{}) ([]AssemblyBom, error) {
-	resByte := request.Filter(companyName, endpoint, args)
+	resByte, resError := request.Filter(companyName, endpoint, args)
+	if resError != nil {
+		return nil, resError
+	}
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
 		return nil, errors.New("could not unmarshal data")
+	}
+	if len(res.Value) == 0 {
+		return nil, errors.New("This filter did not return any values")
 	}
 	return res.Value, nil
 }
