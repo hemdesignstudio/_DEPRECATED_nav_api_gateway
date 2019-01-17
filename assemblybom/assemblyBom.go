@@ -2,7 +2,6 @@ package assemblybom
 
 import (
 	"encoding/json"
-	"errors"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
 	errhandler "github.com/nav-api-gateway/error"
@@ -42,7 +41,7 @@ func GetAll() ([]AssemblyBom, error) {
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
-		return nil, errors.New("could not unmarshal data")
+		return nil, errhandler.CouldNotUnmarshalData()
 	}
 	return res.Value, nil
 }
@@ -55,7 +54,7 @@ func Filter(args map[string]interface{}) ([]AssemblyBom, error) {
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
-		return nil, errors.New("could not unmarshal data")
+		return nil, errhandler.CouldNotUnmarshalData()
 	}
 	if len(res.Value) == 0 {
 		return nil, errhandler.ValueIsNotCorrect(args)
