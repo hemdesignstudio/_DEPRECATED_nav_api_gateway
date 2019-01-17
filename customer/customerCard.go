@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
-	errhandler "github.com/nav-api-gateway/error"
+	"github.com/nav-api-gateway/errorhandler"
 	"github.com/nav-api-gateway/request"
 )
 
@@ -73,7 +73,7 @@ func GetAll() ([]CustomerCard, error) {
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
-		return nil, errhandler.CouldNotUnmarshalData()
+		return nil, errorhandler.CouldNotUnmarshalData()
 	}
 	return res.Value, nil
 }
@@ -86,7 +86,7 @@ func Filter(args map[string]interface{}) ([]CustomerCard, error) {
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
-		return nil, errhandler.CouldNotUnmarshalData()
+		return nil, errorhandler.CouldNotUnmarshalData()
 	}
 	return res.Value, nil
 }
@@ -97,7 +97,7 @@ func Create(args map[string]interface{}) (CustomerCard, error) {
 	res := CustomerCard{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
-		return res, errhandler.CouldNotUnmarshalData()
+		return res, errorhandler.CouldNotUnmarshalData()
 	}
 	return res, nil
 }
@@ -109,7 +109,7 @@ func Update(args map[string]interface{}) (CustomerCard, error) {
 	res := CustomerCard{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
-		return res, errhandler.CouldNotUnmarshalData()
+		return res, errorhandler.CouldNotUnmarshalData()
 	}
 	return res, nil
 }
