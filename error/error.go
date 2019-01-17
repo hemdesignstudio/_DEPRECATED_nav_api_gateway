@@ -15,32 +15,45 @@ type Content struct {
 	Message string `json:"message"`
 }
 
-func ErrorOccuredButNotUnmarshaled() error {
-	return fmt.Errorf("error occured, however Gateway API has failed to unmarshal the error Response from NAV")
+func errorOccurredButNotUnmarshalled() error {
+	return fmt.Errorf("error occured, however Gateway API has failed to unmarshal the error response from NAV")
 }
 
 func BadRequest(statusCode int, handler Handler) error {
 	return fmt.Errorf("status: %d, %s, %s", statusCode, handler.Content.Code, handler.Content.Message)
 }
 
-func UnknownError() error {
-	return fmt.Errorf("there has been an unknown urror which has occured")
+func NavServerError(statusCode int, handler Handler) error {
+	return fmt.Errorf("status: %d, %s, %s", statusCode, handler.Content.Code, handler.Content.Message)
 }
 
 func ValueIsNotCorrect(args map[string]interface{}) error {
 	return fmt.Errorf(" there are no entries for '%s' of value '%s' ", args["key"], args["value"])
 }
 
+func CouldNotUnmarshalData() error {
+	return fmt.Errorf("could not unmarshal data")
+}
+
+func unauthorized() error {
+	return fmt.Errorf("NAV credentials in GateWay configuration is not correct")
+
+}
+
 func Handle(statusCode int, errBody []byte) error {
 	handler := Handler{}
 	err := json.Unmarshal(errBody, &handler)
 	if err != nil {
-		return ErrorOccuredButNotUnmarshaled()
+		return errorOccurredButNotUnmarshalled()
 	}
 
 	if statusCode == http.StatusBadRequest {
 		return BadRequest(statusCode, handler)
 	}
 
-	return UnknownError()
+	if statusCode == http.StatusUnauthorized {
+		return unauthorized()
+	}
+
+	return NavServerError(statusCode, handler)
 }
