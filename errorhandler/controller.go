@@ -6,25 +6,16 @@ import (
 	"net/http"
 )
 
-type Handler struct {
-	Content Content `json:"error"`
-}
-
-type Content struct {
-	Code    string `json:"code"`
-	Message string `json:"message"`
-}
-
-func errorOccurredButNotUnmarshalled() error {
-	return fmt.Errorf("error occured, however Gateway API has failed to unmarshal the error response from NAV")
-}
-
-func BadRequest(statusCode int, handler Handler) error {
+func badRequest(statusCode int, handler Handler) error {
 	return fmt.Errorf("status: %d, %s, %s", statusCode, handler.Content.Code, handler.Content.Message)
 }
 
-func NavServerError(statusCode int, handler Handler) error {
+func errorMessageFromNav(statusCode int, handler Handler) error {
 	return fmt.Errorf("status: %d, %s, %s", statusCode, handler.Content.Code, handler.Content.Message)
+}
+
+func navInternalServerError(statusCode int, handler Handler) error {
+	return fmt.Errorf("status: %d, %s, Internal Server Error in Microsoft NAV", statusCode, handler.Message)
 }
 
 func ValueIsNotCorrect(args map[string]interface{}) error {
@@ -33,6 +24,10 @@ func ValueIsNotCorrect(args map[string]interface{}) error {
 
 func CouldNotUnmarshalData() error {
 	return fmt.Errorf("could not unmarshal data")
+}
+
+func errorOccurredButNotUnmarshalled() error {
+	return fmt.Errorf("error occured, however Gateway API has failed to unmarshal the error response from NAV")
 }
 
 func unauthorized() error {
@@ -48,12 +43,16 @@ func Handle(statusCode int, errBody []byte) error {
 	}
 
 	if statusCode == http.StatusBadRequest {
-		return BadRequest(statusCode, handler)
+		return badRequest(statusCode, handler)
 	}
 
 	if statusCode == http.StatusUnauthorized {
 		return unauthorized()
 	}
 
-	return NavServerError(statusCode, handler)
+	if statusCode == http.StatusInternalServerError {
+		return navInternalServerError(statusCode, handler)
+	}
+
+	return errorMessageFromNav(statusCode, handler)
 }
