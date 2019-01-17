@@ -11,7 +11,7 @@ import (
 	"net/url"
 )
 
-func GET(uri string) ([]byte, error) {
+func get(uri string) ([]byte, error) {
 	u, err := url.Parse(uri)
 	if err != nil {
 		panic(err)
@@ -33,7 +33,7 @@ func GET(uri string) ([]byte, error) {
 	return body, nil
 }
 
-func POST(uri string, body []byte) ([]byte, error) {
+func post(uri string, body []byte) ([]byte, error) {
 	u, err := url.Parse(uri)
 	if err != nil {
 		panic(err)
@@ -63,7 +63,7 @@ func POST(uri string, body []byte) ([]byte, error) {
 	return resultByte, nil
 }
 
-func PATCH(uri string, body []byte) ([]byte, error) {
+func patch(uri string, body []byte) ([]byte, error) {
 	u, err := url.Parse(uri)
 	if err != nil {
 		panic(err)
