@@ -2,10 +2,10 @@ package request
 
 import (
 	"bytes"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/nav-api-gateway/config"
+	errhandler "github.com/nav-api-gateway/error"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -13,7 +13,7 @@ import (
 )
 
 type Error struct {
-	Err Content `json:"error"`
+	Content Content `json:"error"`
 }
 
 type Content struct {
@@ -32,25 +32,15 @@ func GET(uri string) ([]byte, error) {
 	req, err := http.NewRequest("GET", u.String(), nil)
 	req.SetBasicAuth(config.Username, config.Passwd)
 	resp, err := client.Do(req)
-	myError := Error{}
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	resultByte, err := ioutil.ReadAll(resp.Body)
-	resErr := json.Unmarshal(resultByte, &myError)
-
-	if resErr != nil {
-		return nil, errors.New("could not read data")
-	}
+	body, err := ioutil.ReadAll(resp.Body)
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("%d: %s", resp.StatusCode, string(myError.Err.Message))
+		return nil, errhandler.Handle(resp.StatusCode, body)
 	}
-	if err != nil {
-		return nil, errors.New("could not read data")
-	}
-
-	return resultByte, nil
+	return body, nil
 }
 
 func POST(uri string, body []byte) ([]byte, error) {
