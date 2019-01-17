@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
+	errhandler "github.com/nav-api-gateway/error"
 	"github.com/nav-api-gateway/request"
 )
 
@@ -57,7 +58,7 @@ func Filter(args map[string]interface{}) ([]AssemblyBom, error) {
 		return nil, errors.New("could not unmarshal data")
 	}
 	if len(res.Value) == 0 {
-		return nil, errors.New("This filter did not return any values")
+		return nil, errhandler.ValueIsNotCorrect(args)
 	}
 	return res.Value, nil
 }
