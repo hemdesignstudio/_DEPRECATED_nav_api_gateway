@@ -29,7 +29,7 @@ func main() {
 		Playground: false,
 	})
 
-	http.Handle("/graphql", handler)
-	fmt.Println("Server started at http://localhost:6789/graphql")
+	http.Handle(config.Endpoint+config.Version, handler)
+	fmt.Println("Server started at http://localhost:6789/graphql/v0.1.0")
 	log.Fatal(http.ListenAndServe(config.Host, nil))
 }
