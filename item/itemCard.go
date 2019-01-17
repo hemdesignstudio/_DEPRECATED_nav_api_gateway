@@ -79,7 +79,10 @@ func GetAll() ([]ItemCard, error) {
 }
 
 func Filter(args map[string]interface{}) ([]ItemCard, error) {
-	resByte := request.Filter(companyName, endpoint, args)
+	resByte, resError := request.Filter(companyName, endpoint, args)
+	if resError != nil {
+		return nil, resError
+	}
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
