@@ -162,7 +162,10 @@ func GetAll() ([]SalesInvoice, error) {
 }
 
 func Filter(args map[string]interface{}) ([]SalesInvoice, error) {
-	resByte := request.Filter(config.CompanyName, endpoint, args)
+	resByte, resError := request.Filter(config.CompanyName, endpoint, args)
+	if resError != nil {
+		return nil, resError
+	}
 	res := Response{}
 	err := json.Unmarshal(resByte, &res)
 	if err != nil {
