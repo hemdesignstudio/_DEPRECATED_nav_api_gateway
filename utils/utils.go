@@ -29,7 +29,6 @@ func MutationType() *graphql.Object {
 			"CreateSalesLine":           createSalesLineFields(),
 			"CreatePostedSalesShipment": createPostShipFields(),
 			"CreateSalesInvoice":        createSalesInvoiceFields(),
-
 			"UpdateCustomerCard":        updateCustomerCardFields(),
 			"UpdateItemCard":            updateItemCardFields(),
 			"UpdateSalesOrder":          updateSalesOrderFields(),
