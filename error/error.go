@@ -27,6 +27,10 @@ func UnknownError() error {
 	return fmt.Errorf("there has been an unknown urror which has occured")
 }
 
+func ValueIsNotCorrect(args map[string]interface{}) error {
+	return fmt.Errorf(" there are no entries for '%s' of value '%s' ", args["key"], args["value"])
+}
+
 func Handle(statusCode int, errBody []byte) error {
 	handler := Handler{}
 	err := json.Unmarshal(errBody, &handler)
