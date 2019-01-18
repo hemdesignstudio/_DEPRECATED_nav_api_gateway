@@ -1,14 +1,60 @@
 package request
 
-func get(uri string) ([]byte, error) {
-	return request(uri, "GET", nil)
+import (
+	"encoding/json"
+	"github.com/nav-api-gateway/errorhandler"
+)
+
+func GetAll(companyName string, endpoint string, response interface{}) (interface{}, error) {
+	resByte := getAllEntitiesByCompanyName(companyName, endpoint)
+	err := json.Unmarshal(resByte, &response)
+	if err != nil {
+		return nil, errorhandler.CouldNotUnmarshalData()
+	}
+	res := response.(map[string]interface{})
+	return res["value"], nil
 }
 
-func post(uri string, body []byte) ([]byte, error) {
-	return request(uri, "POST", body)
-
+func Filter(companyName, endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+	resByte, resError := filterByArgs(companyName, endpoint, args)
+	if resError != nil {
+		return nil, resError
+	}
+	err := json.Unmarshal(resByte, &response)
+	if err != nil {
+		return nil, errorhandler.CouldNotUnmarshalData()
+	}
+	res := response.(map[string]interface{})
+	values := res["value"].([]interface{})
+	if len(values) == 0 {
+		return nil, errorhandler.ValueIsNotCorrect(args)
+	}
+	return values, nil
 }
 
-func patch(uri string, body []byte) ([]byte, error) {
-	return request(uri, "PATCH", body)
+func Create(companyName, endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+	body, _ := json.Marshal(args)
+	resByte, resError := createEntity(companyName, endpoint, body)
+	if resError != nil {
+		return nil, resError
+	}
+	err := json.Unmarshal(resByte, &response)
+	if err != nil {
+		return nil, errorhandler.CouldNotUnmarshalData()
+	}
+	return response, nil
+}
+
+func Update(companyName, endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+	no := args["No"].(string)
+	body, _ := json.Marshal(args)
+	resByte, resError := updateEntitybyId(companyName, endpoint, no, body)
+	if resError != nil {
+		return nil, resError
+	}
+	err := json.Unmarshal(resByte, &response)
+	if err != nil {
+		return nil, errorhandler.CouldNotUnmarshalData()
+	}
+	return response, nil
 }
