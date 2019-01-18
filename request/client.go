@@ -9,18 +9,8 @@ import (
 	"net/url"
 )
 
-func clientRequest(uri string, method string, body []byte) ([]byte, error) {
-	u, err := url.Parse(uri)
-	if err != nil {
-		panic(err)
-	}
-	u.RawQuery = u.Query().Encode()
+func clientRequest(req *http.Request, method string) ([]byte, error) {
 	client := &http.Client{}
-	req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(body))
-	req.SetBasicAuth(config.Username, config.Passwd)
-	req.Header.Add("If-Match", "*")
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json; odata.metadata=minimal")
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
@@ -39,4 +29,24 @@ func clientRequest(uri string, method string, body []byte) ([]byte, error) {
 		}
 	}
 	return resultByte, nil
+}
+
+func headers(uri string, method string, body []byte) *http.Request {
+	u, err := url.Parse(uri)
+	if err != nil {
+		panic(err)
+	}
+	u.RawQuery = u.Query().Encode()
+	req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(body))
+	req.SetBasicAuth(config.Username, config.Passwd)
+	req.Header.Add("If-Match", "*")
+	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Content-Type", "application/json; odata.metadata=minimal")
+	return req
+
+}
+
+func request(uri string, method string, body []byte) ([]byte, error) {
+	req := headers(uri, method, body)
+	return clientRequest(req, method)
 }
