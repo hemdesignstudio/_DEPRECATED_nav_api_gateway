@@ -16,19 +16,19 @@ func clientRequest(req *http.Request, method string) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	resultByte, err := ioutil.ReadAll(resp.Body)
+	respBody, err := ioutil.ReadAll(resp.Body)
 
 	if method == "POST" {
 		if resp.StatusCode != http.StatusCreated {
-			return nil, errorhandler.Handle(resp.StatusCode, resultByte)
+			return nil, errorhandler.Handle(resp.StatusCode, respBody)
 		}
 	} else {
 		if resp.StatusCode != http.StatusOK {
-			return nil, errorhandler.Handle(resp.StatusCode, resultByte)
+			return nil, errorhandler.Handle(resp.StatusCode, respBody)
 
 		}
 	}
-	return resultByte, nil
+	return respBody, nil
 }
 
 func headers(uri string, method string, body []byte) *http.Request {
