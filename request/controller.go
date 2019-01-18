@@ -12,8 +12,8 @@ func getAllEntitiesByCompanyName(companyName string, endpoint string) []byte {
 		fmt.Sprintf("('%s')", companyName) +
 		endpoint
 
-	resultByte, _ := get(uri)
-	return resultByte
+	respBody, _ := get(uri)
+	return respBody
 }
 
 func filterByArgs(companyName, endpoint string, args map[string]interface{}) ([]byte, error) {
@@ -31,8 +31,8 @@ func filterByArgs(companyName, endpoint string, args map[string]interface{}) ([]
 		filter = fmt.Sprintf("?$filter=%s eq '%s'", key, value)
 	}
 
-	resultByte, err := get(uri + filter)
-	return resultByte, err
+	respBody, err := get(uri + filter)
+	return respBody, err
 }
 
 func createEntity(companyName string, endpoint string, body []byte) ([]byte, error) {
@@ -41,8 +41,8 @@ func createEntity(companyName string, endpoint string, body []byte) ([]byte, err
 		fmt.Sprintf("('%s')", companyName) +
 		endpoint
 
-	resultByte, err := post(uri, body)
-	return resultByte, err
+	respBody, err := post(uri, body)
+	return respBody, err
 
 }
 
@@ -52,7 +52,7 @@ func updateEntitybyId(companyName string, endpoint string, id string, body []byt
 		fmt.Sprintf("('%s')", companyName) +
 		endpoint + fmt.Sprintf("('%s')", id)
 
-	resultByte, err := patch(uri, body)
-	return resultByte, err
+	respBody, err := patch(uri, body)
+	return respBody, err
 
 }
