@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-func main() {
+func RootEndpointHandler() *gqlhandler.Handler {
 	query := utils.QueryType()
 	mutation := utils.MutationType()
 
@@ -28,8 +28,14 @@ func main() {
 		GraphiQL:   true,
 		Playground: false,
 	})
+	return handler
 
-	http.Handle(config.Endpoint+config.Version, handler)
+}
+
+func main() {
+
+	http.Handle(config.Endpoint+config.Version, RootEndpointHandler())
 	fmt.Println("Server started at http://localhost:6789/graphql/v0.1.0")
 	log.Fatal(http.ListenAndServe(config.Host, nil))
+
 }
