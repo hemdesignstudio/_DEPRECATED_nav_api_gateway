@@ -47,11 +47,10 @@ func TestAssemblyBomFilter(t *testing.T) {
 		assert.Equal(t, 200, resCode, "Response code is 200 as expected")
 
 		for _, element := range resBody.Data.AssemblyBom {
-			assert.NotNil(t, element.No, "No should not be Nil")
-			assert.NotNil(t, element.QuantityPer, "QuantityPer should not be Nil")
-			assert.NotNil(t, element.Type, "Type should not be Nil")
-			assert.NotNil(t, element.ParentItemNo, "ParentItemNo should not be Nil")
-			assert.NotNil(t, element.UnitOfMeasureCode, "UnitOfMeasureCode should not be Nil")
+			values := serialize(element)
+			for _, val := range values {
+				assert.NotNil(t, val)
+			}
 
 		}
 
