@@ -6,20 +6,31 @@ import (
 	"reflect"
 )
 
-func getAllEntitiesByCompanyName(companyName string, endpoint string) []byte {
+func getAllEntities(endpoint string) []byte {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", companyName) +
+		fmt.Sprintf("('%s')", config.CompanyName) +
 		endpoint
 
 	respBody, _ := get(uri)
 	return respBody
 }
 
-func filterByArgs(companyName, endpoint string, args map[string]interface{}) ([]byte, error) {
+func createEntity(endpoint string, body []byte) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", companyName) +
+		fmt.Sprintf("('%s')", config.CompanyName) +
+		endpoint
+
+	respBody, err := post(uri, body)
+	return respBody, err
+
+}
+
+func filterByArgs(endpoint string, args map[string]interface{}) ([]byte, error) {
+	uri := config.BaseUrl +
+		config.CompanyEndpoint +
+		fmt.Sprintf("('%s')", config.CompanyName) +
 		endpoint
 
 	key := args["key"]
@@ -35,22 +46,33 @@ func filterByArgs(companyName, endpoint string, args map[string]interface{}) ([]
 	return respBody, err
 }
 
-func createEntity(companyName string, endpoint string, body []byte) ([]byte, error) {
+func updateEntitybyId(endpoint, id string, body []byte) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", companyName) +
-		endpoint
+		fmt.Sprintf("('%s')", config.CompanyName) +
+		endpoint + fmt.Sprintf("('%s')", id)
 
-	respBody, err := post(uri, body)
+	respBody, err := patch(uri, body)
 	return respBody, err
 
 }
 
-func updateEntitybyId(companyName string, endpoint string, id string, body []byte) ([]byte, error) {
+func updateEntitybyDocumentTypeAndID(endpoint, id, docType string, body []byte) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", companyName) +
-		endpoint + fmt.Sprintf("('%s')", id)
+		fmt.Sprintf("('%s')", config.CompanyName) +
+		endpoint + fmt.Sprintf("('%s','%s')", docType, id)
+
+	respBody, err := patch(uri, body)
+	return respBody, err
+
+}
+
+func updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, lineNo int, body []byte) ([]byte, error) {
+	uri := config.BaseUrl +
+		config.CompanyEndpoint +
+		fmt.Sprintf("('%s')", config.CompanyName) +
+		endpoint + fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
 
 	respBody, err := patch(uri, body)
 	return respBody, err

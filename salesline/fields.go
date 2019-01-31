@@ -7,6 +7,8 @@ func CreateType(name string) *graphql.Object {
 	fields := graphql.Fields{
 		"No":                    &graphql.Field{Type: graphql.String},
 		"Document_No":           &graphql.Field{Type: graphql.String},
+		"Document_Type":         &graphql.Field{Type: graphql.String},
+		"Line_No":               &graphql.Field{Type: graphql.Int},
 		"Type":                  &graphql.Field{Type: graphql.String},
 		"Description":           &graphql.Field{Type: graphql.String},
 		"Reserve":               &graphql.Field{Type: graphql.String},
