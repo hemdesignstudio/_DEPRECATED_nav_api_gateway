@@ -41,13 +41,13 @@ func TestCustomerCardFilter(t *testing.T) {
 		json.Unmarshal(resBodyInBytes, &resBody)
 
 		assert.Equal(t, 200, resCode, "Response code is 200 as expected")
-
 		for _, element := range resBody.Data.CustomerCard {
-			assert.NotNil(t, element.No, "No should not be Nil")
-
+			values := serialize(element)
+			for _, val := range values {
+				assert.NotNil(t, val)
+			}
 		}
 
 	}
-
 	assert.Equal(t, "12345", resBody.Data.CustomerCard[0].No, "Expected No = 12345")
 }
