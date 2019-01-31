@@ -45,10 +45,26 @@ func Create(endpoint string, args map[string]interface{}, response interface{}) 
 	return response, nil
 }
 
-func Update(endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
-	no := args["No"].(string)
+func Update(endpoint string, args map[string]interface{}, docType, response interface{}) (interface{}, error) {
+
+	var resByte []byte
+	var resError error
+
+	id := args["No"].(string)
 	body, _ := json.Marshal(args)
-	resByte, resError := updateEntitybyId(endpoint, no, body)
+
+	if docType != nil {
+		docType := docType.(string)
+		if lineNo, ok := args["lineNo"]; ok {
+			lineNo := lineNo.(int)
+			resByte, resError = updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, lineNo, body)
+		} else {
+			resByte, resError = updateEntitybyDocumentTypeAndID(endpoint, id, docType, body)
+		}
+	} else {
+		resByte, resError = updateEntitybyId(endpoint, id, body)
+	}
+
 	if resError != nil {
 		return nil, resError
 	}
