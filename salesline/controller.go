@@ -19,5 +19,6 @@ func Create(args map[string]interface{}) (interface{}, error) {
 
 func Update(args map[string]interface{}) (interface{}, error) {
 	res := Response{}
-	return request.Update(endpoint, args, nil, res)
+	docType := args["Document_Type"]
+	return request.Update(endpoint, args, docType, res)
 }

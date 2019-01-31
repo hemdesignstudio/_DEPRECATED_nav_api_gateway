@@ -223,6 +223,7 @@ var salesOrderArgs = map[string]*graphql.ArgumentConfig{
 var salesLineArgs = map[string]*graphql.ArgumentConfig{
 
 	"No":                    {Type: graphql.String},
+	"Document_Type":         {Type: graphql.NewNonNull(graphql.String)},
 	"Document_No":           {Type: graphql.NewNonNull(graphql.String)},
 	"Line_No":               {Type: graphql.NewNonNull(graphql.Int)},
 	"Type":                  {Type: graphql.String},
