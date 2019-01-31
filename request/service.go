@@ -50,18 +50,20 @@ func Update(endpoint string, args map[string]interface{}, docType, response inte
 	var resByte []byte
 	var resError error
 
-	id := args["No"].(string)
 	body, _ := json.Marshal(args)
 
 	if docType != nil {
 		docType := docType.(string)
-		if lineNo, ok := args["lineNo"]; ok {
+		if lineNo, ok := args["Line_No"]; ok {
+			id := args["Document_No"].(string)
 			lineNo := lineNo.(int)
 			resByte, resError = updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, lineNo, body)
 		} else {
+			id := args["No"].(string)
 			resByte, resError = updateEntitybyDocumentTypeAndID(endpoint, id, docType, body)
 		}
 	} else {
+		id := args["No"].(string)
 		resByte, resError = updateEntitybyId(endpoint, id, body)
 	}
 
