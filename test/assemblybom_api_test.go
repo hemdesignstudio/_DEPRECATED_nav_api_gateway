@@ -2,68 +2,24 @@ package test
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/nav-api-gateway/assemblybom"
 	"github.com/stretchr/testify/assert"
-	"strings"
 	"testing"
 )
 
-var page = "AssemblyBom"
-
-var attrs = []string{
-	"No",
-	"Parent_Item_No",
-	"No",
-	"Type",
-	"Quantity_per",
-	"Unit_of_Measure_Code",
+type AssemblyBomResponseBody struct {
+	Data AssemblyBomData `json:"data"`
 }
 
-var args = []map[string]string{
-	{
-		"key":   "No",
-		"value": "40001",
-	},
-}
-
-type ResponseBody struct {
-	Data Data `json:"data"`
-}
-
-type Data struct {
+type AssemblyBomData struct {
 	AssemblyBom []assemblybom.AssemblyBom `json:"assemblybom"`
 }
 
-func getAllQuery() string {
-	attrStr := strings.Join(attrs, " ")
-	query := fmt.Sprintf(
-		"?query={%s{%s}}",
-		page,
-		attrStr)
-	return query
-}
-
-func getQueryList() []string {
-	var queryList []string
-	attrStr := strings.Join(attrs, " ")
-
-	for _, element := range args {
-		query := fmt.Sprintf(
-			"?query={%s(key:\"%s\",value:\"%s\"){%s}}",
-			page,
-			element["key"],
-			element["value"],
-			attrStr)
-		queryList = append(queryList, query)
-	}
-
-	return queryList
-}
-
-func TestGetAll(t *testing.T) {
-	resBody := ResponseBody{}
-	query := getAllQuery()
+func TestAssemblyBomGetAll(t *testing.T) {
+	resBody := AssemblyBomResponseBody{}
+	page := pages.assemblybom
+	attrs := getAssemblyBomAttrs()
+	query := getAllQuery(page, attrs)
 	resCode, resBodyInBytes := client("GET", query)
 	json.Unmarshal(resBodyInBytes, &resBody)
 	element := resBody.Data.AssemblyBom[0]
@@ -77,9 +33,12 @@ func TestGetAll(t *testing.T) {
 
 }
 
-func TestFilter(t *testing.T) {
-	resBody := ResponseBody{}
-	queryList := getQueryList()
+func TestAssemblyBomFilter(t *testing.T) {
+	resBody := AssemblyBomResponseBody{}
+	page := pages.assemblybom
+	attrs := getAssemblyBomAttrs()
+	args := getAssemblyBomArgs()
+	queryList := getQueryList(page, attrs, args)
 
 	for _, query := range queryList {
 		resCode, resBodyInBytes := client("GET", query)
