@@ -14,6 +14,7 @@ type Response struct {
 type SalesLine struct {
 	No                  string  `json:"No"`
 	DocumentNo          string  `json:"Document_No"`
+	LineNo              string  `json:"Line_No"`
 	Type                string  `json:"Type"`
 	Description         string  `json:"Description"`
 	Reserve             string  `json:"Reserve"`
