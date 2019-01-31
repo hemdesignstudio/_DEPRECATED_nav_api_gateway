@@ -38,7 +38,6 @@ func getCustomerCardAttrs() []string {
 		"Customer_Posting_Group",
 		"Gen_Bus_Posting_Group",
 		"VAT_Bus_Posting_Group",
-		"Global_Dimension_2_Code",
 		"Customer_Price_Group",
 		"Customer_Disc_Group",
 		"Payment_Terms_Code",
