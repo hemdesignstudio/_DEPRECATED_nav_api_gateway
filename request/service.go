@@ -5,8 +5,8 @@ import (
 	"github.com/nav-api-gateway/errorhandler"
 )
 
-func GetAll(companyName string, endpoint string, response interface{}) (interface{}, error) {
-	resByte := getAllEntitiesByCompanyName(companyName, endpoint)
+func GetAll(endpoint string, response interface{}) (interface{}, error) {
+	resByte := getAllEntities(endpoint)
 	err := json.Unmarshal(resByte, &response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
@@ -15,8 +15,8 @@ func GetAll(companyName string, endpoint string, response interface{}) (interfac
 	return res["value"], nil
 }
 
-func Filter(companyName, endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
-	resByte, resError := filterByArgs(companyName, endpoint, args)
+func Filter(endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+	resByte, resError := filterByArgs(endpoint, args)
 	if resError != nil {
 		return nil, resError
 	}
@@ -32,9 +32,9 @@ func Filter(companyName, endpoint string, args map[string]interface{}, response 
 	return values, nil
 }
 
-func Create(companyName, endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+func Create(endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
 	body, _ := json.Marshal(args)
-	resByte, resError := createEntity(companyName, endpoint, body)
+	resByte, resError := createEntity(endpoint, body)
 	if resError != nil {
 		return nil, resError
 	}
@@ -45,10 +45,10 @@ func Create(companyName, endpoint string, args map[string]interface{}, response 
 	return response, nil
 }
 
-func Update(companyName, endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+func Update(endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
 	no := args["No"].(string)
 	body, _ := json.Marshal(args)
-	resByte, resError := updateEntitybyId(companyName, endpoint, no, body)
+	resByte, resError := updateEntitybyId(endpoint, no, body)
 	if resError != nil {
 		return nil, resError
 	}
