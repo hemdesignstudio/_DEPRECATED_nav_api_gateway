@@ -4,14 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/nav-api-gateway/assemblybom"
-	"github.com/nav-api-gateway/roothandler"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
-	"net/http"
-	"net/http/httptest"
 	"strings"
 	"testing"
 )
+
+var page = "AssemblyBom"
 
 var attrs = []string{
 	"No",
@@ -29,7 +27,7 @@ var args = []map[string]string{
 	},
 }
 
-type Resp struct {
+type ResponseBody struct {
 	Data Data `json:"data"`
 }
 
@@ -37,33 +35,71 @@ type Data struct {
 	AssemblyBom []assemblybom.AssemblyBom `json:"assemblybom"`
 }
 
-func query() string {
-
+func getAllQuery() string {
 	attrStr := strings.Join(attrs, " ")
 	query := fmt.Sprintf(
-		"?query={AssemblyBom(key:\"%s\",value:\"%s\"){%s}}",
-		args[0]["key"],
-		args[0]["value"],
-		attrStr,
-	)
+		"?query={%s{%s}}",
+		page,
+		attrStr)
 	return query
 }
 
-func TestAssemblyBOMFiltering(t *testing.T) {
-	res := Resp{}
-	request, _ := http.NewRequest("GET", query(), nil)
-	response := httptest.NewRecorder()
-	handler := roothandler.RootEndpoint()
-	handler.ServeHTTP(response, request)
-	respBody, _ := ioutil.ReadAll(response.Body)
-	err := json.Unmarshal(respBody, &res)
-	if err != nil {
-		fmt.Println("could not unmarshal data")
+func getQueryList() []string {
+	var queryList []string
+	attrStr := strings.Join(attrs, " ")
+
+	for _, element := range args {
+		query := fmt.Sprintf(
+			"?query={%s(key:\"%s\",value:\"%s\"){%s}}",
+			page,
+			element["key"],
+			element["value"],
+			attrStr)
+		queryList = append(queryList, query)
 	}
-	assert.Equal(t, 200, response.Code, "Response code is 200 as expected")
-	assert.Equal(t, "40001", res.Data.AssemblyBom[0].No, "Expected No = 40001")
-	assert.Equal(t, "10005", res.Data.AssemblyBom[0].ParentItemNo, "Expected 10005")
-	assert.Equal(t, "Item", res.Data.AssemblyBom[0].Type, "Expected Item")
-	assert.Equal(t, 1.65, res.Data.AssemblyBom[0].QuantityPer, "Expected 1.65")
-	assert.NotNil(t, res.Data.AssemblyBom[0].ParentItemNo)
+
+	return queryList
+}
+
+func TestGetAll(t *testing.T) {
+	resBody := ResponseBody{}
+	query := getAllQuery()
+	resCode, resBodyInBytes := client("GET", query)
+	json.Unmarshal(resBodyInBytes, &resBody)
+	element := resBody.Data.AssemblyBom[0]
+
+	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
+	assert.NotNil(t, element.No, "No should not be Nil")
+	assert.NotNil(t, element.QuantityPer, "QuantityPer should not be Nil")
+	assert.NotNil(t, element.Type, "Type should not be Nil")
+	assert.NotNil(t, element.ParentItemNo, "ParentItemNo should not be Nil")
+	assert.NotNil(t, element.UnitOfMeasureCode, "UnitOfMeasureCode should not be Nil")
+
+}
+
+func TestFilter(t *testing.T) {
+	resBody := ResponseBody{}
+	queryList := getQueryList()
+
+	for _, query := range queryList {
+		resCode, resBodyInBytes := client("GET", query)
+		json.Unmarshal(resBodyInBytes, &resBody)
+
+		assert.Equal(t, 200, resCode, "Response code is 200 as expected")
+
+		for _, element := range resBody.Data.AssemblyBom {
+			assert.NotNil(t, element.No, "No should not be Nil")
+			assert.NotNil(t, element.QuantityPer, "QuantityPer should not be Nil")
+			assert.NotNil(t, element.Type, "Type should not be Nil")
+			assert.NotNil(t, element.ParentItemNo, "ParentItemNo should not be Nil")
+			assert.NotNil(t, element.UnitOfMeasureCode, "UnitOfMeasureCode should not be Nil")
+
+		}
+
+	}
+
+	assert.Equal(t, "40001", resBody.Data.AssemblyBom[0].No, "Expected No = 40001")
+	assert.Equal(t, "10005", resBody.Data.AssemblyBom[0].ParentItemNo, "Expected 10005")
+	assert.Equal(t, "Item", resBody.Data.AssemblyBom[0].Type, "Expected Item")
+	assert.Equal(t, 1.65, resBody.Data.AssemblyBom[0].QuantityPer, "Expected 1.65")
 }
