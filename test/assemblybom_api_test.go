@@ -3,6 +3,7 @@ package test
 import (
 	"encoding/json"
 	"github.com/nav-api-gateway/assemblybom"
+	"github.com/nav-api-gateway/test/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -17,10 +18,10 @@ type AssemblyBomData struct {
 
 func TestAssemblyBomGetAll(t *testing.T) {
 	resBody := AssemblyBomResponseBody{}
-	page := pages.assemblybom
-	attrs := getAssemblyBomAttrs()
-	query := getAllQuery(page, attrs)
-	resCode, resBodyInBytes := client("GET", query)
+	page := utils.Query.AssemblyBom
+	attrs := utils.GetAssemblyBomAttrs()
+	query := utils.GetAllQuery(page, attrs)
+	resCode, resBodyInBytes := utils.Client("GET", query, nil)
 	json.Unmarshal(resBodyInBytes, &resBody)
 	element := resBody.Data.AssemblyBom[0]
 
@@ -35,19 +36,22 @@ func TestAssemblyBomGetAll(t *testing.T) {
 
 func TestAssemblyBomFilter(t *testing.T) {
 	resBody := AssemblyBomResponseBody{}
-	page := pages.assemblybom
-	attrs := getAssemblyBomAttrs()
-	args := getAssemblyBomArgs()
-	queryList := getQueryList(page, attrs, args)
+	page := utils.Query.AssemblyBom
+	attrs := utils.GetAssemblyBomAttrs()
+	args := utils.GetAssemblyBomArgs()
+	queryList := utils.GetQueryList(page, attrs, args)
 
 	for _, query := range queryList {
-		resCode, resBodyInBytes := client("GET", query)
+		resCode, resBodyInBytes := utils.Client("GET", query, nil)
 		json.Unmarshal(resBodyInBytes, &resBody)
 
 		assert.Equal(t, 200, resCode, "Response code is 200 as expected")
-
-		for _, element := range resBody.Data.AssemblyBom {
-			values := serialize(element)
+		elements := resBody.Data.AssemblyBom
+		if len(elements) < 1 {
+			assert.Equal(t, true, false, "Elements are not created, thus test fails")
+		}
+		for _, element := range elements {
+			values := utils.Serialize(element)
 			for _, val := range values {
 				assert.NotNil(t, val)
 			}
