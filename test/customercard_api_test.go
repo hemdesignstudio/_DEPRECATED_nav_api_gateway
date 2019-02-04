@@ -3,7 +3,9 @@ package test
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/customer"
+	"github.com/nav-api-gateway/request"
 	"github.com/nav-api-gateway/test/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -30,9 +32,10 @@ func TestGetAllCustomerCard(t *testing.T) {
 	query := utils.GetAllQuery(page, attrs)
 	resCode, resBodyInBytes := utils.Client("GET", query, nil)
 	json.Unmarshal(resBodyInBytes, &resBody)
-	element := resBody.Data.CustomerCard[0]
+	elements := resBody.Data.CustomerCard
+	assert.NotEmpty(t, elements, "Empty results are returned")
 	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
-	assert.NotNil(t, element.No, "No should not be Nil")
+	assert.NotNil(t, elements[0].No, "No should not be Nil")
 
 }
 
@@ -46,18 +49,18 @@ func TestFilterCustomerCard(t *testing.T) {
 	for _, query := range queryList {
 		resCode, resBodyInBytes := utils.Client("GET", query, nil)
 		json.Unmarshal(resBodyInBytes, &resBody)
-
+		elements := resBody.Data.CustomerCard
 		assert.Equal(t, 200, resCode, "Response code is 200 as expected")
-		for _, element := range resBody.Data.CustomerCard {
+		assert.NotEmpty(t, elements, "Empty results are returned")
+		for _, element := range elements {
 			values := utils.Serialize(element)
 			for _, val := range values {
 				assert.NotNil(t, val)
 			}
 		}
-
+		navNo := args[0]["value"]
+		assert.Equal(t, navNo, elements[0].No, fmt.Sprintf("Expected No = %s", navNo))
 	}
-	navNo := args[0]["value"]
-	assert.Equal(t, navNo, resBody.Data.CustomerCard[0].No, fmt.Sprintf("Expected No = %s", navNo))
 }
 
 func TestCreateCustomerCard(t *testing.T) {
@@ -70,9 +73,13 @@ func TestCreateCustomerCard(t *testing.T) {
 	json.Unmarshal(resBodyInBytes, &resBody)
 	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
 	element := resBody.Data.CreateCustomerCard
+	assert.NotEmpty(t, element, "Empty results are returned")
 	values := utils.Serialize(element)
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-
+	for _, arg := range args {
+		responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, arg, nil)
+		assert.Equal(t, 204, responseCode, "Could not delete entity")
+	}
 }
