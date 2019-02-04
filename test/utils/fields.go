@@ -85,5 +85,29 @@ func GetCustomerCardArgs() Args {
 		"Web_Customer":           true,
 	}}
 
+	args.UpdateArgs = SliceOfMaps{{
+		"No":                     "12233",
+		"Name":                   "qraphql Test update",
+		"Address":                "Endla 80, update",
+		"Address_2":              "Another Address in Tallinn",
+		"Post_Code":              "11431",
+		"City":                   "Tallinn",
+		"Country_Region_Code":    "EE",
+		"VAT_Registration_No":    "12345",
+		"Customer_Posting_Group": "PROJECT",
+		"Gen_Bus_Posting_Group":  "DOMESTIC",
+		"VAT_Bus_Posting_Group":  "PL-EU",
+		"Customer_Price_Group":   "PROJECT",
+		"Customer_Disc_Group":    "PROJECT",
+		"Payment_Terms_Code":     "CIA",
+		"Currency_Code":          "EUR",
+		"Language_Code":          "ENU",
+		"Web_E_Mail":             "ahmed@test.com",
+		"Web_Customer":           true,
+		//read only fields
+		//"Contact":                "8837372",
+
+	}}
+
 	return args
 }
