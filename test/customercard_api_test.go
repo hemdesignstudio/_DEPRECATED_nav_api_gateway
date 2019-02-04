@@ -12,12 +12,8 @@ import (
 )
 
 type CustomerCardResponseBody struct {
-	Data   CustomerCardData `json:"data"`
-	Errors []ErrorMessage   `json:"errors"`
-}
-
-type ErrorMessage struct {
-	Message interface{} `json:"message"`
+	Data   CustomerCardData     `json:"data"`
+	Errors []utils.ErrorMessage `json:"errors"`
 }
 
 type CustomerCardData struct {
@@ -70,6 +66,7 @@ func TestGetAllCustomerCard(t *testing.T) {
 }
 
 func TestFilterCustomerCard(t *testing.T) {
+	createCustomer()
 	resBody := CustomerCardResponseBody{}
 	page := utils.Query.CustomerCard
 	attrs := utils.GetCustomerCardAttrs()
@@ -90,6 +87,11 @@ func TestFilterCustomerCard(t *testing.T) {
 		navNo := args[0]["value"]
 		assert.Equal(t, navNo, elements[0].No, fmt.Sprintf("Expected No = %s", navNo))
 	}
+	for _, arg := range args {
+		arg["No"] = arg["value"]
+		responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, arg, nil)
+		assert.Equal(t, 204, responseCode, "Could not delete entity")
+	}
 }
 
 func TestCreateCustomerCard(t *testing.T) {
@@ -108,20 +110,12 @@ func TestCreateCustomerCard(t *testing.T) {
 }
 
 func TestUpdateCustomerCard(t *testing.T) {
-	resCode, resBody, _ := createCustomer()
-	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
-	element := resBody.Data.CreateCustomerCard
-	assert.NotEmpty(t, element, "Empty results are returned")
-	values := utils.Serialize(element)
-	for _, val := range values {
-		assert.NotNil(t, val)
-	}
-
+	createCustomer()
 	resCode, resBody, args := updateCustomer()
 	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
-	element = resBody.Data.UpdateCustomerCard
+	element := resBody.Data.UpdateCustomerCard
 	assert.NotEmpty(t, element, "Empty results are returned")
-	values = utils.Serialize(element)
+	values := utils.Serialize(element)
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
