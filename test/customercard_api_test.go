@@ -27,7 +27,6 @@ type CustomerCardData struct {
 }
 
 func getAllCustomers() (int, CustomerCardResponseBody) {
-
 	resBody := CustomerCardResponseBody{}
 	page := utils.Query.CustomerCard
 	attrs := utils.GetCustomerCardAttrs()
