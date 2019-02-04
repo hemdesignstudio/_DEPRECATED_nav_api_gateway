@@ -1,8 +1,5 @@
 package utils
 
-type SliceOfMaps []map[string]interface{}
-type MapOfSliceOfMaps map[string][]map[string]interface{}
-
 type Args struct {
 	FilterArgs SliceOfMaps
 	CreateArgs SliceOfMaps
@@ -67,7 +64,7 @@ func GetCustomerCardArgs() Args {
 	}
 
 	args.CreateArgs = SliceOfMaps{{
-		"No":                     "12235",
+		"No":                     "12233",
 		"Name":                   "qraphql Test",
 		"Address":                "Endla 80",
 		"Address_2":              "Another Address",
