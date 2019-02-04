@@ -12,7 +12,7 @@ func getAllEntities(endpoint string) []byte {
 		fmt.Sprintf("('%s')", config.CompanyName) +
 		endpoint
 
-	respBody, _ := get(uri)
+	_, respBody, _ := get(uri)
 	return respBody
 }
 
@@ -22,7 +22,7 @@ func createEntity(endpoint string, body []byte) ([]byte, error) {
 		fmt.Sprintf("('%s')", config.CompanyName) +
 		endpoint
 
-	respBody, err := post(uri, body)
+	_, respBody, err := post(uri, body)
 	return respBody, err
 
 }
@@ -42,7 +42,7 @@ func filterByArgs(endpoint string, args map[string]interface{}) ([]byte, error) 
 		filter = fmt.Sprintf("?$filter=%s eq '%s'", key, value)
 	}
 
-	respBody, err := get(uri + filter)
+	_, respBody, err := get(uri + filter)
 	return respBody, err
 }
 
@@ -52,7 +52,7 @@ func updateEntitybyId(endpoint, id string, body []byte) ([]byte, error) {
 		fmt.Sprintf("('%s')", config.CompanyName) +
 		endpoint + fmt.Sprintf("('%s')", id)
 
-	respBody, err := patch(uri, body)
+	_, respBody, err := patch(uri, body)
 	return respBody, err
 
 }
@@ -63,7 +63,7 @@ func updateEntitybyDocumentTypeAndID(endpoint, id, docType string, body []byte) 
 		fmt.Sprintf("('%s')", config.CompanyName) +
 		endpoint + fmt.Sprintf("('%s','%s')", docType, id)
 
-	respBody, err := patch(uri, body)
+	_, respBody, err := patch(uri, body)
 	return respBody, err
 
 }
@@ -74,7 +74,39 @@ func updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, line
 		fmt.Sprintf("('%s')", config.CompanyName) +
 		endpoint + fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
 
-	respBody, err := patch(uri, body)
+	_, respBody, err := patch(uri, body)
 	return respBody, err
+
+}
+
+func deleteEntitybyId(endpoint, id string) (int, error) {
+	uri := config.BaseUrl +
+		config.CompanyEndpoint +
+		fmt.Sprintf("('%s')", config.CompanyName) +
+		endpoint + fmt.Sprintf("('%s')", id)
+
+	resCode, _, err := delete(uri, nil)
+	return resCode, err
+}
+
+func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) {
+	uri := config.BaseUrl +
+		config.CompanyEndpoint +
+		fmt.Sprintf("('%s')", config.CompanyName) +
+		endpoint + fmt.Sprintf("('%s','%s')", docType, id)
+
+	resCode, _, err := delete(uri, nil)
+	return resCode, err
+
+}
+
+func deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, lineNo int) (int, error) {
+	uri := config.BaseUrl +
+		config.CompanyEndpoint +
+		fmt.Sprintf("('%s')", config.CompanyName) +
+		endpoint + fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
+
+	resCode, _, err := delete(uri, nil)
+	return resCode, err
 
 }

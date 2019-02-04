@@ -76,3 +76,30 @@ func Update(endpoint string, args map[string]interface{}, docType, response inte
 	}
 	return response, nil
 }
+
+func Delete(endpoint string, args map[string]interface{}, docType interface{}) (interface{}, error) {
+
+	var resCode int
+	var resError error
+
+	if docType != nil {
+		docType := docType.(string)
+		if lineNo, ok := args["Line_No"]; ok {
+			id := args["Document_No"].(string)
+			lineNo := lineNo.(int)
+			resCode, resError = deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, lineNo)
+		} else {
+			id := args["No"].(string)
+			resCode, resError = deleteEntitybyDocumentTypeAndID(endpoint, id, docType)
+		}
+	} else {
+		id := args["No"].(string)
+		resCode, resError = deleteEntitybyId(endpoint, id)
+	}
+
+	if resError != nil {
+		return nil, resError
+	}
+
+	return resCode, nil
+}

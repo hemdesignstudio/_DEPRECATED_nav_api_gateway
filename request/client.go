@@ -24,29 +24,34 @@ func headers(uri string, method string, body []byte) *http.Request {
 
 }
 
-func clientRequest(req *http.Request, method string) ([]byte, error) {
+func clientRequest(req *http.Request, method string) (int, []byte, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, err
+		return resp.StatusCode, nil, err
 	}
 	defer resp.Body.Close()
 	respBody, err := ioutil.ReadAll(resp.Body)
 
 	if method == "POST" {
 		if resp.StatusCode != http.StatusCreated {
-			return nil, errorhandler.Handle(resp.StatusCode, respBody)
+			return resp.StatusCode, nil, errorhandler.Handle(resp.StatusCode, respBody)
 		}
+	} else if method == "DELETE" {
+		if resp.StatusCode != http.StatusNoContent {
+			return resp.StatusCode, nil, errorhandler.Handle(resp.StatusCode, respBody)
+		}
+
 	} else {
 		if resp.StatusCode != http.StatusOK {
-			return nil, errorhandler.Handle(resp.StatusCode, respBody)
+			return resp.StatusCode, nil, errorhandler.Handle(resp.StatusCode, respBody)
 
 		}
 	}
-	return respBody, nil
+	return resp.StatusCode, respBody, nil
 }
 
-func request(uri string, method string, body []byte) ([]byte, error) {
+func request(uri string, method string, body []byte) (int, []byte, error) {
 	req := headers(uri, method, body)
 	return clientRequest(req, method)
 }
