@@ -56,15 +56,16 @@ func GetCustomerCardAttrs() []string {
 }
 
 func GetCustomerCardArgs() Args {
+	var id = "12233"
 	args := Args{}
 	args.FilterArgs = SliceOfMaps{{
 		"key":   "No",
-		"value": "12230",
+		"value": id,
 	},
 	}
 
 	args.CreateArgs = SliceOfMaps{{
-		"No":                     "12233",
+		"No":                     id,
 		"Name":                   "qraphql Test",
 		"Address":                "Endla 80",
 		"Address_2":              "Another Address",
@@ -86,7 +87,7 @@ func GetCustomerCardArgs() Args {
 	}}
 
 	args.UpdateArgs = SliceOfMaps{{
-		"No":                     "12233",
+		"No":                     id,
 		"Name":                   "qraphql Test update",
 		"Address":                "Endla 80, update",
 		"Address_2":              "Another Address in Tallinn",
@@ -107,6 +108,96 @@ func GetCustomerCardArgs() Args {
 		//read only fields
 		//"Contact":                "8837372",
 
+	}}
+
+	return args
+}
+
+func GetItemCardAttrs() []string {
+	attrs := []string{
+		"No",
+		"Description",
+		"Base_Unit_of_Measure",
+		"Assembly_BOM",
+		"Item_Category_Code",
+		"Product_Group_Code",
+		"Inventory",
+		"Qty_on_Purch_Order",
+		"Qty_on_Sales_Order",
+		"Last_Date_Modified",
+		"Freight_Type",
+		"Assembly_Policy",
+		"Country_Region_of_Origin_Code",
+		"Net_Weight",
+		"Gross_Weight",
+		"Unit_Volume",
+		"Length",
+		"Width",
+		"Height",
+		"Designer",
+		"Web_Status",
+	}
+	return attrs
+
+}
+
+func GetItemCardArgs() Args {
+	var id = "11233"
+	args := Args{}
+	args.FilterArgs = SliceOfMaps{{
+		"key":   "No",
+		"value": id,
+	}}
+
+	args.CreateArgs = SliceOfMaps{{
+		"No":                            id,
+		"Assembly_BOM":                  false,
+		"Assembly_Policy":               "Assemble-to-Stock",
+		"Base_Unit_of_Measure":          "PCS",
+		"Country_Region_of_Origin_Code": "PL",
+		"Description":                   "Hai Chair Mosaic Charcoal Test",
+		"Designer":                      "Luca Nichetto",
+		"Freight_Type":                  "FREIGHT",
+		"Gross_Weight":                  27,
+		"Height":                        106.4,
+		"Item_Category_Code":            "LOUNGE CH",
+		"Length":                        94.4,
+		"Net_Weight":                    0,
+		"Product_Group_Code":            "LOUNGE CH",
+		"Unit_Volume":                   0.948,
+		"Web_Status":                    "On",
+		"Width":                         94.4,
+		//Read Only Fields
+		//"Qty_on_Sales_Order":            17,
+		//"Qty_on_Purch_Order":            25,
+		//"Inventory":                     17,
+		//"Last_Date_Modified": "2019-01-16",
+
+	}}
+
+	args.UpdateArgs = SliceOfMaps{{
+		"No":                            id,
+		"Assembly_Policy":               "Assemble-to-Stock",
+		"Base_Unit_of_Measure":          "PCS",
+		"Country_Region_of_Origin_Code": "LV",
+		"Description":                   "Hai Chair Mosaic Charcoal Test Update",
+		"Designer":                      "Luca Nichetto",
+		"Freight_Type":                  "PARCEL",
+		"Gross_Weight":                  27,
+		"Height":                        8.1,
+		"Item_Category_Code":            "HANGING MI",
+		"Length":                        94.4,
+		"Net_Weight":                    9,
+		"Product_Group_Code":            "HANGING MI",
+		"Unit_Volume":                   0.948,
+		"Web_Status":                    "On",
+		"Width":                         94.4,
+		//Read Only Fields
+		//"Assembly_BOM":                  true,
+		//"Qty_on_Sales_Order":            17,
+		//"Qty_on_Purch_Order":            25,
+		//"Inventory":                     17,
+		//"Last_Date_Modified": "2019-01-16",
 	}}
 
 	return args
