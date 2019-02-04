@@ -23,15 +23,46 @@ type ErrorMessage struct {
 type CustomerCardData struct {
 	CustomerCard       []customer.CustomerCard `json:"CustomerCard"`
 	CreateCustomerCard customer.CustomerCard   `json:"CreateCustomerCard"`
+	UpdateCustomerCard customer.CustomerCard   `json:"UpdateCustomerCard"`
 }
 
-func TestGetAllCustomerCard(t *testing.T) {
+func getAllCustomers() (int, CustomerCardResponseBody) {
+
 	resBody := CustomerCardResponseBody{}
 	page := utils.Query.CustomerCard
 	attrs := utils.GetCustomerCardAttrs()
 	query := utils.GetAllQuery(page, attrs)
 	resCode, resBodyInBytes := utils.Client("GET", query, nil)
 	json.Unmarshal(resBodyInBytes, &resBody)
+	return resCode, resBody
+
+}
+
+func createCustomer() (int, CustomerCardResponseBody, utils.SliceOfMaps) {
+	//create customer
+	resBody := CustomerCardResponseBody{}
+	page := utils.Mutation.CreateCustomerCard
+	attrs := utils.GetCustomerCardAttrs()
+	args := utils.GetCustomerCardArgs().CreateArgs
+	body := utils.GetPOSTBody(page, attrs, args)
+	resCode, resBodyInBytes := utils.Client("POST", "", body)
+	json.Unmarshal(resBodyInBytes, &resBody)
+	return resCode, resBody, args
+}
+
+func updateCustomer() (int, CustomerCardResponseBody, utils.SliceOfMaps) {
+	resBody := CustomerCardResponseBody{}
+	page := utils.Mutation.UpdateCustomerCard
+	attrs := utils.GetCustomerCardAttrs()
+	args := utils.GetCustomerCardArgs().UpdateArgs
+	body := utils.GetPOSTBody(page, attrs, args)
+	resCode, resBodyInBytes := utils.Client("POST", "", body)
+	json.Unmarshal(resBodyInBytes, &resBody)
+	return resCode, resBody, args
+}
+
+func TestGetAllCustomerCard(t *testing.T) {
+	resCode, resBody := getAllCustomers()
 	elements := resBody.Data.CustomerCard
 	assert.NotEmpty(t, elements, "Empty results are returned")
 	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
@@ -45,7 +76,6 @@ func TestFilterCustomerCard(t *testing.T) {
 	attrs := utils.GetCustomerCardAttrs()
 	args := utils.GetCustomerCardArgs().FilterArgs
 	queryList := utils.GetQueryList(page, attrs, args)
-
 	for _, query := range queryList {
 		resCode, resBodyInBytes := utils.Client("GET", query, nil)
 		json.Unmarshal(resBodyInBytes, &resBody)
@@ -64,17 +94,35 @@ func TestFilterCustomerCard(t *testing.T) {
 }
 
 func TestCreateCustomerCard(t *testing.T) {
-	resBody := CustomerCardResponseBody{}
-	page := utils.Mutation.CreateCustomerCard
-	attrs := utils.GetCustomerCardAttrs()
-	args := utils.GetCustomerCardArgs().CreateArgs
-	body := utils.GetPOSTBody(page, attrs, args)
-	resCode, resBodyInBytes := utils.Client("POST", "", body)
-	json.Unmarshal(resBodyInBytes, &resBody)
+	resCode, resBody, args := createCustomer()
 	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
 	element := resBody.Data.CreateCustomerCard
 	assert.NotEmpty(t, element, "Empty results are returned")
 	values := utils.Serialize(element)
+	for _, val := range values {
+		assert.NotNil(t, val)
+	}
+	for _, arg := range args {
+		responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, arg, nil)
+		assert.Equal(t, 204, responseCode, "Could not delete entity")
+	}
+}
+
+func TestUpdateCustomerCard(t *testing.T) {
+	resCode, resBody, _ := createCustomer()
+	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
+	element := resBody.Data.CreateCustomerCard
+	assert.NotEmpty(t, element, "Empty results are returned")
+	values := utils.Serialize(element)
+	for _, val := range values {
+		assert.NotNil(t, val)
+	}
+
+	resCode, resBody, args := updateCustomer()
+	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
+	element = resBody.Data.UpdateCustomerCard
+	assert.NotEmpty(t, element, "Empty results are returned")
+	values = utils.Serialize(element)
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
