@@ -1,5 +1,8 @@
 package utils
 
+type SliceOfMaps []map[string]interface{}
+type MapOfSliceOfMaps map[string][]map[string]interface{}
+
 type QueryType struct {
 	AssemblyBom  string
 	CustomerCard string
@@ -7,6 +10,7 @@ type QueryType struct {
 
 type MutationType struct {
 	CreateCustomerCard string
+	UpdateCustomerCard string
 }
 
 var Query = QueryType{
@@ -16,4 +20,5 @@ var Query = QueryType{
 
 var Mutation = MutationType{
 	CreateCustomerCard: "CreateCustomerCard",
+	UpdateCustomerCard: "UpdateCustomerCard",
 }
