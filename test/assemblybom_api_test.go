@@ -23,14 +23,14 @@ func TestAssemblyBomGetAll(t *testing.T) {
 	query := utils.GetAllQuery(page, attrs)
 	resCode, resBodyInBytes := utils.Client("GET", query, nil)
 	json.Unmarshal(resBodyInBytes, &resBody)
-	element := resBody.Data.AssemblyBom[0]
-
+	elements := resBody.Data.AssemblyBom
+	assert.NotEmpty(t, elements, "Empty results are returned")
 	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
-	assert.NotNil(t, element.No, "No should not be Nil")
-	assert.NotNil(t, element.QuantityPer, "QuantityPer should not be Nil")
-	assert.NotNil(t, element.Type, "Type should not be Nil")
-	assert.NotNil(t, element.ParentItemNo, "ParentItemNo should not be Nil")
-	assert.NotNil(t, element.UnitOfMeasureCode, "UnitOfMeasureCode should not be Nil")
+	assert.NotNil(t, elements[0].No, "No should not be Nil")
+	assert.NotNil(t, elements[0].QuantityPer, "QuantityPer should not be Nil")
+	assert.NotNil(t, elements[0].Type, "Type should not be Nil")
+	assert.NotNil(t, elements[0].ParentItemNo, "ParentItemNo should not be Nil")
+	assert.NotNil(t, elements[0].UnitOfMeasureCode, "UnitOfMeasureCode should not be Nil")
 
 }
 
@@ -44,12 +44,10 @@ func TestAssemblyBomFilter(t *testing.T) {
 	for _, query := range queryList {
 		resCode, resBodyInBytes := utils.Client("GET", query, nil)
 		json.Unmarshal(resBodyInBytes, &resBody)
-
 		assert.Equal(t, 200, resCode, "Response code is 200 as expected")
+
 		elements := resBody.Data.AssemblyBom
-		if len(elements) < 1 {
-			assert.Equal(t, true, false, "Elements are not created, thus test fails")
-		}
+		assert.NotEmpty(t, elements, "Empty results are returned")
 		for _, element := range elements {
 			values := utils.Serialize(element)
 			for _, val := range values {
