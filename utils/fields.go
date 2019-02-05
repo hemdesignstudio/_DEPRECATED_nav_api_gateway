@@ -5,6 +5,7 @@ import (
 	"github.com/nav-api-gateway/assemblybom"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/customer"
+	"github.com/nav-api-gateway/errorhandler"
 	"github.com/nav-api-gateway/item"
 	"github.com/nav-api-gateway/postship"
 	"github.com/nav-api-gateway/salesinvoice"
@@ -254,6 +255,9 @@ func createSalesInvoiceFields() *graphql.Field {
 		Args: salesInvoiceArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("create Sales Invoice of company: %s", config.CompanyName)
+			if len(p.Args) < 1 {
+				return nil, errorhandler.NotEnoughArguments()
+			}
 			return salesinvoice.Create(p.Args)
 		},
 	}
