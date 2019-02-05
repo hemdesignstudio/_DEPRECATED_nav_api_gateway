@@ -255,14 +255,12 @@ func GetSalesOrderArgs() Args {
 }
 
 func GetSalesInvoiceArgs() Args {
-	var id = "1100233"
 	args := Args{}
 	args.FilterArgs = SliceOfMaps{{
 		"key":   "No",
-		"value": id,
+		"value": "1000041",
 	}}
 	args.CreateArgs = SliceOfMaps{{
-		"No":                         id,
 		"Area":                       "",
 		"Assigned_User_ID":           "",
 		"Bill_to_Address":            "Klippgatan 14 I",
@@ -322,7 +320,6 @@ func GetSalesInvoiceArgs() Args {
 	}}
 
 	args.UpdateArgs = SliceOfMaps{{
-		"No":                         id,
 		"Area":                       "",
 		"Assigned_User_ID":           "",
 		"Bill_to_Address":            "Klippgatan 14 I",
