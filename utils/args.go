@@ -188,7 +188,6 @@ var salesOrderArgs = map[string]*graphql.ArgumentConfig{
 	"Job_Queue_Status":                {Type: graphql.String},
 	"Status":                          {Type: graphql.String},
 	"Whs_Shipment_Lines_Exists":       {Type: graphql.Boolean},
-	"Bill_to_Customer_No":             {Type: graphql.String},
 	"Bill_to_Name":                    {Type: graphql.String},
 	"Bill_to_Address":                 {Type: graphql.String},
 	"Bill_to_Post_Code":               {Type: graphql.String},
