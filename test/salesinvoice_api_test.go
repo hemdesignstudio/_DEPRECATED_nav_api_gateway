@@ -30,7 +30,6 @@ func getAllSalesInvoices() (int, SalesInvoiceResponseBody) {
 	resCode, resBodyInBytes := utils.Client("GET", query, nil)
 	json.Unmarshal(resBodyInBytes, &resBody)
 	return resCode, resBody
-
 }
 
 func createSalesInvoice() (int, SalesInvoiceResponseBody, utils.SliceOfMaps) {
@@ -40,6 +39,7 @@ func createSalesInvoice() (int, SalesInvoiceResponseBody, utils.SliceOfMaps) {
 	attrs := utils.GetSalesInvoiceAttrs()
 	args := utils.GetSalesInvoiceArgs().CreateArgs
 	body := utils.GetPOSTBody(page, attrs, args)
+	fmt.Println(body)
 	resCode, resBodyInBytes := utils.Client("POST", "", body)
 	json.Unmarshal(resBodyInBytes, &resBody)
 	return resCode, resBody, args
