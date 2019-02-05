@@ -132,7 +132,7 @@ func GetSalesInvoiceAttrs() []string {
 		"Sell_to_Post_Code",
 		"Sell_to_City",
 		"Sell_to_Contact",
-		"Note_of_Goods",
+		"PEB_Note_of_Goods",
 		"Posting_Date",
 		"Document_Date",
 		"Salesperson_Code",
