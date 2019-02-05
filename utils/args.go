@@ -104,7 +104,7 @@ var postShipArgs = map[string]*graphql.ArgumentConfig{
 }
 
 var salesInvoiceArgs = map[string]*graphql.ArgumentConfig{
-	"No":                         {Type: graphql.NewNonNull(graphql.String)},
+	//"No":                         {Type: graphql.NewNonNull(graphql.String)},
 	"Sell_to_Customer_No":        {Type: graphql.String},
 	"Sell_to_Contact_No":         {Type: graphql.String},
 	"Sell_to_Customer_Name":      {Type: graphql.String},
