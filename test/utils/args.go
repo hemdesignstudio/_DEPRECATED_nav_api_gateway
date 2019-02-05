@@ -6,18 +6,6 @@ type Args struct {
 	UpdateArgs SliceOfMaps
 }
 
-func GetAssemblyBomAttrs() []string {
-	attrs := []string{
-		"No",
-		"Parent_Item_No",
-		"No",
-		"Type",
-		"Quantity_per",
-		"Unit_of_Measure_Code",
-	}
-	return attrs
-}
-
 func GetAssemblyBomArgs() SliceOfMaps {
 	args := SliceOfMaps{
 		{
@@ -27,32 +15,6 @@ func GetAssemblyBomArgs() SliceOfMaps {
 	}
 
 	return args
-}
-
-func GetCustomerCardAttrs() []string {
-	attrs := []string{
-		"No",
-		"Name",
-		"Address",
-		"Address_2",
-		"Post_Code",
-		"City",
-		"Country_Region_Code",
-		"Phone_No",
-		"Contact",
-		"VAT_Registration_No",
-		"Customer_Posting_Group",
-		"Gen_Bus_Posting_Group",
-		"VAT_Bus_Posting_Group",
-		"Customer_Price_Group",
-		"Customer_Disc_Group",
-		"Payment_Terms_Code",
-		"Currency_Code",
-		"Language_Code",
-		"Web_E_Mail",
-		"Web_Customer",
-	}
-	return attrs
 }
 
 func GetCustomerCardArgs() Args {
@@ -111,34 +73,6 @@ func GetCustomerCardArgs() Args {
 	}}
 
 	return args
-}
-
-func GetItemCardAttrs() []string {
-	attrs := []string{
-		"No",
-		"Description",
-		"Base_Unit_of_Measure",
-		"Assembly_BOM",
-		"Item_Category_Code",
-		"Product_Group_Code",
-		"Inventory",
-		"Qty_on_Purch_Order",
-		"Qty_on_Sales_Order",
-		"Last_Date_Modified",
-		"Freight_Type",
-		"Assembly_Policy",
-		"Country_Region_of_Origin_Code",
-		"Net_Weight",
-		"Gross_Weight",
-		"Unit_Volume",
-		"Length",
-		"Width",
-		"Height",
-		"Designer",
-		"Web_Status",
-	}
-	return attrs
-
 }
 
 func GetItemCardArgs() Args {
@@ -201,61 +135,6 @@ func GetItemCardArgs() Args {
 	}}
 
 	return args
-}
-
-func GetSalesOrderAttrs() []string {
-	attrs := []string{
-		"No",
-		"Sell_to_Customer_No",
-		"Sell_to_Customer_Name",
-		"Sell_to_Address",
-		"Sell_to_Post_Code",
-		"Sell_to_City",
-		"Sell_to_Contact",
-		"No_of_Archived_Versions",
-		"Customer_No_Web",
-		"Posting_Date",
-		"Order_Date",
-		"Document_Date",
-		"Requested_Delivery_Date",
-		"Promised_Delivery_Date",
-		"External_Document_No",
-		"Salesperson_Code",
-		"Assigned_User_ID",
-		"Job_Queue_Status",
-		"Status",
-		"Whs_Shipment_Lines_Exists",
-		"Bill_to_Customer_No",
-		"Bill_to_Name",
-		"Bill_to_Address",
-		"Bill_to_Post_Code",
-		"Bill_to_City",
-		"Shortcut_Dimension_2_Code",
-		"Due_Date",
-		"Payment_Discount_Percent",
-		"Pmt_Discount_Date",
-		"Payment_Method_Code",
-		"Prices_Including_VAT",
-		"VAT_Bus_Posting_Group",
-		"Ship_to_Name",
-		"Ship_to_Address",
-		"Ship_to_Address_2",
-		"Ship_to_Post_Code",
-		"Ship_to_City",
-		"Ship_to_Country_Region_Code",
-		"Location_Code",
-		"Late_Order_Shipping",
-		"Shipment_Date",
-		"Shipping_Advice",
-		"Currency_Code",
-		"EU_3_Party_Trade",
-		"Prepayment_Percent",
-		"Compress_Prepayment",
-		"Prepayment_Due_Date",
-		"Prepmt_Payment_Discount_Percent",
-		"Prepmt_Pmt_Discount_Date",
-	}
-	return attrs
 }
 
 func GetSalesOrderArgs() Args {
@@ -372,5 +251,75 @@ func GetSalesOrderArgs() Args {
 		//"Shipping_Advice":                 "Complete",
 		//"Late_Order_Shipping": true,
 	}}
+	return args
+}
+
+func GetSalesInvoiceArgs() Args {
+	var id = "11233"
+	args := Args{}
+	args.FilterArgs = SliceOfMaps{{
+		"key":   "No",
+		"value": id,
+	}}
+	args.CreateArgs = SliceOfMaps{{
+		"Area":                       "",
+		"Assigned_User_ID":           "",
+		"Bill_to_Address":            "Klippgatan 14 I",
+		"Bill_to_Address_2":          "",
+		"Bill_to_City":               "Stockholm",
+		"Bill_to_Contact":            "Tove Sjöberg",
+		"Bill_to_Contact_No":         "",
+		"Bill_to_Name":               "Studio Feuer AB",
+		"Bill_to_Post_Code":          "116 35",
+		"Campaign_No":                "",
+		"Currency_Code":              "",
+		"Direct_Debit_Mandate_ID":    "",
+		"Document_Date":              "2016-05-03",
+		"Due_Date":                   "2016-05-17",
+		"EU_3_Party_Trade":           false,
+		"Exit_Point":                 "",
+		"External_Document_No":       "",
+		"Incoming_Document_Entry_No": 0,
+		"Job_Queue_Status":           " ",
+		"Location_Code":              "MIERZYN",
+		"No":                         "100001",
+		"PEB_Note_of_Goods":          "",
+		"Package_Tracking_No":        "123445",
+		"Payment_Discount_Percent":   0,
+		"Payment_Method_Code":        "ACCOUNT",
+		"Payment_Terms_Code":         "14 DAYS",
+		"Pmt_Discount_Date":          "2016-05-03",
+		"Posting_Date":               "2016-05-03",
+		"Prices_Including_VAT":       false,
+		"Responsibility_Center":      "",
+		"Salesperson_Code":           "RBR",
+		"Sell_to_Address":            "Klippgatan 14 I",
+		"Sell_to_Address_2":          "",
+		"Sell_to_City":               "Stockholm",
+		"Sell_to_Contact":            "Tove Sjöberg",
+		"Sell_to_Contact_No":         "",
+		"Sell_to_Customer_Name":      "Studio Feuer AB",
+		"Sell_to_Customer_No":        "206901",
+		"Sell_to_Post_Code":          "116 35",
+		"Ship_to_Address":            "Klippgatan 14 I",
+		"Ship_to_Address_2":          "",
+		"Ship_to_City":               "Stockholm",
+		"Ship_to_Code":               "",
+		"Ship_to_Contact":            "Tove Sjöberg",
+		"Ship_to_Name":               "Studio Feuer AB",
+		"Ship_to_Post_Code":          "116 35",
+		"Shipment_Date":              "2016-05-03",
+		"Shipment_Method_Code":       "DPD",
+		"Shipping_Agent_Code":        "",
+		"Shortcut_Dimension_1_Code":  "",
+		"Shortcut_Dimension_2_Code":  "110",
+		"Status":                     "Open",
+		"Transaction_Specification":  "",
+		"Transaction_Type":           "",
+		"Transport_Method":           "",
+		"VAT_Bus_Posting_Group":      "SV-DOM",
+		"Your_Reference":             "",
+	}}
+
 	return args
 }
