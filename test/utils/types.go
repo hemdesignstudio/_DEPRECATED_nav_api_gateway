@@ -1,8 +1,5 @@
 package utils
 
-type SliceOfMaps []map[string]interface{}
-type MapOfSliceOfMaps map[string][]map[string]interface{}
-
 type ErrorMessage struct {
 	Message interface{} `json:"message"`
 }
