@@ -22,12 +22,11 @@ type SalesInvoice struct {
 	SellToPostCode           string                `json:"Sell_to_Post_Code"`
 	SellToCity               string                `json:"Sell_to_City"`
 	SellToContact            string                `json:"Sell_to_Contact"`
-	NoteOfGoods              string                `json:"Note_of_Goods"`
+	PEBNoteOfGoods           string                `json:"PEB_Note_of_Goods"`
 	PostingDate              string                `json:"Posting_Date"`
 	DocumentDate             string                `json:"Document_Date"`
 	SalespersonCode          string                `json:"Salesperson_Code"`
 	ResponsibilityCenter     string                `json:"Responsibility_Center"`
-	BillToCustomerNo         string                `json:"Bill_to_Customer_No"`
 	BillToContactNo          string                `json:"Bill_to_Contact_No"`
 	BillToName               string                `json:"Bill_to_Name"`
 	BillToAddress            string                `json:"Bill_to_Address"`
@@ -64,8 +63,6 @@ type SalesInvoice struct {
 	DirectDebitMandateID     string                `json:"Direct_Debit_Mandate_ID"`
 	PricesIncludingVAT       bool                  `json:"Prices_Including_VAT"`
 	VATBusPostingGroup       string                `json:"VAT_Bus_Posting_Group"`
-	CreditCardNo             string                `json:"Credit_Card_No"`
-	GetCreditCardNumber      string                `json:"Get_Credit_Card_Number"`
 	CurrencyCode             string                `json:"Currency_Code"`
 	EU3PartyTrade            bool                  `json:"EU_3_Party_Trade"`
 	TransactionType          string                `json:"Transaction_Type"`

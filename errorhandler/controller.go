@@ -35,6 +35,11 @@ func unauthorized() error {
 
 }
 
+func NotEnoughArguments() error {
+	return fmt.Errorf("please enter arguments, it is not permitted to create an empty invoice")
+
+}
+
 func Handle(statusCode int, errBody []byte) error {
 	handler := Handler{}
 	err := json.Unmarshal(errBody, &handler)

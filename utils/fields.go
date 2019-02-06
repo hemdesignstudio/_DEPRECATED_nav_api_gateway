@@ -5,6 +5,7 @@ import (
 	"github.com/nav-api-gateway/assemblybom"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/customer"
+	"github.com/nav-api-gateway/errorhandler"
 	"github.com/nav-api-gateway/item"
 	"github.com/nav-api-gateway/postship"
 	"github.com/nav-api-gateway/salesinvoice"
@@ -251,9 +252,12 @@ func getSalesInvoiceFields() *graphql.Field {
 func createSalesInvoiceFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: types["salesInvoice"],
-		Args: salesInvoiceArgs,
+		Args: salesInvoiceArgs(),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("create Sales Invoice of company: %s", config.CompanyName)
+			if len(p.Args) < 1 {
+				return nil, errorhandler.NotEnoughArguments()
+			}
 			return salesinvoice.Create(p.Args)
 		},
 	}
@@ -263,7 +267,7 @@ func createSalesInvoiceFields() *graphql.Field {
 func updateSalesInvoiceFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: types["salesInvoice"],
-		Args: salesInvoiceArgs,
+		Args: salesInvoiceUpdateArgs(),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("update Sales Invoices of company: %s", config.CompanyName)
 			return salesinvoice.Update(p.Args)
