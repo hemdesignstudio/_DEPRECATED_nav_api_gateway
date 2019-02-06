@@ -1,17 +1,19 @@
 package utils
 
+type ArgType map[string]interface{}
+
 type Args struct {
-	FilterArgs SliceOfMaps
-	CreateArgs SliceOfMaps
-	UpdateArgs SliceOfMaps
+	FilterArgs map[string]interface{}
+	CreateArgs map[string]interface{}
+	UpdateArgs map[string]interface{}
 }
 
-func GetAssemblyBomArgs() SliceOfMaps {
-	args := SliceOfMaps{
-		{
-			"key":   "No",
-			"value": "40001",
-		},
+func GetAssemblyBomArgs() Args {
+	var id = "40001"
+	args := Args{}
+	args.FilterArgs = ArgType{
+		"key":   "No",
+		"value": id,
 	}
 
 	return args
@@ -20,13 +22,12 @@ func GetAssemblyBomArgs() SliceOfMaps {
 func GetCustomerCardArgs() Args {
 	var id = "12233"
 	args := Args{}
-	args.FilterArgs = SliceOfMaps{{
+	args.FilterArgs = ArgType{
 		"key":   "No",
 		"value": id,
-	},
 	}
 
-	args.CreateArgs = SliceOfMaps{{
+	args.CreateArgs = ArgType{
 		"No":                     id,
 		"Name":                   "qraphql Test",
 		"Address":                "Endla 80",
@@ -46,9 +47,9 @@ func GetCustomerCardArgs() Args {
 		"Language_Code":          "ENU",
 		"Web_E_Mail":             "ahmed@test.com",
 		"Web_Customer":           true,
-	}}
+	}
 
-	args.UpdateArgs = SliceOfMaps{{
+	args.UpdateArgs = ArgType{
 		"No":                     id,
 		"Name":                   "qraphql Test update",
 		"Address":                "Endla 80, update",
@@ -70,7 +71,7 @@ func GetCustomerCardArgs() Args {
 		//read only fields
 		//"Contact":                "8837372",
 
-	}}
+	}
 
 	return args
 }
@@ -78,12 +79,12 @@ func GetCustomerCardArgs() Args {
 func GetItemCardArgs() Args {
 	var id = "11233"
 	args := Args{}
-	args.FilterArgs = SliceOfMaps{{
+	args.FilterArgs = ArgType{
 		"key":   "No",
 		"value": id,
-	}}
+	}
 
-	args.CreateArgs = SliceOfMaps{{
+	args.CreateArgs = ArgType{
 		"No":                            id,
 		"Assembly_BOM":                  false,
 		"Assembly_Policy":               "Assemble-to-Stock",
@@ -107,9 +108,9 @@ func GetItemCardArgs() Args {
 		//"Inventory":                     17,
 		//"Last_Date_Modified": "2019-01-16",
 
-	}}
+	}
 
-	args.UpdateArgs = SliceOfMaps{{
+	args.UpdateArgs = ArgType{
 		"No":                            id,
 		"Assembly_Policy":               "Assemble-to-Stock",
 		"Base_Unit_of_Measure":          "PCS",
@@ -132,7 +133,7 @@ func GetItemCardArgs() Args {
 		//"Qty_on_Purch_Order":            25,
 		//"Inventory":                     17,
 		//"Last_Date_Modified": "2019-01-16",
-	}}
+	}
 
 	return args
 }
@@ -140,12 +141,12 @@ func GetItemCardArgs() Args {
 func GetSalesOrderArgs() Args {
 	var id = "11233"
 	args := Args{}
-	args.FilterArgs = SliceOfMaps{{
+	args.FilterArgs = ArgType{
 		"key":   "No",
 		"value": id,
-	}}
+	}
 
-	args.CreateArgs = SliceOfMaps{{
+	args.CreateArgs = ArgType{
 		"No":                              id,
 		"Assigned_User_ID":                "",
 		"Bill_to_Address":                 "Avenue road bla 3",
@@ -197,9 +198,9 @@ func GetSalesOrderArgs() Args {
 		//"Sell_to_Customer_No": "WEB-10",
 		//"Late_Order_Shipping":             true,
 
-	}}
+	}
 
-	args.UpdateArgs = SliceOfMaps{{
+	args.UpdateArgs = ArgType{
 		"No":                              id,
 		"Assigned_User_ID":                "",
 		"Bill_to_Address":                 "Avenue road bla 3",
@@ -250,17 +251,17 @@ func GetSalesOrderArgs() Args {
 		//"Status":                    "Released",
 		//"Shipping_Advice":                 "Complete",
 		//"Late_Order_Shipping": true,
-	}}
+	}
 	return args
 }
 
 func GetSalesInvoiceArgs() Args {
 	args := Args{}
-	args.FilterArgs = SliceOfMaps{{
+	args.FilterArgs = ArgType{
 		"key":   "No",
 		"value": "",
-	}}
-	args.CreateArgs = SliceOfMaps{{
+	}
+	args.CreateArgs = ArgType{
 
 		//Read Only Fields
 		//"Bill_to_Address":            "Klippgatan 14 I",
@@ -320,9 +321,9 @@ func GetSalesInvoiceArgs() Args {
 		"Transport_Method":           "",
 		"VAT_Bus_Posting_Group":      "SV-DOM",
 		"Your_Reference":             "asas",
-	}}
+	}
 
-	args.UpdateArgs = SliceOfMaps{{
+	args.UpdateArgs = ArgType{
 		/* Read Only Fields
 		"Bill_to_Address":            "Klippgatan 14 I",
 		"Bill_to_Address_2":          "",
@@ -382,7 +383,7 @@ func GetSalesInvoiceArgs() Args {
 		"Transport_Method":           "",
 		"VAT_Bus_Posting_Group":      "SV-DOM",
 		"Your_Reference":             "ref",
-	}}
+	}
 
 	return args
 }
