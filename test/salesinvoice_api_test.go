@@ -39,17 +39,17 @@ func createSalesInvoice() (int, SalesInvoiceResponseBody, utils.SliceOfMaps) {
 	attrs := utils.GetSalesInvoiceAttrs()
 	args := utils.GetSalesInvoiceArgs().CreateArgs
 	body := utils.GetPOSTBody(page, attrs, args)
-	fmt.Println(body)
 	resCode, resBodyInBytes := utils.Client("POST", "", body)
 	json.Unmarshal(resBodyInBytes, &resBody)
 	return resCode, resBody, args
 }
 
-func updateSalesInvoice() (int, SalesInvoiceResponseBody, utils.SliceOfMaps) {
+func updateSalesInvoice(id string) (int, SalesInvoiceResponseBody, utils.SliceOfMaps) {
 	resBody := SalesInvoiceResponseBody{}
 	page := utils.Mutation.UpdateSalesInvoice
 	attrs := utils.GetSalesInvoiceAttrs()
 	args := utils.GetSalesInvoiceArgs().UpdateArgs
+	args[0]["No"] = id
 	body := utils.GetPOSTBody(page, attrs, args)
 	resCode, resBodyInBytes := utils.Client("POST", "", body)
 	json.Unmarshal(resBodyInBytes, &resBody)
@@ -65,11 +65,15 @@ func TestGetAllSalesInvoice(t *testing.T) {
 }
 
 func TestFilterSalesInvoice(t *testing.T) {
-	createSalesInvoice()
-	resBody := SalesInvoiceResponseBody{}
+	_, resBody, _ := createSalesInvoice()
 	page := utils.Query.SalesInvoice
 	attrs := utils.GetSalesInvoiceAttrs()
 	args := utils.GetSalesInvoiceArgs().FilterArgs
+
+	for _, arg := range args {
+		arg["value"] = resBody.Data.CreateSalesInvoice.No
+	}
+
 	queryList := utils.GetQueryList(page, attrs, args)
 	for _, query := range queryList {
 		resCode, resBodyInBytes := utils.Client("GET", query, nil)
@@ -107,14 +111,16 @@ func TestCreateSalesInvoice(t *testing.T) {
 		assert.NotNil(t, val)
 	}
 	for _, arg := range args {
+		arg["No"] = resBody.Data.CreateSalesInvoice.No
 		responseCode, _ := request.Delete(config.SalesInvoiceEndpoint, arg, "Invoice")
 		assert.Equal(t, 204, responseCode, "Could not delete entity")
 	}
 }
 
 func TestUpdateSalesInvoice(t *testing.T) {
-	createSalesInvoice()
-	resCode, resBody, args := updateSalesInvoice()
+	_, createResBody, _ := createSalesInvoice()
+	id := createResBody.Data.CreateSalesInvoice.No
+	resCode, resBody, args := updateSalesInvoice(id)
 	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
 	element := resBody.Data.UpdateSalesInvoice
 	assert.NotEmpty(t, element, "Empty results are returned")
@@ -125,6 +131,7 @@ func TestUpdateSalesInvoice(t *testing.T) {
 		assert.NotNil(t, val)
 	}
 	for _, arg := range args {
+		arg["No"] = createResBody.Data.CreateSalesInvoice.No
 		responseCode, _ := request.Delete(config.SalesInvoiceEndpoint, arg, "Invoice")
 		assert.Equal(t, 204, responseCode, "Could not delete entity")
 	}
