@@ -1,7 +1,9 @@
 package utils
 
-func GetAssemblyBomAttrs() []string {
-	attrs := []string{
+type Attr []string
+
+func GetAssemblyBomAttrs() Attr {
+	attrs := Attr{
 		"No",
 		"Parent_Item_No",
 		"No",
@@ -12,8 +14,8 @@ func GetAssemblyBomAttrs() []string {
 	return attrs
 }
 
-func GetCustomerCardAttrs() []string {
-	attrs := []string{
+func GetCustomerCardAttrs() Attr {
+	attrs := Attr{
 		"No",
 		"Name",
 		"Address",
@@ -38,8 +40,8 @@ func GetCustomerCardAttrs() []string {
 	return attrs
 }
 
-func GetItemCardAttrs() []string {
-	attrs := []string{
+func GetItemCardAttrs() Attr {
+	attrs := Attr{
 		"No",
 		"Description",
 		"Base_Unit_of_Measure",
@@ -66,8 +68,8 @@ func GetItemCardAttrs() []string {
 
 }
 
-func GetSalesOrderAttrs() []string {
-	attrs := []string{
+func GetSalesOrderAttrs() Attr {
+	attrs := Attr{
 		"No",
 		"Sell_to_Customer_No",
 		"Sell_to_Customer_Name",
@@ -121,8 +123,8 @@ func GetSalesOrderAttrs() []string {
 	return attrs
 }
 
-func GetSalesInvoiceAttrs() []string {
-	attrs := []string{
+func GetSalesInvoiceAttrs() Attr {
+	attrs := Attr{
 		"No",
 		"Sell_to_Customer_No",
 		"Sell_to_Contact_No",

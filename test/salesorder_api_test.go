@@ -33,7 +33,7 @@ func getAllSalesOrders() (int, SalesOrderResponseBody) {
 
 }
 
-func createSalesOrder() (int, SalesOrderResponseBody, utils.SliceOfMaps) {
+func createSalesOrder() (int, SalesOrderResponseBody, utils.ArgType) {
 	//create salesorder
 	resBody := SalesOrderResponseBody{}
 	page := utils.Mutation.CreateSalesOrder
@@ -45,7 +45,7 @@ func createSalesOrder() (int, SalesOrderResponseBody, utils.SliceOfMaps) {
 	return resCode, resBody, args
 }
 
-func updateSalesOrder() (int, SalesOrderResponseBody, utils.SliceOfMaps) {
+func updateSalesOrder() (int, SalesOrderResponseBody, utils.ArgType) {
 	resBody := SalesOrderResponseBody{}
 	page := utils.Mutation.UpdateSalesOrder
 	attrs := utils.GetSalesOrderAttrs()
@@ -70,29 +70,25 @@ func TestFilterSalesOrder(t *testing.T) {
 	page := utils.Query.SalesOrder
 	attrs := utils.GetSalesOrderAttrs()
 	args := utils.GetSalesOrderArgs().FilterArgs
-	queryList := utils.GetQueryList(page, attrs, args)
-	for _, query := range queryList {
-		resCode, resBodyInBytes := utils.Client("GET", query, nil)
-		json.Unmarshal(resBodyInBytes, &resBody)
-		elements := resBody.Data.SalesOrder
-		assert.Equal(t, 200, resCode, "Response code is 200 as expected")
-		assert.NotNil(t, elements, "Empty results are returned")
-		for _, element := range elements {
-			values := utils.Serialize(element)
-			values = values[:len(values)-1]
-			for _, val := range values {
-				assert.NotNil(t, val)
-			}
+	query := utils.GetQuery(page, attrs, args)
+	resCode, resBodyInBytes := utils.Client("GET", query, nil)
+	json.Unmarshal(resBodyInBytes, &resBody)
+	elements := resBody.Data.SalesOrder
+	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
+	assert.NotNil(t, elements, "Empty results are returned")
+	for _, element := range elements {
+		values := utils.Serialize(element)
+		values = values[:len(values)-1]
+		for _, val := range values {
+			assert.NotNil(t, val)
 		}
-		navNo := args[0]["value"]
-		assert.Equal(t, navNo, elements[0].No, fmt.Sprintf("Expected No = %s", navNo))
 	}
+	navNo := args["value"]
+	assert.Equal(t, navNo, elements[0].No, fmt.Sprintf("Expected No = %s", navNo))
+	args["No"] = args["value"]
+	responseCode, _ := request.Delete(config.SalesOrderEndpoint, args, "Order")
+	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
-	for _, arg := range args {
-		arg["No"] = arg["value"]
-		responseCode, _ := request.Delete(config.SalesOrderEndpoint, arg, "Order")
-		assert.Equal(t, 204, responseCode, "Could not delete entity")
-	}
 }
 
 func TestCreateSalesOrder(t *testing.T) {
@@ -106,10 +102,9 @@ func TestCreateSalesOrder(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	for _, arg := range args {
-		responseCode, _ := request.Delete(config.SalesOrderEndpoint, arg, "Order")
-		assert.Equal(t, 204, responseCode, "Could not delete entity")
-	}
+	responseCode, _ := request.Delete(config.SalesOrderEndpoint, args, "Order")
+	assert.Equal(t, 204, responseCode, "Could not delete entity")
+
 }
 
 func TestUpdateSalesOrder(t *testing.T) {
@@ -124,8 +119,6 @@ func TestUpdateSalesOrder(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	for _, arg := range args {
-		responseCode, _ := request.Delete(config.SalesOrderEndpoint, arg, "Order")
-		assert.Equal(t, 204, responseCode, "Could not delete entity")
-	}
+	responseCode, _ := request.Delete(config.SalesOrderEndpoint, args, "Order")
+	assert.Equal(t, 204, responseCode, "Could not delete entity")
 }

@@ -33,7 +33,7 @@ func getAllCustomers() (int, CustomerCardResponseBody) {
 
 }
 
-func createCustomer() (int, CustomerCardResponseBody, utils.SliceOfMaps) {
+func createCustomer() (int, CustomerCardResponseBody, utils.ArgType) {
 	//create customer
 	resBody := CustomerCardResponseBody{}
 	page := utils.Mutation.CreateCustomerCard
@@ -45,7 +45,7 @@ func createCustomer() (int, CustomerCardResponseBody, utils.SliceOfMaps) {
 	return resCode, resBody, args
 }
 
-func updateCustomer() (int, CustomerCardResponseBody, utils.SliceOfMaps) {
+func updateCustomer() (int, CustomerCardResponseBody, utils.ArgType) {
 	resBody := CustomerCardResponseBody{}
 	page := utils.Mutation.UpdateCustomerCard
 	attrs := utils.GetCustomerCardAttrs()
@@ -71,27 +71,25 @@ func TestFilterCustomerCard(t *testing.T) {
 	page := utils.Query.CustomerCard
 	attrs := utils.GetCustomerCardAttrs()
 	args := utils.GetCustomerCardArgs().FilterArgs
-	queryList := utils.GetQueryList(page, attrs, args)
-	for _, query := range queryList {
-		resCode, resBodyInBytes := utils.Client("GET", query, nil)
-		json.Unmarshal(resBodyInBytes, &resBody)
-		elements := resBody.Data.CustomerCard
-		assert.Equal(t, 200, resCode, "Response code is 200 as expected")
-		assert.NotEmpty(t, elements, "Empty results are returned")
-		for _, element := range elements {
-			values := utils.Serialize(element)
-			for _, val := range values {
-				assert.NotNil(t, val)
-			}
+	query := utils.GetQuery(page, attrs, args)
+	resCode, resBodyInBytes := utils.Client("GET", query, nil)
+	json.Unmarshal(resBodyInBytes, &resBody)
+	elements := resBody.Data.CustomerCard
+	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
+	assert.NotEmpty(t, elements, "Empty results are returned")
+	for _, element := range elements {
+		values := utils.Serialize(element)
+		for _, val := range values {
+			assert.NotNil(t, val)
 		}
-		navNo := args[0]["value"]
-		assert.Equal(t, navNo, elements[0].No, fmt.Sprintf("Expected No = %s", navNo))
 	}
-	for _, arg := range args {
-		arg["No"] = arg["value"]
-		responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, arg, nil)
-		assert.Equal(t, 204, responseCode, "Could not delete entity")
-	}
+	navNo := args["value"]
+	assert.Equal(t, navNo, elements[0].No, fmt.Sprintf("Expected No = %s", navNo))
+
+	args["No"] = args["value"]
+	responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, args, nil)
+	assert.Equal(t, 204, responseCode, "Could not delete entity")
+
 }
 
 func TestCreateCustomerCard(t *testing.T) {
@@ -103,10 +101,9 @@ func TestCreateCustomerCard(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	for _, arg := range args {
-		responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, arg, nil)
-		assert.Equal(t, 204, responseCode, "Could not delete entity")
-	}
+	responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, args, nil)
+	assert.Equal(t, 204, responseCode, "Could not delete entity")
+
 }
 
 func TestUpdateCustomerCard(t *testing.T) {
@@ -119,8 +116,6 @@ func TestUpdateCustomerCard(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	for _, arg := range args {
-		responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, arg, nil)
-		assert.Equal(t, 204, responseCode, "Could not delete entity")
-	}
+	responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, args, nil)
+	assert.Equal(t, 204, responseCode, "Could not delete entity")
 }
