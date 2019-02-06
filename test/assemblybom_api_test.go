@@ -9,7 +9,8 @@ import (
 )
 
 type AssemblyBomResponseBody struct {
-	Data AssemblyBomData `json:"data"`
+	Data   AssemblyBomData      `json:"data"`
+	Errors []utils.ErrorMessage `json:"errors"`
 }
 
 type AssemblyBomData struct {
@@ -38,22 +39,19 @@ func TestAssemblyBomFilter(t *testing.T) {
 	resBody := AssemblyBomResponseBody{}
 	page := utils.Query.AssemblyBom
 	attrs := utils.GetAssemblyBomAttrs()
-	args := utils.GetAssemblyBomArgs()
-	queryList := utils.GetQueryList(page, attrs, args)
+	args := utils.GetAssemblyBomArgs().FilterArgs
+	query := utils.GetQuery(page, attrs, args)
 
-	for _, query := range queryList {
-		resCode, resBodyInBytes := utils.Client("GET", query, nil)
-		json.Unmarshal(resBodyInBytes, &resBody)
-		assert.Equal(t, 200, resCode, "Response code is 200 as expected")
+	resCode, resBodyInBytes := utils.Client("GET", query, nil)
+	json.Unmarshal(resBodyInBytes, &resBody)
+	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
 
-		elements := resBody.Data.AssemblyBom
-		assert.NotEmpty(t, elements, "Empty results are returned")
-		for _, element := range elements {
-			values := utils.Serialize(element)
-			for _, val := range values {
-				assert.NotNil(t, val)
-			}
-
+	elements := resBody.Data.AssemblyBom
+	assert.NotEmpty(t, elements, "Empty results are returned")
+	for _, element := range elements {
+		values := utils.Serialize(element)
+		for _, val := range values {
+			assert.NotNil(t, val)
 		}
 
 	}
