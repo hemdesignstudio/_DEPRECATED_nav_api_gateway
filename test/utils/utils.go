@@ -16,24 +16,23 @@ func Serialize(element interface{}) []interface{} {
 	return elemValues
 }
 
-func argsMapToString(args SliceOfMaps) string {
+func argsToString(args ArgType) string {
 	var argStrList []string
-	for _, element := range args {
-		for key, value := range element {
-			valueType := reflect.TypeOf(value).Kind()
-			if valueType == reflect.String {
-				argStrList = append(argStrList, fmt.Sprintf("%s:\"%s\"", key, value))
-			} else {
-				argStrList = append(argStrList, fmt.Sprintf("%s:%v", key, value))
-			}
+	for key, value := range args {
+		valueType := reflect.TypeOf(value).Kind()
+		if valueType == reflect.String {
+			argStrList = append(argStrList, fmt.Sprintf("%s:\"%s\"", key, value))
+		} else {
+			argStrList = append(argStrList, fmt.Sprintf("%s:%v", key, value))
 		}
+
 	}
 
 	argStr := strings.Join(argStrList, ",")
 	return argStr
 }
 
-func GetAllQuery(page string, attrs []string) string {
+func GetAllQuery(page string, attrs Attr) string {
 	attrStr := strings.Join(attrs, " ")
 	query := fmt.Sprintf(
 		"?query={%s{%s}}",
@@ -42,26 +41,20 @@ func GetAllQuery(page string, attrs []string) string {
 	return query
 }
 
-func GetQueryList(page string, attrs []string, args []map[string]interface{}) []string {
-	var queryList []string
+func GetQuery(page string, attrs Attr, args ArgType) string {
 	attrStr := strings.Join(attrs, " ")
-
-	for _, element := range args {
-		query := fmt.Sprintf(
-			"?query={%s(key:\"%s\",value:\"%s\"){%s}}",
-			page,
-			element["key"],
-			element["value"],
-			attrStr)
-		queryList = append(queryList, query)
-	}
-
-	return queryList
+	query := fmt.Sprintf(
+		"?query={%s(key:\"%s\",value:\"%s\"){%s}}",
+		page,
+		args["key"],
+		args["value"],
+		attrStr)
+	return query
 }
 
-func GetPOSTBody(page string, attrs []string, args SliceOfMaps) map[string]interface{} {
+func GetPOSTBody(page string, attrs Attr, args ArgType) map[string]interface{} {
 	attrStr := strings.Join(attrs, " ")
-	argStr := argsMapToString(args)
+	argStr := argsToString(args)
 	body := map[string]interface{}{
 		"query": fmt.Sprintf("mutation{%s(%s){%s}}", page, argStr, attrStr)}
 	return body
