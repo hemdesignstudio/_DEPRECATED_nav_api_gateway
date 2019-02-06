@@ -33,7 +33,7 @@ func getAllItems() (int, ItemCardResponseBody) {
 
 }
 
-func createItem() (int, ItemCardResponseBody, utils.SliceOfMaps) {
+func createItem() (int, ItemCardResponseBody, utils.ArgType) {
 	//create item
 	resBody := ItemCardResponseBody{}
 	page := utils.Mutation.CreateItemCard
@@ -45,7 +45,7 @@ func createItem() (int, ItemCardResponseBody, utils.SliceOfMaps) {
 	return resCode, resBody, args
 }
 
-func updateItem() (int, ItemCardResponseBody, utils.SliceOfMaps) {
+func updateItem() (int, ItemCardResponseBody, utils.ArgType) {
 	resBody := ItemCardResponseBody{}
 	page := utils.Mutation.UpdateItemCard
 	attrs := utils.GetItemCardAttrs()
@@ -71,28 +71,26 @@ func TestFilterItemCard(t *testing.T) {
 	page := utils.Query.ItemCard
 	attrs := utils.GetItemCardAttrs()
 	args := utils.GetItemCardArgs().FilterArgs
-	queryList := utils.GetQueryList(page, attrs, args)
-	for _, query := range queryList {
-		resCode, resBodyInBytes := utils.Client("GET", query, nil)
-		json.Unmarshal(resBodyInBytes, &resBody)
-		elements := resBody.Data.ItemCard
-		assert.Equal(t, 200, resCode, "Response code is 200 as expected")
-		assert.NotNil(t, elements, "Empty results are returned")
-		for _, element := range elements {
-			values := utils.Serialize(element)
-			for _, val := range values {
-				assert.NotNil(t, val)
-			}
+	query := utils.GetQuery(page, attrs, args)
+	resCode, resBodyInBytes := utils.Client("GET", query, nil)
+	json.Unmarshal(resBodyInBytes, &resBody)
+	elements := resBody.Data.ItemCard
+	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
+	assert.NotNil(t, elements, "Empty results are returned")
+	for _, element := range elements {
+		values := utils.Serialize(element)
+		for _, val := range values {
+			assert.NotNil(t, val)
 		}
-		navNo := args[0]["value"]
+
+		navNo := args["value"]
 		assert.Equal(t, navNo, elements[0].No, fmt.Sprintf("Expected No = %s", navNo))
 	}
 
-	for _, arg := range args {
-		arg["No"] = arg["value"]
-		responseCode, _ := request.Delete(config.ItemCardEndpoint, arg, nil)
-		assert.Equal(t, 204, responseCode, "Could not delete entity")
-	}
+	args["No"] = args["value"]
+	responseCode, _ := request.Delete(config.ItemCardEndpoint, args, nil)
+	assert.Equal(t, 204, responseCode, "Could not delete entity")
+
 }
 
 func TestCreateItemCard(t *testing.T) {
@@ -104,10 +102,9 @@ func TestCreateItemCard(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	for _, arg := range args {
-		responseCode, _ := request.Delete(config.ItemCardEndpoint, arg, nil)
-		assert.Equal(t, 204, responseCode, "Could not delete entity")
-	}
+	responseCode, _ := request.Delete(config.ItemCardEndpoint, args, nil)
+	assert.Equal(t, 204, responseCode, "Could not delete entity")
+
 }
 
 func TestUpdateItemCard(t *testing.T) {
@@ -120,8 +117,7 @@ func TestUpdateItemCard(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	for _, arg := range args {
-		responseCode, _ := request.Delete(config.ItemCardEndpoint, arg, nil)
-		assert.Equal(t, 204, responseCode, "Could not delete entity")
-	}
+	responseCode, _ := request.Delete(config.ItemCardEndpoint, args, nil)
+	assert.Equal(t, 204, responseCode, "Could not delete entity")
+
 }
