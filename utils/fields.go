@@ -252,7 +252,7 @@ func getSalesInvoiceFields() *graphql.Field {
 func createSalesInvoiceFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: types["salesInvoice"],
-		Args: salesInvoiceArgs,
+		Args: salesInvoiceArgs(),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("create Sales Invoice of company: %s", config.CompanyName)
 			if len(p.Args) < 1 {
@@ -267,7 +267,7 @@ func createSalesInvoiceFields() *graphql.Field {
 func updateSalesInvoiceFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: types["salesInvoice"],
-		Args: salesInvoiceArgs,
+		Args: salesInvoiceUpdateArgs(),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			log.Printf("update Sales Invoices of company: %s", config.CompanyName)
 			return salesinvoice.Update(p.Args)
