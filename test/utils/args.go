@@ -387,3 +387,12 @@ func GetSalesInvoiceArgs() Args {
 
 	return args
 }
+
+func GetPostShipArgs() Args {
+	args := Args{}
+	args.FilterArgs = ArgType{
+		"key":   "No",
+		"value": "102005",
+	}
+	return args
+}
