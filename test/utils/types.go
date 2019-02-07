@@ -10,6 +10,7 @@ type QueryType struct {
 	ItemCard     string
 	SalesOrder   string
 	SalesInvoice string
+	PostShip     string
 }
 
 type MutationType struct {
@@ -30,6 +31,7 @@ var Query = QueryType{
 	ItemCard:     "ItemCard",
 	SalesOrder:   "SalesOrder",
 	SalesInvoice: "SalesInvoice",
+	PostShip:     "PostedSalesShipment",
 }
 
 var Mutation = MutationType{
