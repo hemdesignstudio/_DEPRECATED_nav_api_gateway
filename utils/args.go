@@ -224,26 +224,48 @@ var salesOrderArgs = map[string]*graphql.ArgumentConfig{
 	"Prepmt_Pmt_Discount_Date":        {Type: graphql.String},
 }
 
-var salesLineArgs = map[string]*graphql.ArgumentConfig{
+func createSalesLineArgs() map[string]*graphql.ArgumentConfig {
+	args := map[string]*graphql.ArgumentConfig{
+		"Document_Type":         {Type: graphql.NewNonNull(graphql.String)},
+		"Document_No":           {Type: graphql.NewNonNull(graphql.String)},
+		"Line_No":               {Type: graphql.NewNonNull(graphql.Int)},
+		"No":                    {Type: graphql.String},
+		"Type":                  {Type: graphql.String},
+		"Description":           {Type: graphql.String},
+		"Reserve":               {Type: graphql.String},
+		"Quantity":              {Type: graphql.Int},
+		"Reserved_Quantity":     {Type: graphql.Int},
+		"Unit_of_Measure_Code":  {Type: graphql.String},
+		"Unit_Price":            {Type: graphql.Float},
+		"Line_Amount":           {Type: graphql.Float},
+		"Line_Discount_Percent": {Type: graphql.Float},
+		"Line_Discount_Amount":  {Type: graphql.Float},
+		"Prepayment_Percent":    {Type: graphql.Float},
+		"Prepmt_Line_Amount":    {Type: graphql.Float},
+		"Qty_to_Ship":           {Type: graphql.Int},
+		"Quantity_Shipped":      {Type: graphql.Int},
+		"Qty_to_Invoice":        {Type: graphql.Int},
+		"Quantity_Invoiced":     {Type: graphql.Int},
+	}
+	return args
+}
 
-	"No":                    {Type: graphql.String},
-	"Document_Type":         {Type: graphql.NewNonNull(graphql.String)},
-	"Document_No":           {Type: graphql.NewNonNull(graphql.String)},
-	"Line_No":               {Type: graphql.NewNonNull(graphql.Int)},
-	"Type":                  {Type: graphql.String},
-	"Description":           {Type: graphql.String},
-	"Reserve":               {Type: graphql.String},
-	"Quantity":              {Type: graphql.Int},
-	"Reserved_Quantity":     {Type: graphql.Int},
-	"Unit_of_Measure_Code":  {Type: graphql.String},
-	"Unit_Price":            {Type: graphql.Float},
-	"Line_Amount":           {Type: graphql.Float},
-	"Line_Discount_Percent": {Type: graphql.Float},
-	"Line_Discount_Amount":  {Type: graphql.Float},
-	"Prepayment_Percent":    {Type: graphql.Float},
-	"Prepmt_Line_Amount":    {Type: graphql.Float},
-	"Qty_to_Ship":           {Type: graphql.Int},
-	"Quantity_Shipped":      {Type: graphql.Int},
-	"Qty_to_Invoice":        {Type: graphql.Int},
-	"Quantity_Invoiced":     {Type: graphql.Int},
+func updateSalesLineArgs() map[string]*graphql.ArgumentConfig {
+	args := map[string]*graphql.ArgumentConfig{
+		"Document_Type":         {Type: graphql.NewNonNull(graphql.String)},
+		"Document_No":           {Type: graphql.NewNonNull(graphql.String)},
+		"Line_No":               {Type: graphql.NewNonNull(graphql.Int)},
+		"Description":           {Type: graphql.String},
+		"Line_Amount":           {Type: graphql.Float},
+		"Line_Discount_Amount":  {Type: graphql.Float},
+		"Line_Discount_Percent": {Type: graphql.Float},
+		"Prepayment_Percent":    {Type: graphql.Float},
+		"Prepmt_Line_Amount":    {Type: graphql.Float},
+		"Qty_to_Invoice":        {Type: graphql.Int},
+		"Qty_to_Ship":           {Type: graphql.Int},
+		"Quantity":              {Type: graphql.Int},
+		"Type":                  {Type: graphql.String},
+		"Unit_Price":            {Type: graphql.Float},
+	}
+	return args
 }

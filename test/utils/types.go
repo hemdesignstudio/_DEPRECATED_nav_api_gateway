@@ -11,6 +11,7 @@ type QueryType struct {
 	SalesOrder   string
 	SalesInvoice string
 	PostShip     string
+	SalesLine    string
 }
 
 type MutationType struct {
@@ -18,11 +19,13 @@ type MutationType struct {
 	CreateItemCard     string
 	CreateSalesOrder   string
 	CreateSalesInvoice string
+	CreateSalesLine    string
 
 	UpdateCustomerCard string
 	UpdateItemCard     string
 	UpdateSalesOrder   string
 	UpdateSalesInvoice string
+	UpdateSalesLine    string
 }
 
 var Query = QueryType{
@@ -32,6 +35,7 @@ var Query = QueryType{
 	SalesOrder:   "SalesOrder",
 	SalesInvoice: "SalesInvoice",
 	PostShip:     "PostedSalesShipment",
+	SalesLine:    "SalesLine",
 }
 
 var Mutation = MutationType{
@@ -39,9 +43,11 @@ var Mutation = MutationType{
 	CreateItemCard:     "CreateItemCard",
 	CreateSalesOrder:   "CreateSalesOrder",
 	CreateSalesInvoice: "CreateSalesInvoice",
+	CreateSalesLine:    "CreateSalesLine",
 
 	UpdateCustomerCard: "UpdateCustomerCard",
 	UpdateItemCard:     "UpdateItemCard",
 	UpdateSalesOrder:   "UpdateSalesOrder",
 	UpdateSalesInvoice: "UpdateSalesInvoice",
+	UpdateSalesLine:    "UpdateSalesLine",
 }

@@ -237,3 +237,29 @@ func GetPostShipAttrs() Attr {
 	}
 	return attrs
 }
+
+func GetSalesLineAttrs() Attr {
+	attrs := Attr{
+		"No",
+		"Document_Type",
+		"Document_No",
+		"Line_No",
+		"Type",
+		"Description",
+		"Reserve",
+		"Quantity",
+		"Reserved_Quantity",
+		"Unit_of_Measure_Code",
+		"Unit_Price",
+		"Line_Amount",
+		"Line_Discount_Percent",
+		"Line_Discount_Amount",
+		"Prepayment_Percent",
+		"Prepmt_Line_Amount",
+		"Qty_to_Ship",
+		"Quantity_Shipped",
+		"Qty_to_Invoice",
+		"Quantity_Invoiced",
+	}
+	return attrs
+}

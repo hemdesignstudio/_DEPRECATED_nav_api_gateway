@@ -396,3 +396,64 @@ func GetPostShipArgs() Args {
 	}
 	return args
 }
+
+func GetSalesLineArgs() Args {
+	id := "12971"
+	args := Args{}
+	args.FilterArgs = ArgType{
+		"key":   "No",
+		"value": id,
+	}
+
+	args.CreateArgs = ArgType{
+		//Read Only fields
+		//"Unit_of_Measure_Code"
+		"Description":           "Alle Table Coffee Large Natural Oak",
+		"Document_No":           "2152P",
+		"Document_Type":         "Order",
+		"Line_Amount":           478.4,
+		"Line_Discount_Amount":  119.6,
+		"Line_Discount_Percent": 20,
+		"Line_No":               40000,
+		"No":                    id,
+		"Prepayment_Percent":    100,
+		"Prepmt_Line_Amount":    478.4,
+		"Qty_to_Invoice":        0,
+		"Qty_to_Ship":           0,
+		"Quantity":              2,
+		"Quantity_Invoiced":     0,
+		"Quantity_Shipped":      0,
+		"Reserve":               "Optional",
+		"Reserved_Quantity":     0,
+		"Type":                  "Item",
+		"Unit_Price":            299,
+	}
+
+	args.UpdateArgs = ArgType{
+		//Read Only fields
+		//"Unit_of_Measure_Code"
+
+		//"No":                    id,
+		//"Quantity_Invoiced":     0,
+		//"Quantity_Shipped":      0,
+		//"Reserve":               "Optional",
+		//"Reserved_Quantity":     0,
+
+		"Document_No":           "2152P",
+		"Document_Type":         "Order",
+		"Line_No":               40000,
+		"Description":           "Alle Table Coffee Large Natural Oak",
+		"Line_Amount":           400.5,
+		"Line_Discount_Amount":  121.6,
+		"Line_Discount_Percent": 20,
+		"Prepayment_Percent":    90,
+		"Prepmt_Line_Amount":    400.5,
+		"Qty_to_Invoice":        0,
+		"Qty_to_Ship":           0,
+		"Quantity":              2,
+		"Type":                  "Item",
+		"Unit_Price":            299,
+	}
+
+	return args
+}
