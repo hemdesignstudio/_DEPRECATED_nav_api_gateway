@@ -17,7 +17,7 @@ type PostShip struct {
 	SellToContactNo          string `json:"Sell_to_Contact_No"`
 	SellToCustomerName       string `json:"Sell_to_Customer_Name"`
 	SellToAddress            string `json:"Sell_to_Address"`
-	SellToAddress2           string `json:"Sell_to_Address2"`
+	SellToAddress2           string `json:"Sell_to_Address_2"`
 	SellToPostCode           string `json:"Sell_to_Post_Code"`
 	SellToCity               string `json:"Sell_to_City"`
 	SellToContact            string `json:"Sell_to_Contact"`
@@ -36,7 +36,7 @@ type PostShip struct {
 	BilltoContactNo          string `json:"Bill_to_Contact_No"`
 	BillToName               string `json:"Bill_to_Name"`
 	BillToAddress            string `json:"Bill_to_Address"`
-	BillToAddress2           string `json:"Bill_to_Address2"`
+	BillToAddress2           string `json:"Bill_to_Address_2"`
 	BillToPostCode           string `json:"Bill_to_Post_Code"`
 	BillToCity               string `json:"Bill_to_City"`
 	BillToContact            string `json:"Bill_to_Contact"`
@@ -45,7 +45,7 @@ type PostShip struct {
 	ShipToCode               string `json:"Ship_to_Code"`
 	ShipToName               string `json:"Ship_to_Name"`
 	ShipToAddress            string `json:"Ship_to_Address"`
-	ShipToAddress2           string `json:"Ship_to_Address2"`
+	ShipToAddress2           string `json:"Ship_to_Address_2"`
 	ShipToPostCode           string `json:"Ship_to_Post_Code"`
 	ShipToCity               string `json:"Ship_to_City"`
 	ShipToCountryRegionCode  string `json:"Ship_to_Country_Region_Code"`
