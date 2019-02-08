@@ -1,17 +1,12 @@
 package test
 
 import (
-	"github.com/nav-api-gateway/roothandler"
+	"github.com/nav-api-gateway/test/utils"
 	"github.com/stretchr/testify/assert"
-	"net/http"
-	"net/http/httptest"
 	"testing"
 )
 
 func TestRootEndpoint(t *testing.T) {
-	request, _ := http.NewRequest("GET", "/", nil)
-	response := httptest.NewRecorder()
-	handler := roothandler.RootEndpoint()
-	handler.ServeHTTP(response, request)
-	assert.Equal(t, 200, response.Code, "Response code is 200 as expected")
+	resCode, _ := utils.Client("GET", "", nil)
+	assert.Equal(t, 200, resCode, "Response code is 200 as expected")
 }
