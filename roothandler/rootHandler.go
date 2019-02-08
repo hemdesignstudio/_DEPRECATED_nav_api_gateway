@@ -5,9 +5,10 @@ import (
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
 	"github.com/nav-api-gateway/utils"
 	"log"
+	"net/http"
 )
 
-func RootEndpoint() *gqlhandler.Handler {
+func Handler() *gqlhandler.Handler {
 	query := utils.QueryType()
 	mutation := utils.MutationType()
 
@@ -25,6 +26,11 @@ func RootEndpoint() *gqlhandler.Handler {
 		GraphiQL:   true,
 		Playground: false,
 	})
-	return handler
 
+	return handler
+}
+
+func RootEndpoint(w http.ResponseWriter, r *http.Request) {
+	handler := Handler()
+	handler.ServeHTTP(w, r)
 }
