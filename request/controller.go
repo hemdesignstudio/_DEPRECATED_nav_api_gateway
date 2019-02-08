@@ -3,13 +3,14 @@ package request
 import (
 	"fmt"
 	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/session"
 	"reflect"
 )
 
 func getAllEntities(endpoint string) []byte {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", config.CompanyName) +
+		fmt.Sprintf("('%v')", session.CompanyName()) +
 		endpoint
 
 	_, respBody, _ := get(uri)
@@ -19,7 +20,7 @@ func getAllEntities(endpoint string) []byte {
 func createEntity(endpoint string, body []byte) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", config.CompanyName) +
+		fmt.Sprintf("('%v')", session.CompanyName()) +
 		endpoint
 
 	_, respBody, err := post(uri, body)
@@ -30,7 +31,7 @@ func createEntity(endpoint string, body []byte) ([]byte, error) {
 func filterByArgs(endpoint string, args map[string]interface{}) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", config.CompanyName) +
+		fmt.Sprintf("('%v')", session.CompanyName()) +
 		endpoint
 
 	key := args["key"]
@@ -49,7 +50,7 @@ func filterByArgs(endpoint string, args map[string]interface{}) ([]byte, error) 
 func updateEntitybyId(endpoint, id string, body []byte) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", config.CompanyName) +
+		fmt.Sprintf("('%v')", session.CompanyName()) +
 		endpoint + fmt.Sprintf("('%s')", id)
 
 	_, respBody, err := patch(uri, body)
@@ -60,7 +61,7 @@ func updateEntitybyId(endpoint, id string, body []byte) ([]byte, error) {
 func updateEntitybyDocumentTypeAndID(endpoint, id, docType string, body []byte) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", config.CompanyName) +
+		fmt.Sprintf("('%v')", session.CompanyName()) +
 		endpoint + fmt.Sprintf("('%s','%s')", docType, id)
 
 	_, respBody, err := patch(uri, body)
@@ -71,7 +72,7 @@ func updateEntitybyDocumentTypeAndID(endpoint, id, docType string, body []byte) 
 func updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, lineNo int, body []byte) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", config.CompanyName) +
+		fmt.Sprintf("('%v')", session.CompanyName()) +
 		endpoint + fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
 
 	_, respBody, err := patch(uri, body)
@@ -82,7 +83,7 @@ func updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, line
 func deleteEntitybyId(endpoint, id string) (int, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", config.CompanyName) +
+		fmt.Sprintf("('%v')", session.CompanyName()) +
 		endpoint + fmt.Sprintf("('%s')", id)
 
 	resCode, _, err := delete(uri, nil)
@@ -92,7 +93,7 @@ func deleteEntitybyId(endpoint, id string) (int, error) {
 func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", config.CompanyName) +
+		fmt.Sprintf("('%v')", session.CompanyName()) +
 		endpoint + fmt.Sprintf("('%s','%s')", docType, id)
 
 	resCode, _, err := delete(uri, nil)
@@ -103,7 +104,7 @@ func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) 
 func deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, lineNo int) (int, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%s')", config.CompanyName) +
+		fmt.Sprintf("('%v')", session.CompanyName()) +
 		endpoint + fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
 
 	resCode, _, err := delete(uri, nil)
