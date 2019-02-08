@@ -40,6 +40,11 @@ func NotEnoughArguments() error {
 
 }
 
+func CompanyDoesNotExist(name string) error {
+	return fmt.Errorf(fmt.Sprintf(" '/%s' does no exist, available options are '/test' ", name))
+
+}
+
 func Handle(statusCode int, errBody []byte) error {
 	handler := Handler{}
 	err := json.Unmarshal(errBody, &handler)
