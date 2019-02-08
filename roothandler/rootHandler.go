@@ -1,12 +1,25 @@
 package roothandler
 
 import (
+	"github.com/gorilla/mux"
 	"github.com/graphql-go/graphql"
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
+	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/errorhandler"
+	"github.com/nav-api-gateway/session"
 	"github.com/nav-api-gateway/utils"
 	"log"
 	"net/http"
 )
+
+func pathVariables(vars map[string]string) (string, error) {
+	companyPath := vars["company"]
+	if vars["company"] == "test" {
+		return config.TestCompanyName, nil
+	}
+
+	return "", errorhandler.CompanyDoesNotExist(companyPath)
+}
 
 func Handler() *gqlhandler.Handler {
 	query := utils.QueryType()
@@ -31,6 +44,13 @@ func Handler() *gqlhandler.Handler {
 }
 
 func RootEndpoint(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	companyName, err := pathVariables(vars)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+	session.SetSession(r, companyName)
 	handler := Handler()
 	handler.ServeHTTP(w, r)
 }
