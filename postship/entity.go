@@ -1,7 +1,9 @@
 package postship
 
 import (
+	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/types"
 )
 
 var endpoint = config.PostShipEndpoint
@@ -58,4 +60,8 @@ type PostShip struct {
 	ShippingAgentServiceCode string `json:"Shipping_Agent_Service_Code"`
 	PackageTrackingNo        string `json:"Package_Tracking_No"`
 	ShipmentDate             string `json:"Shipment_Date"`
+}
+
+func CreateType() *graphql.Object {
+	return types.GenerateGraphQlType("PostShip", PostShip{}, nil)
 }
