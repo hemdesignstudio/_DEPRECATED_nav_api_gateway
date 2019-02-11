@@ -1,7 +1,9 @@
 package customer
 
 import (
+	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/types"
 )
 
 var endpoint = config.CustomerCardWSEndpoint
@@ -33,4 +35,8 @@ type CustomerCard struct {
 	LanguageCode                string `json:"Language_Code"`
 	WebEmail                    string `json:"Web_E_Mail"`
 	WebEnabled                  bool   `json:"Web_Customer"`
+}
+
+func CreateType() *graphql.Object {
+	return types.GenerateGraphQlType("CustomerCard", CustomerCard{}, nil)
 }

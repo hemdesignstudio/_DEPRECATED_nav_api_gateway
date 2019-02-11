@@ -1,8 +1,10 @@
 package salesinvoice
 
 import (
+	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/salesline"
+	"github.com/nav-api-gateway/types"
 )
 
 var endpoint = config.SalesInvoiceEndpoint
@@ -71,4 +73,8 @@ type SalesInvoice struct {
 	ExitPoint                string                `json:"Exit_Point"`
 	Area                     string                `json:"Area"`
 	SalesLines               []salesline.SalesLine `json:"Sales_Lines"`
+}
+
+func CreateType() *graphql.Object {
+	return types.GenerateGraphQlType("SalesInvoice", SalesInvoice{}, extraFields())
 }

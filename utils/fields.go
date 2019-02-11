@@ -29,7 +29,7 @@ func getAssemblyBomFields() *graphql.Field {
 		Type: graphql.NewList(types["assemblyBom"]),
 		Args: filterArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching Assembly BOM of utils: %s", config.CompanyName)
+			log.Printf("fetching Assembly BOM of company: %s", config.CompanyName)
 			if len(p.Args) != 2 {
 				return assemblybom.GetAll()
 			}

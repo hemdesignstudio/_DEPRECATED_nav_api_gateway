@@ -1,7 +1,9 @@
 package assemblybom
 
 import (
+	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/types"
 )
 
 var endpoint = config.AssemblyBomEndpoint
@@ -17,4 +19,8 @@ type AssemblyBom struct {
 	Type              string  `json:"Type"`
 	QuantityPer       float64 `json:"Quantity_per"`
 	UnitOfMeasureCode string  `json:"Unit_of_Measure_Code"`
+}
+
+func CreateType() *graphql.Object {
+	return types.GenerateGraphQlType("AssemblyBom", AssemblyBom{}, nil)
 }
