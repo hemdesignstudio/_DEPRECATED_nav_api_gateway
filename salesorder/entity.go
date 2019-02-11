@@ -1,8 +1,10 @@
 package salesorder
 
 import (
+	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/salesline"
+	"github.com/nav-api-gateway/types"
 )
 
 var endpoint = config.SalesOrderEndpoint
@@ -63,4 +65,8 @@ type SalesOrder struct {
 	PrepmtPaymentDiscountPercent float32               `json:"Prepmt_Payment_Discount_Percent"`
 	PrepmtPmtDiscountDate        string                `json:"Prepmt_Pmt_Discount_Date"`
 	SalesLines                   []salesline.SalesLine `json:"Sales_Lines"`
+}
+
+func CreateType() *graphql.Object {
+	return types.GenerateGraphQlType("SalesOrder", SalesOrder{}, extraFields())
 }
