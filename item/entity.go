@@ -1,7 +1,9 @@
 package item
 
 import (
+	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/types"
 )
 
 var endpoint = config.ItemCardEndpoint
@@ -33,4 +35,8 @@ type ItemCard struct {
 	Height                    float32 `json:"Height"`
 	Designer                  string  `json:"Designer"`
 	WebStatus                 string  `json:"Web_Status"`
+}
+
+func CreateType() *graphql.Object {
+	return types.GenerateGraphQlType("ItemCard", ItemCard{}, nil)
 }
