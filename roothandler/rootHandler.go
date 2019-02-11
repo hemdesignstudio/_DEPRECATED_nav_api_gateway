@@ -36,8 +36,8 @@ func Handler() *gqlhandler.Handler {
 	handler := gqlhandler.New(&gqlhandler.Config{
 		Schema:     &schema,
 		Pretty:     true,
-		GraphiQL:   false,
-		Playground: true,
+		GraphiQL:   true,
+		Playground: false,
 	})
 
 	return handler
