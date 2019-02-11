@@ -1,7 +1,9 @@
 package salesline
 
 import (
+	"github.com/graphql-go/graphql"
 	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/types"
 )
 
 var endpoint = config.SalesLineEndpoint
@@ -32,4 +34,8 @@ type SalesLine struct {
 	QuantityShipped     int     `json:"Quantity_Shipped"`
 	QtyToInvoice        int     `json:"Qty_to_Invoice"`
 	QuantityInvoiced    int     `json:"Quantity_Invoiced"`
+}
+
+func CreateType(name string) *graphql.Object {
+	return types.GenerateGraphQlType(name, SalesLine{}, nil)
 }
