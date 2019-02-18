@@ -16,10 +16,9 @@ func main() {
 	fs := http.FileServer(http.Dir("./doc/"))
 	router.PathPrefix(path + "/doc/").Handler(http.StripPrefix(path+"/doc/", fs))
 
-	router.HandleFunc(path+"/company={company:[a-zA-Z]+}", handler)
+	router.HandleFunc(path+"/{company:[a-zA-Z]+}", handler)
 
-	fmt.Println("Server started at http://localhost:6789/graphql/v0.1.0/company=test")
+	fmt.Println("Server started at http://localhost:6789/graphql/v0.1.0/test")
 	http.Handle("/", router)
 	log.Fatal(http.ListenAndServe(config.Host, nil))
-
 }
