@@ -14,7 +14,7 @@ x-google-endpoints:
   - name: 'nav-api.endpoints.staging-217409.cloud.goog'
     target: '35.224.69.146'
 
-basePath: /graphql/v0.1.0
+basePath: /
 tags:
   - name: /graphql/v0.1.0
     description: GraphQl Query and mutation
@@ -25,7 +25,7 @@ schemes:
 
 
 paths:
-  /test:
+  /graphql/v0.1.0/test:
     get:
       summary: Get All values or Filter values for An entity
       operationId: getEntityByQuery
@@ -83,7 +83,7 @@ paths:
                 example: 10
 
 security:
-  - google_id_token:[]
+  - google_id_token: []
 
 securityDefinitions:
   google_id_token:
@@ -91,5 +91,3 @@ securityDefinitions:
     flow: "implicit"
     type: "oauth2"
     x-google-issuer: "https://accounts.google.com"
-
-
