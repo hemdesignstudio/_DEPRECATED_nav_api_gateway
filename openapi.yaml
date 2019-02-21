@@ -12,14 +12,14 @@ info:
 host: nav-api.endpoints.staging-217409.cloud.goog
 x-google-endpoints:
   - name: 'nav-api.endpoints.staging-217409.cloud.goog'
-    target: '35.224.69.146'
+    target: '35.239.171.176'
 
 basePath: /
 tags:
   - name: /graphql/v0.1.0
     description: GraphQl Query and mutation
 schemes:
-  #- https
+  - https
   - http
 
 
@@ -83,11 +83,12 @@ paths:
                 example: 10
 
 security:
-  - google_id_token: []
+    - google_id_token: []
 
 securityDefinitions:
   google_id_token:
     authorizationUrl: ""
     flow: "implicit"
     type: "oauth2"
-    x-google-issuer: "https://accounts.google.com"
+    x-google-issuer: "nav-api-gateway@staging-217409.iam.gserviceaccount.com"
+    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/nav-api-gateway@staging-217409.iam.gserviceaccount.com"

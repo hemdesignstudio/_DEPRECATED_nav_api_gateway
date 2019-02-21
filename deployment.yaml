@@ -32,13 +32,12 @@ spec:
             "--http_port", "8080",
             "--backend", "127.0.0.1:6789",
             "--service", "nav-api.endpoints.staging-217409.cloud.goog",
-            "--rollout_strategy", "managed",
-           " --version", "2019-02-15r8",
+            "--version", "2019-02-20r0",
           ]
           # [END esp]
           ports:
             - containerPort: 8080
-        - name: echo
+        - name: nav-api
           image: gcr.io/staging-217409/nav-api:latest
           ports:
             - containerPort: 6789
