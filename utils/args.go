@@ -165,7 +165,7 @@ func salesInvoiceArgs() map[string]*graphql.ArgumentConfig {
 	return args
 }
 
-func salesInvoiceUpdateArgs() map[string]*graphql.ArgumentConfig {
+func updateSalesInvoiceArgs() map[string]*graphql.ArgumentConfig {
 	var args map[string]*graphql.ArgumentConfig
 	args = salesInvoiceArgs()
 	args["No"] = &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)}
