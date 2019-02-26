@@ -1,10 +1,10 @@
 package main
 
 import (
-	"./config"
-	"./roothandler"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/nav-api-gateway/config"
+	"github.com/nav-api-gateway/roothandler"
 	"log"
 	"net/http"
 )
