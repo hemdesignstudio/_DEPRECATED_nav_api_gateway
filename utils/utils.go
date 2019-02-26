@@ -2,19 +2,36 @@ package utils
 
 import (
 	"github.com/graphql-go/graphql"
+	"github.com/nav-api-gateway/assemblybom"
+	"github.com/nav-api-gateway/customer"
+	"github.com/nav-api-gateway/item"
+	"github.com/nav-api-gateway/postship"
+	"github.com/nav-api-gateway/salesinvoice"
+	"github.com/nav-api-gateway/salesline"
+	"github.com/nav-api-gateway/salesorder"
 )
+
+var types = map[string]*graphql.Object{
+	"customer":     customer.CreateType(),
+	"assemblyBom":  assemblybom.CreateType(),
+	"item":         item.CreateType(),
+	"salesOrder":   salesorder.CreateType(),
+	"salesLine":    salesline.CreateType("SalesLine"),
+	"postShip":     postship.CreateType(),
+	"salesInvoice": salesinvoice.CreateType(),
+}
 
 func QueryType() *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "RootQuery",
 		Fields: graphql.Fields{
-			"AssemblyBom":         getAssemblyBomFields(),
-			"CustomerCard":        getCustomerCardFields(),
-			"ItemCard":            getItemCardFields(),
-			"SalesOrder":          getSalesOrdersFields(),
-			"SalesLine":           getSalesLineFields(),
-			"PostedSalesShipment": getPostShipFields(),
-			"SalesInvoice":        getSalesInvoiceFields(),
+			"AssemblyBom":         queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter),
+			"CustomerCard":        queryFields("customer", customer.GetAll, customer.Filter),
+			"ItemCard":            queryFields("item", item.GetAll, item.Filter),
+			"SalesOrder":          queryFields("salesOrder", salesorder.GetAll, salesorder.Filter),
+			"SalesLine":           queryFields("salesLine", salesline.GetAll, salesline.Filter),
+			"PostedSalesShipment": queryFields("postShip", postship.GetAll, postship.Filter),
+			"SalesInvoice":        queryFields("salesInvoice", salesinvoice.GetAll, salesinvoice.Filter),
 		},
 	})
 }
@@ -23,18 +40,16 @@ func MutationType() *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "RootMutation",
 		Fields: graphql.Fields{
-			"CreateCustomerCard": createCustomerCardFields(),
-			"CreateItemCard":     createItemCardFields(),
-			"CreateSalesOrder":   createSalesOrderFields(),
-			"CreateSalesLine":    createSalesLineFields(),
-			//"CreatePostedSalesShipment": createPostShipFields(),
-			"CreateSalesInvoice": createSalesInvoiceFields(),
-			"UpdateCustomerCard": updateCustomerCardFields(),
-			"UpdateItemCard":     updateItemCardFields(),
-			"UpdateSalesOrder":   updateSalesOrderFields(),
-			"UpdateSalesLine":    updateSalesLineFields(),
-			//"UpdatePostedSalesShipment": updatePostShipFields(),
-			"UpdateSalesInvoice": updateSalesInvoiceFields(),
+			"CreateCustomerCard": createFields("customer", CustomerCardArgs, customer.Create),
+			"CreateItemCard":     createFields("item", itemCardArgs, item.Create),
+			"CreateSalesOrder":   createFields("salesOrder", salesOrderArgs, salesorder.Create),
+			"CreateSalesLine":    createFields("salesLine", createSalesLineArgs(), salesline.Create),
+			"CreateSalesInvoice": createFields("salesInvoice", salesInvoiceArgs(), salesinvoice.Create),
+			"UpdateCustomerCard": updateFields("customer", CustomerCardArgs, customer.Update),
+			"UpdateItemCard":     updateFields("item", itemCardArgs, item.Update),
+			"UpdateSalesOrder":   updateFields("salesOrder", salesOrderArgs, salesorder.Update),
+			"UpdateSalesLine":    updateFields("salesLine", updateSalesLineArgs(), salesline.Update),
+			"UpdateSalesInvoice": updateFields("salesInvoice", updateSalesInvoiceArgs(), salesinvoice.Create),
 		},
 	})
 }
