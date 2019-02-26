@@ -83,12 +83,13 @@ paths:
                 example: 10
 
 security:
-    - google_id_token: []
+    - service_1: []
 
 securityDefinitions:
-  google_id_token:
+  service_1:
     authorizationUrl: ""
     flow: "implicit"
     type: "oauth2"
     x-google-issuer: "nav-api-gateway@staging-217409.iam.gserviceaccount.com"
     x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/nav-api-gateway@staging-217409.iam.gserviceaccount.com"
+

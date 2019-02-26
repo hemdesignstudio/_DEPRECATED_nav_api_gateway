@@ -8,6 +8,9 @@ spec:
       targetPort: 8080
       protocol: TCP
       name: http
+    - port: 443
+      protocol: TCP
+      name: https
   selector:
     app: esp-nav-api
   type: LoadBalancer
@@ -24,12 +27,17 @@ spec:
       labels:
         app: esp-nav-api
     spec:
+      volumes:
+        - name: nav-test-ssl
+          secret:
+            secretName: nav-test-ssl
       containers:
         # [START esp]
         - name: esp
           image: gcr.io/endpoints-release/endpoints-runtime:1
           args: [
             "--http_port", "8080",
+            "--ssl_port", "443",
             "--backend", "127.0.0.1:6789",
             "--service", "nav-api.endpoints.staging-217409.cloud.goog",
             "--version", "2019-02-20r0",
@@ -37,7 +45,13 @@ spec:
           # [END esp]
           ports:
             - containerPort: 8080
+            - containerPort: 443
+          volumeMounts:
+            - mountPath: /etc/nginx/ssl
+              name: nav-test-ssl
+              readOnly: true
         - name: nav-api
           image: gcr.io/staging-217409/nav-api:latest
           ports:
             - containerPort: 6789
+---
