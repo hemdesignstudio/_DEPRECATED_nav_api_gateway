@@ -11,10 +11,8 @@ import (
 	"github.com/nav-api-gateway/salesorder"
 )
 
-type getAllFunction func() (interface{}, error)
-type filterFunction func(map[string]interface{}) (interface{}, error)
-type createFunction func(map[string]interface{}) (interface{}, error)
-type UpdateFunction func(map[string]interface{}) (interface{}, error)
+type callback func() (interface{}, error)
+type callbackWithArgs func(map[string]interface{}) (interface{}, error)
 
 var types = map[string]*graphql.Object{
 	"customer":     customer.CreateType(),
@@ -54,12 +52,12 @@ func MutationType() *graphql.Object {
 			"UpdateItemCard":     updateFields("item", itemCardArgs, item.Update),
 			"UpdateSalesOrder":   updateFields("salesOrder", salesOrderArgs, salesorder.Update),
 			"UpdateSalesLine":    updateFields("salesLine", updateSalesLineArgs(), salesline.Update),
-			"UpdateSalesInvoice": updateFields("salesInvoice", updateSalesInvoiceArgs(), salesinvoice.Create),
+			"UpdateSalesInvoice": updateFields("salesInvoice", updateSalesInvoiceArgs(), salesinvoice.Update),
 		},
 	})
 }
 
-func queryFields(name string, getAll getAllFunction, filter filterFunction) *graphql.Field {
+func queryFields(name string, getAll callback, filter callbackWithArgs) *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(types[name]),
 		Args: filterArgs,
@@ -73,7 +71,10 @@ func queryFields(name string, getAll getAllFunction, filter filterFunction) *gra
 	return field
 }
 
-func createFields(name string, args map[string]*graphql.ArgumentConfig, create createFunction) *graphql.Field {
+func createFields(
+	name string,
+	args map[string]*graphql.ArgumentConfig, create callbackWithArgs) *graphql.Field {
+
 	field := &graphql.Field{
 		Type: types[name],
 		Args: args,
@@ -84,7 +85,7 @@ func createFields(name string, args map[string]*graphql.ArgumentConfig, create c
 	return field
 }
 
-func updateFields(name string, args map[string]*graphql.ArgumentConfig, update UpdateFunction) *graphql.Field {
+func updateFields(name string, args map[string]*graphql.ArgumentConfig, update callbackWithArgs) *graphql.Field {
 	field := &graphql.Field{
 		Type: types[name],
 		Args: args,
