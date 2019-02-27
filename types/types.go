@@ -38,3 +38,27 @@ func GenerateGraphQlType(name string, object interface{}, extraFields graphql.Fi
 	}
 	return graphQlObject(name, fields)
 }
+
+func GenerateGraphQlArgs(object interface{}, extraFields map[string]*graphql.ArgumentConfig) map[string]*graphql.ArgumentConfig {
+	args := map[string]*graphql.ArgumentConfig{}
+	t := reflect.TypeOf(object)
+	for i := 0; i < t.NumField(); i++ {
+		elemName := t.Field(i).Tag.Get("json")
+		elemType := t.Field(i).Type.String()
+		if elemType == "string" {
+			args[elemName] = &graphql.ArgumentConfig{Type: graphql.String}
+		} else if strings.Contains(elemType, "float") {
+			args[elemName] = &graphql.ArgumentConfig{Type: graphql.Float}
+		} else if elemType == "int" {
+			args[elemName] = &graphql.ArgumentConfig{Type: graphql.Int}
+		} else if elemType == "bool" {
+			args[elemName] = &graphql.ArgumentConfig{Type: graphql.Boolean}
+		}
+	}
+	if extraFields != nil {
+		for key, value := range extraFields {
+			args[key] = value
+		}
+	}
+	return args
+}
