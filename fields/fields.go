@@ -1,4 +1,4 @@
-package utils
+package fields
 
 import (
 	"github.com/graphql-go/graphql"
@@ -23,6 +23,11 @@ var types = map[string]*graphql.Object{
 	"salesLine":    salesline.CreateType("SalesLine"),
 	"postShip":     postship.CreateType(),
 	"salesInvoice": salesinvoice.CreateType(),
+}
+
+var filterArgs = map[string]*graphql.ArgumentConfig{
+	"key":   {Type: graphql.String},
+	"value": {Type: graphql.String},
 }
 
 var args = Args{
@@ -103,6 +108,5 @@ func MutationType() *graphql.Object {
 			"UpdateSalesInvoice": updateFields("salesInvoice", salesinvoice.Update),
 		},
 	}
-
 	return graphql.NewObject(mutation)
 }
