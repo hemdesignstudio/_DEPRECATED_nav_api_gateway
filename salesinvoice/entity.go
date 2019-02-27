@@ -78,3 +78,7 @@ type SalesInvoice struct {
 func CreateType() *graphql.Object {
 	return types.GenerateGraphQlType("SalesInvoice", SalesInvoice{}, extraFields())
 }
+
+func CreateArgs() map[string]*graphql.ArgumentConfig {
+	return types.GenerateGraphQlArgs(SalesInvoice{}, nil)
+}
