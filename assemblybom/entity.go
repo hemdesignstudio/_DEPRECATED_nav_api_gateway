@@ -2,12 +2,8 @@ package assemblybom
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/types"
 )
-
-var endpoint = config.AssemblyBomEndpoint
-var companyName = config.CompanyName
 
 type Response struct {
 	Value []AssemblyBom `json:"value"`
