@@ -1,8 +1,11 @@
 package assemblybom
 
 import (
+	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/request"
 )
+
+var endpoint = config.AssemblyBomEndpoint
 
 func GetAll() (interface{}, error) {
 	res := Response{}
