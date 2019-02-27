@@ -13,10 +13,11 @@ import (
 
 type callback func() (interface{}, error)
 type callbackWithArgs func(map[string]interface{}) (interface{}, error)
+type Args map[string]map[string]*graphql.ArgumentConfig
 
 var types = map[string]*graphql.Object{
-	"customer":     customer.CreateType(),
 	"assemblyBom":  assemblybom.CreateType(),
+	"customer":     customer.CreateType(),
 	"item":         item.CreateType(),
 	"salesOrder":   salesorder.CreateType(),
 	"salesLine":    salesline.CreateType("SalesLine"),
@@ -24,37 +25,13 @@ var types = map[string]*graphql.Object{
 	"salesInvoice": salesinvoice.CreateType(),
 }
 
-func QueryType() *graphql.Object {
-	return graphql.NewObject(graphql.ObjectConfig{
-		Name: "RootQuery",
-		Fields: graphql.Fields{
-			"AssemblyBom":         queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter),
-			"CustomerCard":        queryFields("customer", customer.GetAll, customer.Filter),
-			"ItemCard":            queryFields("item", item.GetAll, item.Filter),
-			"SalesOrder":          queryFields("salesOrder", salesorder.GetAll, salesorder.Filter),
-			"SalesLine":           queryFields("salesLine", salesline.GetAll, salesline.Filter),
-			"PostedSalesShipment": queryFields("postShip", postship.GetAll, postship.Filter),
-			"SalesInvoice":        queryFields("salesInvoice", salesinvoice.GetAll, salesinvoice.Filter),
-		},
-	})
-}
-
-func MutationType() *graphql.Object {
-	return graphql.NewObject(graphql.ObjectConfig{
-		Name: "RootMutation",
-		Fields: graphql.Fields{
-			"CreateCustomerCard": createFields("customer", CustomerCardArgs, customer.Create),
-			"CreateItemCard":     createFields("item", itemCardArgs, item.Create),
-			"CreateSalesOrder":   createFields("salesOrder", salesOrderArgs, salesorder.Create),
-			"CreateSalesLine":    createFields("salesLine", createSalesLineArgs(), salesline.Create),
-			"CreateSalesInvoice": createFields("salesInvoice", salesInvoiceArgs(), salesinvoice.Create),
-			"UpdateCustomerCard": updateFields("customer", CustomerCardArgs, customer.Update),
-			"UpdateItemCard":     updateFields("item", itemCardArgs, item.Update),
-			"UpdateSalesOrder":   updateFields("salesOrder", salesOrderArgs, salesorder.Update),
-			"UpdateSalesLine":    updateFields("salesLine", updateSalesLineArgs(), salesline.Update),
-			"UpdateSalesInvoice": updateFields("salesInvoice", updateSalesInvoiceArgs(), salesinvoice.Update),
-		},
-	})
+var args = Args{
+	"customer":     customer.CreateArgs(),
+	"item":         item.CreateArgs(),
+	"salesOrder":   salesorder.CreateArgs(),
+	"salesLine":    salesline.CreateArgs(),
+	"postShip":     postship.CreateArgs(),
+	"salesInvoice": salesinvoice.CreateArgs(),
 }
 
 func queryFields(name string, getAll callback, filter callbackWithArgs) *graphql.Field {
@@ -71,13 +48,11 @@ func queryFields(name string, getAll callback, filter callbackWithArgs) *graphql
 	return field
 }
 
-func createFields(
-	name string,
-	args map[string]*graphql.ArgumentConfig, create callbackWithArgs) *graphql.Field {
+func createFields(name string, create callbackWithArgs) *graphql.Field {
 
 	field := &graphql.Field{
 		Type: types[name],
-		Args: args,
+		Args: args[name],
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			return create(p.Args)
 		},
@@ -85,13 +60,49 @@ func createFields(
 	return field
 }
 
-func updateFields(name string, args map[string]*graphql.ArgumentConfig, update callbackWithArgs) *graphql.Field {
+func updateFields(name string, update callbackWithArgs) *graphql.Field {
 	field := &graphql.Field{
 		Type: types[name],
-		Args: args,
+		Args: args[name],
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			return update(p.Args)
 		},
 	}
 	return field
+}
+
+func QueryType() *graphql.Object {
+	query := graphql.ObjectConfig{
+		Name: "RootQuery",
+		Fields: graphql.Fields{
+			"AssemblyBom":         queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter),
+			"CustomerCard":        queryFields("customer", customer.GetAll, customer.Filter),
+			"ItemCard":            queryFields("item", item.GetAll, item.Filter),
+			"SalesOrder":          queryFields("salesOrder", salesorder.GetAll, salesorder.Filter),
+			"SalesLine":           queryFields("salesLine", salesline.GetAll, salesline.Filter),
+			"PostedSalesShipment": queryFields("postShip", postship.GetAll, postship.Filter),
+			"SalesInvoice":        queryFields("salesInvoice", salesinvoice.GetAll, salesinvoice.Filter),
+		},
+	}
+	return graphql.NewObject(query)
+}
+
+func MutationType() *graphql.Object {
+	mutation := graphql.ObjectConfig{
+		Name: "RootMutation",
+		Fields: graphql.Fields{
+			"CreateCustomerCard": createFields("customer", customer.Create),
+			"CreateItemCard":     createFields("item", item.Create),
+			"CreateSalesOrder":   createFields("salesOrder", salesorder.Create),
+			"CreateSalesLine":    createFields("salesLine", salesline.Create),
+			"CreateSalesInvoice": createFields("salesInvoice", salesinvoice.Create),
+			"UpdateCustomerCard": updateFields("customer", customer.Update),
+			"UpdateItemCard":     updateFields("item", item.Update),
+			"UpdateSalesOrder":   updateFields("salesOrder", salesorder.Update),
+			"UpdateSalesLine":    updateFields("salesLine", salesline.Update),
+			"UpdateSalesInvoice": updateFields("salesInvoice", salesinvoice.Update),
+		},
+	}
+
+	return graphql.NewObject(mutation)
 }
