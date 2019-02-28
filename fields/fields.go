@@ -2,13 +2,13 @@ package fields
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/nav-api-gateway/assemblybom"
-	"github.com/nav-api-gateway/customer"
-	"github.com/nav-api-gateway/item"
-	"github.com/nav-api-gateway/postship"
-	"github.com/nav-api-gateway/salesinvoice"
-	"github.com/nav-api-gateway/salesline"
-	"github.com/nav-api-gateway/salesorder"
+	"github.com/hem-nav-gateway/assemblybom"
+	"github.com/hem-nav-gateway/customer"
+	"github.com/hem-nav-gateway/item"
+	"github.com/hem-nav-gateway/postship"
+	"github.com/hem-nav-gateway/salesinvoice"
+	"github.com/hem-nav-gateway/salesline"
+	"github.com/hem-nav-gateway/salesorder"
 )
 
 type callback func() (interface{}, error)

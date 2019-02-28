@@ -2,7 +2,7 @@ package assemblybom
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/nav-api-gateway/types"
+	"github.com/hem-nav-gateway/types"
 )
 
 type Response struct {

@@ -2,8 +2,8 @@ package request
 
 import (
 	"fmt"
-	"github.com/nav-api-gateway/config"
-	"github.com/nav-api-gateway/session"
+	"github.com/hem-nav-gateway/config"
+	"github.com/hem-nav-gateway/session"
 	"reflect"
 )
 

@@ -3,9 +3,10 @@ package utils
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/nav-api-gateway/config"
-	"github.com/nav-api-gateway/roothandler"
-	"github.com/nav-api-gateway/session"
+	"github.com/hem-nav-gateway/config"
+	"github.com/hem-nav-gateway/roothandler"
+	"github.com/hem-nav-gateway/session"
+
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"

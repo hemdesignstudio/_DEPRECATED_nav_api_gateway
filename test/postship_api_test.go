@@ -2,8 +2,9 @@ package test
 
 import (
 	"encoding/json"
-	"github.com/nav-api-gateway/postship"
-	"github.com/nav-api-gateway/test/utils"
+	"github.com/hem-nav-gateway/postship"
+	"github.com/hem-nav-gateway/test/utils"
+
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

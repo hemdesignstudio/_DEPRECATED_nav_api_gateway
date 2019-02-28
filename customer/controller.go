@@ -1,7 +1,7 @@
 package customer
 
 import (
-	"github.com/nav-api-gateway/request"
+	"github.com/hem-nav-gateway/request"
 )
 
 func GetAll() (interface{}, error) {

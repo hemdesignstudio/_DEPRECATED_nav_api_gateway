@@ -2,8 +2,8 @@ package request
 
 import (
 	"bytes"
-	"github.com/nav-api-gateway/config"
-	"github.com/nav-api-gateway/errorhandler"
+	"github.com/hem-nav-gateway/config"
+	"github.com/hem-nav-gateway/errorhandler"
 	"io/ioutil"
 	"net/http"
 	"net/url"

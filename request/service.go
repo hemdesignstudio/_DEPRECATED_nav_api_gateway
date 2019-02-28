@@ -2,7 +2,7 @@ package request
 
 import (
 	"encoding/json"
-	"github.com/nav-api-gateway/errorhandler"
+	"github.com/hem-nav-gateway/errorhandler"
 )
 
 func GetAll(endpoint string, response interface{}) (interface{}, error) {

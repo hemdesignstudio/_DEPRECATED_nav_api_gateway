@@ -28,14 +28,11 @@ dep version: v0.5.0
 
 ```
 git clone https://github.com/hemdesignstudio/hem-nav-gateway.git
-```
-```
+
 cd hem-nav-gateway
-```
-```
+
 dep ensure
-```
-```
+
 go run main.go
 ```
 
