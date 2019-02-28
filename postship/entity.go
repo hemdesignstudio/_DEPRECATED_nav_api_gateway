@@ -65,3 +65,7 @@ type PostShip struct {
 func CreateType() *graphql.Object {
 	return types.GenerateGraphQlType("PostShip", PostShip{}, nil)
 }
+
+func CreateArgs() map[string]*graphql.ArgumentConfig {
+	return types.GenerateGraphQlArgs(PostShip{}, nil)
+}

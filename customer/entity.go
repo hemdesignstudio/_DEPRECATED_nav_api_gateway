@@ -40,3 +40,7 @@ type CustomerCard struct {
 func CreateType() *graphql.Object {
 	return types.GenerateGraphQlType("CustomerCard", CustomerCard{}, nil)
 }
+
+func CreateArgs() map[string]*graphql.ArgumentConfig {
+	return types.GenerateGraphQlArgs(CustomerCard{}, nil)
+}

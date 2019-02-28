@@ -70,3 +70,7 @@ type SalesOrder struct {
 func CreateType() *graphql.Object {
 	return types.GenerateGraphQlType("SalesOrder", SalesOrder{}, extraFields())
 }
+
+func CreateArgs() map[string]*graphql.ArgumentConfig {
+	return types.GenerateGraphQlArgs(SalesOrder{}, nil)
+}

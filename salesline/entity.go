@@ -39,3 +39,7 @@ type SalesLine struct {
 func CreateType(name string) *graphql.Object {
 	return types.GenerateGraphQlType(name, SalesLine{}, nil)
 }
+
+func CreateArgs() map[string]*graphql.ArgumentConfig {
+	return types.GenerateGraphQlArgs(SalesLine{}, nil)
+}

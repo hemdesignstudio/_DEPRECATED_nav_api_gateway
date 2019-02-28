@@ -6,8 +6,8 @@ import (
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
 	"github.com/nav-api-gateway/config"
 	"github.com/nav-api-gateway/errorhandler"
+	"github.com/nav-api-gateway/fields"
 	"github.com/nav-api-gateway/session"
-	"github.com/nav-api-gateway/utils"
 	"log"
 	"net/http"
 )
@@ -22,8 +22,8 @@ func pathVariables(vars map[string]string) (string, error) {
 }
 
 func Handler() *gqlhandler.Handler {
-	query := utils.QueryType()
-	mutation := utils.MutationType()
+	query := fields.QueryType()
+	mutation := fields.MutationType()
 
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
 		Query:    query,
