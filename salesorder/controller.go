@@ -1,6 +1,6 @@
 package salesorder
 
-import "github.com/nav-api-gateway/request"
+import "github.com/hem-nav-gateway/request"
 
 func GetAll() (interface{}, error) {
 	res := Response{}

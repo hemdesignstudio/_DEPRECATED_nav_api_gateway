@@ -1,8 +1,8 @@
 package assemblybom
 
 import (
-	"github.com/nav-api-gateway/config"
-	"github.com/nav-api-gateway/request"
+	"github.com/hem-nav-gateway/config"
+	"github.com/hem-nav-gateway/request"
 )
 
 var endpoint = config.AssemblyBomEndpoint

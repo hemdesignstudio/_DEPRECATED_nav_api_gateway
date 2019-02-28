@@ -3,8 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
-	"github.com/nav-api-gateway/config"
-	"github.com/nav-api-gateway/roothandler"
+	"github.com/hem-nav-gateway/config"
+	"github.com/hem-nav-gateway/roothandler"
+
 	"log"
 	"net/http"
 )

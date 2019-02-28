@@ -2,9 +2,9 @@ package salesinvoice
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/nav-api-gateway/config"
-	"github.com/nav-api-gateway/salesline"
-	"github.com/nav-api-gateway/types"
+	"github.com/hem-nav-gateway/config"
+	"github.com/hem-nav-gateway/salesline"
+	"github.com/hem-nav-gateway/types"
 )
 
 var endpoint = config.SalesInvoiceEndpoint

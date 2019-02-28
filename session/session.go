@@ -2,7 +2,7 @@ package session
 
 import (
 	"github.com/gorilla/sessions"
-	"github.com/nav-api-gateway/config"
+	"github.com/hem-nav-gateway/config"
 	"net/http"
 )
 

@@ -2,8 +2,9 @@ package salesorder
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/nav-api-gateway/config"
-	"github.com/nav-api-gateway/salesline"
+	"github.com/hem-nav-gateway/config"
+	"github.com/hem-nav-gateway/salesline"
+
 	"log"
 )
 

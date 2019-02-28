@@ -3,10 +3,11 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/nav-api-gateway/config"
-	"github.com/nav-api-gateway/item"
-	"github.com/nav-api-gateway/request"
-	"github.com/nav-api-gateway/test/utils"
+	"github.com/hem-nav-gateway/config"
+	"github.com/hem-nav-gateway/item"
+	"github.com/hem-nav-gateway/request"
+	"github.com/hem-nav-gateway/test/utils"
+
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
