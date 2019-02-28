@@ -19,9 +19,8 @@ https://odatamyway182.navmoln.se:18202/MyWay182Services/ODataV4
 
 ```
 go version: 1.11.4
-```
-```
-dep version: v0.5.0
+
+dep version: 0.5.0
 ```
 
 ### Installing and running
