@@ -12,7 +12,7 @@ import (
 )
 
 type callback func() (interface{}, error)
-type callbackWithArgs func(map[string]interface{}) (interface{}, error)
+type callbackWithArgs func(interface{}) (interface{}, error)
 type Args map[string]map[string]*graphql.ArgumentConfig
 
 var types = map[string]*graphql.Object{

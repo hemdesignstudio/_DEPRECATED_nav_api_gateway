@@ -18,8 +18,9 @@ func navInternalServerError(statusCode int, handler Handler) error {
 	return fmt.Errorf("status: %d, %s, Internal Server Error in Microsoft NAV", statusCode, handler.Message)
 }
 
-func ValueIsNotCorrect(args map[string]interface{}) error {
-	return fmt.Errorf(" there are no entries for '%s' of value '%s' ", args["key"], args["value"])
+func ValueIsNotCorrect(args interface{}) error {
+	_args := args.(map[string]interface{})
+	return fmt.Errorf(" there are no entries for '%s' of value '%s' ", _args["key"], _args["value"])
 }
 
 func CouldNotUnmarshalData() error {

@@ -9,7 +9,7 @@ func GetAll() (interface{}, error) {
 	return request.GetAll(endpoint, response{})
 }
 
-func Filter(args map[string]interface{}) (interface{}, error) {
+func Filter(args interface{}) (interface{}, error) {
 
 	return request.Filter(endpoint, args, response{})
 }

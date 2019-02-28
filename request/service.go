@@ -15,7 +15,7 @@ func GetAll(endpoint string, response interface{}) (interface{}, error) {
 	return res["value"], nil
 }
 
-func Filter(endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+func Filter(endpoint string, args interface{}, response interface{}) (interface{}, error) {
 	resByte, resError := filterByArgs(endpoint, args)
 	if resError != nil {
 		return nil, resError
@@ -32,7 +32,7 @@ func Filter(endpoint string, args map[string]interface{}, response interface{}) 
 	return values, nil
 }
 
-func Create(endpoint string, args map[string]interface{}, response interface{}) (interface{}, error) {
+func Create(endpoint string, args interface{}, response interface{}) (interface{}, error) {
 	body, _ := json.Marshal(args)
 	resByte, resError := createEntity(endpoint, body)
 	if resError != nil {
@@ -45,25 +45,25 @@ func Create(endpoint string, args map[string]interface{}, response interface{}) 
 	return response, nil
 }
 
-func Update(endpoint string, args map[string]interface{}, docType, response interface{}) (interface{}, error) {
+func Update(endpoint string, args interface{}, docType, response interface{}) (interface{}, error) {
 
 	var resByte []byte
 	var resError error
 
 	body, _ := json.Marshal(args)
-
+	_args := args.(map[string]interface{})
 	if docType != nil {
 		docType := docType.(string)
-		if lineNo, ok := args["Line_No"]; ok {
-			id := args["Document_No"].(string)
+		if lineNo, ok := _args["Line_No"]; ok {
+			id := _args["Document_No"].(string)
 			lineNo := lineNo.(int)
 			resByte, resError = updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, lineNo, body)
 		} else {
-			id := args["No"].(string)
+			id := _args["No"].(string)
 			resByte, resError = updateEntitybyDocumentTypeAndID(endpoint, id, docType, body)
 		}
 	} else {
-		id := args["No"].(string)
+		id := _args["No"].(string)
 		resByte, resError = updateEntitybyId(endpoint, id, body)
 	}
 

@@ -28,15 +28,17 @@ func createEntity(endpoint string, body []byte) ([]byte, error) {
 
 }
 
-func filterByArgs(endpoint string, args map[string]interface{}) ([]byte, error) {
+func filterByArgs(endpoint string, args interface{}) ([]byte, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
 		fmt.Sprintf("('%v')", session.CompanyName()) +
 		endpoint
 
-	key := args["key"]
-	value := args["value"]
-	valueType := reflect.TypeOf(args["value"]).Kind()
+	_args := args.(map[string]interface{})
+
+	key := _args["key"]
+	value := _args["value"]
+	valueType := reflect.TypeOf(_args["value"]).Kind()
 	filter := fmt.Sprintf("?$filter=%s eq %s", key, value)
 
 	if valueType == reflect.String {

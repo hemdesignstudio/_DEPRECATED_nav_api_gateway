@@ -9,17 +9,17 @@ func GetAll() (interface{}, error) {
 	return request.GetAll(endpoint, Response{})
 }
 
-func Filter(args map[string]interface{}) (interface{}, error) {
+func Filter(args interface{}) (interface{}, error) {
 
 	return request.Filter(endpoint, args, Response{})
 }
 
-func Create(args map[string]interface{}) (interface{}, error) {
+func Create(args interface{}) (interface{}, error) {
 
 	return request.Create(endpoint, args, Response{})
 }
 
-func Update(args map[string]interface{}) (interface{}, error) {
+func Update(args interface{}) (interface{}, error) {
 
 	return request.Update(endpoint, args, nil, Response{})
 }
