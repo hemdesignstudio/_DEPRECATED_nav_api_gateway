@@ -19,5 +19,5 @@ func main() {
 	router.HandleFunc(path+"/{company:[a-zA-Z]+}", handler)
 	fmt.Println("Server started at http://localhost:6789/graphql/v0.1.0/test")
 	http.Handle("/", router)
-	log.Fatal(http.ListenAndServe(config.Host, nil))
+	go log.Fatal(http.ListenAndServe(config.Host, nil))
 }
