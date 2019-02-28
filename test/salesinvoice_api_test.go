@@ -34,7 +34,6 @@ func getAllSalesInvoices() (int, SalesInvoiceResponseBody) {
 }
 
 func createSalesInvoice() (int, SalesInvoiceResponseBody, utils.ArgType) {
-	//create salesinvoice
 	resBody := SalesInvoiceResponseBody{}
 	page := utils.Mutation.CreateSalesInvoice
 	attrs := utils.GetSalesInvoiceAttrs()
