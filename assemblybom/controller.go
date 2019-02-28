@@ -1,11 +1,8 @@
 package assemblybom
 
 import (
-	"github.com/hem-nav-gateway/config"
 	"github.com/hem-nav-gateway/request"
 )
-
-var endpoint = config.AssemblyBomEndpoint
 
 func GetAll() (interface{}, error) {
 	res := Response{}
