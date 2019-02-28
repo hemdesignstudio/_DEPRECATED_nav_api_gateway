@@ -14,7 +14,7 @@ type Response struct {
 }
 
 type ItemCard struct {
-	No                        string  `json:"No"`
+	No                        string  `json:"No" required:"true"`
 	Description               string  `json:"Description"`
 	BaseUnitOfMeasure         string  `json:"Base_Unit_of_Measure"`
 	AssemblyBOM               bool    `json:"Assembly_BOM"`

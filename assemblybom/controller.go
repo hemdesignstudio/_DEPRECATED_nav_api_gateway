@@ -5,11 +5,11 @@ import (
 )
 
 func GetAll() (interface{}, error) {
-	res := Response{}
-	return request.GetAll(endpoint, res)
+
+	return request.GetAll(endpoint, response{})
 }
 
 func Filter(args map[string]interface{}) (interface{}, error) {
-	res := Response{}
-	return request.Filter(endpoint, args, res)
+
+	return request.Filter(endpoint, args, response{})
 }

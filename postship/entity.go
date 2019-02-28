@@ -14,7 +14,7 @@ type Response struct {
 }
 
 type PostShip struct {
-	No                       string `json:"No"`
+	No                       string `json:"No" required:"true"`
 	SellToCustomerNo         string `json:"Sell_to_Customer_No"`
 	SellToContactNo          string `json:"Sell_to_Contact_No"`
 	SellToCustomerName       string `json:"Sell_to_Customer_Name"`

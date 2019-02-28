@@ -15,7 +15,7 @@ type Response struct {
 }
 
 type SalesOrder struct {
-	No                           string                `json:"No"`
+	No                           string                `json:"No" required:"true"`
 	SellToCustomerNo             string                `json:"Sell_to_Customer_No"`
 	SellToCustomerName           string                `json:"Sell_to_Customer_Name"`
 	SellToAddress                string                `json:"Sell_to_Address"`
