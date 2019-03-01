@@ -90,7 +90,6 @@ func GetSalesOrderAttrs() Attr {
 		"Job_Queue_Status",
 		"Status",
 		"Whs_Shipment_Lines_Exists",
-		"Bill_to_Customer_No",
 		"Bill_to_Name",
 		"Bill_to_Address",
 		"Bill_to_Post_Code",
