@@ -5,8 +5,8 @@ import (
 	"github.com/hem-nav-gateway/errorhandler"
 )
 
-func GetAll(endpoint string, response interface{}) (interface{}, error) {
-	resByte := getAllEntities(endpoint)
+func GetAll(endpoint string, fields, response interface{}) (interface{}, error) {
+	resByte := getAllEntities(endpoint, fields)
 	err := json.Unmarshal(resByte, &response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
@@ -15,8 +15,8 @@ func GetAll(endpoint string, response interface{}) (interface{}, error) {
 	return res["value"], nil
 }
 
-func Filter(endpoint string, args interface{}, response interface{}) (interface{}, error) {
-	resByte, resError := filterByArgs(endpoint, args)
+func Filter(endpoint string, fields, args, response interface{}) (interface{}, error) {
+	resByte, resError := filterByArgs(endpoint, fields, args)
 	if resError != nil {
 		return nil, resError
 	}
@@ -32,9 +32,9 @@ func Filter(endpoint string, args interface{}, response interface{}) (interface{
 	return values, nil
 }
 
-func Create(endpoint string, args interface{}, response interface{}) (interface{}, error) {
+func Create(endpoint string, fields, args, response interface{}) (interface{}, error) {
 	body, _ := json.Marshal(args)
-	resByte, resError := createEntity(endpoint, body)
+	resByte, resError := createEntity(endpoint, fields, body)
 	if resError != nil {
 		return nil, resError
 	}
@@ -45,7 +45,7 @@ func Create(endpoint string, args interface{}, response interface{}) (interface{
 	return response, nil
 }
 
-func Update(endpoint string, args interface{}, docType, response interface{}) (interface{}, error) {
+func Update(endpoint string, fields, args, docType, response interface{}) (interface{}, error) {
 
 	var resByte []byte
 	var resError error
@@ -57,14 +57,14 @@ func Update(endpoint string, args interface{}, docType, response interface{}) (i
 		if lineNo, ok := _args["Line_No"]; ok {
 			id := _args["Document_No"].(string)
 			lineNo := lineNo.(int)
-			resByte, resError = updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, lineNo, body)
+			resByte, resError = updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, fields, lineNo, body)
 		} else {
 			id := _args["No"].(string)
-			resByte, resError = updateEntitybyDocumentTypeAndID(endpoint, id, docType, body)
+			resByte, resError = updateEntitybyDocumentTypeAndID(endpoint, id, docType, fields, body)
 		}
 	} else {
 		id := _args["No"].(string)
-		resByte, resError = updateEntitybyId(endpoint, id, body)
+		resByte, resError = updateEntitybyId(endpoint, id, fields, body)
 	}
 
 	if resError != nil {
