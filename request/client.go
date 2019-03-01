@@ -9,13 +9,21 @@ import (
 	"net/url"
 )
 
-func headers(uri string, method string, body []byte) *http.Request {
+func headers(uri string, method string, body interface{}) *http.Request {
 	u, err := url.Parse(uri)
 	if err != nil {
 		panic(err)
 	}
 	u.RawQuery = u.Query().Encode()
-	req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(body))
+	_body := []byte{}
+
+	if body != nil {
+		_body = body.([]byte)
+	} else {
+		_body = nil
+	}
+
+	req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(_body))
 	req.SetBasicAuth(config.Username, config.Passwd)
 	req.Header.Add("If-Match", "*")
 	req.Header.Add("Accept", "application/json")
@@ -24,7 +32,7 @@ func headers(uri string, method string, body []byte) *http.Request {
 
 }
 
-func clientRequest(req *http.Request, method string) (int, []byte, error) {
+func clientRequest(req *http.Request, method string) (int, interface{}, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -51,7 +59,7 @@ func clientRequest(req *http.Request, method string) (int, []byte, error) {
 	return resp.StatusCode, respBody, nil
 }
 
-func request(uri string, method string, body []byte) (int, []byte, error) {
+func request(uri string, method string, body interface{}) (int, interface{}, error) {
 	req := headers(uri, method, body)
 	return clientRequest(req, method)
 }

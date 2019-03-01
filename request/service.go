@@ -6,8 +6,8 @@ import (
 )
 
 func GetAll(endpoint string, fields, response interface{}) (interface{}, error) {
-	resByte := getAllEntities(endpoint, fields)
-	err := json.Unmarshal(resByte, &response)
+	resValue := getAllEntities(endpoint, fields)
+	err := json.Unmarshal(resValue.([]byte), &response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
 	}
@@ -16,11 +16,11 @@ func GetAll(endpoint string, fields, response interface{}) (interface{}, error) 
 }
 
 func Filter(endpoint string, fields, args, response interface{}) (interface{}, error) {
-	resByte, resError := filterByArgs(endpoint, fields, args)
+	resValue, resError := filterByArgs(endpoint, fields, args)
 	if resError != nil {
 		return nil, resError
 	}
-	err := json.Unmarshal(resByte, &response)
+	err := json.Unmarshal(resValue.([]byte), &response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
 	}
@@ -34,11 +34,11 @@ func Filter(endpoint string, fields, args, response interface{}) (interface{}, e
 
 func Create(endpoint string, fields, args, response interface{}) (interface{}, error) {
 	body, _ := json.Marshal(args)
-	resByte, resError := createEntity(endpoint, fields, body)
+	resValue, resError := createEntity(endpoint, fields, body)
 	if resError != nil {
 		return nil, resError
 	}
-	err := json.Unmarshal(resByte, &response)
+	err := json.Unmarshal(resValue.([]byte), &response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
 	}
@@ -47,7 +47,7 @@ func Create(endpoint string, fields, args, response interface{}) (interface{}, e
 
 func Update(endpoint string, fields, args, docType, response interface{}) (interface{}, error) {
 
-	var resByte []byte
+	var resValue interface{}
 	var resError error
 
 	body, _ := json.Marshal(args)
@@ -57,20 +57,20 @@ func Update(endpoint string, fields, args, docType, response interface{}) (inter
 		if lineNo, ok := _args["Line_No"]; ok {
 			id := _args["Document_No"].(string)
 			lineNo := lineNo.(int)
-			resByte, resError = updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, fields, lineNo, body)
+			resValue, resError = updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, fields, lineNo, body)
 		} else {
 			id := _args["No"].(string)
-			resByte, resError = updateEntitybyDocumentTypeAndID(endpoint, id, docType, fields, body)
+			resValue, resError = updateEntitybyDocumentTypeAndID(endpoint, id, docType, fields, body)
 		}
 	} else {
 		id := _args["No"].(string)
-		resByte, resError = updateEntitybyId(endpoint, id, fields, body)
+		resValue, resError = updateEntitybyId(endpoint, id, fields, body)
 	}
 
 	if resError != nil {
 		return nil, resError
 	}
-	err := json.Unmarshal(resByte, &response)
+	err := json.Unmarshal(resValue.([]byte), &response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
 	}

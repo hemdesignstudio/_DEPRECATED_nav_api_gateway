@@ -41,7 +41,7 @@ func resolveFilterArgs(args interface{}) string {
 
 }
 
-func getAllEntities(endpoint string, fields interface{}) []byte {
+func getAllEntities(endpoint string, fields interface{}) interface{} {
 
 	baseUri := resolveBaseUrl(endpoint)
 	returnFields := resolveFields(fields)
@@ -51,7 +51,7 @@ func getAllEntities(endpoint string, fields interface{}) []byte {
 	return respBody
 }
 
-func createEntity(endpoint string, fields interface{}, body []byte) ([]byte, error) {
+func createEntity(endpoint string, fields, body interface{}) (interface{}, error) {
 
 	baseUri := resolveBaseUrl(endpoint)
 	returnFields := resolveFields(fields)
@@ -62,7 +62,7 @@ func createEntity(endpoint string, fields interface{}, body []byte) ([]byte, err
 
 }
 
-func filterByArgs(endpoint string, fields, args interface{}) ([]byte, error) {
+func filterByArgs(endpoint string, fields, args interface{}) (interface{}, error) {
 
 	baseUri := resolveBaseUrl(endpoint)
 	filter := resolveFilterArgs(args)
@@ -73,7 +73,7 @@ func filterByArgs(endpoint string, fields, args interface{}) ([]byte, error) {
 	return respBody, err
 }
 
-func updateEntitybyId(endpoint, id string, fields interface{}, body []byte) ([]byte, error) {
+func updateEntitybyId(endpoint, id string, fields, body interface{}) (interface{}, error) {
 
 	baseUri := resolveBaseUrl(endpoint)
 	selector := fmt.Sprintf("('%s')", id)
@@ -85,7 +85,7 @@ func updateEntitybyId(endpoint, id string, fields interface{}, body []byte) ([]b
 
 }
 
-func updateEntitybyDocumentTypeAndID(endpoint, id, docType string, fields interface{}, body []byte) ([]byte, error) {
+func updateEntitybyDocumentTypeAndID(endpoint, id, docType string, fields, body interface{}) (interface{}, error) {
 
 	baseUri := resolveBaseUrl(endpoint)
 	selector := fmt.Sprintf("('%s','%s')", docType, id)
@@ -97,7 +97,7 @@ func updateEntitybyDocumentTypeAndID(endpoint, id, docType string, fields interf
 
 }
 
-func updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, fields interface{}, lineNo int, body []byte) ([]byte, error) {
+func updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, fields interface{}, lineNo int, body interface{}) (interface{}, error) {
 	baseUri := resolveBaseUrl(endpoint)
 	selector := fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
 	returnFields := resolveFields(fields)
