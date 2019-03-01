@@ -4,10 +4,14 @@ import (
 	"github.com/hem-nav-gateway/request"
 )
 
-func GetAll() (interface{}, error) {
-	return request.GetAll(endpoint, Response{})
+func GetAll(fields interface{}) (interface{}, error) {
+
+	return request.GetAll(endpoint, fields, Response{})
+
 }
 
-func Filter(args interface{}) (interface{}, error) {
-	return request.Filter(endpoint, args, Response{})
+func Filter(fields, args interface{}) (interface{}, error) {
+
+	return request.Filter(endpoint, fields, args, Response{})
+
 }

@@ -20,7 +20,7 @@ func getSalesLinesFields() *graphql.Field {
 			salesInvoice, _ := p.Source.(SalesInvoice)
 			p.Args["key"] = "Document_No"
 			p.Args["value"] = salesInvoice.No
-			return salesline.Filter(p.Args)
+			return salesline.Filter(nil, p.Args)
 		},
 	}
 	return field
