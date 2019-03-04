@@ -27,6 +27,7 @@ func resolveFields(params graphql.ResolveParams, selections []ast.Selection) ([]
 			return nil, fmt.Errorf("getSelectedFields: found unexpected selection type %v", t)
 		}
 	}
+
 	return selected, nil
 }
 
