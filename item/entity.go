@@ -134,7 +134,7 @@ and this will be translated to
 	"No":	&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
 
 
-The returned GraphQl Object Type will be used as a part of the main query
+The returned GraphQl arguments will be used as a part of the main mutation
 */
 func CreateArgs() map[string]*graphql.ArgumentConfig {
 	return types.GenerateGraphQlArgs(ItemCard{}, nil)

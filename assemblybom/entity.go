@@ -89,7 +89,7 @@ example of GraphQl Object
 				},
 			})
 
-The returned GraphQl Object Type will be used as a part of the main query
+The returned GraphQl arguments will be used as a part of the main mutation
 
 */
 func CreateType() *graphql.Object {

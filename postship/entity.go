@@ -130,7 +130,7 @@ example of GraphQl Object
 
 GraphQl Object is a map[string]*graphql.Field
 
-The returned GraphQl Object Type will be used as a part of the main query
+The returned GraphQl arguments will be used as a part of the main mutation
 */
 func CreateType() *graphql.Object {
 	return types.GenerateGraphQlType("PostShip", PostShip{}, nil)
