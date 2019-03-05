@@ -2,10 +2,7 @@ package salesorder
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/hem-nav-gateway/config"
 	"github.com/hem-nav-gateway/salesline"
-
-	"log"
 )
 
 var typeList = map[string]*graphql.Object{
@@ -16,11 +13,15 @@ func getSalesLinesFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(typeList["salesLine"]),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			log.Printf("fetching sales lines of Company: %s which are related to Sales orders", config.CompanyName)
-			salesOrder, _ := p.Source.(SalesOrder)
-			p.Args["key"] = "Document_No"
-			p.Args["value"] = salesOrder.No
-			return salesline.Filter(nil, p.Args)
+			salesOrder, ok := p.Source.(map[string]interface{})
+
+			if ok == true {
+				p.Args["key"] = "Document_No"
+				p.Args["value"] = salesOrder["No"]
+				return salesline.Filter(nil, p.Args)
+			}
+			return nil, nil
+
 		},
 	}
 	return field
