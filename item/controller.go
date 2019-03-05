@@ -21,8 +21,7 @@ func Filter(fields, args interface{}) (interface{}, error) {
 	return request.Filter(endpoint, fields, args, Response{})
 }
 
-//Create creates a ItemCard objects based on arguments
-// added by the requester
+//Create creates a ItemCard objects based on arguments  added by the requester
 //Function takes a list of fields to be returned by Microsoft Navision after creation.
 func Create(fields, args interface{}) (interface{}, error) {
 	return request.Create(endpoint, fields, args, Response{})
