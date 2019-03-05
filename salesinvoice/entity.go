@@ -28,7 +28,7 @@ import (
 	"github.com/hem-nav-gateway/types"
 )
 
-//Microsoft Navision endpoint path for SalesInvoice page
+// Microsoft Navision endpoint path for SalesInvoice page
 var endpoint = config.SalesInvoiceEndpoint
 
 /*
