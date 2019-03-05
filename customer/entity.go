@@ -97,9 +97,9 @@ example of GraphQl Object
 	graphql.NewObject(graphql.ObjectConfig{
 			Name: "CustomerCard",
 			Fields: graphql.Fields{
-				"No":       			&graphql.Field{Type: graphql.String},
-				"Name":                 &graphql.Field{Type: graphql.String},
-				"Address":              &graphql.Field{Type: graphql.String},
+				"No":				&graphql.Field{Type: graphql.String},
+				"Name":				&graphql.Field{Type: graphql.String},
+				"Address":			&graphql.Field{Type: graphql.String},
 				...
 			},
 		})
@@ -119,9 +119,9 @@ CreateArgs function creates a GraphQl Object Type from the 'CustomerCard'
 example of GraphQl Argument Object
 
 	map[string]*graphql.ArgumentConfig{
-		"No":	&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-		"Name":	&graphql.ArgumentConfig{Type: graphql.String},
-		"Address":	&graphql.ArgumentConfig{Type: graphql.String},
+		"No":			&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+		"Name":			&graphql.ArgumentConfig{Type: graphql.String},
+		"Address":		&graphql.ArgumentConfig{Type: graphql.String},
 		...
 	}
 
