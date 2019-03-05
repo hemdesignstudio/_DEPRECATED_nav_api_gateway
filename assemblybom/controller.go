@@ -8,17 +8,17 @@ import (
 	"github.com/hem-nav-gateway/request"
 )
 
-//GetAll takes a list of fields to be returned by Microsoft Navision.
-//Function returns a list of AssemblyBom values
+//GetAll retrieves all of AssemblyBom objects in Microsoft Navision.
+//Function takes a list of AssemblyBom fields to be returned
 func GetAll(fields interface{}) (interface{}, error) {
 
 	return request.GetAll(endpoint, fields, response{})
 
 }
 
-//Filter takes a list of fields to be returned by Microsoft Navision.
+//Filter retrieves a filtered list of AssemblyBom objects based of key-value pair.
+//Funtion takes a list of fields to be returned by Microsoft Navision.
 //Function takes filter arguments which are required for filtering results in Navision
-//Function returns a list of AssemblyBom values
 func Filter(fields, args interface{}) (interface{}, error) {
 
 	return request.Filter(endpoint, fields, args, response{})
