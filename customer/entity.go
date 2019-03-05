@@ -29,7 +29,7 @@ import (
 	"github.com/hem-nav-gateway/types"
 )
 
-//Microsoft Navision endpoint path for CustomerCard page
+// Microsoft Navision endpoint path for CustomerCard page
 var endpoint = config.CustomerCardWSEndpoint
 
 /*

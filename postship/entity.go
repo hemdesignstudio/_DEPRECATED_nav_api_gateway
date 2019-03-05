@@ -28,7 +28,7 @@ import (
 	"github.com/hem-nav-gateway/types"
 )
 
-//Microsoft Navision endpoint path for WebSalesShipment page
+// Microsoft Navision endpoint path for WebSalesShipment page
 var endpoint = config.PostShipEndpoint
 
 /*

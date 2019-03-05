@@ -28,7 +28,7 @@ import (
 	"github.com/hem-nav-gateway/types"
 )
 
-//Microsoft Navision endpoint path for ItemCard page
+// Microsoft Navision endpoint path for ItemCard page
 var endpoint = config.ItemCardEndpoint
 
 /*
