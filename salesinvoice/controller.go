@@ -12,7 +12,7 @@ import (
 // Function takes a list of fields to be returned by Microsoft Navision.
 func GetAll(fields interface{}) (interface{}, error) {
 
-	// SalesInvoice has nested GraphQL fields SalesLine.
+	// SalesInvoice has nested GraphQL field SalesLine.
 	// SalesLine is removed is it is only known to this API
 	// and should not be sent to Navision
 	fields = removeField("Sales_Lines", fields)
@@ -27,7 +27,7 @@ func GetAll(fields interface{}) (interface{}, error) {
 // required for filtering results in Navision.
 func Filter(fields, args interface{}) (interface{}, error) {
 
-	// SalesInvoice has nested GraphQL fields SalesLine.
+	// SalesInvoice has nested GraphQL field SalesLine.
 	// SalesLine is removed is it is only known to this API
 	// and should not be sent to Navision
 	fields = removeField("Sales_Lines", fields)
@@ -41,7 +41,7 @@ func Filter(fields, args interface{}) (interface{}, error) {
 // required for creating a new object
 func Create(fields, args interface{}) (interface{}, error) {
 
-	// SalesInvoice has nested GraphQL fields SalesLine.
+	// SalesInvoice has nested GraphQL field SalesLine.
 	// SalesLine is removed is it is only known to this API and should not be sent to Navision
 	fields = removeField("Sales_Lines", fields)
 
@@ -58,7 +58,7 @@ func Update(fields, args interface{}) (interface{}, error) {
 	// which Is document Type in this case it is Document_Type = "Invoice".
 	docType := "Invoice"
 
-	// SalesInvoice has nested GraphQL fields SalesLine.
+	// SalesInvoice has nested GraphQL field SalesLine.
 	// SalesLine is removed is it is only known to this API
 	// and should not be sent to Navision
 	fields = removeField("Sales_Lines", fields)
