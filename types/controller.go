@@ -20,11 +20,11 @@ func GenerateGraphQlType(name string, object interface{}, extraFields graphql.Fi
 	obj := reflect.TypeOf(object)
 
 	for i := 0; i < obj.NumField(); i++ {
-		elemName := obj.Field(i).Tag.Get("json")
-		elemType := obj.Field(i).Type.String()
+		_name := obj.Field(i).Tag.Get("json")
+		_type := obj.Field(i).Type.String()
 
-		if typeListContains(elemType) {
-			fields[elemName] = attrMap[elemType]
+		if typeListContains(_type) {
+			fields[_name] = attrMap[_type]
 		}
 	}
 
@@ -39,17 +39,24 @@ func GenerateGraphQlType(name string, object interface{}, extraFields graphql.Fi
 func GenerateGraphQlArgs(object interface{}, extraFields map[string]*graphql.ArgumentConfig) map[string]*graphql.ArgumentConfig {
 
 	args := map[string]*graphql.ArgumentConfig{}
-	t := reflect.TypeOf(object)
-	for i := 0; i < t.NumField(); i++ {
-		elemName := t.Field(i).Tag.Get("json")
-		elemRequired := t.Field(i).Tag.Get("required")
-		elemType := t.Field(i).Type.String()
+	obj := reflect.TypeOf(object)
+	for i := 0; i < obj.NumField(); i++ {
 
-		if typeListContains(elemType) {
-			if elemRequired == "true" {
-				args[elemName] = requiredArgMap[elemType]
+		readOnly := obj.Field(i).Tag.Get("readOnly")
+
+		if readOnly == "true" {
+			continue
+		}
+
+		name := obj.Field(i).Tag.Get("json")
+		required := obj.Field(i).Tag.Get("required")
+		_type := obj.Field(i).Type.String()
+
+		if typeListContains(_type) {
+			if required == "true" {
+				args[name] = requiredArgMap[_type]
 			} else {
-				args[elemName] = argMap[elemType]
+				args[name] = argMap[_type]
 			}
 		}
 
