@@ -121,9 +121,9 @@ example of GraphQl Object
 		graphql.NewObject(graphql.ObjectConfig{
 				Name: "PostShip",
 				Fields: graphql.Fields{
-					"No":       		   &graphql.Field{Type: graphql.String},
-					"Sell_to_Customer_No": &graphql.Field{Type: graphql.String},
-					"Sell_to_Contact_No":  &graphql.Field{Type: graphql.String},
+					"No":					&graphql.Field{Type: graphql.String},
+					"Sell_to_Customer_No":	&graphql.Field{Type: graphql.String},
+					"Sell_to_Contact_No":	&graphql.Field{Type: graphql.String},
 					...
 				},
 			})
