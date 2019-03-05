@@ -135,7 +135,3 @@ The returned GraphQl Object Type will be used as a part of the main query
 func CreateType() *graphql.Object {
 	return types.GenerateGraphQlType("PostShip", PostShip{}, nil)
 }
-
-func CreateArgs() map[string]*graphql.ArgumentConfig {
-	return types.GenerateGraphQlArgs(PostShip{}, nil)
-}

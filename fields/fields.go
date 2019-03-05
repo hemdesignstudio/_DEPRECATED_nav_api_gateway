@@ -35,7 +35,6 @@ var args = Args{
 	"item":         item.CreateArgs(),
 	"salesOrder":   salesorder.CreateArgs(),
 	"salesLine":    salesline.CreateArgs(),
-	"postShip":     postship.CreateArgs(),
 	"salesInvoice": salesinvoice.CreateArgs(),
 }
 
