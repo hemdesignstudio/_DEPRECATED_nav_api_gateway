@@ -9,7 +9,9 @@ import (
 )
 
 func resolveFields(fields interface{}) string {
-
+	if fields == nil {
+		return ""
+	}
 	fieldList := fields.([]string)
 	returnFields := fmt.Sprintf("$select=%v", strings.Join(fieldList, ", "))
 	return returnFields
