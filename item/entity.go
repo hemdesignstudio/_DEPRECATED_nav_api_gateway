@@ -8,12 +8,12 @@ operations related to Microsoft Navision ItemCard page.
 
 Package has a type "ItemCard" where all the fields related to ItemCard are defined.
 
-		type ItemCard struct {
-			No                        string  `json:"No" required:"true"`
-			Description               string  `json:"Description"`
-			BaseUnitOfMeasure         string  `json:"Base_Unit_of_Measure"`
-			...
-		}
+	type ItemCard struct {
+		No                        string  `json:"No" required:"true"`
+		Description               string  `json:"Description"`
+		BaseUnitOfMeasure         string  `json:"Base_Unit_of_Measure"`
+		...
+	}
 
 
 
@@ -37,25 +37,25 @@ when requesting ItemCard, It is utilized for JSON decoding
 
 example response from Navision
 
-		{
-			"value": [
-				{
-					"No": "1234"
-					"Description": "this object is great",
-					"Base_Unit_of_Measure": "ABM",
-					...
-				},
-				{
-					"No": "2345"
-					"Description": "this object is amazing",
-					"Base_Unit_of_Measure": "CMA",
-					...
-				},
-				{
+	{
+		"value": [
+			{
+				"No": "1234"
+				"Description": "this object is great",
+				"Base_Unit_of_Measure": "ABM",
 				...
+			},
+			{
+				"No": "2345"
+				"Description": "this object is amazing",
+				"Base_Unit_of_Measure": "CMA",
+				...
+			},
+			{
+			...
 
-				},
-		}
+			},
+	}
 
 */
 type Response struct {
@@ -91,15 +91,15 @@ CreateType function creates a GraphQl Object Type from the 'ItemCard' type.
 
 example of GraphQl Object
 
-		graphql.NewObject(graphql.ObjectConfig{
-				Name: "ItemCard",
-				Fields: graphql.Fields{
-					"No":					&graphql.Field{Type: graphql.String},
-					"Description":			&graphql.Field{Type: graphql.String},
-					"Base_Unit_of_Measure":	&graphql.Field{Type: graphql.String},
-					...
-				},
-			})
+	graphql.NewObject(graphql.ObjectConfig{
+			Name: "ItemCard",
+			Fields: graphql.Fields{
+				"No":					&graphql.Field{Type: graphql.String},
+				"Description":			&graphql.Field{Type: graphql.String},
+				"Base_Unit_of_Measure":	&graphql.Field{Type: graphql.String},
+				...
+			},
+		})
 
 GraphQl Object is a map[string]*graphql.Field
 
@@ -114,12 +114,12 @@ CreateArgs function creates a GraphQl Object Type from the 'ItemCard'
 
 example of GraphQl Argument Object
 
-		map[string]*graphql.ArgumentConfig{
-			"No":		&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-			"Name":		&graphql.ArgumentConfig{Type: graphql.String},
-			"Address":	&graphql.ArgumentConfig{Type: graphql.String},
-			...
-		}
+	map[string]*graphql.ArgumentConfig{
+		"No":					&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+		"Description":			&graphql.ArgumentConfig{Type: graphql.String},
+		"Base_Unit_of_Measure":	&graphql.ArgumentConfig{Type: graphql.String},
+		...
+	}
 
 Hint: arguments are used to create or update entities,
 some arguments are required and hence in the ItemCard type,
@@ -127,11 +127,11 @@ tags can be noticed
 
 example of required fields
 
-			No	string `json:"No" required:"true"`
+	No	string `json:"No" required:"true"`
 
 and this will be translated to
 
-			"No":	&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+	"No":	&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
 
 
 The returned GraphQl Object Type will be used as a part of the main query
