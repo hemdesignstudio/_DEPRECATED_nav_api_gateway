@@ -3,18 +3,22 @@ package salesorder
 import "github.com/hem-nav-gateway/request"
 
 func GetAll(fields interface{}) (interface{}, error) {
+	fields = removeField("Sales_Lines", fields)
 	return request.GetAll(endpoint, fields, Response{})
 }
 
 func Filter(fields, args interface{}) (interface{}, error) {
+	fields = removeField("Sales_Lines", fields)
 	return request.Filter(endpoint, fields, args, Response{})
 }
 
 func Create(fields, args interface{}) (interface{}, error) {
+	fields = removeField("Sales_Lines", fields)
 	return request.Create(endpoint, fields, args, Response{})
 }
 
 func Update(fields, args interface{}) (interface{}, error) {
+	fields = removeField("Sales_Lines", fields)
 	docType := "Order"
 	return request.Update(endpoint, fields, args, docType, Response{})
 }
