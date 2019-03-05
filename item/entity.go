@@ -94,9 +94,9 @@ example of GraphQl Object
 		graphql.NewObject(graphql.ObjectConfig{
 				Name: "ItemCard",
 				Fields: graphql.Fields{
-					"No":       			&graphql.Field{Type: graphql.String},
-					"Description":          &graphql.Field{Type: graphql.String},
-					"Base_Unit_of_Measure": &graphql.Field{Type: graphql.String},
+					"No":					&graphql.Field{Type: graphql.String},
+					"Description":			&graphql.Field{Type: graphql.String},
+					"Base_Unit_of_Measure":	&graphql.Field{Type: graphql.String},
 					...
 				},
 			})
@@ -115,9 +115,9 @@ CreateArgs function creates a GraphQl Object Type from the 'ItemCard'
 example of GraphQl Argument Object
 
 		map[string]*graphql.ArgumentConfig{
-			"No":       			&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-			"Name":                 &graphql.ArgumentConfig{Type: graphql.String},
-			"Address":              &graphql.ArgumentConfig{Type: graphql.String},
+			"No":		&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+			"Name":		&graphql.ArgumentConfig{Type: graphql.String},
+			"Address":	&graphql.ArgumentConfig{Type: graphql.String},
 			...
 		}
 
@@ -127,11 +127,11 @@ tags can be noticed
 
 example of required fields
 
-			No       string `json:"No" required:"true"`
+			No	string `json:"No" required:"true"`
 
 and this will be translated to
 
-			"No":      &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+			"No":	&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
 
 
 The returned GraphQl Object Type will be used as a part of the main query
