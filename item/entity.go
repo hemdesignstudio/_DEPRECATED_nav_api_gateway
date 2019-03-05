@@ -42,7 +42,7 @@ example response from Navision
 				{
 					"No": "1234"
 					"Description": "this object is great",
-					"Address": "ABM",
+					"Base_Unit_of_Measure": "ABM",
 					...
 				},
 				{
