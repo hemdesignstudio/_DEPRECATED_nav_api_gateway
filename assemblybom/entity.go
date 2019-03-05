@@ -29,6 +29,7 @@ import (
 	"github.com/hem-nav-gateway/types"
 )
 
+//Microsoft Navision endpoint path for Assembly_Bom page
 var endpoint = config.AssemblyBomEndpoint
 
 /*
