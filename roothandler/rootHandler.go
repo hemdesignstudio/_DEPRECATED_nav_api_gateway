@@ -22,6 +22,7 @@ func pathVariables(vars map[string]string) (string, error) {
 }
 
 func Handler() *gqlhandler.Handler {
+
 	query := fields.QueryType()
 	mutation := fields.MutationType()
 
@@ -29,6 +30,7 @@ func Handler() *gqlhandler.Handler {
 		Query:    query,
 		Mutation: mutation,
 	})
+
 	if err != nil {
 		log.Fatalf("failed to create new schema, error: %v", err)
 	}

@@ -7,14 +7,13 @@ import (
 )
 
 var endpoint = config.CustomerCardWSEndpoint
-var companyName = config.CompanyName
 
 type Response struct {
 	Value []CustomerCard `json:"value"`
 }
 
 type CustomerCard struct {
-	No                          string `json:"No"`
+	No                          string `json:"No" required:"true"`
 	Name                        string `json:"Name"`
 	Address                     string `json:"Address"`
 	Address2                    string `json:"Address_2"`
@@ -38,9 +37,11 @@ type CustomerCard struct {
 }
 
 func CreateType() *graphql.Object {
+
 	return types.GenerateGraphQlType("CustomerCard", CustomerCard{}, nil)
 }
 
 func CreateArgs() map[string]*graphql.ArgumentConfig {
+
 	return types.GenerateGraphQlArgs(CustomerCard{}, nil)
 }

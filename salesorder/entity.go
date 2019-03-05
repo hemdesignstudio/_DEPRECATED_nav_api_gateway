@@ -15,7 +15,7 @@ type Response struct {
 }
 
 type SalesOrder struct {
-	No                           string                `json:"No"`
+	No                           string                `json:"No" required:"true"`
 	SellToCustomerNo             string                `json:"Sell_to_Customer_No"`
 	SellToCustomerName           string                `json:"Sell_to_Customer_Name"`
 	SellToAddress                string                `json:"Sell_to_Address"`
@@ -35,7 +35,6 @@ type SalesOrder struct {
 	JobQueueStatus               string                `json:"Job_Queue_Status"`
 	Status                       string                `json:"Status"`
 	WhsShipmentLinesExists       bool                  `json:"Whs_Shipment_Lines_Exists"`
-	BillToCustomerNo             string                `json:"Bill_to_Customer_No"`
 	BillToName                   string                `json:"Bill_to_Name"`
 	BillToAddress                string                `json:"Bill_to_Address"`
 	BillToPostCode               string                `json:"Bill_to_Post_Code"`

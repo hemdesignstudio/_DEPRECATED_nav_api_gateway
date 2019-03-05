@@ -11,8 +11,8 @@ import (
 	"github.com/hem-nav-gateway/salesorder"
 )
 
-type callback func() (interface{}, error)
-type callbackWithArgs func(map[string]interface{}) (interface{}, error)
+type callback func(interface{}) (interface{}, error)
+type callbackWithArgs func(interface{}, interface{}) (interface{}, error)
 type Args map[string]map[string]*graphql.ArgumentConfig
 
 var types = map[string]*graphql.Object{
@@ -37,43 +37,6 @@ var args = Args{
 	"salesLine":    salesline.CreateArgs(),
 	"postShip":     postship.CreateArgs(),
 	"salesInvoice": salesinvoice.CreateArgs(),
-}
-
-func queryFields(name string, getAll callback, filter callbackWithArgs) *graphql.Field {
-	field := &graphql.Field{
-		Type: graphql.NewList(types[name]),
-		Args: filterArgs,
-		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			if len(p.Args) != 2 {
-				return getAll()
-			}
-			return filter(p.Args)
-		},
-	}
-	return field
-}
-
-func createFields(name string, create callbackWithArgs) *graphql.Field {
-
-	field := &graphql.Field{
-		Type: types[name],
-		Args: args[name],
-		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			return create(p.Args)
-		},
-	}
-	return field
-}
-
-func updateFields(name string, update callbackWithArgs) *graphql.Field {
-	field := &graphql.Field{
-		Type: types[name],
-		Args: args[name],
-		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			return update(p.Args)
-		},
-	}
-	return field
 }
 
 func QueryType() *graphql.Object {

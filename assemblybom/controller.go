@@ -1,18 +1,23 @@
 package assemblybom
 
 import (
-	"github.com/hem-nav-gateway/config"
 	"github.com/hem-nav-gateway/request"
 )
 
-var endpoint = config.AssemblyBomEndpoint
-
-func GetAll() (interface{}, error) {
-	res := Response{}
-	return request.GetAll(endpoint, res)
+type Request struct {
+	endpoint string
+	fields   interface{}
+	args     interface{}
+	response *response
 }
 
-func Filter(args map[string]interface{}) (interface{}, error) {
-	res := Response{}
-	return request.Filter(endpoint, args, res)
+func GetAll(fields interface{}) (interface{}, error) {
+
+	return request.GetAll(endpoint, fields, response{})
+
+}
+
+func Filter(fields, args interface{}) (interface{}, error) {
+
+	return request.Filter(endpoint, fields, args, response{})
 }

@@ -23,7 +23,6 @@ schemes:
   - http
 
 
-
 paths:
   /graphql/v0.1.0/test:
     get:
@@ -83,9 +82,16 @@ paths:
                 example: 10
 
 security:
-    - service_1: []
+  - api_key: []
+    service_1: []
 
 securityDefinitions:
+  # This section configures basic authentication with an API key.
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+
   service_1:
     authorizationUrl: ""
     flow: "implicit"

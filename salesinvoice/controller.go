@@ -4,23 +4,23 @@ import (
 	"github.com/hem-nav-gateway/request"
 )
 
-func GetAll() (interface{}, error) {
-	res := Response{}
-	return request.GetAll(endpoint, res)
+func GetAll(fields interface{}) (interface{}, error) {
+	fields = removeField("Sales_Lines", fields)
+	return request.GetAll(endpoint, fields, Response{})
 }
 
-func Filter(args map[string]interface{}) (interface{}, error) {
-	res := Response{}
-	return request.Filter(endpoint, args, res)
+func Filter(fields, args interface{}) (interface{}, error) {
+	fields = removeField("Sales_Lines", fields)
+	return request.Filter(endpoint, fields, args, Response{})
 }
 
-func Create(args map[string]interface{}) (interface{}, error) {
-	res := Response{}
-	return request.Create(endpoint, args, res)
+func Create(fields, args interface{}) (interface{}, error) {
+	fields = removeField("Sales_Lines", fields)
+	return request.Create(endpoint, fields, args, Response{})
 }
 
-func Update(args map[string]interface{}) (interface{}, error) {
-	res := Response{}
+func Update(fields, args interface{}) (interface{}, error) {
 	docType := "Invoice"
-	return request.Update(endpoint, args, docType, res)
+	fields = removeField("Sales_Lines", fields)
+	return request.Update(endpoint, fields, args, docType, Response{})
 }
