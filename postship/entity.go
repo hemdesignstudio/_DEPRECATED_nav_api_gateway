@@ -4,7 +4,7 @@
 
 /*
 Package postship implements a simple package for handling all graphql
-operations related to Microsoft Navision PostedSalesShipment page.
+operations related to Microsoft Navision WebSalesShipment or Posted Sales Shipment page.
 
 Package has a type "PostShip" where all the fields related to WebSalesShipment page are defined.
 
