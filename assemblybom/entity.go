@@ -8,15 +8,16 @@ operations related to Microsoft Navision Assembly_Bom page.
 
 Package has a type "AssemblyBom" where all the fields related to Assembly_Bom are defined.
 
-	'''
-	type AssemblyBom struct {
-		No                string  `json:"No"`
-		ParentItemNo      string  `json:"Parent_Item_No"`
-		Type              string  `json:"Type"`
-		...
-	}
-	'''
+	Example:
 
+		'''
+		type AssemblyBom struct {
+			No                string  `json:"No"`
+			ParentItemNo      string  `json:"Parent_Item_No"`
+			Type              string  `json:"Type"`
+			...
+		}
+		'''
 
 GraphQl Object Type along with its fields, arguments and attributes are generated
 from the AssemblyBom type when "CreateType" method is invoked.
@@ -36,30 +37,32 @@ var endpoint = config.AssemblyBomEndpoint
 Response is utilized as Microsoft Navision returns a list of objects
 when requesting Assembly_Bom, It is utilized for JSON decoding
 
-example response from Navision
+Here is an example response from Navision
 
-	'''
-	{
-		"value": [
-			{
-				"No": "1234"
-				"Parent_Item_No": "10005",
-				"Line_No": 10000,
-				"Type": "Item",
-				...
-			},
-			{
-				"No": "2345"
-				"Parent_Item_No": "10005",
-				"Line_No": 20000,
-				"Type": "Item",
-				...
-			},
-			{
-			...
+	Example:
 
-			},
-		}
+		'''
+		{
+			"value": [
+				{
+					"No": "1234"
+					"Parent_Item_No": "10005",
+					"Line_No": 10000,
+					"Type": "Item",
+					...
+				},
+				{
+					"No": "2345"
+					"Parent_Item_No": "10005",
+					"Line_No": 20000,
+					"Type": "Item",
+					...
+				},
+				{
+				...
+
+				},
+			}
 	'''
 */
 type response struct {
@@ -78,19 +81,20 @@ type AssemblyBom struct {
 CreateType function creates a GraphQl Object Type from the
 'AssemblyBom' above
 
-example of GraphQl Object
+Here isexample of GraphQl Object
 
-	'''
-	graphql.NewObject(graphql.ObjectConfig{
-			Name: "AssemblyBom",
-			Fields: graphql.Fields{
-				"Parent_Item_No":       &graphql.Field{Type: graphql.String},
-				"No":                   &graphql.Field{Type: graphql.String},
-				"Type":                 &graphql.Field{Type: graphql.String},
-				...
-			},
-		})
-	'''
+	Example:
+		'''
+		graphql.NewObject(graphql.ObjectConfig{
+				Name: "AssemblyBom",
+				Fields: graphql.Fields{
+					"Parent_Item_No":       &graphql.Field{Type: graphql.String},
+					"No":                   &graphql.Field{Type: graphql.String},
+					"Type":                 &graphql.Field{Type: graphql.String},
+					...
+				},
+			})
+		'''
 
 The returned GraphQl arguments will be used as a part of the main mutation
 
