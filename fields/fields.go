@@ -60,6 +60,10 @@ var filterArgs = map[string]*graphql.ArgumentConfig{
 	"value": {Type: graphql.String},
 }
 
+var companyArgs = map[string]*graphql.ArgumentConfig{
+	"name": {Type: graphql.String},
+}
+
 /*
 args hold all create and update arguments for all mutation types
 
@@ -133,9 +137,9 @@ QueryType creates the root query with all of its nested fields
 			}
 			'''
 */
-func QueryType() *graphql.Object {
+func CompanyQueryType() *graphql.Object {
 	query := graphql.ObjectConfig{
-		Name: "RootQuery",
+		Name: "Company",
 		Fields: graphql.Fields{
 			"AssemblyBom":         queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter),
 			"CustomerCard":        queryFields("customer", customer.GetAll, customer.Filter),
@@ -192,9 +196,9 @@ MutationType create the root mutation (Create or updating an entity) for all typ
 			}
 			'''
 */
-func MutationType() *graphql.Object {
+func CompanyMutationType() *graphql.Object {
 	mutation := graphql.ObjectConfig{
-		Name: "RootMutation",
+		Name: "CompanyMutation",
 		Fields: graphql.Fields{
 			"CreateCustomerCard": createFields("customer", customer.Create),
 			"CreateItemCard":     createFields("item", item.Create),
@@ -206,6 +210,40 @@ func MutationType() *graphql.Object {
 			"UpdateSalesOrder":   updateFields("salesOrder", salesorder.Update),
 			"UpdateSalesLine":    updateFields("salesLine", salesline.Update),
 			"UpdateSalesInvoice": updateFields("salesInvoice", salesinvoice.Update),
+		},
+	}
+	return graphql.NewObject(mutation)
+}
+
+func QueryType() *graphql.Object {
+	query := graphql.ObjectConfig{
+		Name: "RootQuery",
+		Fields: graphql.Fields{
+			"Company": &graphql.Field{
+				Type: CompanyQueryType(),
+				Args: companyArgs,
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company := p.Args["name"]
+					return company, nil
+				},
+			},
+		},
+	}
+	return graphql.NewObject(query)
+}
+
+func MutationType() *graphql.Object {
+	mutation := graphql.ObjectConfig{
+		Name: "RootMutation",
+		Fields: graphql.Fields{
+			"Company": &graphql.Field{
+				Type: CompanyMutationType(),
+				Args: companyArgs,
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					company := p.Args["name"]
+					return company, nil
+				},
+			},
 		},
 	}
 	return graphql.NewObject(mutation)
