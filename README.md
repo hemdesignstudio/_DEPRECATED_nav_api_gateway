@@ -1,9 +1,8 @@
 # NAV API GATEWAY V-0.1.0
 
-![alt Hem Design Studio](./res/hem.png)
-
 GraphQL API Gateway for Microsoft Navision Written in GO
 
+![alt Hem Design Studio](./res/hem.png)
 ![alt Golang](./res/go.png)
 ![alt Docker](./res/docker.png)
 ![alt Kubernetes](./res/kubernetes.png)
