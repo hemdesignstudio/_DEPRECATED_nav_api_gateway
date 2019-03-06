@@ -13,7 +13,8 @@ import (
 /*
 resolveFields gets required return fields from request query
 
-	example request query
+	Example request query
+
 	'''
 	{
 	  AssemblyBom {
