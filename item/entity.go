@@ -8,13 +8,14 @@ operations related to Microsoft Navision ItemCard page.
 
 Package has a type "ItemCard" where all the fields related to ItemCard are defined.
 
+	'''
 	type ItemCard struct {
 		No                        string  `json:"No" required:"true"`
 		Description               string  `json:"Description"`
 		BaseUnitOfMeasure         string  `json:"Base_Unit_of_Measure"`
 		...
 	}
-
+	'''
 
 
 GraphQl Object Type along with its fields, arguments and attributes are generated

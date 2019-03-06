@@ -8,6 +8,7 @@ operations related to Microsoft Navision CustomerCardWS page.
 
 Package has a type "CustomerCard" where all the fields related to CustomerCardWS are defined.
 
+	'''
 	type CustomerCard struct {
 		No                          string `json:"No" required:"true"`
 		Name                        string `json:"Name"`
@@ -15,8 +16,7 @@ Package has a type "CustomerCard" where all the fields related to CustomerCardWS
 		Address2                    string `json:"Address_2"`
 		...
 	}
-
-
+	'''
 
 GraphQl Object Type along with its fields, arguments and attributes are generated
 from the CustomerCard type when "CreateType" method is invoked.
