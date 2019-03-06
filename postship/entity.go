@@ -8,14 +8,16 @@ operations related to Microsoft Navision PostedSalesShipment page.
 
 Package has a type "PostShip" where all the fields related to WebSalesShipment page are defined.
 
-	'''
-	type PostShip struct {
-		No                       string `json:"No" required:"true"`
-		SellToCustomerNo         string `json:"Sell_to_Customer_No"`
-		SellToContactNo          string `json:"Sell_to_Contact_No"`
-		...
-	}
-	'''
+	Example:
+
+		'''
+		type PostShip struct {
+			No                       string `json:"No" required:"true"`
+			SellToCustomerNo         string `json:"Sell_to_Customer_No"`
+			SellToContactNo          string `json:"Sell_to_Contact_No"`
+			...
+		}
+		'''
 
 
 GraphQl Object Type along with its fields, arguments and attributes are generated
@@ -36,30 +38,32 @@ var endpoint = config.PostShipEndpoint
 Response is utilized as Microsoft Navision returns a list of objects
 when requesting WebSalesShipment, It is utilized for JSON decoding
 
-example response from Navision
-	'''
-	{
-		"value": [
-			{
-				"No": "102001",
-				"Sell_to_Customer_No": "405124",
-				"Sell_to_Contact_No": "",
-				"Sell_to_Customer_Name": "Goodform",
-				...
-			},
-			{
-				"No": "102001",
-				"Sell_to_Customer_No": "405124",
-				"Sell_to_Contact_No": "",
-				"Sell_to_Customer_Name": "Goodform",
-				...
-			},
-			{
-			...
+Example response from Navision
 
-			},
-	}
-	'''
+	Example:
+		'''
+		{
+			"value": [
+				{
+					"No": "102001",
+					"Sell_to_Customer_No": "405124",
+					"Sell_to_Contact_No": "",
+					"Sell_to_Customer_Name": "Goodform",
+					...
+				},
+				{
+					"No": "102001",
+					"Sell_to_Customer_No": "405124",
+					"Sell_to_Contact_No": "",
+					"Sell_to_Customer_Name": "Goodform",
+					...
+				},
+				{
+				...
+
+				},
+		}
+		'''
 
 */
 type Response struct {
@@ -118,19 +122,20 @@ type PostShip struct {
 /*
 CreateType function creates a GraphQl Object Type from the 'PostShip' type.
 
-example of GraphQl Object
+Example of GraphQl Object
 
-	'''
-	graphql.NewObject(graphql.ObjectConfig{
-			Name: "PostShip",
-			Fields: graphql.Fields{
-				"No":					&graphql.Field{Type: graphql.String},
-				"Sell_to_Customer_No":	&graphql.Field{Type: graphql.String},
-				"Sell_to_Contact_No":	&graphql.Field{Type: graphql.String},
-				...
-			},
-		})
-	'''
+	Example:
+		'''
+		graphql.NewObject(graphql.ObjectConfig{
+				Name: "PostShip",
+				Fields: graphql.Fields{
+					"No":					&graphql.Field{Type: graphql.String},
+					"Sell_to_Customer_No":	&graphql.Field{Type: graphql.String},
+					"Sell_to_Contact_No":	&graphql.Field{Type: graphql.String},
+					...
+				},
+			})
+		'''
 
 GraphQl Object is a map[string]*graphql.Field
 
