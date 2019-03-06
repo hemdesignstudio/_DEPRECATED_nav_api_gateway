@@ -24,8 +24,8 @@ func headers(uri string, method string, body interface{}) *http.Request {
 		panic(err)
 	}
 	u.RawQuery = u.Query().Encode()
-	_body := []byte{}
 
+	var _body []byte
 	if body != nil {
 		_body = body.([]byte)
 	} else {

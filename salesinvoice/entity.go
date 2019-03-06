@@ -7,14 +7,16 @@ Package salesinvoice implements a simple package for handling all graphql
 operations related to Microsoft Navision SalesInvoice page.
 
 Package has a type "SalesInvoice" where all the fields related to SalesInvoice are defined.
-	'''
-	type SalesInvoice struct {
-		No                       string                `json:"No"`
-		SellToCustomerNo         string                `json:"Sell_to_Customer_No"`
-		SellToContactNo          string                `json:"Sell_to_Contact_No"`
-		...
-	}
-	'''
+
+	Example:
+		'''
+		type SalesInvoice struct {
+			No                       string                `json:"No"`
+			SellToCustomerNo         string                `json:"Sell_to_Customer_No"`
+			SellToContactNo          string                `json:"Sell_to_Contact_No"`
+			...
+		}
+		'''
 
 GraphQl Object Type along with its fields, arguments and attributes are generated
 from the SalesInvoice type when "CreateType" method is invoked.
@@ -35,31 +37,32 @@ var endpoint = config.SalesInvoiceEndpoint
 Response is utilized as Microsoft Navision returns a list of objects
 when requesting SalesInvoice, It is utilized for JSON decoding
 
-example response from Navision
+Example response from Navision
 
-	'''
-	{
-		"value": [
-			{
-				"No": "100001",
-				"Sell_to_Customer_No": "206901",
-				"Sell_to_Customer_Name": "Studio Feuer AB",
+	Example
+		'''
+		{
+			"value": [
+				{
+					"No": "100001",
+					"Sell_to_Customer_No": "206901",
+					"Sell_to_Customer_Name": "Studio Feuer AB",
 
+					...
+				},
+				{
+					"No": "100002",
+					"Sell_to_Customer_No": "WEB-10",
+					"Sell_to_Customer_Name": "Web Customer Currency EUR",
+
+					...
+				},
+				{
 				...
-			},
-			{
-				"No": "100002",
-				"Sell_to_Customer_No": "WEB-10",
-				"Sell_to_Customer_Name": "Web Customer Currency EUR",
 
-				...
-			},
-			{
-			...
-
-			},
-	}
-	'''
+				},
+		}
+		'''
 
 */
 type Response struct {
@@ -130,19 +133,20 @@ type SalesInvoice struct {
 /*
 CreateType function creates a GraphQl Object Type from the 'SalesInvoice' type.
 
-example of GraphQl Object
+Example of GraphQl Object
 
-	'''
-	graphql.NewObject(graphql.ObjectConfig{
-			Name: "SalesInvoice",
-			Fields: graphql.Fields{
-				"No":				&graphql.Field{Type: graphql.String},
-				"Sell_to_Customer_No":		&graphql.Field{Type: graphql.String},
-				"Sell_to_Customer_Name":	&graphql.Field{Type: graphql.String},
-				...
-			},
-		})
-	'''
+	Example
+		'''
+		graphql.NewObject(graphql.ObjectConfig{
+				Name: "SalesInvoice",
+				Fields: graphql.Fields{
+					"No":				&graphql.Field{Type: graphql.String},
+					"Sell_to_Customer_No":		&graphql.Field{Type: graphql.String},
+					"Sell_to_Customer_Name":	&graphql.Field{Type: graphql.String},
+					...
+				},
+			})
+		'''
 
 GraphQl Object is a map[string]*graphql.Field
 
@@ -155,22 +159,24 @@ func CreateType() *graphql.Object {
 /*
 CreateArgs function creates a GraphQl Object Type from the 'SalesInvoice'
 
-example of GraphQl Argument Object
+Example of GraphQl Argument Object
 
-	'''
-	map[string]*graphql.ArgumentConfig{
-		"No":				&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-		"Sell_to_Customer_No":		&graphql.ArgumentConfig{Type: graphql.String},
-		"Sell_to_Customer_Name":	&graphql.ArgumentConfig{Type: graphql.String},
-		...
-	}
-	'''
+	Example
+		'''
+		map[string]*graphql.ArgumentConfig{
+			"No":				&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+			"Sell_to_Customer_No":		&graphql.ArgumentConfig{Type: graphql.String},
+			"Sell_to_Customer_Name":	&graphql.ArgumentConfig{Type: graphql.String},
+			...
+		}
+		'''
 
-Hint: arguments are used to create or update entities,
-some arguments are required and hence in the SalesInvoice type,
-tags can be noticed
+Hint:
+	Arguments are used to create or update entities,
+	some arguments are required and hence in the SalesInvoice type,
+	tags can be noticed
 
-example of required fields
+Example of required fields
 
 	No	string `json:"No" required:"true"`
 

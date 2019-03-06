@@ -24,25 +24,23 @@ type callback func(interface{}) (interface{}, error)
 
 type callbackWithArgs func(interface{}, interface{}) (interface{}, error)
 
-type Args map[string]map[string]*graphql.ArgumentConfig
-
 /*
  types contains a map of GraphQL Type objects of (assemblybom, Customer, item  .. etc)
 
 Example GraphQL type for 'AssemblyBom':
 
-
-	'''
-	graphql.NewObject(graphql.ObjectConfig{
-			Name: "AssemblyBom",
-			Fields: graphql.Fields{
-				"Parent_Item_No":       &graphql.Field{Type: graphql.String},
-				"No":                   &graphql.Field{Type: graphql.String},
-				"Type":                 &graphql.Field{Type: graphql.String},
-				...
-			},
-		})
-	'''
+	Example:
+		'''
+		graphql.NewObject(graphql.ObjectConfig{
+				Name: "AssemblyBom",
+				Fields: graphql.Fields{
+					"Parent_Item_No":       &graphql.Field{Type: graphql.String},
+					"No":                   &graphql.Field{Type: graphql.String},
+					"Type":                 &graphql.Field{Type: graphql.String},
+					...
+				},
+			})
+		'''
 
 
 */
@@ -65,34 +63,39 @@ var filterArgs = map[string]*graphql.ArgumentConfig{
 /*
 args hold all create and update arguments for all mutation types
 
-example of GraphQl Argument Object for 'customer'
+Example of GraphQl Argument Object for 'customer'
 
-	customer.CreateArgs() would resolve to the following
+	Example:
 
-	'''
-	map[string]*graphql.ArgumentConfig{
-		"No":			&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-		"Name":			&graphql.ArgumentConfig{Type: graphql.String},
-		"Address":		&graphql.ArgumentConfig{Type: graphql.String},
-		...
-	}
-	'''
+		customer.CreateArgs() would resolve to the following
 
-Hint: arguments are used to create or update entities,
-some arguments are required and hence in the CustomerCard type,
-tags can be noticed
+		'''
+		map[string]*graphql.ArgumentConfig{
+			"No":			&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+			"Name":			&graphql.ArgumentConfig{Type: graphql.String},
+			"Address":		&graphql.ArgumentConfig{Type: graphql.String},
+			...
+		}
+		'''
 
-example of required fields
+	Hint:
+		arguments are used to create or update entities,
+		some arguments are required and hence in the CustomerCard type,
+		tags can be noticed
 
-	No	string `json:"No" required:"true"`
+		example of required fields
 
-and this will be translated to
+			No	string `json:"No" required:"true"`
 
-	"No":	&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+		and this will be translated to
+
+			"No":	&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
 
 
 The returned GraphQl arguments will be used as a part of the main mutation
 */
+type Args map[string]map[string]*graphql.ArgumentConfig
+
 var args = Args{
 	"customer":     customer.CreateArgs(),
 	"item":         item.CreateArgs(),
@@ -104,29 +107,31 @@ var args = Args{
 /*
 QueryType creates the root query with all of its nested fields
 
-	fields:
-		"AssemblyBom",
-		"CustomerCard",
-		"ItemCard",
-		"SalesOrder",
-		"SalesLine",
-		"PostedSalesShipment",
-		"SalesInvoice",
+	Example:
 
-	queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter) would resolve to
+		fields:
+			"AssemblyBom",
+			"CustomerCard",
+			"ItemCard",
+			"SalesOrder",
+			"SalesLine",
+			"PostedSalesShipment",
+			"SalesInvoice",
 
-		'''
-		&graphql.Field{
-			Type: graphql.NewList(types["assemblyBom"]),
-			Args: filterArgs,
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				if len(p.Args) != 2 {
-					return assemblybom.GetAll()
-				}
-				return assemblybom.Filter(p.Args)
-			},
-		}
-		'''
+		queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter) would resolve to
+
+			'''
+			&graphql.Field{
+				Type: graphql.NewList(types["assemblyBom"]),
+				Args: filterArgs,
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					if len(p.Args) != 2 {
+						return assemblybom.GetAll()
+					}
+					return assemblybom.Filter(p.Args)
+				},
+			}
+			'''
 */
 func QueryType() *graphql.Object {
 	query := graphql.ObjectConfig{
@@ -147,44 +152,45 @@ func QueryType() *graphql.Object {
 /*
 MutationType create the root mutation (Create or updating an entity) for all types
 
+	Example:
 
-	fields:
-		"CreateCustomerCard",
-		"CreateItemCard",
-		"CreateSalesOrder",
-		"CreateSalesLine",
-		"CreateSalesInvoice",
-		"UpdateCustomerCard",
-		"UpdateItemCard",
-		"UpdateSalesOrder",
-		"UpdateSalesLine",
-		"UpdateSalesInvoice"
+		fields:
+			"CreateCustomerCard",
+			"CreateItemCard",
+			"CreateSalesOrder",
+			"CreateSalesLine",
+			"CreateSalesInvoice",
+			"UpdateCustomerCard",
+			"UpdateItemCard",
+			"UpdateSalesOrder",
+			"UpdateSalesLine",
+			"UpdateSalesInvoice"
 
-	createFields("customer", customer.Create) would resolve to
+		createFields("customer", customer.Create) would resolve to
 
-		'''
-		&graphql.Field{
-			Type: types["customer"],
-			Args: CustomerCardArgs,
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				log.Printf("fetching Customer cards of company: %s", config.CompanyName)
-				return customer.Create(p.Args)
-			},
-		}
-		'''
+			'''
+			&graphql.Field{
+				Type: types["customer"],
+				Args: CustomerCardArgs,
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+					return customer.Create(p.Args)
+				},
+			}
+			'''
 
-	updateFields("customer", customer.Update) would resolve to
+		updateFields("customer", customer.Update) would resolve to
 
-		'''
-		&graphql.Field{
-			Type: types["customer"],
-			Args: CustomerCardArgs,
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				log.Printf("updating Customer cards of company: %s", config.CompanyName)
-				return customer.Update(p.Args)
-			},
-		}
-		'''
+			'''
+			&graphql.Field{
+				Type: types["customer"],
+				Args: CustomerCardArgs,
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					log.Printf("updating Customer cards of company: %s", config.CompanyName)
+					return customer.Update(p.Args)
+				},
+			}
+			'''
 */
 func MutationType() *graphql.Object {
 	mutation := graphql.ObjectConfig{
