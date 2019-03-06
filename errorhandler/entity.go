@@ -12,14 +12,14 @@ errors
 Example Error Response from Microsoft Navision:
 
 	Example:
-			'''
-			{
-				"error": {
-					"code": "BadRequest",
-					"message": "Could not find a property named 'hello' on type 'NAV.CustomerCardWS'."
-				}
+		'''
+		{
+			"error": {
+				"code": "BadRequest",
+				"message": "Could not find a property named 'hello' on type 'NAV.CustomerCardWS'."
 			}
-			'''
+		}
+		'''
 
 Example way of decoding JSON error message
 
