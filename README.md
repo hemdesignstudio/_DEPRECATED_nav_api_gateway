@@ -4,6 +4,8 @@ GraphQL API Gateway for Microsoft Navision Written in GO
 
 ![alt Golang](./res/go.png)
 ![alt Hem Design Studio](./res/hem.png)
+![alt Hem GraphQl](./res/graphql.png)
+![alt Odata](./res/odata.png)
 ![alt Docker](./res/docker.png)
 ![alt Kubernetes](./res/kubernetes.png)
 ![alt Google Cloud](./res/googlecloud.png)
