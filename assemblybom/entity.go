@@ -37,7 +37,7 @@ var endpoint = config.AssemblyBomEndpoint
 Response is utilized as Microsoft Navision returns a list of objects
 when requesting Assembly_Bom, It is utilized for JSON decoding
 
-Here is an example response from Navision
+Example response from Navision
 
 	Example:
 
@@ -81,7 +81,7 @@ type AssemblyBom struct {
 CreateType function creates a GraphQl Object Type from the
 'AssemblyBom' above
 
-Here isexample of GraphQl Object
+Example of GraphQl Object
 
 	Example:
 		'''
