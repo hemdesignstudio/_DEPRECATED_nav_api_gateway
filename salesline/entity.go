@@ -7,15 +7,17 @@ Package salesline implements a simple package for handling all graphql
 operations related to Microsoft Navision SalesLine page.
 
 Package has a type "SalesLine" where all the fields related to SalesLine are defined.
-	'''
-	type SalesLine struct {
-		No                  string  `json:"No"`
-		DocumentNo          string  `json:"Document_No" required:"true"`
-		DocumentType        string  `json:"Document_Type" required:"true"`
-		LineNo              int     `json:"Line_No" required:"true"
-		...
-	}
-	'''
+
+	Example
+		'''
+		type SalesLine struct {
+			No                  string  `json:"No"`
+			DocumentNo          string  `json:"Document_No" required:"true"`
+			DocumentType        string  `json:"Document_Type" required:"true"`
+			LineNo              int     `json:"Line_No" required:"true"
+			...
+		}
+		'''
 
 GraphQl Object Type along with its fields, arguments and attributes are generated
 from the SalesLine type when "CreateType" method is invoked.
@@ -36,29 +38,30 @@ var endpoint = config.SalesLineEndpoint
 Response is utilized as Microsoft Navision returns a list of objects
 when requesting SalesLine, It is utilized for JSON decoding
 
-example response from Navision
+Example response from Navision
 
-	'''
-	{
-		"value": [
-			{
-				"No": "1234"
-				"Document_No": "1001",
-				"Document_Type": "Order",
+	Example
+		'''
+		{
+			"value": [
+				{
+					"No": "1234"
+					"Document_No": "1001",
+					"Document_Type": "Order",
+					...
+				},
+				{
+					"No": "2345"
+					"Document_No": "1002",
+					"Document_Type": "Order",
+					...
+				},
+				{
 				...
-			},
-			{
-				"No": "2345"
-				"Document_No": "1002",
-				"Document_Type": "Order",
-				...
-			},
-			{
-			...
 
-			},
-	}
-	'''
+				},
+		}
+		'''
 */
 type Response struct {
 	Value []SalesLine `json:"value"`
@@ -90,19 +93,20 @@ type SalesLine struct {
 /*
 CreateType function creates a GraphQl Object Type from the 'SalesLine' type.
 
-example of GraphQl Object
+Example of GraphQl Object
 
-	'''
-	graphql.NewObject(graphql.ObjectConfig{
-			Name: "SalesLine",
-			Fields: graphql.Fields{
-				"No":				&graphql.Field{Type: graphql.String},
-				"Document_No":			&graphql.Field{Type: graphql.String},
-				"Document_Type":		&graphql.Field{Type: graphql.String},
-				...
-			},
-		})
-	'''
+	Example:
+		'''
+		graphql.NewObject(graphql.ObjectConfig{
+				Name: "SalesLine",
+				Fields: graphql.Fields{
+					"No":				&graphql.Field{Type: graphql.String},
+					"Document_No":			&graphql.Field{Type: graphql.String},
+					"Document_Type":		&graphql.Field{Type: graphql.String},
+					...
+				},
+			})
+		'''`
 
 GraphQl Object is a map[string]*graphql.Field
 
@@ -115,22 +119,24 @@ func CreateType(name string) *graphql.Object {
 /*
 CreateArgs function creates a GraphQl Object Type from the 'SalesLine'
 
-example of GraphQl Argument Object
+Example of GraphQl Argument Object
 
-	'''
-	map[string]*graphql.ArgumentConfig{
-		"No":				&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-		"Document_No":			&graphql.ArgumentConfig{Type: graphql.String},
-		"Document_Type":		&graphql.ArgumentConfig{Type: graphql.String},
-		...
-	}
-	'''
+	Example:
+		'''
+		map[string]*graphql.ArgumentConfig{
+			"No":				&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+			"Document_No":			&graphql.ArgumentConfig{Type: graphql.String},
+			"Document_Type":		&graphql.ArgumentConfig{Type: graphql.String},
+			...
+		}
+		'''
 
-Hint: arguments are used to create or update entities,
-some arguments are required and hence in the SalesLine type,
-tags can be noticed
+Hint:
+	Arguments are used to create or update entities,
+	some arguments are required and hence in the SalesLine type,
+	tags can be noticed.
 
-example of required fields
+Example of required fields
 
 	No	string `json:"No" required:"true"`
 
