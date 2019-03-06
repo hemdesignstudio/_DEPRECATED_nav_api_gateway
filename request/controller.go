@@ -148,11 +148,9 @@ func updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, fiel
 // takes the unique id of the entity
 // and fields to be returned after update
 func deleteEntitybyId(endpoint, id string) (int, error) {
-	uri := config.BaseUrl +
-		config.CompanyEndpoint +
-		fmt.Sprintf("('%v')", config.TestCompanyName) +
-		endpoint + fmt.Sprintf("('%s')", id)
-
+	baseUri := resolveBaseUrl(endpoint)
+	selector := fmt.Sprintf("('%s')", id)
+	uri := baseUri + selector
 	resCode, _, err := delete(uri, nil)
 	return resCode, err
 }
@@ -161,11 +159,9 @@ func deleteEntitybyId(endpoint, id string) (int, error) {
 // takes the unique id and document_type of the entity
 // and fields to be returned after update
 func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) {
-	uri := config.BaseUrl +
-		config.CompanyEndpoint +
-		fmt.Sprintf("('%v')", config.TestCompanyName) +
-		endpoint + fmt.Sprintf("('%s','%s')", docType, id)
-
+	baseUri := resolveBaseUrl(endpoint)
+	selector := fmt.Sprintf("('%s','%s')", docType, id)
+	uri := baseUri + selector
 	resCode, _, err := delete(uri, nil)
 	return resCode, err
 
@@ -175,11 +171,9 @@ func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) 
 // takes the unique id, document_type and Line_no of the entity
 // and fields to be returned after update
 func deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, lineNo int) (int, error) {
-	uri := config.BaseUrl +
-		config.CompanyEndpoint +
-		fmt.Sprintf("('%v')", config.TestCompanyName) +
-		endpoint + fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
-
+	baseUri := resolveBaseUrl(endpoint)
+	selector := fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
+	uri := baseUri + selector
 	resCode, _, err := delete(uri, nil)
 	return resCode, err
 
