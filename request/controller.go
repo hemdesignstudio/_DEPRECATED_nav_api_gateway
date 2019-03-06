@@ -12,6 +12,13 @@ import (
 	"strings"
 )
 
+// resolveFields creates the URL query for
+// return fields from Microsoft Navision
+// Function takes fields --> []string
+// Function returns the select query for Microsoft Navision
+// Example :
+// 			fields = ["No", "Name", "Address"]
+// 			Return "$select=No,Name,Adress"
 func resolveFields(fields interface{}) string {
 	if fields == nil {
 		return ""
@@ -21,6 +28,7 @@ func resolveFields(fields interface{}) string {
 	return returnFields
 }
 
+// resolveBaseUrl resolves the base URL for endpoint
 func resolveBaseUrl(endpoint string) string {
 
 	uri := config.BaseUrl +
@@ -30,6 +38,17 @@ func resolveBaseUrl(endpoint string) string {
 	return uri
 }
 
+// resolveFilterArgs creates URL query used filtering
+// Function takes args --> map[string]interface{}
+// Function returns the filter query for Microsoft Navision
+// Example :
+// 			args = {"key":"No", "value":"1001"}
+// 			Return "$filter=No eq '1001'"
+// Hint: Microsoft Navision filtering understands types as follows
+// $filter=No eq '1001' --> type of '1001' is string since single quotes are used
+// $filter=No eq 1001 --> type of 1001 is integer or number since no quotes are used
+// Navision does not accept double quotes
+// $filter=No eq "1001" --> does not work
 func resolveFilterArgs(args interface{}) string {
 
 	_args := args.(map[string]interface{})
@@ -47,6 +66,7 @@ func resolveFilterArgs(args interface{}) string {
 
 }
 
+// getAllEntities gets all required entities
 func getAllEntities(endpoint string, fields interface{}) interface{} {
 
 	baseUri := resolveBaseUrl(endpoint)
@@ -57,6 +77,7 @@ func getAllEntities(endpoint string, fields interface{}) interface{} {
 	return respBody
 }
 
+// createEntity creates a specific entity
 func createEntity(endpoint string, fields, body interface{}) (interface{}, error) {
 
 	baseUri := resolveBaseUrl(endpoint)
@@ -68,6 +89,7 @@ func createEntity(endpoint string, fields, body interface{}) (interface{}, error
 
 }
 
+// filterByArgs gets a list of entities based on a filter
 func filterByArgs(endpoint string, fields, args interface{}) (interface{}, error) {
 
 	baseUri := resolveBaseUrl(endpoint)
@@ -79,6 +101,9 @@ func filterByArgs(endpoint string, fields, args interface{}) (interface{}, error
 	return respBody, err
 }
 
+// updateEntitybyId updates a specific entity
+// takes the unique id of the entity
+// and fields to be returned after update
 func updateEntitybyId(endpoint, id string, fields, body interface{}) (interface{}, error) {
 
 	baseUri := resolveBaseUrl(endpoint)
@@ -91,6 +116,9 @@ func updateEntitybyId(endpoint, id string, fields, body interface{}) (interface{
 
 }
 
+// updateEntitybyDocumentTypeAndID updates a specific entity
+// takes the unique id and document_type of the entity
+// and fields to be returned after update
 func updateEntitybyDocumentTypeAndID(endpoint, id, docType string, fields, body interface{}) (interface{}, error) {
 
 	baseUri := resolveBaseUrl(endpoint)
@@ -103,6 +131,9 @@ func updateEntitybyDocumentTypeAndID(endpoint, id, docType string, fields, body 
 
 }
 
+// updateEntitybyDocumentTypeAndIDAndLineNo updates a specific entity, mostly utilized for updating SalesLines
+// takes the unique id, document_type and Line_no of the entity
+// and fields to be returned after update
 func updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, fields interface{}, lineNo int, body interface{}) (interface{}, error) {
 	baseUri := resolveBaseUrl(endpoint)
 	selector := fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
@@ -114,6 +145,9 @@ func updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, fiel
 
 }
 
+// deleteEntitybyId deletes a specific entity
+// takes the unique id of the entity
+// and fields to be returned after update
 func deleteEntitybyId(endpoint, id string) (int, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
@@ -124,6 +158,9 @@ func deleteEntitybyId(endpoint, id string) (int, error) {
 	return resCode, err
 }
 
+// deleteEntitybyDocumentTypeAndID delets a specific entity
+// takes the unique id and document_type of the entity
+// and fields to be returned after update
 func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
@@ -135,6 +172,9 @@ func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) 
 
 }
 
+// deleteEntitybyDocumentTypeAndIDAndLineNo deletes a specific entity, mostly utilized for updating SalesLines
+// takes the unique id, document_type and Line_no of the entity
+// and fields to be returned after update
 func deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, lineNo int) (int, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
