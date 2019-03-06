@@ -14,22 +14,22 @@ import (
 resolveFields gets required return fields from request query
 
 	Example request query
+	Example:
+		'''
+		{
+		  AssemblyBom {
+			No
+			Parent_Item_No
+			Quantity_per
+		  }
+		}
+		'''
 
-	'''
-	{
-	  AssemblyBom {
-		No
-		Parent_Item_No
-		Quantity_per
-	  }
-	}
-	'''
+		required fields are:
 
-	required fields are:
-
-		"No",
-		"Parent_Item_No",
-		"Quantity_per"
+			"No",
+			"Parent_Item_No",
+			"Quantity_per"
 
 Function will extract these fields from request and return a string slice as follows
 
@@ -39,6 +39,7 @@ This will be used when creating a request for Microsoft Navision requesting thes
 to be retuned
 
 Example request to Microsoft Navision:
+
 	'''
 	https://[ENDPOINT-BASE-URI]/Assembly_Bom?$select=No,Parent_Item_No,Quantity_per
 	'''
@@ -73,19 +74,19 @@ queryFields creates GraphQL Type fields for GraphQl query's
 
 	Example:
 
-	queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter) would resolve to
+		queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter) would resolve to
 
-		'''
-		&graphql.Field{
-			Type: graphql.NewList(types["assemblyBom"]), // types["assemblyBom"] --> assemblybom.createType()
-			Args: filterArgs,
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				if len(p.Args) != 2 {
-					return assemblybom.GetAll()
-				}
-				return assemblybom.Filter(p.Args)
-			},
-		}
+			'''
+			&graphql.Field{
+				Type: graphql.NewList(types["assemblyBom"]), // types["assemblyBom"] --> assemblybom.createType()
+				Args: filterArgs,
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					if len(p.Args) != 2 {
+						return assemblybom.GetAll()
+					}
+					return assemblybom.Filter(p.Args)
+				},
+			}
 
 */
 func queryFields(name string, getAll callback, filter callbackWithArgs) *graphql.Field {
@@ -114,18 +115,18 @@ createFields creates GraphQL Type fields for GraphQl mutation related to creatin
 
 	Example:
 
-	createFields("customer", customer.Create) would resolve to
+		createFields("customer", customer.Create) would resolve to
 
-		'''
-		&graphql.Field{
-			Type: types["customer"], -- > customer.createType()
-			Args: CustomerCardArgs,
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				log.Printf("fetching Customer cards of company: %s", config.CompanyName)
-				return customer.Create(p.Args)
-			},
-		}
-		'''
+			'''
+			&graphql.Field{
+				Type: types["customer"], -- > customer.createType()
+				Args: CustomerCardArgs,
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+					return customer.Create(p.Args)
+				},
+			}
+			'''
 */
 func createFields(name string, create callbackWithArgs) *graphql.Field {
 
