@@ -3,8 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package request implements a simple package for handling GraphQl fields.
-
+Package request implements a simple package for handling HTTP requests to Microsoft Navision
 
 */
 package request
