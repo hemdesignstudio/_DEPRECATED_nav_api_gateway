@@ -8,14 +8,14 @@ operations related to Microsoft Navision Assembly_Bom page.
 
 Package has a type "AssemblyBom" where all the fields related to Assembly_Bom are defined.
 
-
+	'''
 	type AssemblyBom struct {
 		No                string  `json:"No"`
 		ParentItemNo      string  `json:"Parent_Item_No"`
 		Type              string  `json:"Type"`
 		...
 	}
-
+	'''
 
 
 GraphQl Object Type along with its fields, arguments and attributes are generated
@@ -38,28 +38,29 @@ when requesting Assembly_Bom, It is utilized for JSON decoding
 
 example response from Navision
 
-		{
-			"value": [
-				{
-					"No": "1234"
-					"Parent_Item_No": "10005",
-					"Line_No": 10000,
-					"Type": "Item",
-					...
-				},
-				{
-					"No": "2345"
-					"Parent_Item_No": "10005",
-					"Line_No": 20000,
-					"Type": "Item",
-					...
-				},
-				{
+	'''
+	{
+		"value": [
+			{
+				"No": "1234"
+				"Parent_Item_No": "10005",
+				"Line_No": 10000,
+				"Type": "Item",
 				...
+			},
+			{
+				"No": "2345"
+				"Parent_Item_No": "10005",
+				"Line_No": 20000,
+				"Type": "Item",
+				...
+			},
+			{
+			...
 
-				},
+			},
 		}
-
+	'''
 */
 type response struct {
 	Value []AssemblyBom `json:"value"`
@@ -79,15 +80,17 @@ CreateType function creates a GraphQl Object Type from the
 
 example of GraphQl Object
 
-		graphql.NewObject(graphql.ObjectConfig{
-				Name: "AssemblyBom",
-				Fields: graphql.Fields{
-					"Parent_Item_No":       &graphql.Field{Type: graphql.String},
-					"No":                   &graphql.Field{Type: graphql.String},
-					"Type":                 &graphql.Field{Type: graphql.String},
-					...
-				},
-			})
+	'''
+	graphql.NewObject(graphql.ObjectConfig{
+			Name: "AssemblyBom",
+			Fields: graphql.Fields{
+				"Parent_Item_No":       &graphql.Field{Type: graphql.String},
+				"No":                   &graphql.Field{Type: graphql.String},
+				"Type":                 &graphql.Field{Type: graphql.String},
+				...
+			},
+		})
+	'''
 
 The returned GraphQl arguments will be used as a part of the main mutation
 
