@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>utils - The Go Programming Language</title>
+
+<link type="text/css" rel="stylesheet" href="../../godoc/style.css">
+
+<link rel="stylesheet" href="../../godoc/jquery.treeview.css">
+<script>window.initFuncs = [];</script>
+
+<script src="../../godoc/jquery.js" defer></script>
+<script src="../../godoc/jquery.treeview.js" defer></script>
+<script src="../../godoc/jquery.treeview.edit.js" defer></script>
+
+
+<script>var goVersion = "go1.11.4";</script>
+<script src="../../godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="http://localhost:6060/">The Go Programming Language</a></div>
+<div class="top-heading" id="heading-narrow"><a href="http://localhost:6060/">Go</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="http://localhost:6060/search">
+<div id="menu">
+<a href="http://localhost:6060/doc/">Documents</a>
+<a href="http://localhost:6060/pkg/">Packages</a>
+<a href="http://localhost:6060/project/">The Project</a>
+<a href="http://localhost:6060/help/">Help</a>
+
+<a href="http://localhost:6060/blog/">Blog</a>
+
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package utils
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/hem-nav-gateway/test/utils"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+				
+				<dd><a href="index.html#Client">func Client(method, query string, body interface{}) (int, []byte)</a></dd>
+			
+				
+				<dd><a href="index.html#GetAllQuery">func GetAllQuery(page string, attrs Attr) string</a></dd>
+			
+				
+				<dd><a href="index.html#GetPOSTBody">func GetPOSTBody(page string, attrs Attr, args ArgType) map[string]interface{}</a></dd>
+			
+				
+				<dd><a href="index.html#GetQuery">func GetQuery(page string, attrs Attr, args ArgType) string</a></dd>
+			
+				
+				<dd><a href="index.html#Serialize">func Serialize(element interface{}) []interface{}</a></dd>
+			
+			
+				
+				<dd><a href="index.html#ArgType">type ArgType</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Args">type Args</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetAssemblyBomArgs">func GetAssemblyBomArgs() Args</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetCustomerCardArgs">func GetCustomerCardArgs() Args</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetItemCardArgs">func GetItemCardArgs() Args</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetPostShipArgs">func GetPostShipArgs() Args</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetSalesInvoiceArgs">func GetSalesInvoiceArgs() Args</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetSalesLineArgs">func GetSalesLineArgs() Args</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetSalesOrderArgs">func GetSalesOrderArgs() Args</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Attr">type Attr</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetAssemblyBomAttrs">func GetAssemblyBomAttrs() Attr</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetCustomerCardAttrs">func GetCustomerCardAttrs() Attr</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetItemCardAttrs">func GetItemCardAttrs() Attr</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetPostShipAttrs">func GetPostShipAttrs() Attr</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetSalesInvoiceAttrs">func GetSalesInvoiceAttrs() Attr</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetSalesLineAttrs">func GetSalesLineAttrs() Attr</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GetSalesOrderAttrs">func GetSalesOrderAttrs() Attr</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ErrorMessage">type ErrorMessage</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#MutationType">type MutationType</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#QueryType">type QueryType</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/args.go">args.go</a>
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/attrs.go">attrs.go</a>
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/client.go">client.go</a>
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/types.go">types.go</a>
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/utils.go">utils.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		<div id="pkg-callgraph" class="toggle" style="display: none">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+		</div> <!-- .expanded -->
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+			<p>
+			  In the call graph viewer below, each node
+			  is a function belonging to this package
+			  and its children are the functions it
+			  calls&mdash;perhaps dynamically.
+			</p>
+			<p>
+			  The root nodes are the entry points of the
+			  package: functions that may be called from
+			  outside the package.
+			  There may be non-exported or anonymous
+			  functions among them if they are called
+			  dynamically from another package.
+			</p>
+			<p>
+			  Click a node to visit that function's source code.
+			  From there you can visit its callers by
+			  clicking its declaring <code>func</code>
+			  token.
+			</p>
+			<p>
+			  Functions may be omitted if they were
+			  determined to be unreachable in the
+			  particular programs or tests that were
+			  analyzed.
+			</p>
+			<!-- Zero means show all package entry points. -->
+			<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+		</div>
+		</div> <!-- #pkg-callgraph -->
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var <span id="Mutation">Mutation</span> = <a href="index.html#MutationType">MutationType</a>{
+    <a href="index.html#MutationType.CreateCustomerCard">CreateCustomerCard</a>: &#34;CreateCustomerCard&#34;,
+    <a href="index.html#MutationType.CreateItemCard">CreateItemCard</a>:     &#34;CreateItemCard&#34;,
+    <a href="index.html#MutationType.CreateSalesOrder">CreateSalesOrder</a>:   &#34;CreateSalesOrder&#34;,
+    <a href="index.html#MutationType.CreateSalesInvoice">CreateSalesInvoice</a>: &#34;CreateSalesInvoice&#34;,
+    <a href="index.html#MutationType.CreateSalesLine">CreateSalesLine</a>:    &#34;CreateSalesLine&#34;,
+
+    <a href="index.html#MutationType.UpdateCustomerCard">UpdateCustomerCard</a>: &#34;UpdateCustomerCard&#34;,
+    <a href="index.html#MutationType.UpdateItemCard">UpdateItemCard</a>:     &#34;UpdateItemCard&#34;,
+    <a href="index.html#MutationType.UpdateSalesOrder">UpdateSalesOrder</a>:   &#34;UpdateSalesOrder&#34;,
+    <a href="index.html#MutationType.UpdateSalesInvoice">UpdateSalesInvoice</a>: &#34;UpdateSalesInvoice&#34;,
+    <a href="index.html#MutationType.UpdateSalesLine">UpdateSalesLine</a>:    &#34;UpdateSalesLine&#34;,
+}</pre>
+			
+				
+				<pre>var <span id="Query">Query</span> = <a href="index.html#QueryType">QueryType</a>{
+    <a href="index.html#QueryType.AssemblyBom">AssemblyBom</a>:  &#34;AssemblyBom&#34;,
+    <a href="index.html#QueryType.CustomerCard">CustomerCard</a>: &#34;CustomerCard&#34;,
+    <a href="index.html#QueryType.ItemCard">ItemCard</a>:     &#34;ItemCard&#34;,
+    <a href="index.html#QueryType.SalesOrder">SalesOrder</a>:   &#34;SalesOrder&#34;,
+    <a href="index.html#QueryType.SalesInvoice">SalesInvoice</a>: &#34;SalesInvoice&#34;,
+    <a href="index.html#QueryType.PostShip">PostShip</a>:     &#34;PostedSalesShipment&#34;,
+    <a href="index.html#QueryType.SalesLine">SalesLine</a>:    &#34;SalesLine&#34;,
+}</pre>
+			
+		
+		
+			
+			
+			<h2 id="Client">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/client.go?s=141:206#L2">Client</a>
+				<a class="permalink" href="index.html#Client">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Client(method, query <a href="http://localhost:6060/pkg/builtin/#string">string</a>, body interface{}) (<a href="http://localhost:6060/pkg/builtin/#int">int</a>, []<a href="http://localhost:6060/pkg/builtin/#byte">byte</a>)</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="GetAllQuery">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/utils.go?s=714:762#L25">GetAllQuery</a>
+				<a class="permalink" href="index.html#GetAllQuery">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetAllQuery(page <a href="http://localhost:6060/pkg/builtin/#string">string</a>, attrs <a href="index.html#Attr">Attr</a>) <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="GetPOSTBody">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/utils.go?s=1118:1196#L45">GetPOSTBody</a>
+				<a class="permalink" href="index.html#GetPOSTBody">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetPOSTBody(page <a href="http://localhost:6060/pkg/builtin/#string">string</a>, attrs <a href="index.html#Attr">Attr</a>, args <a href="index.html#ArgType">ArgType</a>) map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]interface{}</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="GetQuery">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/utils.go?s=882:941#L34">GetQuery</a>
+				<a class="permalink" href="index.html#GetQuery">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetQuery(page <a href="http://localhost:6060/pkg/builtin/#string">string</a>, attrs <a href="index.html#Attr">Attr</a>, args <a href="index.html#ArgType">ArgType</a>) <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Serialize">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/utils.go?s=56:105#L1">Serialize</a>
+				<a class="permalink" href="index.html#Serialize">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Serialize(element interface{}) []interface{}</pre>
+			
+			
+			
+
+		
+		
+			
+			
+			<h2 id="ArgType">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/args.go?s=15:50#L1">ArgType</a>
+				<a class="permalink" href="index.html#ArgType">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ArgType map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]interface{}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Args">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/args.go?s=52:177#L1">Args</a>
+				<a class="permalink" href="index.html#Args">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Args struct {
+<span id="Args.FilterArgs"></span>    FilterArgs map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]interface{}
+<span id="Args.CreateArgs"></span>    CreateArgs map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]interface{}
+<span id="Args.UpdateArgs"></span>    UpdateArgs map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]interface{}
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="GetAssemblyBomArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/args.go?s=179:209#L1">GetAssemblyBomArgs</a>
+					<a class="permalink" href="index.html#GetAssemblyBomArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetAssemblyBomArgs() <a href="index.html#Args">Args</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetCustomerCardArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/args.go?s=326:357#L12">GetCustomerCardArgs</a>
+					<a class="permalink" href="index.html#GetCustomerCardArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetCustomerCardArgs() <a href="index.html#Args">Args</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetItemCardArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/args.go?s=2041:2068#L69">GetItemCardArgs</a>
+					<a class="permalink" href="index.html#GetItemCardArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetItemCardArgs() <a href="index.html#Args">Args</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetPostShipArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/args.go?s=13789:13816#L381">GetPostShipArgs</a>
+					<a class="permalink" href="index.html#GetPostShipArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetPostShipArgs() <a href="index.html#Args">Args</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetSalesInvoiceArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/args.go?s=8911:8942#L248">GetSalesInvoiceArgs</a>
+					<a class="permalink" href="index.html#GetSalesInvoiceArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetSalesInvoiceArgs() <a href="index.html#Args">Args</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetSalesLineArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/args.go?s=13920:13948#L390">GetSalesLineArgs</a>
+					<a class="permalink" href="index.html#GetSalesLineArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetSalesLineArgs() <a href="index.html#Args">Args</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetSalesOrderArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/args.go?s=4159:4188#L131">GetSalesOrderArgs</a>
+					<a class="permalink" href="index.html#GetSalesOrderArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetSalesOrderArgs() <a href="index.html#Args">Args</a></pre>
+				
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="Attr">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/attrs.go?s=15:33#L1">Attr</a>
+				<a class="permalink" href="index.html#Attr">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Attr []<a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="GetAssemblyBomAttrs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/attrs.go?s=35:66#L1">GetAssemblyBomAttrs</a>
+					<a class="permalink" href="index.html#GetAssemblyBomAttrs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetAssemblyBomAttrs() <a href="index.html#Attr">Attr</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetCustomerCardAttrs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/attrs.go?s=195:227#L7">GetCustomerCardAttrs</a>
+					<a class="permalink" href="index.html#GetCustomerCardAttrs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetCustomerCardAttrs() <a href="index.html#Attr">Attr</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetItemCardAttrs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/attrs.go?s=643:671#L33">GetItemCardAttrs</a>
+					<a class="permalink" href="index.html#GetItemCardAttrs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetItemCardAttrs() <a href="index.html#Attr">Attr</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetPostShipAttrs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/attrs.go?s=3597:3625#L178">GetPostShipAttrs</a>
+					<a class="permalink" href="index.html#GetPostShipAttrs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetPostShipAttrs() <a href="index.html#Attr">Attr</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetSalesInvoiceAttrs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/attrs.go?s=2270:2302#L115">GetSalesInvoiceAttrs</a>
+					<a class="permalink" href="index.html#GetSalesInvoiceAttrs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetSalesInvoiceAttrs() <a href="index.html#Attr">Attr</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetSalesLineAttrs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/attrs.go?s=4699:4728#L230">GetSalesLineAttrs</a>
+					<a class="permalink" href="index.html#GetSalesLineAttrs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetSalesLineAttrs() <a href="index.html#Attr">Attr</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GetSalesOrderAttrs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/attrs.go?s=1105:1135#L61">GetSalesOrderAttrs</a>
+					<a class="permalink" href="index.html#GetSalesOrderAttrs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GetSalesOrderAttrs() <a href="index.html#Attr">Attr</a></pre>
+				
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="ErrorMessage">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/types.go?s=15:81#L1">ErrorMessage</a>
+				<a class="permalink" href="index.html#ErrorMessage">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ErrorMessage struct {
+<span id="ErrorMessage.Message"></span>    Message interface{} `json:&#34;message&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="MutationType">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/types.go?s=257:556#L7">MutationType</a>
+				<a class="permalink" href="index.html#MutationType">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type MutationType struct {
+<span id="MutationType.CreateCustomerCard"></span>    CreateCustomerCard <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="MutationType.CreateItemCard"></span>    CreateItemCard     <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="MutationType.CreateSalesOrder"></span>    CreateSalesOrder   <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="MutationType.CreateSalesInvoice"></span>    CreateSalesInvoice <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="MutationType.CreateSalesLine"></span>    CreateSalesLine    <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+
+<span id="MutationType.UpdateCustomerCard"></span>    UpdateCustomerCard <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="MutationType.UpdateItemCard"></span>    UpdateItemCard     <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="MutationType.UpdateSalesOrder"></span>    UpdateSalesOrder   <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="MutationType.UpdateSalesInvoice"></span>    UpdateSalesInvoice <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="MutationType.UpdateSalesLine"></span>    UpdateSalesLine    <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="QueryType">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/test/utils/types.go?s=83:255#L1">QueryType</a>
+				<a class="permalink" href="index.html#QueryType">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type QueryType struct {
+<span id="QueryType.AssemblyBom"></span>    AssemblyBom  <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="QueryType.CustomerCard"></span>    CustomerCard <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="QueryType.ItemCard"></span>    ItemCard     <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="QueryType.SalesOrder"></span>    SalesOrder   <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="QueryType.SalesInvoice"></span>    SalesInvoice <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="QueryType.PostShip"></span>    PostShip     <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="QueryType.SalesLine"></span>    SalesLine    <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.11.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:6060/LICENSE">BSD license</a>.<br>
+<a href="http://localhost:6060/doc/tos.html">Terms of Service</a> |
+<a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+</body>
+</html>
+

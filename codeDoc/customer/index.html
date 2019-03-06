@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>customer - The Go Programming Language</title>
+
+<link type="text/css" rel="stylesheet" href="../godoc/style.css">
+
+<link rel="stylesheet" href="../godoc/jquery.treeview.css">
+<script>window.initFuncs = [];</script>
+
+<script src="../godoc/jquery.js" defer></script>
+<script src="../godoc/jquery.treeview.js" defer></script>
+<script src="../godoc/jquery.treeview.edit.js" defer></script>
+
+
+<script>var goVersion = "go1.11.4";</script>
+<script src="../godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="http://localhost:6060/">The Go Programming Language</a></div>
+<div class="top-heading" id="heading-narrow"><a href="http://localhost:6060/">Go</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="http://localhost:6060/search">
+<div id="menu">
+<a href="http://localhost:6060/doc/">Documents</a>
+<a href="http://localhost:6060/pkg/">Packages</a>
+<a href="http://localhost:6060/project/">The Project</a>
+<a href="http://localhost:6060/help/">Help</a>
+
+<a href="http://localhost:6060/blog/">Blog</a>
+
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package customer
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/hem-nav-gateway/customer"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>
+Package customer implements a simple package for handling all graphql
+operations related to Microsoft Navision CustomerCardWS page.
+</p>
+<p>
+Package has a type &#34;CustomerCard&#34; where all the fields related to CustomerCardWS are defined.
+</p>
+<pre>Example:
+	&#39;&#39;&#39;
+	type CustomerCard struct {
+		No                          string `json:&#34;No&#34; required:&#34;true&#34;`
+		Name                        string `json:&#34;Name&#34;`
+		Address                     string `json:&#34;Address&#34;`
+		Address2                    string `json:&#34;Address_2&#34;`
+		...
+	}
+	&#39;&#39;&#39;
+</pre>
+<p>
+GraphQl Object Type along with its fields, arguments and attributes are generated
+from the CustomerCard type when &#34;CreateType&#34; method is invoked.
+</p>
+
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+				
+				<dd><a href="index.html#Create">func Create(fields, args interface{}) (interface{}, error)</a></dd>
+			
+				
+				<dd><a href="index.html#CreateArgs">func CreateArgs() map[string]*graphql.ArgumentConfig</a></dd>
+			
+				
+				<dd><a href="index.html#CreateType">func CreateType() *graphql.Object</a></dd>
+			
+				
+				<dd><a href="index.html#Filter">func Filter(fields, args interface{}) (interface{}, error)</a></dd>
+			
+				
+				<dd><a href="index.html#GetAll">func GetAll(fields interface{}) (interface{}, error)</a></dd>
+			
+				
+				<dd><a href="index.html#Update">func Update(fields, args interface{}) (interface{}, error)</a></dd>
+			
+			
+				
+				<dd><a href="index.html#CustomerCard">type CustomerCard</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Response">type Response</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/customer/controller.go">controller.go</a>
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/customer/entity.go">entity.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		<div id="pkg-callgraph" class="toggle" style="display: none">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+		</div> <!-- .expanded -->
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+			<p>
+			  In the call graph viewer below, each node
+			  is a function belonging to this package
+			  and its children are the functions it
+			  calls&mdash;perhaps dynamically.
+			</p>
+			<p>
+			  The root nodes are the entry points of the
+			  package: functions that may be called from
+			  outside the package.
+			  There may be non-exported or anonymous
+			  functions among them if they are called
+			  dynamically from another package.
+			</p>
+			<p>
+			  Click a node to visit that function's source code.
+			  From there you can visit its callers by
+			  clicking its declaring <code>func</code>
+			  token.
+			</p>
+			<p>
+			  Functions may be omitted if they were
+			  determined to be unreachable in the
+			  particular programs or tests that were
+			  analyzed.
+			</p>
+			<!-- Zero means show all package entry points. -->
+			<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+		</div>
+		</div> <!-- #pkg-callgraph -->
+
+		
+		
+		
+			
+			
+			<h2 id="Create">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/customer/controller.go?s=1044:1102#L19">Create</a>
+				<a class="permalink" href="index.html#Create">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Create(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<p>
+Create creates a CustomerCard objects based on arguments added by the requester
+Function takes a list of fields to be returned by Microsoft Navision after creation.
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="CreateArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/customer/entity.go?s=4357:4409#L143">CreateArgs</a>
+				<a class="permalink" href="index.html#CreateArgs">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func CreateArgs() map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]*<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#ArgumentConfig">ArgumentConfig</a></pre>
+			<p>
+CreateArgs function creates a GraphQl Object Type from the &#39;CustomerCard&#39;
+</p>
+<p>
+Example of GraphQl Argument Object
+</p>
+<pre>Example:
+	&#39;&#39;&#39;
+	map[string]*graphql.ArgumentConfig{
+		&#34;No&#34;:			&amp;graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+		&#34;Name&#34;:			&amp;graphql.ArgumentConfig{Type: graphql.String},
+		&#34;Address&#34;:		&amp;graphql.ArgumentConfig{Type: graphql.String},
+		...
+	}
+	&#39;&#39;&#39;
+</pre>
+<p>
+Hint: arguments are used to create or update entities,
+some arguments are required and hence in the CustomerCard type,
+tags can be noticed
+</p>
+<p>
+Example of required fields
+</p>
+<pre>No	string `json:&#34;No&#34; required:&#34;true&#34;`
+</pre>
+<p>
+and this will be translated to
+</p>
+<pre>&#34;No&#34;:	&amp;graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+</pre>
+<p>
+The returned GraphQl arguments will be used as a part of the main mutation
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="CreateType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/customer/entity.go?s=3466:3499#L108">CreateType</a>
+				<a class="permalink" href="index.html#CreateType">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func CreateType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
+			<p>
+CreateType function creates a GraphQl Object Type from the &#39;CustomerCard&#39; type.
+</p>
+<p>
+Example of GraphQl Object
+</p>
+<pre>Example:
+	&#39;&#39;&#39;
+	graphql.NewObject(graphql.ObjectConfig{
+			Name: &#34;CustomerCard&#34;,
+			Fields: graphql.Fields{
+				&#34;No&#34;:				&amp;graphql.Field{Type: graphql.String},
+				&#34;Name&#34;:				&amp;graphql.Field{Type: graphql.String},
+				&#34;Address&#34;:			&amp;graphql.Field{Type: graphql.String},
+				...
+			},
+		})
+	&#39;&#39;&#39;
+</pre>
+<p>
+GraphQl Object is a map[string]*graphql.Field
+</p>
+<p>
+The returned GraphQl Object Type will be used as a part of the main query
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Filter">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/customer/controller.go?s=748:806#L11">Filter</a>
+				<a class="permalink" href="index.html#Filter">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Filter(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<p>
+Filter retrieves a list of filtered CustomerCards based on a key-value pair added by the requester
+Function takes a list of fields to be returned by Microsoft Navision.
+Function takes filter arguments which are required for filtering results in Navision
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="GetAll">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/customer/controller.go?s=373:425#L3">GetAll</a>
+				<a class="permalink" href="index.html#GetAll">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetAll(fields interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<p>
+GetAll retrieves a List of all CustomerCards available Microsoft Navision .
+Function takes a list of fields to be returned by Microsoft Navision.
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Update">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/customer/controller.go?s=1400:1458#L29">Update</a>
+				<a class="permalink" href="index.html#Update">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Update(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<p>
+Update modifies a certain CustomerCard Object Microsoft Navision.
+Function takes filter arguments which are required identifying
+the specific object to be updated/modified.
+Function returns a list of AssemblyBom values
+</p>
+
+			
+			
+
+		
+		
+			
+			
+			<h2 id="CustomerCard">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/customer/entity.go?s=1636:2926#L62">CustomerCard</a>
+				<a class="permalink" href="index.html#CustomerCard">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type CustomerCard struct {
+<span id="CustomerCard.No"></span>    No                          <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;No&#34; required:&#34;true&#34;`
+<span id="CustomerCard.Name"></span>    Name                        <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Name&#34;`
+<span id="CustomerCard.Address"></span>    Address                     <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Address&#34;`
+<span id="CustomerCard.Address2"></span>    Address2                    <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Address_2&#34;`
+<span id="CustomerCard.PostCode"></span>    PostCode                    <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Post_Code&#34;`
+<span id="CustomerCard.City"></span>    City                        <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;City&#34;`
+<span id="CustomerCard.CountryRegionCode"></span>    CountryRegionCode           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Country_Region_Code&#34;`
+<span id="CustomerCard.PhoneNo"></span>    PhoneNo                     <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Phone_No&#34;`
+<span id="CustomerCard.Contact"></span>    Contact                     <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Contact&#34;`
+<span id="CustomerCard.VatRegistrationNumber"></span>    VatRegistrationNumber       <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;VAT_Registration_No&#34;`
+<span id="CustomerCard.CustomerPostingGroup"></span>    CustomerPostingGroup        <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Customer_Posting_Group&#34;`
+<span id="CustomerCard.GeneralBusinessPostingGroup"></span>    GeneralBusinessPostingGroup <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Gen_Bus_Posting_Group&#34;`
+<span id="CustomerCard.VatBusinessPostingGroup"></span>    VatBusinessPostingGroup     <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;VAT_Bus_Posting_Group&#34;`
+<span id="CustomerCard.SalesTypeCode"></span>    SalesTypeCode               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Global_Dimension_2_Code&#34;`
+<span id="CustomerCard.CustomerPriceGroup"></span>    CustomerPriceGroup          <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Customer_Price_Group&#34;`
+<span id="CustomerCard.CustomerDiscountGroup"></span>    CustomerDiscountGroup       <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Customer_Disc_Group&#34;`
+<span id="CustomerCard.PaymentTermsCode"></span>    PaymentTermsCode            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Payment_Terms_Code&#34;`
+<span id="CustomerCard.CurrencyCode"></span>    CurrencyCode                <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Currency_Code&#34;`
+<span id="CustomerCard.LanguageCode"></span>    LanguageCode                <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Language_Code&#34;`
+<span id="CustomerCard.WebEmail"></span>    WebEmail                    <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Web_E_Mail&#34;`
+<span id="CustomerCard.WebEnabled"></span>    WebEnabled                  <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>   `json:&#34;Web_Customer&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Response">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/customer/entity.go?s=1573:1634#L58">Response</a>
+				<a class="permalink" href="index.html#Response">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Response is utilized as Microsoft Navision returns a list of objects
+when requesting CustomerCardWS, It is utilized for JSON decoding
+</p>
+<p>
+Example response from Navision
+</p>
+<pre>Example:
+	&#39;&#39;&#39;
+	{
+		&#34;value&#34;: [
+			{
+				&#34;No&#34;: &#34;1234&#34;
+				&#34;Name&#34;: &#34;John&#34;,
+				&#34;Address&#34;: &#34;some address&#34;,
+				&#34;Address_2&#34;: &#34;yet another address&#34;,
+				...
+			},
+			{
+				&#34;No&#34;: &#34;2345&#34;
+				&#34;Name&#34;: &#34;Doe&#34;,
+				&#34;Address&#34;: &#34;some address&#34;,
+				&#34;Address_2&#34;: &#34;yet another address&#34;,
+				...
+			},
+			{
+			...
+
+			},
+	}
+	&#39;&#39;&#39;
+</pre>
+
+			<pre>type Response struct {
+<span id="Response.Value"></span>    Value []<a href="index.html#CustomerCard">CustomerCard</a> `json:&#34;value&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.11.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:6060/LICENSE">BSD license</a>.<br>
+<a href="http://localhost:6060/doc/tos.html">Terms of Service</a> |
+<a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+</body>
+</html>
+
