@@ -1,14 +1,14 @@
 # NAV API GATEWAY V-0.1.0
 
-* ![alt Hem Design Studio](./res/hem.png)
+![alt Hem Design Studio](./res/hem.png)
 
 GraphQL API Gateway for Microsoft Navision Written in GO
 
-* ![alt Golang](./res/go.png)
-* ![alt Docker](./res/docker.png)
-* ![alt Kubernetes](./res/kubernetes.png)
-* ![alt Google Cloud](./res/googlecloud.png)
-* ![alt Microsoft Navision](./res/nav.png)
+![alt Golang](./res/go.png)
+![alt Docker](./res/docker.png)
+![alt Kubernetes](./res/kubernetes.png)
+![alt Google Cloud](./res/googlecloud.png)
+![alt Microsoft Navision](./res/nav.png)
 
 ## Getting Started
 Microsoft NAV web client
