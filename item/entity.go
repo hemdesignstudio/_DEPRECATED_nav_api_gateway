@@ -60,7 +60,7 @@ Example response from Navision
 
 				},
 		}
-	'''
+		'''
 
 */
 type Response struct {
