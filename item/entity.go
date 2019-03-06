@@ -8,14 +8,15 @@ operations related to Microsoft Navision ItemCard page.
 
 Package has a type "ItemCard" where all the fields related to ItemCard are defined.
 
-	'''
-	type ItemCard struct {
-		No                        string  `json:"No" required:"true"`
-		Description               string  `json:"Description"`
-		BaseUnitOfMeasure         string  `json:"Base_Unit_of_Measure"`
-		...
-	}
-	'''
+	Example:
+		'''
+		type ItemCard struct {
+			No                        string  `json:"No" required:"true"`
+			Description               string  `json:"Description"`
+			BaseUnitOfMeasure         string  `json:"Base_Unit_of_Measure"`
+			...
+		}
+		'''
 
 
 GraphQl Object Type along with its fields, arguments and attributes are generated
@@ -36,28 +37,29 @@ var endpoint = config.ItemCardEndpoint
 Response is utilized as Microsoft Navision returns a list of objects
 when requesting ItemCard, It is utilized for JSON decoding
 
-example response from Navision
+Example response from Navision
 
-	'''
-	{
-		"value": [
-			{
-				"No": "1234"
-				"Description": "this object is great",
-				"Base_Unit_of_Measure": "ABM",
+	Example
+		'''
+		{
+			"value": [
+				{
+					"No": "1234"
+					"Description": "this object is great",
+					"Base_Unit_of_Measure": "ABM",
+					...
+				},
+				{
+					"No": "2345"
+					"Description": "this object is amazing",
+					"Base_Unit_of_Measure": "CMA",
+					...
+				},
+				{
 				...
-			},
-			{
-				"No": "2345"
-				"Description": "this object is amazing",
-				"Base_Unit_of_Measure": "CMA",
-				...
-			},
-			{
-			...
 
-			},
-	}
+				},
+		}
 	'''
 
 */
@@ -92,19 +94,20 @@ type ItemCard struct {
 /*
 CreateType function creates a GraphQl Object Type from the 'ItemCard' type.
 
-example of GraphQl Object
+Example of GraphQl Object
 
-	'''
-	graphql.NewObject(graphql.ObjectConfig{
-			Name: "ItemCard",
-			Fields: graphql.Fields{
-				"No":					&graphql.Field{Type: graphql.String},
-				"Description":			&graphql.Field{Type: graphql.String},
-				"Base_Unit_of_Measure":	&graphql.Field{Type: graphql.String},
-				...
-			},
-		})
-	'''
+	Example:
+		'''
+		graphql.NewObject(graphql.ObjectConfig{
+				Name: "ItemCard",
+				Fields: graphql.Fields{
+					"No":					&graphql.Field{Type: graphql.String},
+					"Description":			&graphql.Field{Type: graphql.String},
+					"Base_Unit_of_Measure":	&graphql.Field{Type: graphql.String},
+					...
+				},
+			})
+		'''
 
 GraphQl Object is a map[string]*graphql.Field
 
@@ -117,22 +120,24 @@ func CreateType() *graphql.Object {
 /*
 CreateArgs function creates a GraphQl Object Type from the 'ItemCard'
 
-example of GraphQl Argument Object
+Example of GraphQl Argument Object
 
-	'''
-	map[string]*graphql.ArgumentConfig{
-		"No":					&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-		"Description":			&graphql.ArgumentConfig{Type: graphql.String},
-		"Base_Unit_of_Measure":	&graphql.ArgumentConfig{Type: graphql.String},
-		...
-	}
-	'''
+	Example:
+		'''
+		map[string]*graphql.ArgumentConfig{
+			"No":					&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+			"Description":			&graphql.ArgumentConfig{Type: graphql.String},
+			"Base_Unit_of_Measure":	&graphql.ArgumentConfig{Type: graphql.String},
+			...
+		}
+		'''
 
-Hint: arguments are used to create or update entities,
-some arguments are required and hence in the ItemCard type,
-tags can be noticed
+	Hint:
+		Arguments are used to create or update entities,
+		some arguments are required and hence in the ItemCard type,
+		tags can be noticed
 
-example of required fields
+Example of required fields
 
 	No	string `json:"No" required:"true"`
 
