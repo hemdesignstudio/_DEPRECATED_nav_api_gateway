@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>salesinvoice - The Go Programming Language</title>
+
+<link type="text/css" rel="stylesheet" href="../godoc/style.css">
+
+<link rel="stylesheet" href="../godoc/jquery.treeview.css">
+<script>window.initFuncs = [];</script>
+
+<script src="../godoc/jquery.js" defer></script>
+<script src="../godoc/jquery.treeview.js" defer></script>
+<script src="../godoc/jquery.treeview.edit.js" defer></script>
+
+
+<script>var goVersion = "go1.11.4";</script>
+<script src="../godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package salesinvoice
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/hem-nav-gateway/salesinvoice"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>
+Package salesinvoice implements a simple package for handling all graphql
+operations related to Microsoft Navision SalesInvoice page.
+</p>
+<p>
+Package has a type &#34;SalesInvoice&#34; where all the fields related to SalesInvoice are defined.
+</p>
+<pre>Example:
+	&#39;&#39;&#39;
+	type SalesInvoice struct {
+		No                       string                `json:&#34;No&#34;`
+		SellToCustomerNo         string                `json:&#34;Sell_to_Customer_No&#34;`
+		SellToContactNo          string                `json:&#34;Sell_to_Contact_No&#34;`
+		...
+	}
+	&#39;&#39;&#39;
+</pre>
+<p>
+GraphQl Object Type along with its fields, arguments and attributes are generated
+from the SalesInvoice type when &#34;CreateType&#34; method is invoked.
+</p>
+
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+				
+				<dd><a href="index.html#Create">func Create(fields, args interface{}) (interface{}, error)</a></dd>
+			
+				
+				<dd><a href="index.html#CreateArgs">func CreateArgs() map[string]*graphql.ArgumentConfig</a></dd>
+			
+				
+				<dd><a href="index.html#CreateType">func CreateType() *graphql.Object</a></dd>
+			
+				
+				<dd><a href="index.html#Filter">func Filter(fields, args interface{}) (interface{}, error)</a></dd>
+			
+				
+				<dd><a href="index.html#GetAll">func GetAll(fields interface{}) (interface{}, error)</a></dd>
+			
+				
+				<dd><a href="index.html#Update">func Update(fields, args interface{}) (interface{}, error)</a></dd>
+			
+			
+				
+				<dd><a href="index.html#Response">type Response</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#SalesInvoice">type SalesInvoice</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/controller.go">controller.go</a>
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/entity.go">entity.go</a>
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/fields.go">fields.go</a>
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/utils.go">utils.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		<div id="pkg-callgraph" class="toggle" style="display: none">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+		</div> <!-- .expanded -->
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+			<p>
+			  In the call graph viewer below, each node
+			  is a function belonging to this package
+			  and its children are the functions it
+			  calls&mdash;perhaps dynamically.
+			</p>
+			<p>
+			  The root nodes are the entry points of the
+			  package: functions that may be called from
+			  outside the package.
+			  There may be non-exported or anonymous
+			  functions among them if they are called
+			  dynamically from another package.
+			</p>
+			<p>
+			  Click a node to visit that function's source code.
+			  From there you can visit its callers by
+			  clicking its declaring <code>func</code>
+			  token.
+			</p>
+			<p>
+			  Functions may be omitted if they were
+			  determined to be unreachable in the
+			  particular programs or tests that were
+			  analyzed.
+			</p>
+			<!-- Zero means show all package entry points. -->
+			<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+		</div>
+		</div> <!-- #pkg-callgraph -->
+
+		
+		
+		
+			
+			
+			<h2 id="Create">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/controller.go?s=1528:1586#L32">Create</a>
+				<a class="permalink" href="index.html#Create">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Create(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<p>
+Create creates a SalesInvoice objects based on arguments added by the requester
+Function takes a list of fields to be returned by Microsoft Navision after creation.
+Function takes filter arguments which are
+required for creating a new object
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="CreateArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/entity.go?s=7480:7532#L180">CreateArgs</a>
+				<a class="permalink" href="index.html#CreateArgs">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func CreateArgs() map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]*<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#ArgumentConfig">ArgumentConfig</a></pre>
+			<p>
+CreateArgs function creates a GraphQl Object Type from the &#39;SalesInvoice&#39;
+</p>
+<p>
+Example of GraphQl Argument Object
+</p>
+<pre>Example
+	&#39;&#39;&#39;
+	map[string]*graphql.ArgumentConfig{
+		&#34;No&#34;:				&amp;graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+		&#34;Sell_to_Customer_No&#34;:		&amp;graphql.ArgumentConfig{Type: graphql.String},
+		&#34;Sell_to_Customer_Name&#34;:	&amp;graphql.ArgumentConfig{Type: graphql.String},
+		...
+	}
+	&#39;&#39;&#39;
+</pre>
+<p>
+Hint:
+</p>
+<pre>Arguments are used to create or update entities,
+some arguments are required and hence in the SalesInvoice type,
+tags can be noticed
+</pre>
+<p>
+Example of required fields
+</p>
+<pre>No	string `json:&#34;No&#34; required:&#34;true&#34;`
+</pre>
+<p>
+and this will be translated to
+</p>
+<pre>&#34;No&#34;:	&amp;graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+</pre>
+<p>
+The returned GraphQl arguments will be used as a part of the main mutation
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="CreateType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/entity.go?s=6550:6583#L145">CreateType</a>
+				<a class="permalink" href="index.html#CreateType">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func CreateType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
+			<p>
+CreateType function creates a GraphQl Object Type from the &#39;SalesInvoice&#39; type.
+</p>
+<p>
+Example of GraphQl Object
+</p>
+<pre>Example
+	&#39;&#39;&#39;
+	graphql.NewObject(graphql.ObjectConfig{
+			Name: &#34;SalesInvoice&#34;,
+			Fields: graphql.Fields{
+				&#34;No&#34;:				&amp;graphql.Field{Type: graphql.String},
+				&#34;Sell_to_Customer_No&#34;:		&amp;graphql.Field{Type: graphql.String},
+				&#34;Sell_to_Customer_Name&#34;:	&amp;graphql.Field{Type: graphql.String},
+				...
+			},
+		})
+	&#39;&#39;&#39;
+</pre>
+<p>
+GraphQl Object is a map[string]*graphql.Field
+</p>
+<p>
+The returned GraphQl Object Type will be used as a part of the main query
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Filter">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/controller.go?s=955:1013#L18">Filter</a>
+				<a class="permalink" href="index.html#Filter">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Filter(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<p>
+Filter retrieves a list of filtered SalesInvoices
+based on a key-value pair added by the requester.
+Function takes a list of fields to be returned by Microsoft Navision.
+Function takes filter arguments which are
+required for filtering results in Navision.
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="GetAll">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/controller.go?s=377:429#L3">GetAll</a>
+				<a class="permalink" href="index.html#GetAll">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetAll(fields interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<p>
+GetAll retrieves a List of all SalesInvoices available Microsoft Navision .
+Function takes a list of fields to be returned by Microsoft Navision.
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Update">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/controller.go?s=2067:2125#L45">Update</a>
+				<a class="permalink" href="index.html#Update">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Update(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<p>
+Update modifies a certain SalesInvoice Object Microsoft Navision.
+Function takes arguments which are required identifying
+the specific object to be updated/modified.
+Function returns a list of AssemblyBom values
+</p>
+
+			
+			
+
+		
+		
+			
+			
+			<h2 id="Response">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/entity.go?s=1606:1667#L58">Response</a>
+				<a class="permalink" href="index.html#Response">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Response is utilized as Microsoft Navision returns a list of objects
+when requesting SalesInvoice, It is utilized for JSON decoding
+</p>
+<p>
+Example response from Navision
+</p>
+<pre>Example
+	&#39;&#39;&#39;
+	{
+		&#34;value&#34;: [
+			{
+				&#34;No&#34;: &#34;100001&#34;,
+				&#34;Sell_to_Customer_No&#34;: &#34;206901&#34;,
+				&#34;Sell_to_Customer_Name&#34;: &#34;Studio Feuer AB&#34;,
+
+				...
+			},
+			{
+				&#34;No&#34;: &#34;100002&#34;,
+				&#34;Sell_to_Customer_No&#34;: &#34;WEB-10&#34;,
+				&#34;Sell_to_Customer_Name&#34;: &#34;Web Customer Currency EUR&#34;,
+
+				...
+			},
+			{
+			...
+
+			},
+	}
+	&#39;&#39;&#39;
+</pre>
+
+			<pre>type Response struct {
+<span id="Response.Value"></span>    Value []<a href="index.html#SalesInvoice">SalesInvoice</a> `json:&#34;value&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="SalesInvoice">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesinvoice/entity.go?s=1669:5986#L62">SalesInvoice</a>
+				<a class="permalink" href="index.html#SalesInvoice">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type SalesInvoice struct {
+<span id="SalesInvoice.No"></span>    No                       <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;No&#34;`
+<span id="SalesInvoice.SellToCustomerNo"></span>    SellToCustomerNo         <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Customer_No&#34;`
+<span id="SalesInvoice.SellToContactNo"></span>    SellToContactNo          <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Contact_No&#34;`
+<span id="SalesInvoice.SellToCustomerName"></span>    SellToCustomerName       <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Customer_Name&#34;`
+<span id="SalesInvoice.SellToAddress"></span>    SellToAddress            <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Address&#34;`
+<span id="SalesInvoice.SellToAddress2"></span>    SellToAddress2           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Address_2&#34;`
+<span id="SalesInvoice.SellToPostCode"></span>    SellToPostCode           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Post_Code&#34;`
+<span id="SalesInvoice.SellToCity"></span>    SellToCity               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_City&#34;`
+<span id="SalesInvoice.SellToContact"></span>    SellToContact            <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Contact&#34;`
+<span id="SalesInvoice.PEBNoteOfGoods"></span>    PEBNoteOfGoods           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;PEB_Note_of_Goods&#34;`
+<span id="SalesInvoice.PostingDate"></span>    PostingDate              <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Posting_Date&#34;`
+<span id="SalesInvoice.DocumentDate"></span>    DocumentDate             <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Document_Date&#34;`
+<span id="SalesInvoice.SalespersonCode"></span>    SalespersonCode          <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Salesperson_Code&#34;`
+<span id="SalesInvoice.ResponsibilityCenter"></span>    ResponsibilityCenter     <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Responsibility_Center&#34;`
+<span id="SalesInvoice.BillToContactNo"></span>    BillToContactNo          <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_Contact_No&#34;`
+<span id="SalesInvoice.BillToName"></span>    BillToName               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_Name&#34;`
+<span id="SalesInvoice.BillToAddress"></span>    BillToAddress            <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_Address&#34;`
+<span id="SalesInvoice.BillToAddress2"></span>    BillToAddress2           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_Address_2&#34;`
+<span id="SalesInvoice.BillToPostCode"></span>    BillToPostCode           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_Post_Code&#34;`
+<span id="SalesInvoice.BillToCity"></span>    BillToCity               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_City&#34;`
+<span id="SalesInvoice.BillToContact"></span>    BillToContact            <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_Contact&#34;`
+<span id="SalesInvoice.ShortcutDimension1Code"></span>    ShortcutDimension1Code   <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Shortcut_Dimension_1_Code&#34;`
+<span id="SalesInvoice.ShortcutDimension2Code"></span>    ShortcutDimension2Code   <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Shortcut_Dimension_2_Code&#34;`
+<span id="SalesInvoice.ShipToCode"></span>    ShipToCode               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Code&#34;`
+<span id="SalesInvoice.ShipToName"></span>    ShipToName               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Name&#34;`
+<span id="SalesInvoice.ShipToAddress"></span>    ShipToAddress            <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Address&#34;`
+<span id="SalesInvoice.ShipToAddress2"></span>    ShipToAddress2           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Address_2&#34;`
+<span id="SalesInvoice.ShipToPostCode"></span>    ShipToPostCode           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Post_Code&#34;`
+<span id="SalesInvoice.ShipToCity"></span>    ShipToCity               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_City&#34;`
+<span id="SalesInvoice.ShipToContact"></span>    ShipToContact            <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Contact&#34;`
+<span id="SalesInvoice.LocationCode"></span>    LocationCode             <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Location_Code&#34;`
+<span id="SalesInvoice.ShipmentMethodCode"></span>    ShipmentMethodCode       <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Shipment_Method_Code&#34;`
+<span id="SalesInvoice.ShippingAgentCode"></span>    ShippingAgentCode        <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Shipping_Agent_Code&#34;`
+<span id="SalesInvoice.PackageTrackingNo"></span>    PackageTrackingNo        <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Package_Tracking_No&#34;`
+<span id="SalesInvoice.ShipmentDate"></span>    ShipmentDate             <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Shipment_Date&#34;`
+<span id="SalesInvoice.YourReference"></span>    YourReference            <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Your_Reference&#34;`
+<span id="SalesInvoice.IncomingDocumentEntryNo"></span>    IncomingDocumentEntryNo  <a href="http://localhost:6060/pkg/builtin/#int">int</a>                   `json:&#34;Incoming_Document_Entry_No&#34;`
+<span id="SalesInvoice.ExternalDocumentNo"></span>    ExternalDocumentNo       <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;External_Document_No&#34;`
+<span id="SalesInvoice.CampaignNo"></span>    CampaignNo               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Campaign_No&#34;`
+<span id="SalesInvoice.AssignedUserID"></span>    AssignedUserID           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Assigned_User_ID&#34;`
+<span id="SalesInvoice.JobQueueStatus"></span>    JobQueueStatus           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Job_Queue_Status&#34;`
+<span id="SalesInvoice.Status"></span>    Status                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Status&#34;`
+<span id="SalesInvoice.PaymentTermsCode"></span>    PaymentTermsCode         <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Payment_Terms_Code&#34;`
+<span id="SalesInvoice.DueDate"></span>    DueDate                  <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Due_Date&#34;`
+<span id="SalesInvoice.PaymentDiscountPercent"></span>    PaymentDiscountPercent   <a href="http://localhost:6060/pkg/builtin/#float64">float64</a>               `json:&#34;Payment_Discount_Percent&#34;`
+<span id="SalesInvoice.PmtDiscountDate"></span>    PmtDiscountDate          <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Pmt_Discount_Date&#34;`
+<span id="SalesInvoice.PaymentMethodCode"></span>    PaymentMethodCode        <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Payment_Method_Code&#34;`
+<span id="SalesInvoice.DirectDebitMandateID"></span>    DirectDebitMandateID     <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Direct_Debit_Mandate_ID&#34;`
+<span id="SalesInvoice.PricesIncludingVAT"></span>    PricesIncludingVAT       <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>                  `json:&#34;Prices_Including_VAT&#34;`
+<span id="SalesInvoice.VATBusPostingGroup"></span>    VATBusPostingGroup       <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;VAT_Bus_Posting_Group&#34;`
+<span id="SalesInvoice.CurrencyCode"></span>    CurrencyCode             <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Currency_Code&#34;`
+<span id="SalesInvoice.EU3PartyTrade"></span>    EU3PartyTrade            <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>                  `json:&#34;EU_3_Party_Trade&#34;`
+<span id="SalesInvoice.TransactionType"></span>    TransactionType          <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Transaction_Type&#34;`
+<span id="SalesInvoice.TransactionSpecification"></span>    TransactionSpecification <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Transaction_Specification&#34;`
+<span id="SalesInvoice.TransportMethod"></span>    TransportMethod          <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Transport_Method&#34;`
+<span id="SalesInvoice.ExitPoint"></span>    ExitPoint                <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Exit_Point&#34;`
+<span id="SalesInvoice.Area"></span>    Area                     <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Area&#34;`
+<span id="SalesInvoice.SalesLines"></span>    SalesLines               []<a href="../salesline/index.html">salesline</a>.<a href="../salesline/index.html#SalesLine">SalesLine</a> `json:&#34;Sales_Lines&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.11.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:6060/LICENSE">BSD license</a>.<br>
+<a href="http://localhost:6060/doc/tos.html">Terms of Service</a> |
+<a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+</body>
+</html>
+

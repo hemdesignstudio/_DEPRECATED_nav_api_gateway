@@ -14,8 +14,13 @@ func main() {
 	path := config.Endpoint + config.Version
 	router := mux.NewRouter().StrictSlash(true)
 	handler := roothandler.RootEndpoint
-	fs := http.FileServer(http.Dir("./doc/"))
-	router.PathPrefix(path + "/doc/").Handler(http.StripPrefix(path+"/doc/", fs))
+
+	doc := http.FileServer(http.Dir("./doc/"))
+	router.PathPrefix(path + "/doc/").Handler(http.StripPrefix(path+"/doc/", doc))
+
+	codeDoc := http.FileServer(http.Dir("./codeDoc/"))
+	router.PathPrefix(path + "/godoc/").Handler(http.StripPrefix(path+"/godoc/", codeDoc))
+
 	router.HandleFunc(path+"/{company:[a-zA-Z]+}", handler)
 	fmt.Println("Server started at http://localhost:6789/graphql/v0.1.0/test")
 	http.Handle("/", router)

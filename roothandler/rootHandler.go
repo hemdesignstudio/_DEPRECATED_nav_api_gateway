@@ -10,13 +10,13 @@ Package roothandler implements a simple package for HTTP Handler functions.
 package roothandler
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/graphql-go/graphql"
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
 	"github.com/hem-nav-gateway/config"
 	"github.com/hem-nav-gateway/errorhandler"
 	"github.com/hem-nav-gateway/fields"
-	"github.com/hem-nav-gateway/session"
 	"log"
 	"net/http"
 )
@@ -64,7 +64,7 @@ func RootEndpoint(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
-	session.SetSession(r, companyName)
+	fmt.Println(companyName)
 	handler := Handler()
 	handler.ServeHTTP(w, r)
 }
