@@ -1,3 +1,12 @@
+// Copyright 2019 Hem Design Studio. All rights reserved.
+// Use of this source code is governed by a
+// license that can be found in the LICENSE file.
+
+/*
+Package fields implements a simple package for handling GraphQl fields.
+
+
+*/
 package fields
 
 import (
@@ -12,9 +21,31 @@ import (
 )
 
 type callback func(interface{}) (interface{}, error)
+
 type callbackWithArgs func(interface{}, interface{}) (interface{}, error)
+
 type Args map[string]map[string]*graphql.ArgumentConfig
 
+/*
+ types contains a map of GraphQL Type objects of (assemblybom, Customer, item  .. etc)
+
+Example GraphQL type for 'AssemblyBom':
+
+
+	'''
+	graphql.NewObject(graphql.ObjectConfig{
+			Name: "AssemblyBom",
+			Fields: graphql.Fields{
+				"Parent_Item_No":       &graphql.Field{Type: graphql.String},
+				"No":                   &graphql.Field{Type: graphql.String},
+				"Type":                 &graphql.Field{Type: graphql.String},
+				...
+			},
+		})
+	'''
+
+
+*/
 var types = map[string]*graphql.Object{
 	"assemblyBom":  assemblybom.CreateType(),
 	"customer":     customer.CreateType(),
@@ -25,11 +56,43 @@ var types = map[string]*graphql.Object{
 	"salesInvoice": salesinvoice.CreateType(),
 }
 
+//filterArgs hold arguments used for filtering
 var filterArgs = map[string]*graphql.ArgumentConfig{
 	"key":   {Type: graphql.String},
 	"value": {Type: graphql.String},
 }
 
+/*
+args hold all create and update arguments for all mutation types
+
+example of GraphQl Argument Object for 'customer'
+
+	customer.CreateArgs() would resolve to the following
+
+	'''
+	map[string]*graphql.ArgumentConfig{
+		"No":			&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+		"Name":			&graphql.ArgumentConfig{Type: graphql.String},
+		"Address":		&graphql.ArgumentConfig{Type: graphql.String},
+		...
+	}
+	'''
+
+Hint: arguments are used to create or update entities,
+some arguments are required and hence in the CustomerCard type,
+tags can be noticed
+
+example of required fields
+
+	No	string `json:"No" required:"true"`
+
+and this will be translated to
+
+	"No":	&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+
+
+The returned GraphQl arguments will be used as a part of the main mutation
+*/
 var args = Args{
 	"customer":     customer.CreateArgs(),
 	"item":         item.CreateArgs(),
@@ -38,6 +101,33 @@ var args = Args{
 	"salesInvoice": salesinvoice.CreateArgs(),
 }
 
+/*
+QueryType creates the root query with all of its nested fields
+
+	fields:
+		"AssemblyBom",
+		"CustomerCard",
+		"ItemCard",
+		"SalesOrder",
+		"SalesLine",
+		"PostedSalesShipment",
+		"SalesInvoice",
+
+	queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter) would resolve to
+
+		'''
+		&graphql.Field{
+			Type: graphql.NewList(types["assemblyBom"]),
+			Args: filterArgs,
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if len(p.Args) != 2 {
+					return assemblybom.GetAll()
+				}
+				return assemblybom.Filter(p.Args)
+			},
+		}
+		'''
+*/
 func QueryType() *graphql.Object {
 	query := graphql.ObjectConfig{
 		Name: "RootQuery",
@@ -54,6 +144,48 @@ func QueryType() *graphql.Object {
 	return graphql.NewObject(query)
 }
 
+/*
+MutationType create the root mutation (Create or updating an entity) for all types
+
+
+	fields:
+		"CreateCustomerCard",
+		"CreateItemCard",
+		"CreateSalesOrder",
+		"CreateSalesLine",
+		"CreateSalesInvoice",
+		"UpdateCustomerCard",
+		"UpdateItemCard",
+		"UpdateSalesOrder",
+		"UpdateSalesLine",
+		"UpdateSalesInvoice"
+
+	createFields("customer", customer.Create) would resolve to
+
+		'''
+		&graphql.Field{
+			Type: types["customer"],
+			Args: CustomerCardArgs,
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				log.Printf("fetching Customer cards of company: %s", config.CompanyName)
+				return customer.Create(p.Args)
+			},
+		}
+		'''
+
+	updateFields("customer", customer.Update) would resolve to
+
+		'''
+		&graphql.Field{
+			Type: types["customer"],
+			Args: CustomerCardArgs,
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				log.Printf("updating Customer cards of company: %s", config.CompanyName)
+				return customer.Update(p.Args)
+			},
+		}
+		'''
+*/
 func MutationType() *graphql.Object {
 	mutation := graphql.ObjectConfig{
 		Name: "RootMutation",
