@@ -1,3 +1,12 @@
+// Copyright 2019 Hem Design Studio. All rights reserved.
+// Use of this source code is governed by a
+// license that can be found in the LICENSE file.
+
+/*
+Package types implements a package generating GraphQL Types and Mutation Arguments.
+
+
+*/
 package types
 
 import "github.com/graphql-go/graphql"

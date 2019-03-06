@@ -1,3 +1,7 @@
+// Copyright 2019 Hem Design Studio. All rights reserved.
+// Use of this source code is governed by a
+// license that can be found in the LICENSE file.
+
 package types
 
 import "github.com/graphql-go/graphql"
@@ -35,6 +39,8 @@ var attrMap = map[string]*graphql.Field{
 	"bool":    attr.BOOL,
 }
 
+// typeListContains checks if element type exits in
+// the accepted element types
 func typeListContains(elementType string) bool {
 
 	for _, elem := range elementTypes {

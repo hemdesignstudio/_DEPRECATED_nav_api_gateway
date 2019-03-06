@@ -94,6 +94,7 @@
     "github.com/gorilla/sessions",
     "github.com/graphql-go/graphql",
     "github.com/graphql-go/graphql-go-handler",
+    "github.com/graphql-go/graphql/language/ast",
     "github.com/stretchr/testify/assert",
   ]
   solver-name = "gps-cdcl"

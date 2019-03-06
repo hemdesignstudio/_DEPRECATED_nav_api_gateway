@@ -1,3 +1,7 @@
+// Copyright 2019 Hem Design Studio. All rights reserved.
+// Use of this source code is governed by a
+// license that can be found in the LICENSE file.
+
 package salesinvoice
 
 // removeField is used specifically to remove custom fields created for
@@ -11,8 +15,8 @@ func removeField(name string, fields interface{}) interface{} {
 	for index, value := range _fields {
 
 		if name == value {
-			// Deleting elements
-			//If the type of the element is a pointer or a struct with pointer fields,
+			// Deleting elements is handled by the following couple of lines of code.
+			// If the type of the element is a pointer or a struct with pointer fields,
 			// which need to be garbage collected, the implementations of deleting an element
 			// have a potential memory leak problem:
 			// some elements with values are still referenced by slice a and

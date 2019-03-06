@@ -1,3 +1,12 @@
+// Copyright 2019 Hem Design Studio. All rights reserved.
+// Use of this source code is governed by a
+// license that can be found in the LICENSE file.
+
+/*
+Package roothandler implements a simple package for HTTP Handler functions.
+
+
+*/
 package roothandler
 
 import (
@@ -12,6 +21,7 @@ import (
 	"net/http"
 )
 
+// pathVariables extracts vars from URL path
 func pathVariables(vars map[string]string) (string, error) {
 	companyPath := vars["company"]
 	if vars["company"] == "test" {
@@ -21,6 +31,7 @@ func pathVariables(vars map[string]string) (string, error) {
 	return "", errorhandler.CompanyDoesNotExist(companyPath)
 }
 
+// Handler creates a handler function for Graphql Schema
 func Handler() *gqlhandler.Handler {
 
 	query := fields.QueryType()
@@ -45,6 +56,7 @@ func Handler() *gqlhandler.Handler {
 	return handler
 }
 
+// RootEndpoint is a handler function for the main endpoint
 func RootEndpoint(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	companyName, err := pathVariables(vars)
