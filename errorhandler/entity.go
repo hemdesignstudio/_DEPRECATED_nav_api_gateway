@@ -11,18 +11,22 @@ errors
 
 Example Error Response from Microsoft Navision:
 
-	'''
-	{
-		"error": {
-			"code": "BadRequest",
-			"message": "Could not find a property named 'hello' on type 'NAV.CustomerCardWS'."
-		}
-	}
-	'''
+	Example:
+			'''
+			{
+				"error": {
+					"code": "BadRequest",
+					"message": "Could not find a property named 'hello' on type 'NAV.CustomerCardWS'."
+				}
+			}
+			'''
 
 Example way of decoding JSON error message
-	handler := Handler{}
-	err := json.Unmarshal(errorBody, &handler)
+
+	Example:
+
+		handler := Handler{}
+		err := json.Unmarshal(errorBody, &handler)
 
 */
 package errorhandler
