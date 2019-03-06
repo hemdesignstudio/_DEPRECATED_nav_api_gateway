@@ -125,7 +125,6 @@ CreateArgs function creates a GraphQl Object Type from the 'CustomerCard'
 
 	The returned GraphQl arguments will be used as a part of the main mutation
 */
-
 func GenerateGraphQlArgs(object interface{}, extraFields map[string]*graphql.ArgumentConfig) map[string]*graphql.ArgumentConfig {
 
 	args := map[string]*graphql.ArgumentConfig{}
