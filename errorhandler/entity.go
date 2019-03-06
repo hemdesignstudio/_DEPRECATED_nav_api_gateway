@@ -21,7 +21,7 @@ Example Error Response from Microsoft Navision:
 		}
 		'''
 
-Example way of decoding JSON error message
+The way of decoding JSON error message
 
 	Example:
 
