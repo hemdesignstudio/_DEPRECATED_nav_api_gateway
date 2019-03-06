@@ -7,7 +7,6 @@ package request
 import (
 	"fmt"
 	"github.com/hem-nav-gateway/config"
-	"github.com/hem-nav-gateway/session"
 	"reflect"
 	"strings"
 )
@@ -33,7 +32,7 @@ func resolveBaseUrl(endpoint string) string {
 
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%v')", session.CompanyName()) +
+		fmt.Sprintf("('%v')", config.TestCompanyName) +
 		endpoint
 	return uri
 }
@@ -151,7 +150,7 @@ func updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, fiel
 func deleteEntitybyId(endpoint, id string) (int, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%v')", session.CompanyName()) +
+		fmt.Sprintf("('%v')", config.TestCompanyName) +
 		endpoint + fmt.Sprintf("('%s')", id)
 
 	resCode, _, err := delete(uri, nil)
@@ -164,7 +163,7 @@ func deleteEntitybyId(endpoint, id string) (int, error) {
 func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%v')", session.CompanyName()) +
+		fmt.Sprintf("('%v')", config.TestCompanyName) +
 		endpoint + fmt.Sprintf("('%s','%s')", docType, id)
 
 	resCode, _, err := delete(uri, nil)
@@ -178,7 +177,7 @@ func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) 
 func deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, lineNo int) (int, error) {
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%v')", session.CompanyName()) +
+		fmt.Sprintf("('%v')", config.TestCompanyName) +
 		endpoint + fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
 
 	resCode, _, err := delete(uri, nil)
