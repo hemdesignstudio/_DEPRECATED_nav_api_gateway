@@ -42,8 +42,7 @@ QueryType creates the root query with all of its nested fields
 			}
 			'''
 */
-func QueryType() *graphql.Object {
-	company := "test"
+func QueryType(company string) *graphql.Object {
 	query := graphql.ObjectConfig{
 		Name: "RootQuery",
 		Fields: graphql.Fields{
@@ -102,8 +101,7 @@ MutationType create the root mutation (Create or updating an entity) for all typ
 			}
 			'''
 */
-func MutationType() *graphql.Object {
-	company := "test"
+func MutationType(company string) *graphql.Object {
 	mutation := graphql.ObjectConfig{
 		Name: "RootMutation",
 		Fields: graphql.Fields{

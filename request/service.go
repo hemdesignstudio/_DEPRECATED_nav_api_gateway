@@ -15,7 +15,7 @@ import (
 // returns a list of requests object values
 func GetAll(object, response interface{}) (interface{}, error) {
 	obj := object.(types.RequestObject)
-	resValue := getAllEntities(obj.Endpoint, obj.Fields)
+	resValue := getAllEntities(obj)
 	err := json.Unmarshal(resValue.([]byte), &response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
@@ -31,7 +31,7 @@ func GetAll(object, response interface{}) (interface{}, error) {
 func Filter(object, response interface{}) (interface{}, error) {
 	obj := object.(types.RequestObject)
 
-	resValue, resError := filterByArgs(obj.Endpoint, obj.Fields, obj.Args)
+	resValue, resError := filterByArgs(obj)
 	if resError != nil {
 		return nil, resError
 	}
@@ -55,7 +55,7 @@ func Create(object, response interface{}) (interface{}, error) {
 	obj := object.(types.RequestObject)
 
 	body, _ := json.Marshal(obj.Args)
-	resValue, resError := createEntity(obj.Endpoint, obj.Fields, body)
+	resValue, resError := createEntity(obj, body)
 	if resError != nil {
 		return nil, resError
 	}
@@ -78,33 +78,27 @@ func Update(object, response interface{}) (interface{}, error) {
 	obj := object.(types.RequestObject)
 
 	body, _ := json.Marshal(obj.Args)
-	_args := obj.Args
 
-	if docType, ok := obj.Properties["docType"]; ok {
-		docType := docType.(string)
+	if _, ok := obj.Properties["docType"]; ok {
 
 		// In Order to update SalesLines for example
 		// It is required to specify "Line_No", "Document_type", "Document_No"
 		// In this specific case "Document_No" acts as id
 		// this is related to how Microsoft Navision works
-		if lineNo, ok := _args["Line_No"]; ok {
-			id := _args["Document_No"].(string)
-			lineNo := lineNo.(int)
-			resValue, resError = updateEntitybyDocumentTypeAndIDAndLineNo(obj.Endpoint, id, docType, obj.Fields, lineNo, body)
+		if _, ok := obj.Args["Line_No"]; ok {
+			resValue, resError = updateEntitybyDocumentTypeAndIDAndLineNo(obj, body)
 
 			// In order to update SalesOrder or SalesInvoice
 			// it is required to specify its "No" which acts as its id
 			// and "Document_type" which specifies if it is "Order" or "Invoice"
 		} else {
-			id := _args["No"].(string)
-			resValue, resError = updateEntitybyDocumentTypeAndID(obj.Endpoint, id, docType, obj.Fields, body)
+			resValue, resError = updateEntitybyDocumentTypeAndID(obj, body)
 		}
 
 		// This is the case for most entities to be updated
 		// "No" which acts as id is all what it required to update an entity
 	} else {
-		id := _args["No"].(string)
-		resValue, resError = updateEntitybyId(obj.Endpoint, id, obj.Fields, body)
+		resValue, resError = updateEntitybyId(obj, body)
 	}
 
 	if resError != nil {
