@@ -89,9 +89,9 @@ queryFields creates GraphQL Type fields for GraphQl query's
 			}
 
 */
-func queryFields(name string, getAll callback, filter callbackWithArgs) *graphql.Field {
+func queryFields(fieldType fieldType) *graphql.Field {
 	field := &graphql.Field{
-		Type: graphql.NewList(types[name]),
+		Type: graphql.NewList(types[fieldType.Name]),
 		Args: filterArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			fieldASTs := p.Info.FieldASTs
@@ -102,9 +102,9 @@ func queryFields(name string, getAll callback, filter callbackWithArgs) *graphql
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
 
 			if len(p.Args) != 2 {
-				return getAll(fields)
+				return fieldType.GetAll(fields)
 			}
-			return filter(fields, p.Args)
+			return fieldType.Filter(fields, p.Args)
 		},
 	}
 	return field

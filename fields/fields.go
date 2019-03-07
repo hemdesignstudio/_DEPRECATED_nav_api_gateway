@@ -24,6 +24,15 @@ type callback func(interface{}) (interface{}, error)
 
 type callbackWithArgs func(interface{}, interface{}) (interface{}, error)
 
+type fieldType struct {
+	Name    string
+	Company string
+	GetAll  callback
+	Filter  callbackWithArgs
+	Update  callbackWithArgs
+	Create  callbackWithArgs
+}
+
 /*
  types contains a map of GraphQL Type objects of (assemblybom, Customer, item  .. etc)
 
@@ -96,6 +105,8 @@ The returned GraphQl arguments will be used as a part of the main mutation
 */
 type Args map[string]map[string]*graphql.ArgumentConfig
 
+type Fields map[string]*graphql.Field
+
 var args = Args{
 	"customer":     customer.CreateArgs(),
 	"item":         item.CreateArgs(),
@@ -135,16 +146,17 @@ QueryType creates the root query with all of its nested fields
 */
 
 func QueryType() *graphql.Object {
+	company := "test"
 	query := graphql.ObjectConfig{
 		Name: "RootQuery",
 		Fields: graphql.Fields{
-			"AssemblyBom":         queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter),
-			"CustomerCard":        queryFields("customer", customer.GetAll, customer.Filter),
-			"ItemCard":            queryFields("item", item.GetAll, item.Filter),
-			"SalesOrder":          queryFields("salesOrder", salesorder.GetAll, salesorder.Filter),
-			"SalesLine":           queryFields("salesLine", salesline.GetAll, salesline.Filter),
-			"PostedSalesShipment": queryFields("postShip", postship.GetAll, postship.Filter),
-			"SalesInvoice":        queryFields("salesInvoice", salesinvoice.GetAll, salesinvoice.Filter),
+			"AssemblyBom":         queryFields(assemblyBomField(company)),
+			"CustomerCard":        queryFields(customerField(company)),
+			"ItemCard":            queryFields(itemField(company)),
+			"SalesOrder":          queryFields(salesOrderField(company)),
+			"SalesLine":           queryFields(salesLineField(company)),
+			"PostedSalesShipment": queryFields(postShipField(company)),
+			"SalesInvoice":        queryFields(salesInvoiceField(company)),
 		},
 	}
 	return graphql.NewObject(query)
