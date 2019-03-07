@@ -28,14 +28,18 @@ func Filter(object interface{}) (interface{}, error) {
 
 // Create creates a ItemCard objects based on arguments  added by the requester.
 // Function takes a list of fields to be returned by Microsoft Navision after creation.
-func Create(fields, args interface{}) (interface{}, error) {
-	return request.Create(endpoint, fields, args, Response{})
+func Create(object interface{}) (interface{}, error) {
+	obj := object.(types.RequestObject)
+	obj.Endpoint = endpoint
+	return request.Create(obj, Response{})
 }
 
 // Update modifies a certain ItemCard Object Microsoft Navision.
 // Function takes filter arguments which are required identifying
 // the specific object to be updated/modified.
 // Function returns a list of AssemblyBom values.
-func Update(fields, args interface{}) (interface{}, error) {
-	return request.Update(endpoint, fields, args, nil, Response{})
+func Update(object interface{}) (interface{}, error) {
+	obj := object.(types.RequestObject)
+	obj.Endpoint = endpoint
+	return request.Update(obj, Response{})
 }

@@ -20,8 +20,8 @@ type fieldType struct {
 	Company string
 	GetAll  callback
 	Filter  callback
-	Update  callbackWithArgs
-	Create  callbackWithArgs
+	Update  callback
+	Create  callback
 }
 
 /*

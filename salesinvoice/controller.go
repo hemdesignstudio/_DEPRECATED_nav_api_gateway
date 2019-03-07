@@ -44,29 +44,34 @@ func Filter(object interface{}) (interface{}, error) {
 // Function takes a list of fields to be returned by Microsoft Navision after creation.
 // Function takes filter arguments which are
 // required for creating a new object
-func Create(fields, args interface{}) (interface{}, error) {
+func Create(object interface{}) (interface{}, error) {
 
 	// SalesInvoice has nested GraphQL field SalesLine.
 	// SalesLine is removed is it is only known to this API and should not be sent to Navision
-	fields = removeField("Sales_Lines", fields)
+	obj := object.(types.RequestObject)
+	obj.Endpoint = endpoint
+	obj.Fields = removeField("Sales_Lines", obj.Fields)
 
-	return request.Create(endpoint, fields, args, Response{})
+	return request.Create(obj, Response{})
 }
 
 // Update modifies a certain SalesInvoice Object Microsoft Navision.
 // Function takes arguments which are required identifying
 // the specific object to be updated/modified.
 // Function returns a list of AssemblyBom values
-func Update(fields, args interface{}) (interface{}, error) {
+func Update(object interface{}) (interface{}, error) {
 
 	// For SalesInvoice, Navision requires an extra argument
 	// which Is document Type in this case it is Document_Type = "Invoice".
-	docType := "Invoice"
 
 	// SalesInvoice has nested GraphQL field SalesLine.
 	// SalesLine is removed is it is only known to this API
 	// and should not be sent to Navision
-	fields = removeField("Sales_Lines", fields)
+	obj := object.(types.RequestObject)
+	obj.Properties = map[string]interface{}{}
+	obj.Properties["docType"] = "Invoice"
+	obj.Endpoint = endpoint
+	obj.Fields = removeField("Sales_Lines", obj.Fields)
 
-	return request.Update(endpoint, fields, args, docType, Response{})
+	return request.Update(obj, Response{})
 }

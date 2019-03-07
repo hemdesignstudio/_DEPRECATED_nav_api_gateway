@@ -92,25 +92,27 @@ queryFields creates GraphQL Type fields for GraphQl query's
 */
 func queryFields(field fieldType) *graphql.Field {
 
-	obj := requestType.RequestObject{}
-	obj.Company = field.Company
-
 	_field := &graphql.Field{
+
 		Type: graphql.NewList(types[field.Name]),
 		Args: filterArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+
 			fieldASTs := p.Info.FieldASTs
 
 			if len(fieldASTs) == 0 {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
-			obj.Fields = fields
 
-			if len(p.Args) != 2 {
+			obj := requestType.RequestObject{}
+			obj.Company = field.Company
+			obj.Fields = fields
+			obj.Args = p.Args
+
+			if len(obj.Args) != 2 {
 				return field.GetAll(obj)
 			}
-			obj.Args = p.Args
 			return field.Filter(obj)
 		},
 	}
@@ -138,17 +140,25 @@ createFields creates GraphQL Type fields for GraphQl mutation related to creatin
 func createFields(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
+
 		Type: types[field.Name],
 		Args: args[field.Name],
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+
 			fieldASTs := p.Info.FieldASTs
 
 			if len(fieldASTs) == 0 {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
+
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
 
-			return field.Create(fields, p.Args)
+			obj := requestType.RequestObject{}
+			obj.Company = field.Company
+			obj.Fields = fields
+			obj.Args = p.Args
+
+			return field.Create(obj)
 		},
 	}
 	return _field
@@ -173,18 +183,27 @@ updateFields creates GraphQL Type fields for GraphQl mutation related to updatin
 		'''
 */
 func updateFields(field fieldType) *graphql.Field {
+
 	_field := &graphql.Field{
+
 		Type: types[field.Name],
 		Args: args[field.Name],
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+
 			fieldASTs := p.Info.FieldASTs
 
 			if len(fieldASTs) == 0 {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
+
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
 
-			return field.Update(fields, p.Args)
+			obj := requestType.RequestObject{}
+			obj.Company = field.Company
+			obj.Fields = fields
+			obj.Args = p.Args
+
+			return field.Update(obj)
 		},
 	}
 	return _field
