@@ -7,6 +7,7 @@ package salesinvoice
 import (
 	"github.com/graphql-go/graphql"
 	"github.com/hem-nav-gateway/salesline"
+	"github.com/hem-nav-gateway/types"
 )
 
 // typeList Creates a Sales Line GraphQl Type which will
@@ -21,10 +22,14 @@ func getSalesLinesFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(typeList["salesLine"]),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			salesInvoice := p.Source.(map[string]interface{})
-			p.Args["key"] = "Document_No"
-			p.Args["value"] = salesInvoice["No"]
-			return salesline.Filter(nil, p.Args)
+			salesInvoice, ok := p.Source.(map[string]interface{})
+			if ok == true {
+				p.Args["key"] = "Document_No"
+				p.Args["value"] = salesInvoice["No"]
+				obj := types.RequestObject{Args: p.Args}
+				return salesline.Filter(obj)
+			}
+			return nil, nil
 		},
 	}
 	return field

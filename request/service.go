@@ -7,13 +7,15 @@ package request
 import (
 	"encoding/json"
 	"github.com/hem-nav-gateway/errorhandler"
+	"github.com/hem-nav-gateway/types"
 )
 
 // GetAll handles getting all entities for a specified object types (customer, item ... etc)
 // takes fields --> fields to be returned from Navision
 // returns a list of requests object values
-func GetAll(endpoint string, fields, response interface{}) (interface{}, error) {
-	resValue := getAllEntities(endpoint, fields)
+func GetAll(object, response interface{}) (interface{}, error) {
+	obj := object.(types.RequestObject)
+	resValue := getAllEntities(obj.Endpoint, obj.Fields)
 	err := json.Unmarshal(resValue.([]byte), &response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
@@ -26,8 +28,10 @@ func GetAll(endpoint string, fields, response interface{}) (interface{}, error) 
 // takes fields --> fields to be returned from Navision
 // takes args --> filter arguments
 // returns a list of filtered object values
-func Filter(endpoint string, fields, args, response interface{}) (interface{}, error) {
-	resValue, resError := filterByArgs(endpoint, fields, args)
+func Filter(object, response interface{}) (interface{}, error) {
+	obj := object.(types.RequestObject)
+
+	resValue, resError := filterByArgs(obj.Endpoint, obj.Fields, obj.Args)
 	if resError != nil {
 		return nil, resError
 	}
@@ -38,7 +42,7 @@ func Filter(endpoint string, fields, args, response interface{}) (interface{}, e
 	res := response.(map[string]interface{})
 	values := res["value"].([]interface{})
 	if len(values) == 0 {
-		return nil, errorhandler.ValueIsNotCorrect(args)
+		return nil, errorhandler.ValueIsNotCorrect(obj.Args)
 	}
 	return values, nil
 }

@@ -10,6 +10,13 @@ import (
 	"net/http"
 )
 
+type RequestObject struct {
+	Endpoint string
+	Company  string
+	Fields   []string
+	Args     map[string]interface{}
+}
+
 func main() {
 	path := config.Endpoint + config.Version
 	router := mux.NewRouter().StrictSlash(true)

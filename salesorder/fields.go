@@ -7,6 +7,7 @@ package salesorder
 import (
 	"github.com/graphql-go/graphql"
 	"github.com/hem-nav-gateway/salesline"
+	"github.com/hem-nav-gateway/types"
 )
 
 // typeList Creates a Sales Line GraphQl Type
@@ -26,7 +27,8 @@ func getSalesLinesFields() *graphql.Field {
 			if ok == true {
 				p.Args["key"] = "Document_No"
 				p.Args["value"] = salesOrder["No"]
-				return salesline.Filter(nil, p.Args)
+				obj := types.RequestObject{Args: p.Args}
+				return salesline.Filter(obj)
 			}
 			return nil, nil
 

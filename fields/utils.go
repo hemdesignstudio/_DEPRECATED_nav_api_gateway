@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/language/ast"
+	requestType "github.com/hem-nav-gateway/types"
 )
 
 /*
@@ -89,9 +90,13 @@ queryFields creates GraphQL Type fields for GraphQl query's
 			}
 
 */
-func queryFields(fieldType fieldType) *graphql.Field {
-	field := &graphql.Field{
-		Type: graphql.NewList(types[fieldType.Name]),
+func queryFields(field fieldType) *graphql.Field {
+
+	obj := requestType.RequestObject{}
+	obj.Company = field.Company
+
+	_field := &graphql.Field{
+		Type: graphql.NewList(types[field.Name]),
 		Args: filterArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			fieldASTs := p.Info.FieldASTs
@@ -100,14 +105,16 @@ func queryFields(fieldType fieldType) *graphql.Field {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
+			obj.Fields = fields
 
 			if len(p.Args) != 2 {
-				return fieldType.GetAll(fields)
+				return field.GetAll(obj)
 			}
-			return fieldType.Filter(fields, p.Args)
+			obj.Args = p.Args
+			return field.Filter(obj)
 		},
 	}
-	return field
+	return _field
 }
 
 /*
@@ -128,11 +135,11 @@ createFields creates GraphQL Type fields for GraphQl mutation related to creatin
 			}
 			'''
 */
-func createFields(name string, create callbackWithArgs) *graphql.Field {
+func createFields(field fieldType) *graphql.Field {
 
-	field := &graphql.Field{
-		Type: types[name],
-		Args: args[name],
+	_field := &graphql.Field{
+		Type: types[field.Name],
+		Args: args[field.Name],
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			fieldASTs := p.Info.FieldASTs
 
@@ -141,10 +148,10 @@ func createFields(name string, create callbackWithArgs) *graphql.Field {
 			}
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
 
-			return create(fields, p.Args)
+			return field.Create(fields, p.Args)
 		},
 	}
-	return field
+	return _field
 }
 
 /*
@@ -165,10 +172,10 @@ updateFields creates GraphQL Type fields for GraphQl mutation related to updatin
 		}
 		'''
 */
-func updateFields(name string, update callbackWithArgs) *graphql.Field {
-	field := &graphql.Field{
-		Type: types[name],
-		Args: args[name],
+func updateFields(field fieldType) *graphql.Field {
+	_field := &graphql.Field{
+		Type: types[field.Name],
+		Args: args[field.Name],
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			fieldASTs := p.Info.FieldASTs
 
@@ -177,8 +184,8 @@ func updateFields(name string, update callbackWithArgs) *graphql.Field {
 			}
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
 
-			return update(fields, p.Args)
+			return field.Update(fields, p.Args)
 		},
 	}
-	return field
+	return _field
 }
