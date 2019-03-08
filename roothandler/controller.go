@@ -13,32 +13,10 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/graphql-go/graphql"
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
-	"github.com/hem-nav-gateway/errorhandler"
 	"github.com/hem-nav-gateway/fields"
 	"log"
 	"net/http"
 )
-
-var companies = []string{"test", "us", "europe"}
-
-func checkCompany(companyName string) bool {
-	for _, elem := range companies {
-		if elem == companyName {
-			return true
-		}
-	}
-	return false
-}
-
-// pathVariables extracts vars from URL path
-func pathVariables(vars map[string]string) (string, error) {
-	company := vars["company"]
-
-	if checkCompany(company) {
-		return company, nil
-	}
-	return "", errorhandler.CompanyDoesNotExist(company)
-}
 
 // Handler creates a handler function for Graphql Schema
 func Handler(company string) *gqlhandler.Handler {
