@@ -12,10 +12,6 @@ import (
 	"strings"
 )
 
-var company = map[string]interface{}{
-	"test": config.TestCompanyName,
-}
-
 // resolveFields creates the URL query for
 // return fields from Microsoft Navision
 // Function takes fields --> []string
@@ -32,12 +28,12 @@ func resolveFields(fields interface{}) string {
 	return returnFields
 }
 
-// resolveBaseUrl resolves the base URL for endpoint
-func resolveBaseUrl(endpoint, Name string) string {
+// resolveBaseUrl resolves the base URL for endpoint and company name
+func resolveBaseUrl(endpoint, companyName string) string {
 
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
-		fmt.Sprintf("('%v')", company[Name]) +
+		fmt.Sprintf("('%v')", companyName) +
 		endpoint
 	return uri
 }
@@ -178,7 +174,7 @@ func updateEntitybyDocumentTypeAndIDAndLineNo(object interface{}, body interface
 // takes the unique id of the entity
 // and fields to be returned after update
 func deleteEntitybyId(endpoint, id string) (int, error) {
-	baseUri := resolveBaseUrl(endpoint, "test")
+	baseUri := resolveBaseUrl(endpoint, config.TestCompany)
 	selector := fmt.Sprintf("('%s')", id)
 	uri := baseUri + selector
 	resCode, _, err := delete(uri, nil)
@@ -189,7 +185,7 @@ func deleteEntitybyId(endpoint, id string) (int, error) {
 // takes the unique id and document_type of the entity
 // and fields to be returned after update
 func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) {
-	baseUri := resolveBaseUrl(endpoint, "test")
+	baseUri := resolveBaseUrl(endpoint, config.TestCompany)
 	selector := fmt.Sprintf("('%s','%s')", docType, id)
 	uri := baseUri + selector
 	resCode, _, err := delete(uri, nil)
@@ -201,7 +197,7 @@ func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) 
 // takes the unique id, document_type and Line_no of the entity
 // and fields to be returned after update
 func deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, lineNo int) (int, error) {
-	baseUri := resolveBaseUrl(endpoint, "test")
+	baseUri := resolveBaseUrl(endpoint, config.TestCompany)
 	selector := fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
 	uri := baseUri + selector
 	resCode, _, err := delete(uri, nil)
