@@ -7,13 +7,15 @@ package request
 import (
 	"encoding/json"
 	"github.com/hem-nav-gateway/errorhandler"
+	"github.com/hem-nav-gateway/types"
 )
 
 // GetAll handles getting all entities for a specified object types (customer, item ... etc)
 // takes fields --> fields to be returned from Navision
 // returns a list of requests object values
-func GetAll(endpoint string, fields, response interface{}) (interface{}, error) {
-	resValue := getAllEntities(endpoint, fields)
+func GetAll(object, response interface{}) (interface{}, error) {
+	obj := object.(types.RequestObject)
+	resValue := getAllEntities(obj)
 	err := json.Unmarshal(resValue.([]byte), &response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
@@ -26,8 +28,10 @@ func GetAll(endpoint string, fields, response interface{}) (interface{}, error) 
 // takes fields --> fields to be returned from Navision
 // takes args --> filter arguments
 // returns a list of filtered object values
-func Filter(endpoint string, fields, args, response interface{}) (interface{}, error) {
-	resValue, resError := filterByArgs(endpoint, fields, args)
+func Filter(object, response interface{}) (interface{}, error) {
+	obj := object.(types.RequestObject)
+
+	resValue, resError := filterByArgs(obj)
 	if resError != nil {
 		return nil, resError
 	}
@@ -38,7 +42,7 @@ func Filter(endpoint string, fields, args, response interface{}) (interface{}, e
 	res := response.(map[string]interface{})
 	values := res["value"].([]interface{})
 	if len(values) == 0 {
-		return nil, errorhandler.ValueIsNotCorrect(args)
+		return nil, errorhandler.ValueIsNotCorrect(obj.Args)
 	}
 	return values, nil
 }
@@ -47,9 +51,11 @@ func Filter(endpoint string, fields, args, response interface{}) (interface{}, e
 // takes fields --> fields to be returned from Navision
 // takes args --> arguments are object values to be created
 // returns the created object with its return fields
-func Create(endpoint string, fields, args, response interface{}) (interface{}, error) {
-	body, _ := json.Marshal(args)
-	resValue, resError := createEntity(endpoint, fields, body)
+func Create(object, response interface{}) (interface{}, error) {
+	obj := object.(types.RequestObject)
+
+	body, _ := json.Marshal(obj.Args)
+	resValue, resError := createEntity(obj, body)
 	if resError != nil {
 		return nil, resError
 	}
@@ -64,39 +70,35 @@ func Create(endpoint string, fields, args, response interface{}) (interface{}, e
 // takes fields --> fields to be returned from Navision
 // takes args --> arguments are object values to be updated
 // returns the created object with its return fields
-func Update(endpoint string, fields, args, docType, response interface{}) (interface{}, error) {
+func Update(object, response interface{}) (interface{}, error) {
 
 	var resValue interface{}
 	var resError error
 
-	body, _ := json.Marshal(args)
-	_args := args.(map[string]interface{})
+	obj := object.(types.RequestObject)
 
-	if docType != nil {
-		docType := docType.(string)
+	body, _ := json.Marshal(obj.Args)
+
+	if _, ok := obj.Properties["docType"]; ok {
 
 		// In Order to update SalesLines for example
 		// It is required to specify "Line_No", "Document_type", "Document_No"
 		// In this specific case "Document_No" acts as id
 		// this is related to how Microsoft Navision works
-		if lineNo, ok := _args["Line_No"]; ok {
-			id := _args["Document_No"].(string)
-			lineNo := lineNo.(int)
-			resValue, resError = updateEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, fields, lineNo, body)
+		if _, ok := obj.Args["Line_No"]; ok {
+			resValue, resError = updateEntitybyDocumentTypeAndIDAndLineNo(obj, body)
 
 			// In order to update SalesOrder or SalesInvoice
 			// it is required to specify its "No" which acts as its id
 			// and "Document_type" which specifies if it is "Order" or "Invoice"
 		} else {
-			id := _args["No"].(string)
-			resValue, resError = updateEntitybyDocumentTypeAndID(endpoint, id, docType, fields, body)
+			resValue, resError = updateEntitybyDocumentTypeAndID(obj, body)
 		}
 
 		// This is the case for most entities to be updated
 		// "No" which acts as id is all what it required to update an entity
 	} else {
-		id := _args["No"].(string)
-		resValue, resError = updateEntitybyId(endpoint, id, fields, body)
+		resValue, resError = updateEntitybyId(obj, body)
 	}
 
 	if resError != nil {

@@ -1,12 +1,3 @@
-// Copyright 2019 Hem Design Studio. All rights reserved.
-// Use of this source code is governed by a
-// license that can be found in the LICENSE file.
-
-/*
-Package fields implements a simple package for handling GraphQl fields.
-
-
-*/
 package fields
 
 import (
@@ -23,6 +14,15 @@ import (
 type callback func(interface{}) (interface{}, error)
 
 type callbackWithArgs func(interface{}, interface{}) (interface{}, error)
+
+type fieldType struct {
+	Name    string
+	Company string
+	GetAll  callback
+	Filter  callback
+	Update  callback
+	Create  callback
+}
 
 /*
  types contains a map of GraphQL Type objects of (assemblybom, Customer, item  .. etc)
@@ -58,10 +58,6 @@ var types = map[string]*graphql.Object{
 var filterArgs = map[string]*graphql.ArgumentConfig{
 	"key":   {Type: graphql.String},
 	"value": {Type: graphql.String},
-}
-
-var companyArgs = map[string]*graphql.ArgumentConfig{
-	"name": {Type: graphql.String},
 }
 
 /*
@@ -100,6 +96,8 @@ The returned GraphQl arguments will be used as a part of the main mutation
 */
 type Args map[string]map[string]*graphql.ArgumentConfig
 
+type Fields map[string]*graphql.Field
+
 var args = Args{
 	"customer":     customer.CreateArgs(),
 	"item":         item.CreateArgs(),
@@ -108,143 +106,82 @@ var args = Args{
 	"salesInvoice": salesinvoice.CreateArgs(),
 }
 
-/*
-QueryType creates the root query with all of its nested fields
-
-	Example:
-
-		fields:
-			"AssemblyBom",
-			"CustomerCard",
-			"ItemCard",
-			"SalesOrder",
-			"SalesLine",
-			"PostedSalesShipment",
-			"SalesInvoice",
-
-		queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter) would resolve to
-
-			'''
-			&graphql.Field{
-				Type: graphql.NewList(types["assemblyBom"]),
-				Args: filterArgs,
-				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					if len(p.Args) != 2 {
-						return assemblybom.GetAll()
-					}
-					return assemblybom.Filter(p.Args)
-				},
-			}
-			'''
-*/
-func CompanyQueryType() *graphql.Object {
-	query := graphql.ObjectConfig{
-		Name: "Company",
-		Fields: graphql.Fields{
-			"AssemblyBom":         queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter),
-			"CustomerCard":        queryFields("customer", customer.GetAll, customer.Filter),
-			"ItemCard":            queryFields("item", item.GetAll, item.Filter),
-			"SalesOrder":          queryFields("salesOrder", salesorder.GetAll, salesorder.Filter),
-			"SalesLine":           queryFields("salesLine", salesline.GetAll, salesline.Filter),
-			"PostedSalesShipment": queryFields("postShip", postship.GetAll, postship.Filter),
-			"SalesInvoice":        queryFields("salesInvoice", salesinvoice.GetAll, salesinvoice.Filter),
-		},
+func assemblyBomField(company string) fieldType {
+	field := fieldType{
+		Name:    "assemblyBom",
+		Company: company,
+		Filter:  assemblybom.Filter,
+		GetAll:  assemblybom.GetAll,
 	}
-	return graphql.NewObject(query)
+	return field
 }
 
-/*
-MutationType create the root mutation (Create or updating an entity) for all types
-
-	Example:
-
-		fields:
-			"CreateCustomerCard",
-			"CreateItemCard",
-			"CreateSalesOrder",
-			"CreateSalesLine",
-			"CreateSalesInvoice",
-			"UpdateCustomerCard",
-			"UpdateItemCard",
-			"UpdateSalesOrder",
-			"UpdateSalesLine",
-			"UpdateSalesInvoice"
-
-		createFields("customer", customer.Create) would resolve to
-
-			'''
-			&graphql.Field{
-				Type: types["customer"],
-				Args: CustomerCardArgs,
-				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					log.Printf("fetching Customer cards of company: %s", config.CompanyName)
-					return customer.Create(p.Args)
-				},
-			}
-			'''
-
-		updateFields("customer", customer.Update) would resolve to
-
-			'''
-			&graphql.Field{
-				Type: types["customer"],
-				Args: CustomerCardArgs,
-				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					log.Printf("updating Customer cards of company: %s", config.CompanyName)
-					return customer.Update(p.Args)
-				},
-			}
-			'''
-*/
-func CompanyMutationType() *graphql.Object {
-	mutation := graphql.ObjectConfig{
-		Name: "CompanyMutation",
-		Fields: graphql.Fields{
-			"CreateCustomerCard": createFields("customer", customer.Create),
-			"CreateItemCard":     createFields("item", item.Create),
-			"CreateSalesOrder":   createFields("salesOrder", salesorder.Create),
-			"CreateSalesLine":    createFields("salesLine", salesline.Create),
-			"CreateSalesInvoice": createFields("salesInvoice", salesinvoice.Create),
-			"UpdateCustomerCard": updateFields("customer", customer.Update),
-			"UpdateItemCard":     updateFields("item", item.Update),
-			"UpdateSalesOrder":   updateFields("salesOrder", salesorder.Update),
-			"UpdateSalesLine":    updateFields("salesLine", salesline.Update),
-			"UpdateSalesInvoice": updateFields("salesInvoice", salesinvoice.Update),
-		},
+func customerField(company string) fieldType {
+	field := fieldType{
+		Name:    "customer",
+		Company: company,
+		Filter:  customer.Filter,
+		GetAll:  customer.GetAll,
+		Create:  customer.Create,
+		Update:  customer.Update,
 	}
-	return graphql.NewObject(mutation)
+	return field
 }
 
-func QueryType() *graphql.Object {
-	query := graphql.ObjectConfig{
-		Name: "RootQuery",
-		Fields: graphql.Fields{
-			"Company": &graphql.Field{
-				Type: CompanyQueryType(),
-				Args: companyArgs,
-				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					company := p.Args["name"]
-					return company, nil
-				},
-			},
-		},
+func itemField(company string) fieldType {
+	field := fieldType{
+		Name:    "item",
+		Company: company,
+		Filter:  item.Filter,
+		GetAll:  item.GetAll,
+		Create:  item.Create,
+		Update:  item.Update,
 	}
-	return graphql.NewObject(query)
+	return field
 }
 
-func MutationType() *graphql.Object {
-	mutation := graphql.ObjectConfig{
-		Name: "RootMutation",
-		Fields: graphql.Fields{
-			"Company": &graphql.Field{
-				Type: CompanyMutationType(),
-				Args: companyArgs,
-				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					company := p.Args["name"]
-					return company, nil
-				},
-			},
-		},
+func salesOrderField(company string) fieldType {
+	field := fieldType{
+		Name:    "salesOrder",
+		Company: company,
+		Filter:  salesorder.Filter,
+		GetAll:  salesorder.GetAll,
+		Create:  salesorder.Create,
+		Update:  salesorder.Update,
 	}
-	return graphql.NewObject(mutation)
+	return field
+}
+
+func salesLineField(company string) fieldType {
+	field := fieldType{
+		Name:    "salesLine",
+		Company: company,
+		Filter:  salesline.Filter,
+		GetAll:  salesline.GetAll,
+		Create:  salesline.Create,
+		Update:  salesline.Update,
+	}
+	return field
+}
+
+func postShipField(company string) fieldType {
+	field := fieldType{
+		Name:    "postShip",
+		Company: company,
+		Filter:  postship.Filter,
+		GetAll:  postship.GetAll,
+	}
+	return field
+}
+
+func salesInvoiceField(company string) fieldType {
+	field := fieldType{
+		Name:    "salesInvoice",
+		Company: company,
+		Filter:  salesinvoice.Filter,
+		GetAll:  salesinvoice.GetAll,
+		Create:  salesinvoice.Create,
+		Update:  salesinvoice.Update,
+	}
+	return field
 }

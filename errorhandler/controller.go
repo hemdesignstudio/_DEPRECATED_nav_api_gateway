@@ -78,7 +78,11 @@ func unauthorized() error {
 
 // CompanyDoesNotExist is invoked when wrong company is requested in URL path
 func CompanyDoesNotExist(name string) error {
-	return fmt.Errorf(fmt.Sprintf(" '/%s' does no exist, available options are '/test' ", name))
+	return fmt.Errorf(fmt.Sprintf(
+		" '/%s' does no exist, available options are "+
+			"'/doc/','/godoc/', '/test','/us','/eu' ",
+		name),
+	)
 
 }
 
