@@ -18,9 +18,9 @@ type SalesLineResponseBody struct {
 }
 
 type SalesLineData struct {
-	SalesLine       []salesline.SalesLine `json:"SalesLine"`
-	CreateSalesLine salesline.SalesLine   `json:"CreateSalesLine"`
-	UpdateSalesLine salesline.SalesLine   `json:"UpdateSalesLine"`
+	SalesLine       []salesline.Model `json:"SalesLine"`
+	CreateSalesLine salesline.Model   `json:"CreateSalesLine"`
+	UpdateSalesLine salesline.Model   `json:"UpdateSalesLine"`
 }
 
 func getAllSalesLines() (int, SalesLineResponseBody) {

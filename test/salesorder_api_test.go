@@ -17,9 +17,9 @@ type SalesOrderResponseBody struct {
 }
 
 type SalesOrderData struct {
-	SalesOrder       []salesorder.SalesOrder `json:"SalesOrder"`
-	CreateSalesOrder salesorder.SalesOrder   `json:"CreateSalesOrder"`
-	UpdateSalesOrder salesorder.SalesOrder   `json:"UpdateSalesOrder"`
+	SalesOrder       []salesorder.Model `json:"SalesOrder"`
+	CreateSalesOrder salesorder.Model   `json:"CreateSalesOrder"`
+	UpdateSalesOrder salesorder.Model   `json:"UpdateSalesOrder"`
 }
 
 func getAllSalesOrders() (int, SalesOrderResponseBody) {

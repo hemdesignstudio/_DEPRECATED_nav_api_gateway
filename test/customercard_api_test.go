@@ -18,9 +18,9 @@ type CustomerCardResponseBody struct {
 }
 
 type CustomerCardData struct {
-	CustomerCard       []customer.CustomerCard `json:"CustomerCard"`
-	CreateCustomerCard customer.CustomerCard   `json:"CreateCustomerCard"`
-	UpdateCustomerCard customer.CustomerCard   `json:"UpdateCustomerCard"`
+	CustomerCard       []customer.Model `json:"CustomerCard"`
+	CreateCustomerCard customer.Model   `json:"CreateCustomerCard"`
+	UpdateCustomerCard customer.Model   `json:"UpdateCustomerCard"`
 }
 
 func getAllCustomers() (int, CustomerCardResponseBody) {

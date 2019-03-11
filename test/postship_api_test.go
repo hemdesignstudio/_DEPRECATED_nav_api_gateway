@@ -15,7 +15,7 @@ type PostShipResponseBody struct {
 }
 
 type PostShipData struct {
-	PostShip []postship.PostShip `json:"PostedSalesShipment"`
+	PostShip []postship.Model `json:"PostedSalesShipment"`
 }
 
 func TestPostShipGetAll(t *testing.T) {

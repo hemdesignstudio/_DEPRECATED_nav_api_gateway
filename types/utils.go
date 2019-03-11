@@ -31,12 +31,12 @@ var requiredArgMap = map[string]*graphql.ArgumentConfig{
 	"bool":    requiredArg.BOOL,
 }
 
-var attrMap = map[string]*graphql.Field{
-	"string":  attr.STRING,
-	"float32": attr.FLOAT,
-	"float64": attr.FLOAT,
-	"int":     attr.INT,
-	"bool":    attr.BOOL,
+var fieldMap = map[string]*graphql.Field{
+	"string":  field.STRING,
+	"float32": field.FLOAT,
+	"float64": field.FLOAT,
+	"int":     field.INT,
+	"bool":    field.BOOL,
 }
 
 // typeListContains checks if element type exits in

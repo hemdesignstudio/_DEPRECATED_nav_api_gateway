@@ -65,7 +65,7 @@ func GenerateGraphQlType(name string, object interface{}, extraFields graphql.Fi
 		_type := obj.Field(i).Type.String()
 
 		if typeListContains(_type) {
-			fields[_name] = attrMap[_type]
+			fields[_name] = fieldMap[_type]
 		}
 	}
 

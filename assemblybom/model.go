@@ -66,10 +66,10 @@ Example response from Navision
 	'''
 */
 type response struct {
-	Value []AssemblyBom `json:"value"`
+	Value []Model `json:"value"`
 }
 
-type AssemblyBom struct {
+type Model struct {
 	No                string  `json:"No"`
 	ParentItemNo      string  `json:"Parent_Item_No"`
 	Type              string  `json:"Type"`
@@ -100,5 +100,5 @@ The returned GraphQl arguments will be used as a part of the main mutation
 
 */
 func CreateType() *graphql.Object {
-	return types.GenerateGraphQlType("AssemblyBom", AssemblyBom{}, nil)
+	return types.GenerateGraphQlType("AssemblyBom", Model{}, nil)
 }

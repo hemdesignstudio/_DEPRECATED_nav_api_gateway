@@ -33,7 +33,7 @@ type argType struct {
 	BOOL   *graphql.ArgumentConfig
 }
 
-var attr = attrType{
+var field = attrType{
 	STRING: &graphql.Field{Type: graphql.String},
 	INT:    &graphql.Field{Type: graphql.Int},
 	FLOAT:  &graphql.Field{Type: graphql.Float},
