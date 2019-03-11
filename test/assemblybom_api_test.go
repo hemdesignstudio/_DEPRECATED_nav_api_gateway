@@ -14,7 +14,7 @@ type AssemblyBomResponseBody struct {
 }
 
 type AssemblyBomData struct {
-	AssemblyBom []assemblybom.AssemblyBom `json:"assemblybom"`
+	AssemblyBom []assemblybom.Model `json:"assemblybom"`
 }
 
 func TestAssemblyBomGetAll(t *testing.T) {

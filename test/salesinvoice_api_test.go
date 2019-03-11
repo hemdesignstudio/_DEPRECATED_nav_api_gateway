@@ -18,9 +18,9 @@ type SalesInvoiceResponseBody struct {
 }
 
 type SalesInvoiceData struct {
-	SalesInvoice       []salesinvoice.SalesInvoice `json:"SalesInvoice"`
-	CreateSalesInvoice salesinvoice.SalesInvoice   `json:"CreateSalesInvoice"`
-	UpdateSalesInvoice salesinvoice.SalesInvoice   `json:"UpdateSalesInvoice"`
+	SalesInvoice       []salesinvoice.Model `json:"SalesInvoice"`
+	CreateSalesInvoice salesinvoice.Model   `json:"CreateSalesInvoice"`
+	UpdateSalesInvoice salesinvoice.Model   `json:"UpdateSalesInvoice"`
 }
 
 func getAllSalesInvoices() (int, SalesInvoiceResponseBody) {

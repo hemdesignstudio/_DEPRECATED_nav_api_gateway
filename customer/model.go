@@ -66,10 +66,10 @@ Example response from Navision
 
 */
 type Response struct {
-	Value []CustomerCard `json:"value"`
+	Value []Model `json:"value"`
 }
 
-type CustomerCard struct {
+type Model struct {
 	No                          string `json:"No" required:"true"`
 	Name                        string `json:"Name"`
 	Address                     string `json:"Address"`
@@ -117,7 +117,7 @@ The returned GraphQl Object Type will be used as a part of the main query
 */
 func CreateType() *graphql.Object {
 
-	return types.GenerateGraphQlType("CustomerCard", CustomerCard{}, nil)
+	return types.GenerateGraphQlType("CustomerCard", Model{}, nil)
 }
 
 /*
@@ -152,5 +152,5 @@ The returned GraphQl arguments will be used as a part of the main mutation
 */
 func CreateArgs() map[string]*graphql.ArgumentConfig {
 
-	return types.GenerateGraphQlArgs(CustomerCard{}, nil)
+	return types.GenerateGraphQlArgs(Model{}, nil)
 }

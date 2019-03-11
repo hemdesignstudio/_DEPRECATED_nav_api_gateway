@@ -64,10 +64,10 @@ Example response from Navision
 
 */
 type Response struct {
-	Value []ItemCard `json:"value"`
+	Value []Model `json:"value"`
 }
 
-type ItemCard struct {
+type Model struct {
 	No                        string  `json:"No" required:"true"`
 	Description               string  `json:"Description"`
 	BaseUnitOfMeasure         string  `json:"Base_Unit_of_Measure"`
@@ -114,7 +114,7 @@ GraphQl Object is a map[string]*graphql.Field
 The returned GraphQl Object Type will be used as a part of the main query
 */
 func CreateType() *graphql.Object {
-	return types.GenerateGraphQlType("ItemCard", ItemCard{}, nil)
+	return types.GenerateGraphQlType("ItemCard", Model{}, nil)
 }
 
 /*
@@ -149,5 +149,5 @@ and this will be translated to
 The returned GraphQl arguments will be used as a part of the main mutation
 */
 func CreateArgs() map[string]*graphql.ArgumentConfig {
-	return types.GenerateGraphQlArgs(ItemCard{}, nil)
+	return types.GenerateGraphQlArgs(Model{}, nil)
 }

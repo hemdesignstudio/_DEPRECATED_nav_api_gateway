@@ -18,9 +18,9 @@ type ItemCardResponseBody struct {
 }
 
 type ItemCardData struct {
-	ItemCard       []item.ItemCard `json:"ItemCard"`
-	CreateItemCard item.ItemCard   `json:"CreateItemCard"`
-	UpdateItemCard item.ItemCard   `json:"UpdateItemCard"`
+	ItemCard       []item.Model `json:"ItemCard"`
+	CreateItemCard item.Model   `json:"CreateItemCard"`
+	UpdateItemCard item.Model   `json:"UpdateItemCard"`
 }
 
 func getAllItems() (int, ItemCardResponseBody) {
