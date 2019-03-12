@@ -94,7 +94,7 @@ func queryFields(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
-		Type: graphql.NewList(types[field.Name]),
+		Type: graphql.NewList(types[field.GetName()]),
 		Args: filterArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
@@ -105,15 +105,18 @@ func queryFields(field fieldType) *graphql.Field {
 			}
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
 
-			obj := requestType.RequestObject{}
-			obj.Company = field.Company
-			obj.Fields = fields
-			obj.Args = p.Args
+			//obj := requestType.RequestObject{}
+			//obj.Company = field.GetCompany()
+			//obj.Fields = fields
+			//obj.Args = p.Args
 
-			if len(obj.Args) != 2 {
-				return field.GetAll(obj)
+			field.SetArgs(p.Args)
+			field.SetFields(fields)
+
+			if len(p.Args) != 2 {
+				return field.GetAll()
 			}
-			return field.Filter(obj)
+			return field.Filter()
 		},
 	}
 	return _field
@@ -141,8 +144,8 @@ func createFields(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
-		Type: types[field.Name],
-		Args: args[field.Name],
+		Type: types[field.GetName()],
+		Args: args[field.GetName()],
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
 			fieldASTs := p.Info.FieldASTs
@@ -154,11 +157,11 @@ func createFields(field fieldType) *graphql.Field {
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
 
 			obj := requestType.RequestObject{}
-			obj.Company = field.Company
+			obj.Company = field.GetCompany()
 			obj.Fields = fields
 			obj.Args = p.Args
 
-			return field.Create(obj)
+			return field.Create()
 		},
 	}
 	return _field
@@ -186,8 +189,8 @@ func updateFields(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
-		Type: types[field.Name],
-		Args: args[field.Name],
+		Type: types[field.GetName()],
+		Args: args[field.GetName()],
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
 			fieldASTs := p.Info.FieldASTs
@@ -199,11 +202,11 @@ func updateFields(field fieldType) *graphql.Field {
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
 
 			obj := requestType.RequestObject{}
-			obj.Company = field.Company
+			obj.Company = field.GetCompany()
 			obj.Fields = fields
 			obj.Args = p.Args
 
-			return field.Update(obj)
+			return field.Update()
 		},
 	}
 	return _field
