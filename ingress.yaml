@@ -1,0 +1,35 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: esp-nav-api
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: nav-test-ip
+    certmanager.k8s.io/cluster-issuer: letsencrypt-statging
+    certmanager.k8s.io/acme-http01-edit-in-place: "true"
+  labels:
+    app: esp-nav-api
+spec:
+  backend:
+    serviceName: esp-nav-api
+    servicePort: 80
+  tls:
+    - secretName: nav-test-tls
+      hosts:
+        - nav-api.endpoints.staging-217409.cloud.goog
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: esp-nav-api
+  labels:
+    app: esp-nav-api
+spec:
+  type: NodePort
+  selector:
+    app: esp-nav-api
+    tier: web
+  ports:
+    - port: 80
+      targetPort: 8080
