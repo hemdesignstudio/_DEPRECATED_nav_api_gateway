@@ -5,9 +5,13 @@
 package customer
 
 import (
+	"github.com/graphql-go/graphql"
 	"github.com/hem-nav-gateway/request"
 	"github.com/hem-nav-gateway/types"
 )
+
+var customerType = createType()
+var customerArgs = createArgs()
 
 type Request struct {
 	Name    string
@@ -16,12 +20,20 @@ type Request struct {
 }
 
 func (r *Request) GetName() string {
-	r.Name = "customer"
+	r.Name = "Customer"
 	return r.Name
 }
 
 func (r *Request) GetCompany() string {
 	return r.Company
+}
+
+func (*Request) CreateType() *graphql.Object {
+	return customerType
+}
+
+func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig {
+	return customerArgs
 }
 
 func (r *Request) SetArgs(args map[string]interface{}) {
