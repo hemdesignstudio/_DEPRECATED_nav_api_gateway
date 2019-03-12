@@ -13,8 +13,6 @@ import (
 
 type callback func(interface{}) (interface{}, error)
 
-type callbackWithArgs func(interface{}, interface{}) (interface{}, error)
-
 type fieldType struct {
 	Name    string
 	Company string
