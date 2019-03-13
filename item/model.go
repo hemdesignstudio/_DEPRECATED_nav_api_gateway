@@ -113,7 +113,7 @@ GraphQl Object is a map[string]*graphql.Field
 
 The returned GraphQl Object Type will be used as a part of the main query
 */
-func CreateType() *graphql.Object {
+func createType() *graphql.Object {
 	return types.GenerateGraphQlType("ItemCard", Model{}, nil)
 }
 
@@ -148,6 +148,6 @@ and this will be translated to
 
 The returned GraphQl arguments will be used as a part of the main mutation
 */
-func CreateArgs() map[string]*graphql.ArgumentConfig {
+func createArgs() map[string]*graphql.ArgumentConfig {
 	return types.GenerateGraphQlArgs(Model{}, nil)
 }
