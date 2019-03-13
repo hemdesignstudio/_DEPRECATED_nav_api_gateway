@@ -10,13 +10,21 @@ import (
 	"github.com/hem-nav-gateway/types"
 )
 
-var customerType = createType()
-var customerArgs = createArgs()
+var _type = createType()
+var _args = createArgs()
 
 type Request struct {
 	Name    string
 	Company string
 	Object  types.RequestObject
+}
+
+func (*Request) CreateType() *graphql.Object {
+	return _type
+}
+
+func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig {
+	return _args
 }
 
 func (r *Request) GetName() string {
@@ -26,14 +34,6 @@ func (r *Request) GetName() string {
 
 func (r *Request) GetCompany() string {
 	return r.Company
-}
-
-func (*Request) CreateType() *graphql.Object {
-	return customerType
-}
-
-func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig {
-	return customerArgs
 }
 
 func (r *Request) SetArgs(args map[string]interface{}) {
