@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/language/ast"
-	requestType "github.com/hem-nav-gateway/types"
 )
 
 /*
@@ -94,7 +93,7 @@ func queryFields(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
-		Type: graphql.NewList(types[field.GetName()]),
+		Type: graphql.NewList(field.CreateType()),
 		Args: filterArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
@@ -144,8 +143,8 @@ func createFields(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
-		Type: types[field.GetName()],
-		Args: args[field.GetName()],
+		Type: field.CreateType(),
+		Args: field.CreateArgs(),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
 			fieldASTs := p.Info.FieldASTs
@@ -156,10 +155,8 @@ func createFields(field fieldType) *graphql.Field {
 
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
 
-			obj := requestType.RequestObject{}
-			obj.Company = field.GetCompany()
-			obj.Fields = fields
-			obj.Args = p.Args
+			field.SetArgs(p.Args)
+			field.SetFields(fields)
 
 			return field.Create()
 		},
@@ -189,8 +186,8 @@ func updateFields(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
-		Type: types[field.GetName()],
-		Args: args[field.GetName()],
+		Type: field.CreateType(),
+		Args: field.CreateArgs(),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
 			fieldASTs := p.Info.FieldASTs
@@ -201,10 +198,8 @@ func updateFields(field fieldType) *graphql.Field {
 
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
 
-			obj := requestType.RequestObject{}
-			obj.Company = field.GetCompany()
-			obj.Fields = fields
-			obj.Args = p.Args
+			field.SetArgs(p.Args)
+			field.SetFields(fields)
 
 			return field.Update()
 		},

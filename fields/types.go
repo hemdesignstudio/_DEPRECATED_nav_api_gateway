@@ -11,7 +11,13 @@ package fields
 
 import (
 	"github.com/graphql-go/graphql"
+	"github.com/hem-nav-gateway/assemblybom"
 	"github.com/hem-nav-gateway/customer"
+	"github.com/hem-nav-gateway/item"
+	"github.com/hem-nav-gateway/postship"
+	"github.com/hem-nav-gateway/salesinvoice"
+	"github.com/hem-nav-gateway/salesline"
+	"github.com/hem-nav-gateway/salesorder"
 )
 
 /*
@@ -47,13 +53,13 @@ func QueryType(company string) *graphql.Object {
 	query := graphql.ObjectConfig{
 		Name: "RootQuery",
 		Fields: graphql.Fields{
-			//"AssemblyBom": queryFields(&assemblybom.Request{Company: company}),
-			"CustomerCard": queryFields(&customer.Request{Company: company}),
-			//"ItemCard":            queryFields(itemField(company)),
-			//"SalesOrder":          queryFields(salesOrderField(company)),
-			//"SalesLine":           queryFields(salesLineField(company)),
-			//"PostedSalesShipment": queryFields(postShipField(company)),
-			//"SalesInvoice":        queryFields(salesInvoiceField(company)),
+			"AssemblyBom":         queryFields(&assemblybom.Request{Company: company}),
+			"CustomerCard":        queryFields(&customer.Request{Company: company}),
+			"ItemCard":            queryFields(&item.Request{Company: company}),
+			"SalesOrder":          queryFields(&salesorder.Request{Company: company}),
+			"SalesLine":           queryFields(&salesline.Request{Company: company}),
+			"PostedSalesShipment": queryFields(&postship.Request{Company: company}),
+			"SalesInvoice":        queryFields(&salesinvoice.Request{Company: company}),
 		},
 	}
 	return graphql.NewObject(query)
@@ -107,16 +113,15 @@ func MutationType(company string) *graphql.Object {
 		Name: "RootMutation",
 		Fields: graphql.Fields{
 			"CreateCustomerCard": createFields(&customer.Request{Company: company}),
-			//"CreateItemCard":     createFields(itemField(company)),
-			//"CreateSalesOrder":   createFields(salesOrderField(company)),
-			//"CreateSalesLine":    createFields(salesLineField(company)),
-			//"CreateSalesInvoice": createFields(salesInvoiceField(company)),
-
-			//"UpdateCustomerCard": updateFields(customer.Request{Company: company}),
-			//"UpdateItemCard":     updateFields(itemField(company)),
-			//"UpdateSalesOrder":   updateFields(salesOrderField(company)),
-			//"UpdateSalesLine":    updateFields(salesLineField(company)),
-			//"UpdateSalesInvoice": updateFields(salesInvoiceField(company)),
+			"CreateItemCard":     createFields(&item.Request{Company: company}),
+			"CreateSalesOrder":   createFields(&salesorder.Request{Company: company}),
+			"CreateSalesLine":    createFields(&salesline.Request{Company: company}),
+			"CreateSalesInvoice": createFields(&salesinvoice.Request{Company: company}),
+			"UpdateCustomerCard": updateFields(&customer.Request{Company: company}),
+			"UpdateItemCard":     updateFields(&item.Request{Company: company}),
+			"UpdateSalesOrder":   updateFields(&salesorder.Request{Company: company}),
+			"UpdateSalesLine":    updateFields(&salesline.Request{Company: company}),
+			"UpdateSalesInvoice": updateFields(&salesinvoice.Request{Company: company}),
 		},
 	}
 	return graphql.NewObject(mutation)
