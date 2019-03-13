@@ -49,7 +49,9 @@ func (r *Request) GetAll() (interface{}, error) {
 	r.Object.Company = r.Company
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 
-	return request.GetAll(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.GetAll(r.Object)
 }
 
 // Filter retrieves a list of filtered SalesOrders
@@ -66,7 +68,9 @@ func (r *Request) Filter() (interface{}, error) {
 	r.Object.Company = r.Company
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 
-	return request.Filter(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.Filter(r.Object)
 }
 
 // Create creates a SalesOrder objects based on arguments added by the requester
@@ -82,7 +86,9 @@ func (r *Request) Create() (interface{}, error) {
 	r.Object.Company = r.Company
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 
-	return request.Create(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.Create(r.Object)
 }
 
 // Update modifies a certain SalesOrder Object Microsoft Navision.
@@ -104,5 +110,7 @@ func (r *Request) Update() (interface{}, error) {
 
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 
-	return request.Update(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.Update(r.Object)
 }

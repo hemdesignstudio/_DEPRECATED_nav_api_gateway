@@ -65,7 +65,7 @@ Example response from Navision
 			}
 	'''
 */
-type response struct {
+type Response struct {
 	Value []Model `json:"value"`
 }
 

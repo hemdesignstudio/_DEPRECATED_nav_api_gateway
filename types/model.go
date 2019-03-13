@@ -14,6 +14,7 @@ import "github.com/graphql-go/graphql"
 type RequestObject struct {
 	Endpoint   string
 	Company    string
+	Response   interface{}
 	Fields     interface{}
 	Args       map[string]interface{}
 	Properties map[string]interface{}

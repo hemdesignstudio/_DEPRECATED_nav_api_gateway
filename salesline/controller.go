@@ -47,7 +47,9 @@ func (r *Request) SetFields(fields []string) {
 func (r *Request) GetAll() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
-	return request.GetAll(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.GetAll(r.Object)
 }
 
 // Filter retrieves a list of filtered ItemCards based on a key-value pair added by the requester
@@ -56,7 +58,9 @@ func (r *Request) GetAll() (interface{}, error) {
 func (r *Request) Filter() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
-	return request.Filter(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.Filter(r.Object)
 }
 
 // Create creates a ItemCard objects based on arguments  added by the requester.
@@ -64,7 +68,9 @@ func (r *Request) Filter() (interface{}, error) {
 func (r *Request) Create() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
-	return request.Create(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.Create(r.Object)
 }
 
 // Update modifies a certain ItemCard Object Microsoft Navision.
@@ -78,9 +84,12 @@ func (r *Request) Update() (interface{}, error) {
 	// - Document_Type = 'Invoice' - for SalesLines which are related on SalesInvoice.
 	// It is a requirement to specify type for Navision Odata REST API incase of
 	// updating an entity
+
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Properties = map[string]interface{}{}
 	r.Object.Properties["docType"] = r.Object.Args["Document_Type"]
-	return request.Update(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.Update(r.Object)
 }

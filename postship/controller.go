@@ -42,7 +42,9 @@ func (r *Request) SetFields(fields []string) {
 func (r *Request) GetAll() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
-	return request.GetAll(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.GetAll(r.Object)
 
 }
 
@@ -52,7 +54,9 @@ func (r *Request) GetAll() (interface{}, error) {
 func (r *Request) Filter() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
-	return request.Filter(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.Filter(r.Object)
 
 }
 

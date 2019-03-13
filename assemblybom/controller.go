@@ -44,8 +44,8 @@ func (r *Request) GetAll() (interface{}, error) {
 
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
-	return request.GetAll(r.Object, response{})
-
+	r.Object.Response = Response{}
+	return request.GetAll(r.Object)
 }
 
 // Filter retrieves a filtered list of AssemblyBom objects based of key-value pair.
@@ -54,7 +54,9 @@ func (r *Request) GetAll() (interface{}, error) {
 func (r *Request) Filter() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
-	return request.Filter(r.Object, response{})
+	r.Object.Response = Response{}
+
+	return request.Filter(r.Object)
 }
 
 func (r *Request) Create() (interface{}, error) {

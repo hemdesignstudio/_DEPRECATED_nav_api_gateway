@@ -13,14 +13,13 @@ import (
 // GetAll handles getting all entities for a specified object types (customer, item ... etc)
 // takes fields --> fields to be returned from Navision
 // returns a list of requests object values
-func GetAll(object, response interface{}) (interface{}, error) {
-	obj := object.(types.RequestObject)
+func GetAll(obj types.RequestObject) (interface{}, error) {
 	resValue := getAllEntities(obj)
-	err := json.Unmarshal(resValue.([]byte), &response)
+	err := json.Unmarshal(resValue.([]byte), &obj.Response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
 	}
-	res := response.(map[string]interface{})
+	res := obj.Response.(map[string]interface{})
 	return res["value"], nil
 }
 
@@ -28,18 +27,17 @@ func GetAll(object, response interface{}) (interface{}, error) {
 // takes fields --> fields to be returned from Navision
 // takes args --> filter arguments
 // returns a list of filtered object values
-func Filter(object, response interface{}) (interface{}, error) {
-	obj := object.(types.RequestObject)
+func Filter(obj types.RequestObject) (interface{}, error) {
 
 	resValue, resError := filterByArgs(obj)
 	if resError != nil {
 		return nil, resError
 	}
-	err := json.Unmarshal(resValue.([]byte), &response)
+	err := json.Unmarshal(resValue.([]byte), &obj.Response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
 	}
-	res := response.(map[string]interface{})
+	res := obj.Response.(map[string]interface{})
 	values := res["value"].([]interface{})
 	if len(values) == 0 {
 		return nil, errorhandler.ValueIsNotCorrect(obj.Args)
@@ -51,31 +49,28 @@ func Filter(object, response interface{}) (interface{}, error) {
 // takes fields --> fields to be returned from Navision
 // takes args --> arguments are object values to be created
 // returns the created object with its return fields
-func Create(object, response interface{}) (interface{}, error) {
-	obj := object.(types.RequestObject)
+func Create(obj types.RequestObject) (interface{}, error) {
 
 	body, _ := json.Marshal(obj.Args)
 	resValue, resError := createEntity(obj, body)
 	if resError != nil {
 		return nil, resError
 	}
-	err := json.Unmarshal(resValue.([]byte), &response)
+	err := json.Unmarshal(resValue.([]byte), &obj.Response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
 	}
-	return response, nil
+	return obj.Response, nil
 }
 
 // Update a specific entity of a specified object type (customer, item ... etc)
 // takes fields --> fields to be returned from Navision
 // takes args --> arguments are object values to be updated
 // returns the created object with its return fields
-func Update(object, response interface{}) (interface{}, error) {
+func Update(obj types.RequestObject) (interface{}, error) {
 
 	var resValue interface{}
 	var resError error
-
-	obj := object.(types.RequestObject)
 
 	body, _ := json.Marshal(obj.Args)
 
@@ -104,11 +99,11 @@ func Update(object, response interface{}) (interface{}, error) {
 	if resError != nil {
 		return nil, resError
 	}
-	err := json.Unmarshal(resValue.([]byte), &response)
+	err := json.Unmarshal(resValue.([]byte), &obj.Response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
 	}
-	return response, nil
+	return obj.Response, nil
 }
 
 // Delete a specific entity of a specified object type (customer, item ... etc)

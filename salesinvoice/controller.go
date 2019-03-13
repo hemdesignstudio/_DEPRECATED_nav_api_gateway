@@ -48,8 +48,9 @@ func (r *Request) GetAll() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
+	r.Object.Response = Response{}
 
-	return request.GetAll(r.Object, Response{})
+	return request.GetAll(r.Object)
 }
 
 // Filter retrieves a list of filtered SalesInvoices
@@ -65,8 +66,9 @@ func (r *Request) Filter() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
+	r.Object.Response = Response{}
 
-	return request.Filter(r.Object, Response{})
+	return request.Filter(r.Object)
 }
 
 // Create creates a SalesInvoice objects based on arguments added by the requester
@@ -80,8 +82,9 @@ func (r *Request) Create() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
+	r.Object.Response = Response{}
 
-	return request.Create(r.Object, Response{})
+	return request.Create(r.Object)
 }
 
 // Update modifies a certain SalesInvoice Object Microsoft Navision.
@@ -103,5 +106,7 @@ func (r *Request) Update() (interface{}, error) {
 	r.Object.Company = r.Company
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 
-	return request.Update(r.Object, Response{})
+	r.Object.Response = Response{}
+
+	return request.Update(r.Object)
 }
