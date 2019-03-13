@@ -13,7 +13,6 @@ import (
 var _type = createType()
 
 type Request struct {
-	Name    string
 	Company string
 	Object  types.RequestObject
 }
@@ -24,11 +23,6 @@ func (*Request) CreateType() *graphql.Object {
 
 func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig {
 	return nil
-}
-
-func (r *Request) GetName() string {
-	r.Name = "AssemblyBom"
-	return r.Name
 }
 
 func (r *Request) GetCompany() string {
