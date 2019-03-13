@@ -98,7 +98,9 @@ func (r *Request) Update() (interface{}, error) {
 	// and should not be sent to Navision
 	r.Object.Properties = map[string]interface{}{}
 	r.Object.Properties["docType"] = "Invoice"
+
 	r.Object.Endpoint = endpoint
+	r.Object.Company = r.Company
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 
 	return request.Update(r.Object, Response{})
