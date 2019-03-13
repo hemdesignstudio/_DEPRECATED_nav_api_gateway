@@ -10,6 +10,24 @@ import (
 	"github.com/graphql-go/graphql/language/ast"
 )
 
+//filterArgs hold arguments used for filtering
+var filterArgs = map[string]*graphql.ArgumentConfig{
+	"key":   {Type: graphql.String},
+	"value": {Type: graphql.String},
+}
+
+type fieldType interface {
+	GetCompany() string
+	CreateType() *graphql.Object
+	CreateArgs() map[string]*graphql.ArgumentConfig
+	SetArgs(map[string]interface{})
+	SetFields([]string)
+	GetAll() (interface{}, error)
+	Filter() (interface{}, error)
+	Update() (interface{}, error)
+	Create() (interface{}, error)
+}
+
 /*
 resolveFields gets required return fields from request query
 
@@ -103,11 +121,6 @@ func queryFields(field fieldType) *graphql.Field {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
 			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
-
-			//obj := requestType.RequestObject{}
-			//obj.Company = field.GetCompany()
-			//obj.Fields = fields
-			//obj.Args = p.Args
 
 			field.SetArgs(p.Args)
 			field.SetFields(fields)
