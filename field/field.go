@@ -3,7 +3,7 @@ Package fields implements a simple package for handling GraphQl fields.
 
 
 */
-package fields
+package field
 
 import (
 	"github.com/graphql-go/graphql"
