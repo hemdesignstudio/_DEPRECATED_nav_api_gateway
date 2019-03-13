@@ -1,8 +1,8 @@
 // Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source codeDoc is governed by a BSD-style
+// Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-/* A little codeDoc to ease navigation of these documents.
+/* A little code to ease navigation of these documents.
  *
  * On window load we:
  *  + Generate a table of contents (generateTOC)
@@ -169,7 +169,7 @@ function setupInlinePlayground() {
 				'shareRedirect': '//play.golang.org/p/'
 			});
 
-			// Make the codeDoc textarea resize to fit content.
+			// Make the code textarea resize to fit content.
 			var resize = function() {
 				code.height(0);
 				var h = code[0].scrollHeight;
@@ -419,10 +419,10 @@ document.onClickCallers = function(index) {
     return;
   }
 
-  var html = "Callers of <codeDoc>" + escapeHTML(data.Callee) + "</codeDoc>:<br/>\n";
+  var html = "Callers of <code>" + escapeHTML(data.Callee) + "</code>:<br/>\n";
   for (var i = 0; i < data.Callers.length; i++) {
     var caller = data.Callers[i];
-    html += "<codeDoc>" + escapeHTML(caller.Func) + "</codeDoc>";
+    html += "<code>" + escapeHTML(caller.Func) + "</code>";
     var sites = caller.Sites;
     if (sites != null && sites.length > 0) {
       html += " at line ";
@@ -430,7 +430,7 @@ document.onClickCallers = function(index) {
         if (j > 0) {
           html += ", ";
         }
-        html += "<codeDoc>" + makeAnchor(sites[j]) + "</codeDoc>";
+        html += "<code>" + makeAnchor(sites[j]) + "</code>";
       }
     }
     html += "<br/>\n";
@@ -448,7 +448,7 @@ document.onClickCallees = function(index) {
 
   var html = "Callees of this " + escapeHTML(data.Descr) + ":<br/>\n";
   for (var i = 0; i < data.Callees.length; i++) {
-    html += "<codeDoc>" + makeAnchor(data.Callees[i]) + "</codeDoc><br/>\n";
+    html += "<code>" + makeAnchor(data.Callees[i]) + "</code><br/>\n";
   }
   showLowFrame(html);
 };
@@ -456,7 +456,7 @@ document.onClickCallees = function(index) {
 // onClickTypeInfo is the onclick action for identifiers declaring a named type.
 document.onClickTypeInfo = function(index) {
   var data = document.ANALYSIS_DATA[index];
-  var html = "Type <codeDoc>" + data.Name + "</codeDoc>: " +
+  var html = "Type <code>" + data.Name + "</code>: " +
   "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(size=" + data.Size + ", align=" + data.Align + ")</small><br/>\n";
   html += implementsHTML(data);
   html += methodsetHTML(data);
@@ -470,10 +470,10 @@ function implementsHTML(info) {
   if (info.ImplGroups != null) {
     for (var i = 0; i < info.ImplGroups.length; i++) {
       var group = info.ImplGroups[i];
-      var x = "<codeDoc>" + escapeHTML(group.Descr) + "</codeDoc> ";
+      var x = "<code>" + escapeHTML(group.Descr) + "</code> ";
       for (var j = 0; j < group.Facts.length; j++) {
         var fact = group.Facts[j];
-        var y = "<codeDoc>" + makeAnchor(fact.Other) + "</codeDoc>";
+        var y = "<code>" + makeAnchor(fact.Other) + "</code>";
         if (fact.ByKind != null) {
           html += escapeHTML(fact.ByKind) + " type " + y + " implements " + x;
         } else {
@@ -493,7 +493,7 @@ function methodsetHTML(info) {
   var html = "";
   if (info.Methods != null) {
     for (var i = 0; i < info.Methods.length; i++) {
-      html += "<codeDoc>" + makeAnchor(info.Methods[i]) + "</codeDoc><br/>\n";
+      html += "<code>" + makeAnchor(info.Methods[i]) + "</code><br/>\n";
     }
   }
   return html;
@@ -510,7 +510,7 @@ document.onClickComm = function(index) {
 
   var html = "Operations on this channel:<br/>\n";
   for (var i = 0; i < ops.length; i++) {
-    html += makeAnchor(ops[i].Op) + " by <codeDoc>" + escapeHTML(ops[i].Fn) + "</codeDoc><br/>\n";
+    html += makeAnchor(ops[i].Op) + " by <code>" + escapeHTML(ops[i].Fn) + "</code><br/>\n";
   }
   if (ops.length == 0) {
     html += "(none)<br/>\n";

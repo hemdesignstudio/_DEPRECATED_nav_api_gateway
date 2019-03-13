@@ -7,24 +7,25 @@
 
   <title>config - The Go Programming Language</title>
 
-<link type="text/css" rel="stylesheet" href="../godoc/style.css">
+<link type="text/css" rel="stylesheet" href="../lib/godoc/style.css">
 
-<link rel="stylesheet" href="../godoc/jquery.treeview.css">
+<link rel="stylesheet" href="../lib/godoc/jquery.treeview.css">
 <script>window.initFuncs = [];</script>
 
-<script src="../godoc/jquery.js" defer></script>
-<script src="../godoc/jquery.treeview.js" defer></script>
-<script src="../godoc/jquery.treeview.edit.js" defer></script>
+<script src="../lib/godoc/jquery.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.edit.js" defer></script>
 
 
 <script>var goVersion = "go1.11.4";</script>
-<script src="../godoc/godocs.js" defer></script>
+<script src="../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
 
 <div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
 ...
 </div><!-- #lowframe -->
+
 
 
 
@@ -102,6 +103,8 @@
 				<dd><a href="index.html#pkg-constants">Constants</a></dd>
 			
 			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
 			
 			
 			
@@ -176,13 +179,25 @@
     <span id="SalesLineEndpoint">SalesLineEndpoint</span>      = &#34;/SalesLines&#34;
     <span id="SalesInvoiceEndpoint">SalesInvoiceEndpoint</span>   = &#34;/SalesInvoice&#34;
     <span id="PostShipEndpoint">PostShipEndpoint</span>       = &#34;/WebSalesShipment&#34;
-    <span id="Username">Username</span>               = &#34;username&#34;
-    <span id="Passwd">Passwd</span>                 = &#34;password&#34;
+    <span id="Username">Username</span>               = &#34;Nav-username&#34;
+    <span id="Passwd">Passwd</span>                 = &#34;"NAV-password"&#34;
     <span id="Host">Host</span>                   = &#34;:6789&#34;
-    <span id="TestCompanyName">TestCompanyName</span>        = &#34;Hem TEST&#34;
+    <span id="TestCompany">TestCompany</span>            = &#34;Hem TEST&#34;
+    <span id="EUCompany">EUCompany</span>              = &#34;Hem FAL Sweden AB&#34;
+    <span id="USCompany">USCompany</span>              = &#34;Hem FAL Inc&#34;
 )</pre>
 			
 		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var <span id="Companies">Companies</span> = map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]<a href="http://localhost:6060/pkg/builtin/#string">string</a>{
+    &#34;test&#34;: <a href="index.html#TestCompany">TestCompany</a>,
+    &#34;us&#34;:   <a href="index.html#USCompany">USCompany</a>,
+    &#34;eu&#34;:   <a href="index.html#EUCompany">EUCompany</a>,
+}</pre>
+			
 		
 		
 		

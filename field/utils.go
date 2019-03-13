@@ -2,14 +2,31 @@
 // Use of this source code is governed by a
 // license that can be found in the LICENSE file.
 
-package fields
+package field
 
 import (
 	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/language/ast"
-	requestType "github.com/hem-nav-gateway/types"
 )
+
+//filterArgs hold arguments used for filtering
+var filterArgs = map[string]*graphql.ArgumentConfig{
+	"key":   {Type: graphql.String},
+	"value": {Type: graphql.String},
+}
+
+type fieldType interface {
+	GetCompany() string
+	CreateType() *graphql.Object
+	CreateArgs() map[string]*graphql.ArgumentConfig
+	SetArgs(map[string]interface{})
+	SetFields([]string)
+	GetAll() (interface{}, error)
+	Filter() (interface{}, error)
+	Update() (interface{}, error)
+	Create() (interface{}, error)
+}
 
 /*
 resolveFields gets required return fields from request query
@@ -45,7 +62,7 @@ Example request to Microsoft Navision:
 	https://[ENDPOINT-BASE-URI]/Assembly_Bom?$select=No,Parent_Item_No,Quantity_per
 	'''
 */
-func resolveFields(params graphql.ResolveParams, selections []ast.Selection) ([]string, error) {
+func resolveField(params graphql.ResolveParams, selections []ast.Selection) ([]string, error) {
 	var selected []string
 	for _, s := range selections {
 		switch t := s.(type) {
@@ -57,7 +74,7 @@ func resolveFields(params graphql.ResolveParams, selections []ast.Selection) ([]
 			if !ok {
 				return nil, fmt.Errorf("getSelectedFields: no fragment found with name %v", n)
 			}
-			sel, err := resolveFields(params, frag.GetSelectionSet().Selections)
+			sel, err := resolveField(params, frag.GetSelectionSet().Selections)
 			if err != nil {
 				return nil, err
 			}
@@ -90,11 +107,11 @@ queryFields creates GraphQL Type fields for GraphQl query's
 			}
 
 */
-func queryFields(field fieldType) *graphql.Field {
+func queryField(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
-		Type: graphql.NewList(types[field.Name]),
+		Type: graphql.NewList(field.CreateType()),
 		Args: filterArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
@@ -103,17 +120,15 @@ func queryFields(field fieldType) *graphql.Field {
 			if len(fieldASTs) == 0 {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
-			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
+			fields, _ := resolveField(p, fieldASTs[0].SelectionSet.Selections)
 
-			obj := requestType.RequestObject{}
-			obj.Company = field.Company
-			obj.Fields = fields
-			obj.Args = p.Args
+			field.SetArgs(p.Args)
+			field.SetFields(fields)
 
-			if len(obj.Args) != 2 {
-				return field.GetAll(obj)
+			if len(p.Args) != 2 {
+				return field.GetAll()
 			}
-			return field.Filter(obj)
+			return field.Filter()
 		},
 	}
 	return _field
@@ -137,12 +152,12 @@ createFields creates GraphQL Type fields for GraphQl mutation related to creatin
 			}
 			'''
 */
-func createFields(field fieldType) *graphql.Field {
+func createField(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
-		Type: types[field.Name],
-		Args: args[field.Name],
+		Type: field.CreateType(),
+		Args: field.CreateArgs(),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
 			fieldASTs := p.Info.FieldASTs
@@ -151,14 +166,12 @@ func createFields(field fieldType) *graphql.Field {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
 
-			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
+			fields, _ := resolveField(p, fieldASTs[0].SelectionSet.Selections)
 
-			obj := requestType.RequestObject{}
-			obj.Company = field.Company
-			obj.Fields = fields
-			obj.Args = p.Args
+			field.SetArgs(p.Args)
+			field.SetFields(fields)
 
-			return field.Create(obj)
+			return field.Create()
 		},
 	}
 	return _field
@@ -182,12 +195,12 @@ updateFields creates GraphQL Type fields for GraphQl mutation related to updatin
 		}
 		'''
 */
-func updateFields(field fieldType) *graphql.Field {
+func updateField(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
-		Type: types[field.Name],
-		Args: args[field.Name],
+		Type: field.CreateType(),
+		Args: field.CreateArgs(),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
 			fieldASTs := p.Info.FieldASTs
@@ -196,14 +209,12 @@ func updateFields(field fieldType) *graphql.Field {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
 
-			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
+			fields, _ := resolveField(p, fieldASTs[0].SelectionSet.Selections)
 
-			obj := requestType.RequestObject{}
-			obj.Company = field.Company
-			obj.Fields = fields
-			obj.Args = p.Args
+			field.SetArgs(p.Args)
+			field.SetFields(fields)
 
-			return field.Update(obj)
+			return field.Update()
 		},
 	}
 	return _field

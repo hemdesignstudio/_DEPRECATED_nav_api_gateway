@@ -7,24 +7,25 @@
 
   <title>assemblybom - The Go Programming Language</title>
 
-<link type="text/css" rel="stylesheet" href="../godoc/style.css">
+<link type="text/css" rel="stylesheet" href="../lib/godoc/style.css">
 
-<link rel="stylesheet" href="../godoc/jquery.treeview.css">
+<link rel="stylesheet" href="../lib/godoc/jquery.treeview.css">
 <script>window.initFuncs = [];</script>
 
-<script src="../godoc/jquery.js" defer></script>
-<script src="../godoc/jquery.treeview.js" defer></script>
-<script src="../godoc/jquery.treeview.edit.js" defer></script>
+<script src="../lib/godoc/jquery.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.edit.js" defer></script>
 
 
 <script>var goVersion = "go1.11.4";</script>
-<script src="../godoc/godocs.js" defer></script>
+<script src="../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
 
 <div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
 ...
 </div><!-- #lowframe -->
+
 
 
 
@@ -123,18 +124,46 @@ from the AssemblyBom type when &#34;CreateType&#34; method is invoked.
 			
 			
 			
-				
-				<dd><a href="index.html#CreateType">func CreateType() *graphql.Object</a></dd>
 			
 				
-				<dd><a href="index.html#Filter">func Filter(fields, args interface{}) (interface{}, error)</a></dd>
+				<dd><a href="index.html#Model">type Model</a></dd>
+				
+				
 			
 				
-				<dd><a href="index.html#GetAll">func GetAll(fields interface{}) (interface{}, error)</a></dd>
-			
+				<dd><a href="index.html#Request">type Request</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Create">func (r *Request) Create() (interface{}, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.CreateArgs">func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.CreateType">func (*Request) CreateType() *graphql.Object</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Filter">func (r *Request) Filter() (interface{}, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.GetAll">func (r *Request) GetAll() (interface{}, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.GetCompany">func (r *Request) GetCompany() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.SetArgs">func (r *Request) SetArgs(args map[string]interface{})</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.SetFields">func (r *Request) SetFields(fields []string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Update">func (r *Request) Update() (interface{}, error)</a></dd>
+				
 			
 				
-				<dd><a href="index.html#AssemblyBom">type AssemblyBom</a></dd>
+				<dd><a href="index.html#Response">type Response</a></dd>
 				
 				
 			
@@ -151,7 +180,7 @@ from the AssemblyBom type when &#34;CreateType&#34; method is invoked.
 			
 				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go">controller.go</a>
 			
-				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/entity.go">entity.go</a>
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/model.go">model.go</a>
 			
 			</span>
 			</p>
@@ -199,92 +228,222 @@ from the AssemblyBom type when &#34;CreateType&#34; method is invoked.
 		
 		
 		
-			
-			
-			<h2 id="CreateType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/entity.go?s=2298:2331#L92">CreateType</a>
-				<a class="permalink" href="index.html#CreateType">&#xb6;</a>
-				
-				
-			</h2>
-			<pre>func CreateType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
-			<p>
-CreateType function creates a GraphQl Object Type from the
-&#39;AssemblyBom&#39; above
-</p>
-<p>
-Example of GraphQl Object
-</p>
-<pre>Example:
-	&#39;&#39;&#39;
-	graphql.NewObject(graphql.ObjectConfig{
-			Name: &#34;AssemblyBom&#34;,
-			Fields: graphql.Fields{
-				&#34;Parent_Item_No&#34;:       &amp;graphql.Field{Type: graphql.String},
-				&#34;No&#34;:                   &amp;graphql.Field{Type: graphql.String},
-				&#34;Type&#34;:                 &amp;graphql.Field{Type: graphql.String},
-				...
-			},
-		})
-	&#39;&#39;&#39;
-</pre>
-<p>
-The returned GraphQl arguments will be used as a part of the main mutation
-</p>
-
-			
-			
-
 		
 			
 			
-			<h2 id="Filter">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=713:771#L12">Filter</a>
-				<a class="permalink" href="index.html#Filter">&#xb6;</a>
+			<h2 id="Model">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/model.go?s=1496:1754#L62">Model</a>
+				<a class="permalink" href="index.html#Model">&#xb6;</a>
 				
 				
 			</h2>
-			<pre>func Filter(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
+			
+			<pre>type Model struct {
+<span id="Model.No"></span>    No                <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;No&#34;`
+<span id="Model.ParentItemNo"></span>    ParentItemNo      <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Parent_Item_No&#34;`
+<span id="Model.Type"></span>    Type              <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Type&#34;`
+<span id="Model.QuantityPer"></span>    QuantityPer       <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Quantity_per&#34;`
+<span id="Model.UnitOfMeasureCode"></span>    UnitOfMeasureCode <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Unit_of_Measure_Code&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Request">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=319:387#L5">Request</a>
+				<a class="permalink" href="index.html#Request">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Request struct {
+<span id="Request.Company"></span>    Company <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="Request.Object"></span>    Object  <a href="../types/index.html">types</a>.<a href="../types/index.html#RequestObject">RequestObject</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Request.Create">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=1489:1536#L52">Create</a>
+					<a class="permalink" href="index.html#Request.Create">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Create() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.CreateArgs">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=453:516#L14">CreateArgs</a>
+					<a class="permalink" href="index.html#Request.CreateArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (*<a href="index.html#Request">Request</a>) CreateArgs() map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]*<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#ArgumentConfig">ArgumentConfig</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.CreateType">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=389:433#L10">CreateType</a>
+					<a class="permalink" href="index.html#Request.CreateType">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (*<a href="index.html#Request">Request</a>) CreateType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.Filter">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=1310:1357#L44">Filter</a>
+					<a class="permalink" href="index.html#Request.Filter">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Filter() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
 Filter retrieves a filtered list of AssemblyBom objects based of key-value pair.
-Funtion takes a list of fields to be returned by Microsoft Navision.
+Function takes a list of fields to be returned by Microsoft Navision.
 Function takes filter arguments which are required for filtering results in Navision
 </p>
 
-			
-			
-
-		
-			
-			
-			<h2 id="GetAll">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=356:408#L3">GetAll</a>
-				<a class="permalink" href="index.html#GetAll">&#xb6;</a>
 				
 				
-			</h2>
-			<pre>func GetAll(fields interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
+				
+			
+				
+				<h3 id="Request.GetAll">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=886:933#L33">GetAll</a>
+					<a class="permalink" href="index.html#Request.GetAll">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) GetAll() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
 GetAll retrieves all of AssemblyBom objects in Microsoft Navision.
 Function takes a list of AssemblyBom fields to be returned
 </p>
 
+				
+				
+				
 			
+				
+				<h3 id="Request.GetCompany">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=534:571#L18">GetCompany</a>
+					<a class="permalink" href="index.html#Request.GetCompany">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) GetCompany() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
 			
-
+				
+				<h3 id="Request.SetArgs">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=595:649#L22">SetArgs</a>
+					<a class="permalink" href="index.html#Request.SetArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) SetArgs(args map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]interface{})</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.SetFields">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=678:722#L27">SetFields</a>
+					<a class="permalink" href="index.html#Request.SetFields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) SetFields(fields []<a href="http://localhost:6060/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.Update">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/controller.go?s=1559:1606#L56">Update</a>
+					<a class="permalink" href="index.html#Request.Update">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Update() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
 		
-		
 			
 			
-			<h2 id="AssemblyBom">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/entity.go?s=1502:1766#L62">AssemblyBom</a>
-				<a class="permalink" href="index.html#AssemblyBom">&#xb6;</a>
+			<h2 id="Response">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/assemblybom/model.go?s=1440:1494#L58">Response</a>
+				<a class="permalink" href="index.html#Response">&#xb6;</a>
 				
 				
 			</h2>
-			
-			<pre>type AssemblyBom struct {
-<span id="AssemblyBom.No"></span>    No                <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;No&#34;`
-<span id="AssemblyBom.ParentItemNo"></span>    ParentItemNo      <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Parent_Item_No&#34;`
-<span id="AssemblyBom.Type"></span>    Type              <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Type&#34;`
-<span id="AssemblyBom.QuantityPer"></span>    QuantityPer       <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Quantity_per&#34;`
-<span id="AssemblyBom.UnitOfMeasureCode"></span>    UnitOfMeasureCode <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Unit_of_Measure_Code&#34;`
+			<p>
+Response is utilized as Microsoft Navision returns a list of objects
+when requesting Assembly_Bom, It is utilized for JSON decoding
+</p>
+<p>
+Example response from Navision
+</p>
+<pre>Example:
+
+	&#39;&#39;&#39;
+	{
+		&#34;value&#34;: [
+			{
+				&#34;No&#34;: &#34;1234&#34;
+				&#34;Parent_Item_No&#34;: &#34;10005&#34;,
+				&#34;Line_No&#34;: 10000,
+				&#34;Type&#34;: &#34;Item&#34;,
+				...
+			},
+			{
+				&#34;No&#34;: &#34;2345&#34;
+				&#34;Parent_Item_No&#34;: &#34;10005&#34;,
+				&#34;Line_No&#34;: 20000,
+				&#34;Type&#34;: &#34;Item&#34;,
+				...
+			},
+			{
+			...
+
+			},
+		}
+&#39;&#39;&#39;
+</pre>
+
+			<pre>type Response struct {
+<span id="Response.Value"></span>    Value []<a href="index.html#Model">Model</a> `json:&#34;value&#34;`
 }
 </pre>
 

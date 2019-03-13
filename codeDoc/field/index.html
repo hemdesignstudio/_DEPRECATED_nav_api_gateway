@@ -5,20 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#375EAB">
 
-  <title>fields - The Go Programming Language</title>
+  <title>field - The Go Programming Language</title>
 
-<link type="text/css" rel="stylesheet" href="../godoc/style.css">
+<link type="text/css" rel="stylesheet" href="../lib/godoc/style.css">
 
-<link rel="stylesheet" href="../godoc/jquery.treeview.css">
+<link rel="stylesheet" href="../lib/godoc/jquery.treeview.css">
 <script>window.initFuncs = [];</script>
 
-<script src="../godoc/jquery.js" defer></script>
-<script src="../godoc/jquery.treeview.js" defer></script>
-<script src="../godoc/jquery.treeview.edit.js" defer></script>
+<script src="../lib/godoc/jquery.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.edit.js" defer></script>
 
 
 <script>var goVersion = "go1.11.4";</script>
-<script src="../godoc/godocs.js" defer></script>
+<script src="../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
 
@@ -34,7 +34,7 @@
 
 
   <h1>
-    Package fields
+    Package field
     <span class="text-muted"></span>
   </h1>
 
@@ -68,7 +68,7 @@
 		
 		<div id="short-nav">
 			<dl>
-			<dd><code>import "github.com/hem-nav-gateway/fields"</code></dd>
+			<dd><code>import "github.com/hem-nav-gateway/field"</code></dd>
 			</dl>
 			<dl>
 			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
@@ -106,22 +106,11 @@ Package fields implements a simple package for handling GraphQl fields.
 			
 			
 				
-				<dd><a href="index.html#CompanyMutationType">func CompanyMutationType() *graphql.Object</a></dd>
+				<dd><a href="index.html#MutationType">func MutationType(company string) *graphql.Object</a></dd>
 			
 				
-				<dd><a href="index.html#CompanyQueryType">func CompanyQueryType() *graphql.Object</a></dd>
+				<dd><a href="index.html#QueryType">func QueryType(company string) *graphql.Object</a></dd>
 			
-				
-				<dd><a href="index.html#MutationType">func MutationType() *graphql.Object</a></dd>
-			
-				
-				<dd><a href="index.html#QueryType">func QueryType() *graphql.Object</a></dd>
-			
-			
-				
-				<dd><a href="index.html#Args">type Args</a></dd>
-				
-				
 			
 			
 			</dl>
@@ -134,9 +123,9 @@ Package fields implements a simple package for handling GraphQl fields.
 			<p>
 			<span style="font-size:90%">
 			
-				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/fields/fields.go">fields.go</a>
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/field/field.go">field.go</a>
 			
-				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/fields/utils.go">utils.go</a>
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/field/utils.go">utils.go</a>
 			
 			</span>
 			</p>
@@ -186,12 +175,12 @@ Package fields implements a simple package for handling GraphQl fields.
 		
 			
 			
-			<h2 id="CompanyMutationType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/fields/fields.go?s=5324:5366#L189">CompanyMutationType</a>
-				<a class="permalink" href="index.html#CompanyMutationType">&#xb6;</a>
+			<h2 id="MutationType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/field/field.go?s=2752:2801#L97">MutationType</a>
+				<a class="permalink" href="index.html#MutationType">&#xb6;</a>
 				
 				
 			</h2>
-			<pre>func CompanyMutationType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
+			<pre>func MutationType(company <a href="http://localhost:6060/pkg/builtin/#string">string</a>) *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
 			<p>
 MutationType create the root mutation (Create or updating an entity) for all types
 </p>
@@ -242,12 +231,12 @@ MutationType create the root mutation (Create or updating an entity) for all typ
 		
 			
 			
-			<h2 id="CompanyQueryType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/fields/fields.go?s=3516:3555#L130">CompanyQueryType</a>
-				<a class="permalink" href="index.html#CompanyQueryType">&#xb6;</a>
+			<h2 id="QueryType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/field/field.go?s=1017:1063#L38">QueryType</a>
+				<a class="permalink" href="index.html#QueryType">&#xb6;</a>
 				
 				
 			</h2>
-			<pre>func CompanyQueryType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
+			<pre>func QueryType(company <a href="http://localhost:6060/pkg/builtin/#string">string</a>) *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
 			<p>
 QueryType creates the root query with all of its nested fields
 </p>
@@ -282,89 +271,6 @@ QueryType creates the root query with all of its nested fields
 			
 
 		
-			
-			
-			<h2 id="MutationType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/fields/fields.go?s=6572:6607#L225">MutationType</a>
-				<a class="permalink" href="index.html#MutationType">&#xb6;</a>
-				
-				
-			</h2>
-			<pre>func MutationType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
-			
-			
-			
-
-		
-			
-			
-			<h2 id="QueryType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/fields/fields.go?s=6196:6228#L208">QueryType</a>
-				<a class="permalink" href="index.html#QueryType">&#xb6;</a>
-				
-				
-			</h2>
-			<pre>func QueryType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
-			
-			
-			
-
-		
-		
-			
-			
-			<h2 id="Args">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/fields/fields.go?s=2638:2693#L91">Args</a>
-				<a class="permalink" href="index.html#Args">&#xb6;</a>
-				
-				
-			</h2>
-			<p>
-args hold all create and update arguments for all mutation types
-</p>
-<p>
-Example of GraphQl Argument Object for &#39;customer&#39;
-</p>
-<pre>Example:
-
-	customer.CreateArgs() would resolve to the following
-
-	&#39;&#39;&#39;
-	map[string]*graphql.ArgumentConfig{
-		&#34;No&#34;:			&amp;graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-		&#34;Name&#34;:			&amp;graphql.ArgumentConfig{Type: graphql.String},
-		&#34;Address&#34;:		&amp;graphql.ArgumentConfig{Type: graphql.String},
-		...
-	}
-	&#39;&#39;&#39;
-
-Hint:
-	arguments are used to create or update entities,
-	some arguments are required and hence in the CustomerCard type,
-	tags can be noticed
-
-	example of required fields
-
-		No	string `json:&#34;No&#34; required:&#34;true&#34;`
-
-	and this will be translated to
-
-		&#34;No&#34;:	&amp;graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-</pre>
-<p>
-The returned GraphQl arguments will be used as a part of the main mutation
-</p>
-
-			<pre>type Args map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]*<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#ArgumentConfig">ArgumentConfig</a></pre>
-
-			
-
-			
-
-			
-			
-			
-
-			
-
-			
 		
 	
 

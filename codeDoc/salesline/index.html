@@ -7,18 +7,18 @@
 
   <title>salesline - The Go Programming Language</title>
 
-<link type="text/css" rel="stylesheet" href="../godoc/style.css">
+<link type="text/css" rel="stylesheet" href="../lib/godoc/style.css">
 
-<link rel="stylesheet" href="../godoc/jquery.treeview.css">
+<link rel="stylesheet" href="../lib/godoc/jquery.treeview.css">
 <script>window.initFuncs = [];</script>
 
-<script src="../godoc/jquery.js" defer></script>
-<script src="../godoc/jquery.treeview.js" defer></script>
-<script src="../godoc/jquery.treeview.edit.js" defer></script>
+<script src="../lib/godoc/jquery.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.edit.js" defer></script>
 
 
 <script>var goVersion = "go1.11.4";</script>
-<script src="../godoc/godocs.js" defer></script>
+<script src="../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
 
@@ -124,32 +124,49 @@ from the SalesLine type when &#34;CreateType&#34; method is invoked.
 			
 			
 			
-				
-				<dd><a href="index.html#Create">func Create(fields, args interface{}) (interface{}, error)</a></dd>
 			
 				
-				<dd><a href="index.html#CreateArgs">func CreateArgs() map[string]*graphql.ArgumentConfig</a></dd>
+				<dd><a href="index.html#Model">type Model</a></dd>
+				
+				
 			
 				
-				<dd><a href="index.html#CreateType">func CreateType(name string) *graphql.Object</a></dd>
-			
+				<dd><a href="index.html#Request">type Request</a></dd>
 				
-				<dd><a href="index.html#Filter">func Filter(fields, args interface{}) (interface{}, error)</a></dd>
-			
 				
-				<dd><a href="index.html#GetAll">func GetAll(fields interface{}) (interface{}, error)</a></dd>
-			
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Create">func (r *Request) Create() (interface{}, error)</a></dd>
 				
-				<dd><a href="index.html#Update">func Update(fields, args interface{}) (interface{}, error)</a></dd>
-			
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.CreateArgs">func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.CreateType">func (*Request) CreateType() *graphql.Object</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Filter">func (r *Request) Filter() (interface{}, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.GetAll">func (r *Request) GetAll() (interface{}, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.GetCompany">func (r *Request) GetCompany() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.NewType">func (*Request) NewType(name string) *graphql.Object</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.SetArgs">func (r *Request) SetArgs(args map[string]interface{})</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.SetFields">func (r *Request) SetFields(fields []string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Update">func (r *Request) Update() (interface{}, error)</a></dd>
+				
 			
 				
 				<dd><a href="index.html#Response">type Response</a></dd>
-				
-				
-			
-				
-				<dd><a href="index.html#SalesLine">type SalesLine</a></dd>
 				
 				
 			
@@ -166,7 +183,7 @@ from the SalesLine type when &#34;CreateType&#34; method is invoked.
 			
 				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go">controller.go</a>
 			
-				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/entity.go">entity.go</a>
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/model.go">model.go</a>
 			
 			</span>
 			</p>
@@ -214,168 +231,219 @@ from the SalesLine type when &#34;CreateType&#34; method is invoked.
 		
 		
 		
+		
 			
 			
-			<h2 id="Create">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=1028:1086#L14">Create</a>
-				<a class="permalink" href="index.html#Create">&#xb6;</a>
+			<h2 id="Model">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/model.go?s=1561:2666#L60">Model</a>
+				<a class="permalink" href="index.html#Model">&#xb6;</a>
 				
 				
 			</h2>
-			<pre>func Create(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
+			
+			<pre>type Model struct {
+<span id="Model.No"></span>    No                  <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;No&#34;`
+<span id="Model.DocumentNo"></span>    DocumentNo          <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Document_No&#34; required:&#34;true&#34;`
+<span id="Model.DocumentType"></span>    DocumentType        <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Document_Type&#34; required:&#34;true&#34;`
+<span id="Model.LineNo"></span>    LineNo              <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Line_No&#34; required:&#34;true&#34;`
+<span id="Model.Type"></span>    Type                <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Type&#34;`
+<span id="Model.Description"></span>    Description         <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Description&#34;`
+<span id="Model.Reserve"></span>    Reserve             <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Reserve&#34;`
+<span id="Model.Quantity"></span>    Quantity            <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Quantity&#34;`
+<span id="Model.ReservedQuantity"></span>    ReservedQuantity    <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Reserved_Quantity&#34;`
+<span id="Model.UnitOfMeasureCode"></span>    UnitOfMeasureCode   <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Unit_of_Measure_Code&#34;`
+<span id="Model.UnitPrice"></span>    UnitPrice           <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Unit_Price&#34;`
+<span id="Model.LineAmount"></span>    LineAmount          <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Line_Amount&#34;`
+<span id="Model.LineDiscountPercent"></span>    LineDiscountPercent <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Line_Discount_Percent&#34;`
+<span id="Model.LineDiscountAmount"></span>    LineDiscountAmount  <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Line_Discount_Amount&#34;`
+<span id="Model.PrepaymentPercent"></span>    PrepaymentPercent   <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Prepayment_Percent&#34;`
+<span id="Model.PrepmtLineAmount"></span>    PrepmtLineAmount    <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Prepmt_Line_Amount&#34;`
+<span id="Model.QtyToShip"></span>    QtyToShip           <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Qty_to_Ship&#34;`
+<span id="Model.QuantityShipped"></span>    QuantityShipped     <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Quantity_Shipped&#34;`
+<span id="Model.QtyToInvoice"></span>    QtyToInvoice        <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Qty_to_Invoice&#34;`
+<span id="Model.QuantityInvoiced"></span>    QuantityInvoiced    <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Quantity_Invoiced&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Request">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=353:421#L6">Request</a>
+				<a class="permalink" href="index.html#Request">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Request struct {
+<span id="Request.Company"></span>    Company <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="Request.Object"></span>    Object  <a href="../types/index.html">types</a>.<a href="../types/index.html#RequestObject">RequestObject</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Request.Create">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=1807:1854#L58">Create</a>
+					<a class="permalink" href="index.html#Request.Create">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Create() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
 Create creates a ItemCard objects based on arguments  added by the requester.
 Function takes a list of fields to be returned by Microsoft Navision after creation.
 </p>
 
-			
-			
-
-		
-			
-			
-			<h2 id="CreateArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/entity.go?s=4120:4172#L140">CreateArgs</a>
-				<a class="permalink" href="index.html#CreateArgs">&#xb6;</a>
 				
 				
-			</h2>
-			<pre>func CreateArgs() map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]*<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#ArgumentConfig">ArgumentConfig</a></pre>
-			<p>
-CreateArgs function creates a GraphQl Object Type from the &#39;SalesLine&#39;
-</p>
-<p>
-Example of GraphQl Argument Object
-</p>
-<pre>Example:
-	&#39;&#39;&#39;
-	map[string]*graphql.ArgumentConfig{
-		&#34;No&#34;:				&amp;graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-		&#34;Document_No&#34;:			&amp;graphql.ArgumentConfig{Type: graphql.String},
-		&#34;Document_Type&#34;:		&amp;graphql.ArgumentConfig{Type: graphql.String},
-		...
-	}
-	&#39;&#39;&#39;
-</pre>
-<p>
-Hint:
-</p>
-<pre>Arguments are used to create or update entities,
-some arguments are required and hence in the SalesLine type,
-tags can be noticed.
-</pre>
-<p>
-Example of required fields
-</p>
-<pre>No	string `json:&#34;No&#34; required:&#34;true&#34;`
-</pre>
-<p>
-and this will be translated to
-</p>
-<pre>&#34;No&#34;:	&amp;graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-</pre>
-<p>
-The returned GraphQl arguments will be used as a part of the main mutation
-</p>
-
+				
 			
-			
-
-		
-			
-			
-			<h2 id="CreateType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/entity.go?s=3220:3264#L105">CreateType</a>
-				<a class="permalink" href="index.html#CreateType">&#xb6;</a>
+				
+				<h3 id="Request.CreateArgs">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=570:633#L19">CreateArgs</a>
+					<a class="permalink" href="index.html#Request.CreateArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (*<a href="index.html#Request">Request</a>) CreateArgs() map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]*<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#ArgumentConfig">ArgumentConfig</a></pre>
 				
 				
-			</h2>
-			<pre>func CreateType(name <a href="http://localhost:6060/pkg/builtin/#string">string</a>) *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
-			<p>
-CreateType function creates a GraphQl Object Type from the &#39;SalesLine&#39; type.
-</p>
-<p>
-Example of GraphQl Object
-</p>
-<pre>Example:
-	&#39;&#39;&#39;
-	graphql.NewObject(graphql.ObjectConfig{
-			Name: &#34;SalesLine&#34;,
-			Fields: graphql.Fields{
-				&#34;No&#34;:				&amp;graphql.Field{Type: graphql.String},
-				&#34;Document_No&#34;:			&amp;graphql.Field{Type: graphql.String},
-				&#34;Document_Type&#34;:		&amp;graphql.Field{Type: graphql.String},
-				...
-			},
-		})
-	&#39;&#39;&#39;`
-</pre>
-<p>
-GraphQl Object is a map[string]*graphql.Field
-</p>
-<p>
-The returned GraphQl Object Type will be used as a part of the main query
-</p>
-
-			
-			
-
-		
-			
-			
-			<h2 id="Filter">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=736:794#L8">Filter</a>
-				<a class="permalink" href="index.html#Filter">&#xb6;</a>
 				
 				
-			</h2>
-			<pre>func Filter(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
+			
+				
+				<h3 id="Request.CreateType">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=506:550#L15">CreateType</a>
+					<a class="permalink" href="index.html#Request.CreateType">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (*<a href="index.html#Request">Request</a>) CreateType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.Filter">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=1459:1506#L48">Filter</a>
+					<a class="permalink" href="index.html#Request.Filter">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Filter() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
 Filter retrieves a list of filtered ItemCards based on a key-value pair added by the requester
 Function takes a list of fields to be returned by Microsoft Navision.
 Function takes filter arguments which are required for filtering results in Navision.
 </p>
 
-			
-			
-
-		
-			
-			
-			<h2 id="GetAll">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=365:417#L1">GetAll</a>
-				<a class="permalink" href="index.html#GetAll">&#xb6;</a>
 				
 				
-			</h2>
-			<pre>func GetAll(fields interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
+				
+			
+				
+				<h3 id="Request.GetAll">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=1020:1067#L37">GetAll</a>
+					<a class="permalink" href="index.html#Request.GetAll">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) GetAll() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
 GetAll retrieves a List of all ItemCards available Microsoft Navision .
 Function takes a list of fields to be returned by Microsoft Navision.
 </p>
 
-			
-			
-
-		
-			
-			
-			<h2 id="Update">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=1379:1437#L22">Update</a>
-				<a class="permalink" href="index.html#Update">&#xb6;</a>
 				
 				
-			</h2>
-			<pre>func Update(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
+				
+			
+				
+				<h3 id="Request.GetCompany">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=653:690#L23">GetCompany</a>
+					<a class="permalink" href="index.html#Request.GetCompany">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) GetCompany() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.NewType">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=423:475#L11">NewType</a>
+					<a class="permalink" href="index.html#Request.NewType">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (*<a href="index.html#Request">Request</a>) NewType(name <a href="http://localhost:6060/pkg/builtin/#string">string</a>) *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.SetArgs">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=714:768#L27">SetArgs</a>
+					<a class="permalink" href="index.html#Request.SetArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) SetArgs(args map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]interface{})</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.SetFields">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=796:840#L31">SetFields</a>
+					<a class="permalink" href="index.html#Request.SetFields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) SetFields(fields []<a href="http://localhost:6060/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.Update">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/controller.go?s=2212:2259#L70">Update</a>
+					<a class="permalink" href="index.html#Request.Update">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Update() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
 Update modifies a certain ItemCard Object Microsoft Navision.
 Function takes filter arguments which are required identifying
 the specific object to be updated/modified.
-Function returns a list of AssemblyBom values.
+Function returns a list of SalesLine values.
 </p>
 
+				
+				
+				
 			
-			
-
 		
-		
 			
 			
-			<h2 id="Response">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/entity.go?s=1505:1563#L56">Response</a>
+			<h2 id="Response">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/model.go?s=1505:1559#L56">Response</a>
 				<a class="permalink" href="index.html#Response">&#xb6;</a>
 				
 				
@@ -412,51 +480,7 @@ Example response from Navision
 </pre>
 
 			<pre>type Response struct {
-<span id="Response.Value"></span>    Value []<a href="index.html#SalesLine">SalesLine</a> `json:&#34;value&#34;`
-}
-</pre>
-
-			
-
-			
-
-			
-			
-			
-
-			
-
-			
-		
-			
-			
-			<h2 id="SalesLine">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesline/entity.go?s=1565:2674#L60">SalesLine</a>
-				<a class="permalink" href="index.html#SalesLine">&#xb6;</a>
-				
-				
-			</h2>
-			
-			<pre>type SalesLine struct {
-<span id="SalesLine.No"></span>    No                  <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;No&#34;`
-<span id="SalesLine.DocumentNo"></span>    DocumentNo          <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Document_No&#34; required:&#34;true&#34;`
-<span id="SalesLine.DocumentType"></span>    DocumentType        <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Document_Type&#34; required:&#34;true&#34;`
-<span id="SalesLine.LineNo"></span>    LineNo              <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Line_No&#34; required:&#34;true&#34;`
-<span id="SalesLine.Type"></span>    Type                <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Type&#34;`
-<span id="SalesLine.Description"></span>    Description         <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Description&#34;`
-<span id="SalesLine.Reserve"></span>    Reserve             <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Reserve&#34;`
-<span id="SalesLine.Quantity"></span>    Quantity            <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Quantity&#34;`
-<span id="SalesLine.ReservedQuantity"></span>    ReservedQuantity    <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Reserved_Quantity&#34;`
-<span id="SalesLine.UnitOfMeasureCode"></span>    UnitOfMeasureCode   <a href="http://localhost:6060/pkg/builtin/#string">string</a>  `json:&#34;Unit_of_Measure_Code&#34;`
-<span id="SalesLine.UnitPrice"></span>    UnitPrice           <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Unit_Price&#34;`
-<span id="SalesLine.LineAmount"></span>    LineAmount          <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Line_Amount&#34;`
-<span id="SalesLine.LineDiscountPercent"></span>    LineDiscountPercent <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Line_Discount_Percent&#34;`
-<span id="SalesLine.LineDiscountAmount"></span>    LineDiscountAmount  <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Line_Discount_Amount&#34;`
-<span id="SalesLine.PrepaymentPercent"></span>    PrepaymentPercent   <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Prepayment_Percent&#34;`
-<span id="SalesLine.PrepmtLineAmount"></span>    PrepmtLineAmount    <a href="http://localhost:6060/pkg/builtin/#float64">float64</a> `json:&#34;Prepmt_Line_Amount&#34;`
-<span id="SalesLine.QtyToShip"></span>    QtyToShip           <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Qty_to_Ship&#34;`
-<span id="SalesLine.QuantityShipped"></span>    QuantityShipped     <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Quantity_Shipped&#34;`
-<span id="SalesLine.QtyToInvoice"></span>    QtyToInvoice        <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Qty_to_Invoice&#34;`
-<span id="SalesLine.QuantityInvoiced"></span>    QuantityInvoiced    <a href="http://localhost:6060/pkg/builtin/#int">int</a>     `json:&#34;Quantity_Invoiced&#34;`
+<span id="Response.Value"></span>    Value []<a href="index.html#Model">Model</a> `json:&#34;value&#34;`
 }
 </pre>
 

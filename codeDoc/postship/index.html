@@ -7,18 +7,18 @@
 
   <title>postship - The Go Programming Language</title>
 
-<link type="text/css" rel="stylesheet" href="../godoc/style.css">
+<link type="text/css" rel="stylesheet" href="../lib/godoc/style.css">
 
-<link rel="stylesheet" href="../godoc/jquery.treeview.css">
+<link rel="stylesheet" href="../lib/godoc/jquery.treeview.css">
 <script>window.initFuncs = [];</script>
 
-<script src="../godoc/jquery.js" defer></script>
-<script src="../godoc/jquery.treeview.js" defer></script>
-<script src="../godoc/jquery.treeview.edit.js" defer></script>
+<script src="../lib/godoc/jquery.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.edit.js" defer></script>
 
 
 <script>var goVersion = "go1.11.4";</script>
-<script src="../godoc/godocs.js" defer></script>
+<script src="../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
 
@@ -124,19 +124,42 @@ from the PostShip type when &#34;CreateType&#34; method is invoked.
 			
 			
 			
-				
-				<dd><a href="index.html#CreateType">func CreateType() *graphql.Object</a></dd>
 			
 				
-				<dd><a href="index.html#Filter">func Filter(fields, args interface{}) (interface{}, error)</a></dd>
+				<dd><a href="index.html#Model">type Model</a></dd>
+				
+				
 			
 				
-				<dd><a href="index.html#GetAll">func GetAll(fields interface{}) (interface{}, error)</a></dd>
-			
-			
+				<dd><a href="index.html#Request">type Request</a></dd>
 				
-				<dd><a href="index.html#PostShip">type PostShip</a></dd>
 				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Create">func (r *Request) Create() (interface{}, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.CreateArgs">func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.CreateType">func (*Request) CreateType() *graphql.Object</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Filter">func (r *Request) Filter() (interface{}, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.GetAll">func (r *Request) GetAll() (interface{}, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.GetCompany">func (r *Request) GetCompany() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.SetArgs">func (r *Request) SetArgs(args map[string]interface{})</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.SetFields">func (r *Request) SetFields(fields []string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Update">func (r *Request) Update() (interface{}, error)</a></dd>
 				
 			
 				
@@ -157,7 +180,7 @@ from the PostShip type when &#34;CreateType&#34; method is invoked.
 			
 				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go">controller.go</a>
 			
-				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/entity.go">entity.go</a>
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/model.go">model.go</a>
 			
 			</span>
 			</p>
@@ -205,135 +228,62 @@ from the PostShip type when &#34;CreateType&#34; method is invoked.
 		
 		
 		
-			
-			
-			<h2 id="CreateType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/entity.go?s=4989:5022#L134">CreateType</a>
-				<a class="permalink" href="index.html#CreateType">&#xb6;</a>
-				
-				
-			</h2>
-			<pre>func CreateType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
-			<p>
-CreateType function creates a GraphQl Object Type from the &#39;PostShip&#39; type.
-</p>
-<p>
-Example of GraphQl Object
-</p>
-<pre>Example:
-	&#39;&#39;&#39;
-	graphql.NewObject(graphql.ObjectConfig{
-			Name: &#34;PostShip&#34;,
-			Fields: graphql.Fields{
-				&#34;No&#34;:					&amp;graphql.Field{Type: graphql.String},
-				&#34;Sell_to_Customer_No&#34;:	&amp;graphql.Field{Type: graphql.String},
-				&#34;Sell_to_Contact_No&#34;:	&amp;graphql.Field{Type: graphql.String},
-				...
-			},
-		})
-	&#39;&#39;&#39;
-</pre>
-<p>
-GraphQl Object is a map[string]*graphql.Field
-</p>
-<p>
-The returned GraphQl arguments will be used as a part of the main mutation
-</p>
-
-			
-			
-
 		
 			
 			
-			<h2 id="Filter">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=767:825#L12">Filter</a>
-				<a class="permalink" href="index.html#Filter">&#xb6;</a>
-				
-				
-			</h2>
-			<pre>func Filter(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
-Filter retrieves a list of filtered Posted Sales Shipments based on a key-value pair added by the requester
-Function takes a list of fields to be returned by Microsoft Navision.
-Function takes filter arguments which are required for filtering results in Navision
-</p>
-
-			
-			
-
-		
-			
-			
-			<h2 id="GetAll">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=382:434#L3">GetAll</a>
-				<a class="permalink" href="index.html#GetAll">&#xb6;</a>
-				
-				
-			</h2>
-			<pre>func GetAll(fields interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
-GetAll retrieves a List of all Posted Sales Shipments available Microsoft Navision .
-Function takes a list of fields to be returned by Microsoft Navision.
-</p>
-
-			
-			
-
-		
-		
-			
-			
-			<h2 id="PostShip">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/entity.go?s=1657:4434#L63">PostShip</a>
-				<a class="permalink" href="index.html#PostShip">&#xb6;</a>
+			<h2 id="Model">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/model.go?s=1654:4428#L63">Model</a>
+				<a class="permalink" href="index.html#Model">&#xb6;</a>
 				
 				
 			</h2>
 			
-			<pre>type PostShip struct {
-<span id="PostShip.No"></span>    No                       <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;No&#34; required:&#34;true&#34;`
-<span id="PostShip.SellToCustomerNo"></span>    SellToCustomerNo         <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Customer_No&#34;`
-<span id="PostShip.SellToContactNo"></span>    SellToContactNo          <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Contact_No&#34;`
-<span id="PostShip.SellToCustomerName"></span>    SellToCustomerName       <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Customer_Name&#34;`
-<span id="PostShip.SellToAddress"></span>    SellToAddress            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Address&#34;`
-<span id="PostShip.SellToAddress2"></span>    SellToAddress2           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Address_2&#34;`
-<span id="PostShip.SellToPostCode"></span>    SellToPostCode           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Post_Code&#34;`
-<span id="PostShip.SellToCity"></span>    SellToCity               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_City&#34;`
-<span id="PostShip.SellToContact"></span>    SellToContact            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Contact&#34;`
-<span id="PostShip.NoteOfGoods"></span>    NoteOfGoods              <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;PEB_Note_of_Goods&#34;`
-<span id="PostShip.NoPrinted"></span>    NoPrinted                <a href="http://localhost:6060/pkg/builtin/#int">int</a>    `json:&#34;No_Printed&#34;`
-<span id="PostShip.PostingDate"></span>    PostingDate              <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Posting_Date&#34;`
-<span id="PostShip.DocumentDate"></span>    DocumentDate             <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Document_Date&#34;`
-<span id="PostShip.RequestedDeliveryDate"></span>    RequestedDeliveryDate    <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Requested_Delivery_Date&#34;`
-<span id="PostShip.PromisedDeliveryDate"></span>    PromisedDeliveryDate     <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Promised_Delivery_Date&#34;`
-<span id="PostShip.QuoteNo"></span>    QuoteNo                  <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Quote_No&#34;`
-<span id="PostShip.OrderNo"></span>    OrderNo                  <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Order_No&#34;`
-<span id="PostShip.ExternalDocumentNo"></span>    ExternalDocumentNo       <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;External_Document_No&#34;`
-<span id="PostShip.SalespersonCode"></span>    SalespersonCode          <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Salesperson_Code&#34;`
-<span id="PostShip.ResponsibilityCenter"></span>    ResponsibilityCenter     <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Responsibility_Center&#34;`
-<span id="PostShip.BillToCustomerNo"></span>    BillToCustomerNo         <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Customer_No&#34;`
-<span id="PostShip.BilltoContactNo"></span>    BilltoContactNo          <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Contact_No&#34;`
-<span id="PostShip.BillToName"></span>    BillToName               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Name&#34;`
-<span id="PostShip.BillToAddress"></span>    BillToAddress            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Address&#34;`
-<span id="PostShip.BillToAddress2"></span>    BillToAddress2           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Address_2&#34;`
-<span id="PostShip.BillToPostCode"></span>    BillToPostCode           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Post_Code&#34;`
-<span id="PostShip.BillToCity"></span>    BillToCity               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_City&#34;`
-<span id="PostShip.BillToContact"></span>    BillToContact            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Contact&#34;`
-<span id="PostShip.ShortcutDimension1Code"></span>    ShortcutDimension1Code   <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shortcut_Dimension_1_Code&#34;`
-<span id="PostShip.ShortcutDimension2Code"></span>    ShortcutDimension2Code   <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shortcut_Dimension_2_Code&#34;`
-<span id="PostShip.ShipToCode"></span>    ShipToCode               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Code&#34;`
-<span id="PostShip.ShipToName"></span>    ShipToName               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Name&#34;`
-<span id="PostShip.ShipToAddress"></span>    ShipToAddress            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Address&#34;`
-<span id="PostShip.ShipToAddress2"></span>    ShipToAddress2           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Address_2&#34;`
-<span id="PostShip.ShipToPostCode"></span>    ShipToPostCode           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Post_Code&#34;`
-<span id="PostShip.ShipToCity"></span>    ShipToCity               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_City&#34;`
-<span id="PostShip.ShipToCountryRegionCode"></span>    ShipToCountryRegionCode  <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Country_Region_Code&#34;`
-<span id="PostShip.ShipToContact"></span>    ShipToContact            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Contact&#34;`
-<span id="PostShip.LocationCode"></span>    LocationCode             <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Location_Code&#34;`
-<span id="PostShip.OutboundWhseHandlingTime"></span>    OutboundWhseHandlingTime <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Outbound_Whse_Handling_Time&#34;`
-<span id="PostShip.ShippingTime"></span>    ShippingTime             <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shipping_Time&#34;`
-<span id="PostShip.ShipmentMethodCode"></span>    ShipmentMethodCode       <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shipment_Method_Code&#34;`
-<span id="PostShip.ShippingAgentCode"></span>    ShippingAgentCode        <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shipping_Agent_Code&#34;`
-<span id="PostShip.ShippingAgentServiceCode"></span>    ShippingAgentServiceCode <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shipping_Agent_Service_Code&#34;`
-<span id="PostShip.PackageTrackingNo"></span>    PackageTrackingNo        <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Package_Tracking_No&#34;`
-<span id="PostShip.ShipmentDate"></span>    ShipmentDate             <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shipment_Date&#34;`
+			<pre>type Model struct {
+<span id="Model.No"></span>    No                       <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;No&#34; required:&#34;true&#34;`
+<span id="Model.SellToCustomerNo"></span>    SellToCustomerNo         <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Customer_No&#34;`
+<span id="Model.SellToContactNo"></span>    SellToContactNo          <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Contact_No&#34;`
+<span id="Model.SellToCustomerName"></span>    SellToCustomerName       <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Customer_Name&#34;`
+<span id="Model.SellToAddress"></span>    SellToAddress            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Address&#34;`
+<span id="Model.SellToAddress2"></span>    SellToAddress2           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Address_2&#34;`
+<span id="Model.SellToPostCode"></span>    SellToPostCode           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Post_Code&#34;`
+<span id="Model.SellToCity"></span>    SellToCity               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_City&#34;`
+<span id="Model.SellToContact"></span>    SellToContact            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Sell_to_Contact&#34;`
+<span id="Model.NoteOfGoods"></span>    NoteOfGoods              <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;PEB_Note_of_Goods&#34;`
+<span id="Model.NoPrinted"></span>    NoPrinted                <a href="http://localhost:6060/pkg/builtin/#int">int</a>    `json:&#34;No_Printed&#34;`
+<span id="Model.PostingDate"></span>    PostingDate              <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Posting_Date&#34;`
+<span id="Model.DocumentDate"></span>    DocumentDate             <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Document_Date&#34;`
+<span id="Model.RequestedDeliveryDate"></span>    RequestedDeliveryDate    <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Requested_Delivery_Date&#34;`
+<span id="Model.PromisedDeliveryDate"></span>    PromisedDeliveryDate     <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Promised_Delivery_Date&#34;`
+<span id="Model.QuoteNo"></span>    QuoteNo                  <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Quote_No&#34;`
+<span id="Model.OrderNo"></span>    OrderNo                  <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Order_No&#34;`
+<span id="Model.ExternalDocumentNo"></span>    ExternalDocumentNo       <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;External_Document_No&#34;`
+<span id="Model.SalespersonCode"></span>    SalespersonCode          <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Salesperson_Code&#34;`
+<span id="Model.ResponsibilityCenter"></span>    ResponsibilityCenter     <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Responsibility_Center&#34;`
+<span id="Model.BillToCustomerNo"></span>    BillToCustomerNo         <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Customer_No&#34;`
+<span id="Model.BilltoContactNo"></span>    BilltoContactNo          <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Contact_No&#34;`
+<span id="Model.BillToName"></span>    BillToName               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Name&#34;`
+<span id="Model.BillToAddress"></span>    BillToAddress            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Address&#34;`
+<span id="Model.BillToAddress2"></span>    BillToAddress2           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Address_2&#34;`
+<span id="Model.BillToPostCode"></span>    BillToPostCode           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Post_Code&#34;`
+<span id="Model.BillToCity"></span>    BillToCity               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_City&#34;`
+<span id="Model.BillToContact"></span>    BillToContact            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Bill_to_Contact&#34;`
+<span id="Model.ShortcutDimension1Code"></span>    ShortcutDimension1Code   <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shortcut_Dimension_1_Code&#34;`
+<span id="Model.ShortcutDimension2Code"></span>    ShortcutDimension2Code   <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shortcut_Dimension_2_Code&#34;`
+<span id="Model.ShipToCode"></span>    ShipToCode               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Code&#34;`
+<span id="Model.ShipToName"></span>    ShipToName               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Name&#34;`
+<span id="Model.ShipToAddress"></span>    ShipToAddress            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Address&#34;`
+<span id="Model.ShipToAddress2"></span>    ShipToAddress2           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Address_2&#34;`
+<span id="Model.ShipToPostCode"></span>    ShipToPostCode           <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Post_Code&#34;`
+<span id="Model.ShipToCity"></span>    ShipToCity               <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_City&#34;`
+<span id="Model.ShipToCountryRegionCode"></span>    ShipToCountryRegionCode  <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Country_Region_Code&#34;`
+<span id="Model.ShipToContact"></span>    ShipToContact            <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Ship_to_Contact&#34;`
+<span id="Model.LocationCode"></span>    LocationCode             <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Location_Code&#34;`
+<span id="Model.OutboundWhseHandlingTime"></span>    OutboundWhseHandlingTime <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Outbound_Whse_Handling_Time&#34;`
+<span id="Model.ShippingTime"></span>    ShippingTime             <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shipping_Time&#34;`
+<span id="Model.ShipmentMethodCode"></span>    ShipmentMethodCode       <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shipment_Method_Code&#34;`
+<span id="Model.ShippingAgentCode"></span>    ShippingAgentCode        <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shipping_Agent_Code&#34;`
+<span id="Model.ShippingAgentServiceCode"></span>    ShippingAgentServiceCode <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shipping_Agent_Service_Code&#34;`
+<span id="Model.PackageTrackingNo"></span>    PackageTrackingNo        <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Package_Tracking_No&#34;`
+<span id="Model.ShipmentDate"></span>    ShipmentDate             <a href="http://localhost:6060/pkg/builtin/#string">string</a> `json:&#34;Shipment_Date&#34;`
 }
 </pre>
 
@@ -351,7 +301,150 @@ Function takes a list of fields to be returned by Microsoft Navision.
 		
 			
 			
-			<h2 id="Response">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/entity.go?s=1598:1655#L59">Response</a>
+			<h2 id="Request">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=316:384#L5">Request</a>
+				<a class="permalink" href="index.html#Request">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Request struct {
+<span id="Request.Company"></span>    Company <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="Request.Object"></span>    Object  <a href="../types/index.html">types</a>.<a href="../types/index.html#RequestObject">RequestObject</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Request.Create">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=1543:1590#L53">Create</a>
+					<a class="permalink" href="index.html#Request.Create">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Create() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.CreateArgs">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=450:513#L14">CreateArgs</a>
+					<a class="permalink" href="index.html#Request.CreateArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (*<a href="index.html#Request">Request</a>) CreateArgs() map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]*<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#ArgumentConfig">ArgumentConfig</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.CreateType">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=386:430#L10">CreateType</a>
+					<a class="permalink" href="index.html#Request.CreateType">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (*<a href="index.html#Request">Request</a>) CreateType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.Filter">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=1363:1410#L44">Filter</a>
+					<a class="permalink" href="index.html#Request.Filter">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Filter() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
+Filter retrieves a list of filtered Posted Sales Shipments based on a key-value pair added by the requester
+Function takes a list of fields to be returned by Microsoft Navision.
+Function takes filter arguments which are required for filtering results in Navision
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Request.GetAll">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=911:958#L32">GetAll</a>
+					<a class="permalink" href="index.html#Request.GetAll">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) GetAll() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
+GetAll retrieves a List of all Posted Sales Shipments available Microsoft Navision .
+Function takes a list of fields to be returned by Microsoft Navision.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Request.GetCompany">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=531:568#L18">GetCompany</a>
+					<a class="permalink" href="index.html#Request.GetCompany">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) GetCompany() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.SetArgs">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=592:646#L22">SetArgs</a>
+					<a class="permalink" href="index.html#Request.SetArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) SetArgs(args map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]interface{})</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.SetFields">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=674:718#L26">SetFields</a>
+					<a class="permalink" href="index.html#Request.SetFields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) SetFields(fields []<a href="http://localhost:6060/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.Update">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/controller.go?s=1613:1660#L57">Update</a>
+					<a class="permalink" href="index.html#Request.Update">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Update() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Response">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/postship/model.go?s=1598:1652#L59">Response</a>
 				<a class="permalink" href="index.html#Response">&#xb6;</a>
 				
 				
@@ -390,7 +483,7 @@ Example response from Navision
 </pre>
 
 			<pre>type Response struct {
-<span id="Response.Value"></span>    Value []<a href="index.html#PostShip">PostShip</a> `json:&#34;value&#34;`
+<span id="Response.Value"></span>    Value []<a href="index.html#Model">Model</a> `json:&#34;value&#34;`
 }
 </pre>
 

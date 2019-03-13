@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/graphql-go/graphql"
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
-	"github.com/hem-nav-gateway/fields"
+	"github.com/hem-nav-gateway/field"
 	"log"
 	"net/http"
 )
@@ -21,8 +21,8 @@ import (
 // Handler creates a handler function for Graphql Schema
 func Handler(company string) *gqlhandler.Handler {
 
-	query := fields.QueryType(company)
-	mutation := fields.MutationType(company)
+	query := field.QueryType(company)
+	mutation := field.MutationType(company)
 
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
 		Query:    query,

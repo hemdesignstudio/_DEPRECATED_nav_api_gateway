@@ -7,18 +7,18 @@
 
   <title>request - The Go Programming Language</title>
 
-<link type="text/css" rel="stylesheet" href="../godoc/style.css">
+<link type="text/css" rel="stylesheet" href="../lib/godoc/style.css">
 
-<link rel="stylesheet" href="../godoc/jquery.treeview.css">
+<link rel="stylesheet" href="../lib/godoc/jquery.treeview.css">
 <script>window.initFuncs = [];</script>
 
-<script src="../godoc/jquery.js" defer></script>
-<script src="../godoc/jquery.treeview.js" defer></script>
-<script src="../godoc/jquery.treeview.edit.js" defer></script>
+<script src="../lib/godoc/jquery.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.edit.js" defer></script>
 
 
 <script>var goVersion = "go1.11.4";</script>
-<script src="../godoc/godocs.js" defer></script>
+<script src="../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
 
@@ -106,19 +106,19 @@ Package request implements a simple package for handling HTTP requests to Micros
 			
 			
 				
-				<dd><a href="index.html#Create">func Create(endpoint string, fields, args, response interface{}) (interface{}, error)</a></dd>
+				<dd><a href="index.html#Create">func Create(obj types.RequestObject) (interface{}, error)</a></dd>
 			
 				
 				<dd><a href="index.html#Delete">func Delete(endpoint string, args map[string]interface{}, docType interface{}) (interface{}, error)</a></dd>
 			
 				
-				<dd><a href="index.html#Filter">func Filter(endpoint string, fields, args, response interface{}) (interface{}, error)</a></dd>
+				<dd><a href="index.html#Filter">func Filter(obj types.RequestObject) (interface{}, error)</a></dd>
 			
 				
-				<dd><a href="index.html#GetAll">func GetAll(endpoint string, fields, response interface{}) (interface{}, error)</a></dd>
+				<dd><a href="index.html#GetAll">func GetAll(obj types.RequestObject) (interface{}, error)</a></dd>
 			
 				
-				<dd><a href="index.html#Update">func Update(endpoint string, fields, args, docType, response interface{}) (interface{}, error)</a></dd>
+				<dd><a href="index.html#Update">func Update(obj types.RequestObject) (interface{}, error)</a></dd>
 			
 			
 			
@@ -188,12 +188,12 @@ Package request implements a simple package for handling HTTP requests to Micros
 		
 			
 			
-			<h2 id="Create">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/request/service.go?s=1739:1824#L40">Create</a>
+			<h2 id="Create">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/request/service.go?s=1714:1771#L42">Create</a>
 				<a class="permalink" href="index.html#Create">&#xb6;</a>
 				
 				
 			</h2>
-			<pre>func Create(endpoint <a href="http://localhost:6060/pkg/builtin/#string">string</a>, fields, args, response interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<pre>func Create(obj <a href="../types/index.html">types</a>.<a href="../types/index.html#RequestObject">RequestObject</a>) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
 			<p>
 Create a specific entity of a specified object type (customer, item ... etc)
 takes fields --&gt; fields to be returned from Navision
@@ -207,7 +207,7 @@ returns the created object with its return fields
 		
 			
 			
-			<h2 id="Delete">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/request/service.go?s=4004:4103#L105">Delete</a>
+			<h2 id="Delete">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/request/service.go?s=3677:3776#L102">Delete</a>
 				<a class="permalink" href="index.html#Delete">&#xb6;</a>
 				
 				
@@ -225,12 +225,12 @@ returns the response code
 		
 			
 			
-			<h2 id="Filter">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/request/service.go?s=988:1073#L19">Filter</a>
+			<h2 id="Filter">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/request/service.go?s=997:1054#L20">Filter</a>
 				<a class="permalink" href="index.html#Filter">&#xb6;</a>
 				
 				
 			</h2>
-			<pre>func Filter(endpoint <a href="http://localhost:6060/pkg/builtin/#string">string</a>, fields, args, response interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<pre>func Filter(obj <a href="../types/index.html">types</a>.<a href="../types/index.html#RequestObject">RequestObject</a>) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
 			<p>
 Filter handles getting specific entities of specified object types (customer, item ... etc)
 takes fields --&gt; fields to be returned from Navision
@@ -244,12 +244,12 @@ returns a list of filtered object values
 		
 			
 			
-			<h2 id="GetAll">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/request/service.go?s=435:514#L5">GetAll</a>
+			<h2 id="GetAll">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/request/service.go?s=471:528#L6">GetAll</a>
 				<a class="permalink" href="index.html#GetAll">&#xb6;</a>
 				
 				
 			</h2>
-			<pre>func GetAll(endpoint <a href="http://localhost:6060/pkg/builtin/#string">string</a>, fields, response interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<pre>func GetAll(obj <a href="../types/index.html">types</a>.<a href="../types/index.html#RequestObject">RequestObject</a>) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
 			<p>
 GetAll handles getting all entities for a specified object types (customer, item ... etc)
 takes fields --&gt; fields to be returned from Navision
@@ -262,12 +262,12 @@ returns a list of requests object values
 		
 			
 			
-			<h2 id="Update">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/request/service.go?s=2364:2458#L57">Update</a>
+			<h2 id="Update">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/request/service.go?s=2311:2368#L60">Update</a>
 				<a class="permalink" href="index.html#Update">&#xb6;</a>
 				
 				
 			</h2>
-			<pre>func Update(endpoint <a href="http://localhost:6060/pkg/builtin/#string">string</a>, fields, args, docType, response interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+			<pre>func Update(obj <a href="../types/index.html">types</a>.<a href="../types/index.html#RequestObject">RequestObject</a>) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
 			<p>
 Update a specific entity of a specified object type (customer, item ... etc)
 takes fields --&gt; fields to be returned from Navision

@@ -7,18 +7,18 @@
 
   <title>roothandler - The Go Programming Language</title>
 
-<link type="text/css" rel="stylesheet" href="../godoc/style.css">
+<link type="text/css" rel="stylesheet" href="../lib/godoc/style.css">
 
-<link rel="stylesheet" href="../godoc/jquery.treeview.css">
+<link rel="stylesheet" href="../lib/godoc/jquery.treeview.css">
 <script>window.initFuncs = [];</script>
 
-<script src="../godoc/jquery.js" defer></script>
-<script src="../godoc/jquery.treeview.js" defer></script>
-<script src="../godoc/jquery.treeview.edit.js" defer></script>
+<script src="../lib/godoc/jquery.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.edit.js" defer></script>
 
 
 <script>var goVersion = "go1.11.4";</script>
-<script src="../godoc/godocs.js" defer></script>
+<script src="../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
 
@@ -106,7 +106,7 @@ Package roothandler implements a simple package for HTTP Handler functions.
 			
 			
 				
-				<dd><a href="index.html#Handler">func Handler() *gqlhandler.Handler</a></dd>
+				<dd><a href="index.html#Handler">func Handler(company string) *gqlhandler.Handler</a></dd>
 			
 				
 				<dd><a href="index.html#RootEndpoint">func RootEndpoint(w http.ResponseWriter, r *http.Request)</a></dd>
@@ -123,7 +123,9 @@ Package roothandler implements a simple package for HTTP Handler functions.
 			<p>
 			<span style="font-size:90%">
 			
-				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/roothandler/rootHandler.go">rootHandler.go</a>
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/roothandler/controller.go">controller.go</a>
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/roothandler/utils.go">utils.go</a>
 			
 			</span>
 			</p>
@@ -173,12 +175,12 @@ Package roothandler implements a simple package for HTTP Handler functions.
 		
 			
 			
-			<h2 id="Handler">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/roothandler/rootHandler.go?s=856:890#L25">Handler</a>
+			<h2 id="Handler">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/roothandler/controller.go?s=496:544#L12">Handler</a>
 				<a class="permalink" href="index.html#Handler">&#xb6;</a>
 				
 				
 			</h2>
-			<pre>func Handler() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql-go-handler/">gqlhandler</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql-go-handler/#Handler">Handler</a></pre>
+			<pre>func Handler(company <a href="http://localhost:6060/pkg/builtin/#string">string</a>) *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql-go-handler/">gqlhandler</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql-go-handler/#Handler">Handler</a></pre>
 			<p>
 Handler creates a handler function for Graphql Schema
 </p>
@@ -189,7 +191,7 @@ Handler creates a handler function for Graphql Schema
 		
 			
 			
-			<h2 id="RootEndpoint">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/roothandler/rootHandler.go?s=1357:1414#L50">RootEndpoint</a>
+			<h2 id="RootEndpoint">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/roothandler/controller.go?s=1023:1080#L37">RootEndpoint</a>
 				<a class="permalink" href="index.html#RootEndpoint">&#xb6;</a>
 				
 				

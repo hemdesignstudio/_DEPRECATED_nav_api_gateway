@@ -141,6 +141,6 @@ GraphQl Object is a map[string]*graphql.Field
 
 The returned GraphQl arguments will be used as a part of the main mutation
 */
-func CreateType() *graphql.Object {
+func createType() *graphql.Object {
 	return types.GenerateGraphQlType("PostShip", Model{}, nil)
 }

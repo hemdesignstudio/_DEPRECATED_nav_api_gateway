@@ -7,18 +7,18 @@
 
   <title>salesorder - The Go Programming Language</title>
 
-<link type="text/css" rel="stylesheet" href="../godoc/style.css">
+<link type="text/css" rel="stylesheet" href="../lib/godoc/style.css">
 
-<link rel="stylesheet" href="../godoc/jquery.treeview.css">
+<link rel="stylesheet" href="../lib/godoc/jquery.treeview.css">
 <script>window.initFuncs = [];</script>
 
-<script src="../godoc/jquery.js" defer></script>
-<script src="../godoc/jquery.treeview.js" defer></script>
-<script src="../godoc/jquery.treeview.edit.js" defer></script>
+<script src="../lib/godoc/jquery.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.js" defer></script>
+<script src="../lib/godoc/jquery.treeview.edit.js" defer></script>
 
 
 <script>var goVersion = "go1.11.4";</script>
-<script src="../godoc/godocs.js" defer></script>
+<script src="../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
 
@@ -123,32 +123,46 @@ from the SalesOrder type when &#34;CreateType&#34; method is invoked.
 			
 			
 			
-				
-				<dd><a href="index.html#Create">func Create(fields, args interface{}) (interface{}, error)</a></dd>
 			
 				
-				<dd><a href="index.html#CreateArgs">func CreateArgs() map[string]*graphql.ArgumentConfig</a></dd>
+				<dd><a href="index.html#Model">type Model</a></dd>
+				
+				
 			
 				
-				<dd><a href="index.html#CreateType">func CreateType() *graphql.Object</a></dd>
-			
+				<dd><a href="index.html#Request">type Request</a></dd>
 				
-				<dd><a href="index.html#Filter">func Filter(fields, args interface{}) (interface{}, error)</a></dd>
-			
 				
-				<dd><a href="index.html#GetAll">func GetAll(fields interface{}) (interface{}, error)</a></dd>
-			
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Create">func (r *Request) Create() (interface{}, error)</a></dd>
 				
-				<dd><a href="index.html#Update">func Update(fields, args interface{}) (interface{}, error)</a></dd>
-			
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.CreateArgs">func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.CreateType">func (*Request) CreateType() *graphql.Object</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Filter">func (r *Request) Filter() (interface{}, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.GetAll">func (r *Request) GetAll() (interface{}, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.GetCompany">func (r *Request) GetCompany() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.SetArgs">func (r *Request) SetArgs(args map[string]interface{})</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.SetFields">func (r *Request) SetFields(fields []string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Request.Update">func (r *Request) Update() (interface{}, error)</a></dd>
+				
 			
 				
 				<dd><a href="index.html#Response">type Response</a></dd>
-				
-				
-			
-				
-				<dd><a href="index.html#SalesOrder">type SalesOrder</a></dd>
 				
 				
 			
@@ -165,9 +179,9 @@ from the SalesOrder type when &#34;CreateType&#34; method is invoked.
 			
 				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go">controller.go</a>
 			
-				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/entity.go">entity.go</a>
-			
 				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/fields.go">fields.go</a>
+			
+				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/model.go">model.go</a>
 			
 				<a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/utils.go">utils.go</a>
 			
@@ -217,121 +231,155 @@ from the SalesOrder type when &#34;CreateType&#34; method is invoked.
 		
 		
 		
+		
 			
 			
-			<h2 id="Create">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=1511:1569#L30">Create</a>
-				<a class="permalink" href="index.html#Create">&#xb6;</a>
+			<h2 id="Model">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/model.go?s=1663:5361#L62">Model</a>
+				<a class="permalink" href="index.html#Model">&#xb6;</a>
 				
 				
 			</h2>
-			<pre>func Create(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
+			
+			<pre>type Model struct {
+<span id="Model.No"></span>    No                           <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;No&#34; required:&#34;true&#34;`
+<span id="Model.SellToCustomerNo"></span>    SellToCustomerNo             <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Sell_to_Customer_No&#34;`
+<span id="Model.SellToCustomerName"></span>    SellToCustomerName           <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Sell_to_Customer_Name&#34;`
+<span id="Model.SellToAddress"></span>    SellToAddress                <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Sell_to_Address&#34;`
+<span id="Model.SellToPostCode"></span>    SellToPostCode               <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Sell_to_Post_Code&#34;`
+<span id="Model.SellToCity"></span>    SellToCity                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Sell_to_City&#34;`
+<span id="Model.SellToContact"></span>    SellToContact                <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Sell_to_Contact&#34;`
+<span id="Model.NoOfArchivedVersions"></span>    NoOfArchivedVersions         <a href="http://localhost:6060/pkg/builtin/#int">int</a>               `json:&#34;No_of_Archived_Versions&#34;`
+<span id="Model.CustomerNoWeb"></span>    CustomerNoWeb                <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Customer_No_Web&#34;`
+<span id="Model.PostingDate"></span>    PostingDate                  <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Posting_Date&#34;`
+<span id="Model.OrderDate"></span>    OrderDate                    <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Order_Date&#34;`
+<span id="Model.DocumentDate"></span>    DocumentDate                 <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Document_Date&#34;`
+<span id="Model.RequestedDeliveryDate"></span>    RequestedDeliveryDate        <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Requested_Delivery_Date&#34;`
+<span id="Model.PromisedDeliveryDate"></span>    PromisedDeliveryDate         <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Promised_Delivery_Date&#34;`
+<span id="Model.ExternalDocumentNo"></span>    ExternalDocumentNo           <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;External_Document_No&#34;`
+<span id="Model.SalespersonCode"></span>    SalespersonCode              <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Salesperson_Code&#34;`
+<span id="Model.AssignedUserID"></span>    AssignedUserID               <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Assigned_User_ID&#34;`
+<span id="Model.JobQueueStatus"></span>    JobQueueStatus               <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Job_Queue_Status&#34;`
+<span id="Model.Status"></span>    Status                       <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Status&#34;`
+<span id="Model.WhsShipmentLinesExists"></span>    WhsShipmentLinesExists       <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>              `json:&#34;Whs_Shipment_Lines_Exists&#34;`
+<span id="Model.BillToName"></span>    BillToName                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Bill_to_Name&#34;`
+<span id="Model.BillToAddress"></span>    BillToAddress                <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Bill_to_Address&#34;`
+<span id="Model.BillToPostCode"></span>    BillToPostCode               <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Bill_to_Post_Code&#34;`
+<span id="Model.BillToCity"></span>    BillToCity                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Bill_to_City&#34;`
+<span id="Model.ShortcutDimension2Code"></span>    ShortcutDimension2Code       <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Shortcut_Dimension_2_Code&#34;`
+<span id="Model.DueDate"></span>    DueDate                      <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Due_Date&#34;`
+<span id="Model.PaymentDiscountPercent"></span>    PaymentDiscountPercent       <a href="http://localhost:6060/pkg/builtin/#float32">float32</a>           `json:&#34;Payment_Discount_Percent&#34;`
+<span id="Model.PmtDiscountDate"></span>    PmtDiscountDate              <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Pmt_Discount_Date&#34;`
+<span id="Model.PaymentMethodCode"></span>    PaymentMethodCode            <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Payment_Method_Code&#34;`
+<span id="Model.PricesIncludingVAT"></span>    PricesIncludingVAT           <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>              `json:&#34;Prices_Including_VAT&#34;`
+<span id="Model.VATBusPostingGroup"></span>    VATBusPostingGroup           <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;VAT_Bus_Posting_Group&#34;`
+<span id="Model.ShipToName"></span>    ShipToName                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Ship_to_Name&#34;`
+<span id="Model.ShipToAddress"></span>    ShipToAddress                <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Ship_to_Address&#34;`
+<span id="Model.ShipToAddress2"></span>    ShipToAddress2               <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Ship_to_Address_2&#34;`
+<span id="Model.ShipToPostCode"></span>    ShipToPostCode               <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Ship_to_Post_Code&#34;`
+<span id="Model.ShipToCity"></span>    ShipToCity                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Ship_to_City&#34;`
+<span id="Model.ShipToCountryRegionCode"></span>    ShipToCountryRegionCode      <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Ship_to_Country_Region_Code&#34;`
+<span id="Model.LocationCode"></span>    LocationCode                 <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Location_Code&#34;`
+<span id="Model.LateOrderShipping"></span>    LateOrderShipping            <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>              `json:&#34;Late_Order_Shipping&#34;`
+<span id="Model.ShipmentDate"></span>    ShipmentDate                 <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Shipment_Date&#34;`
+<span id="Model.ShippingAdvice"></span>    ShippingAdvice               <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Shipping_Advice&#34;`
+<span id="Model.CurrencyCode"></span>    CurrencyCode                 <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Currency_Code&#34;`
+<span id="Model.EU3PartyTrade"></span>    EU3PartyTrade                <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>              `json:&#34;EU_3_Party_Trade&#34;`
+<span id="Model.PrepaymentPercent"></span>    PrepaymentPercent            <a href="http://localhost:6060/pkg/builtin/#float32">float32</a>           `json:&#34;Prepayment_Percent&#34;`
+<span id="Model.CompressPrepayment"></span>    CompressPrepayment           <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>              `json:&#34;Compress_Prepayment&#34;`
+<span id="Model.PrepaymentDueDate"></span>    PrepaymentDueDate            <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Prepayment_Due_Date&#34;`
+<span id="Model.PrepmtPaymentDiscountPercent"></span>    PrepmtPaymentDiscountPercent <a href="http://localhost:6060/pkg/builtin/#float32">float32</a>           `json:&#34;Prepmt_Payment_Discount_Percent&#34;`
+<span id="Model.PrepmtPmtDiscountDate"></span>    PrepmtPmtDiscountDate        <a href="http://localhost:6060/pkg/builtin/#string">string</a>            `json:&#34;Prepmt_Pmt_Discount_Date&#34;`
+<span id="Model.SalesLines"></span>    SalesLines                   []<a href="../salesline/index.html">salesline</a>.<a href="../salesline/index.html#Model">Model</a> `json:&#34;Sales_Lines&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Request">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=343:411#L6">Request</a>
+				<a class="permalink" href="index.html#Request">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Request struct {
+<span id="Request.Company"></span>    Company <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="Request.Object"></span>    Object  <a href="../types/index.html">types</a>.<a href="../types/index.html#RequestObject">RequestObject</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Request.Create">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=2232:2279#L70">Create</a>
+					<a class="permalink" href="index.html#Request.Create">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Create() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
 Create creates a SalesOrder objects based on arguments added by the requester
 Function takes a list of fields to be returned by Microsoft Navision after creation.
 Function takes filter arguments which are
 required for creating a new object
 </p>
 
-			
-			
-
-		
-			
-			
-			<h2 id="CreateArgs">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/entity.go?s=7051:7103#L171">CreateArgs</a>
-				<a class="permalink" href="index.html#CreateArgs">&#xb6;</a>
 				
 				
-			</h2>
-			<pre>func CreateArgs() map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]*<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#ArgumentConfig">ArgumentConfig</a></pre>
-			<p>
-CreateArgs function creates a GraphQl Object Type from the &#39;SalesOrder&#39;
-</p>
-<p>
-Example of GraphQl Argument Object
-</p>
-<pre>Example:
-	&#39;&#39;&#39;
-	map[string]*graphql.ArgumentConfig{
-		&#34;No&#34;:				&amp;graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-		&#34;Sell_to_Customer_No&#34;:		&amp;graphql.ArgumentConfig{Type: graphql.String},
-		&#34;Sell_to_Customer_Name&#34;:	&amp;graphql.ArgumentConfig{Type: graphql.String},
-		...
-	}
-	&#39;&#39;&#39;
-</pre>
-<p>
-Hint:
-</p>
-<pre>Arguments are used to create or update entities,
-some arguments are required and hence in the SalesOrder type,
-tags can be noticed
-</pre>
-<p>
-Example of required fields
-</p>
-<pre>No	string `json:&#34;No&#34; required:&#34;true&#34;`
-</pre>
-<p>
-and this will be translated to
-</p>
-<pre>&#34;No&#34;:	&amp;graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-</pre>
-<p>
-The returned GraphQl arguments will be used as a part of the main mutation
-</p>
-
+				
 			
-			
-
-		
-			
-			
-			<h2 id="CreateType">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/entity.go?s=6128:6161#L136">CreateType</a>
-				<a class="permalink" href="index.html#CreateType">&#xb6;</a>
+				
+				<h3 id="Request.CreateArgs">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=477:540#L15">CreateArgs</a>
+					<a class="permalink" href="index.html#Request.CreateArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (*<a href="index.html#Request">Request</a>) CreateArgs() map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]*<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#ArgumentConfig">ArgumentConfig</a></pre>
 				
 				
-			</h2>
-			<pre>func CreateType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
-			<p>
-CreateType function creates a GraphQl Object Type from the &#39;SalesOrder&#39; type.
-</p>
-<p>
-Example of GraphQl Object
-</p>
-<pre>Example:
-	&#39;&#39;&#39;
-	graphql.NewObject(graphql.ObjectConfig{
-			Name: &#34;SalesOrder&#34;,
-			Fields: graphql.Fields{
-				&#34;No&#34;:				&amp;graphql.Field{Type: graphql.String},
-				&#34;Sell_to_Customer_No&#34;:		&amp;graphql.Field{Type: graphql.String},
-				&#34;Sell_to_Customer_Name&#34;:	&amp;graphql.Field{Type: graphql.String},
-				...
-			},
-		})
-	&#39;&#39;&#39;
-</pre>
-<p>
-GraphQl Object is a map[string]*graphql.Field
-</p>
-<p>
-The returned GraphQl Object Type will be used as a part of the main query
-</p>
-
-			
-			
-
-		
-			
-			
-			<h2 id="Filter">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=942:1000#L16">Filter</a>
-				<a class="permalink" href="index.html#Filter">&#xb6;</a>
 				
 				
-			</h2>
-			<pre>func Filter(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
+			
+				
+				<h3 id="Request.CreateType">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=413:457#L11">CreateType</a>
+					<a class="permalink" href="index.html#Request.CreateType">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (*<a href="index.html#Request">Request</a>) CreateType() *<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/">graphql</a>.<a href="http://localhost:6060/pkg/github.com/graphql-go/graphql/#Object">Object</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.Filter">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=1589:1636#L52">Filter</a>
+					<a class="permalink" href="index.html#Request.Filter">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Filter() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
 Filter retrieves a list of filtered SalesOrders
 based on a key-value pair added by the requester.
 Function takes a list of fields to be returned by Microsoft Navision.
@@ -339,49 +387,83 @@ Function takes filter arguments which are
 required for filtering results in Navision.
 </p>
 
-			
-			
-
-		
-			
-			
-			<h2 id="GetAll">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=368:420#L1">GetAll</a>
-				<a class="permalink" href="index.html#GetAll">&#xb6;</a>
 				
 				
-			</h2>
-			<pre>func GetAll(fields interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
+				
+			
+				
+				<h3 id="Request.GetAll">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=929:976#L33">GetAll</a>
+					<a class="permalink" href="index.html#Request.GetAll">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) GetAll() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
 GetAll retrieves a List of all SalesOrders available Microsoft Navision .
 Function takes a list of fields to be returned by Microsoft Navision.
 </p>
 
-			
-			
-
-		
-			
-			
-			<h2 id="Update">func <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=2001:2059#L43">Update</a>
-				<a class="permalink" href="index.html#Update">&#xb6;</a>
 				
 				
-			</h2>
-			<pre>func Update(fields, args interface{}) (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
-			<p>
+				
+			
+				
+				<h3 id="Request.GetCompany">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=560:597#L19">GetCompany</a>
+					<a class="permalink" href="index.html#Request.GetCompany">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) GetCompany() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.SetArgs">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=621:675#L23">SetArgs</a>
+					<a class="permalink" href="index.html#Request.SetArgs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) SetArgs(args map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]interface{})</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.SetFields">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=703:747#L27">SetFields</a>
+					<a class="permalink" href="index.html#Request.SetFields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) SetFields(fields []<a href="http://localhost:6060/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Request.Update">func (*Request) <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/controller.go?s=2796:2843#L87">Update</a>
+					<a class="permalink" href="index.html#Request.Update">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Request">Request</a>) Update() (interface{}, <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
 Update modifies a certain SalesOrder Object Microsoft Navision.
 Function takes arguments which are required identifying
 the specific object to be updated/modified.
 </p>
 
+				
+				
+				
 			
-			
-
 		
-		
 			
 			
-			<h2 id="Response">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/entity.go?s=1607:1666#L58">Response</a>
+			<h2 id="Response">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/model.go?s=1607:1661#L58">Response</a>
 				<a class="permalink" href="index.html#Response">&#xb6;</a>
 				
 				
@@ -420,80 +502,7 @@ Example response from Navision
 </pre>
 
 			<pre>type Response struct {
-<span id="Response.Value"></span>    Value []<a href="index.html#SalesOrder">SalesOrder</a> `json:&#34;value&#34;`
-}
-</pre>
-
-			
-
-			
-
-			
-			
-			
-
-			
-
-			
-		
-			
-			
-			<h2 id="SalesOrder">type <a href="http://localhost:6060/src/github.com/hem-nav-gateway/salesorder/entity.go?s=1668:5567#L62">SalesOrder</a>
-				<a class="permalink" href="index.html#SalesOrder">&#xb6;</a>
-				
-				
-			</h2>
-			
-			<pre>type SalesOrder struct {
-<span id="SalesOrder.No"></span>    No                           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;No&#34; required:&#34;true&#34;`
-<span id="SalesOrder.SellToCustomerNo"></span>    SellToCustomerNo             <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Customer_No&#34;`
-<span id="SalesOrder.SellToCustomerName"></span>    SellToCustomerName           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Customer_Name&#34;`
-<span id="SalesOrder.SellToAddress"></span>    SellToAddress                <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Address&#34;`
-<span id="SalesOrder.SellToPostCode"></span>    SellToPostCode               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Post_Code&#34;`
-<span id="SalesOrder.SellToCity"></span>    SellToCity                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_City&#34;`
-<span id="SalesOrder.SellToContact"></span>    SellToContact                <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Sell_to_Contact&#34;`
-<span id="SalesOrder.NoOfArchivedVersions"></span>    NoOfArchivedVersions         <a href="http://localhost:6060/pkg/builtin/#int">int</a>                   `json:&#34;No_of_Archived_Versions&#34;`
-<span id="SalesOrder.CustomerNoWeb"></span>    CustomerNoWeb                <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Customer_No_Web&#34;`
-<span id="SalesOrder.PostingDate"></span>    PostingDate                  <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Posting_Date&#34;`
-<span id="SalesOrder.OrderDate"></span>    OrderDate                    <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Order_Date&#34;`
-<span id="SalesOrder.DocumentDate"></span>    DocumentDate                 <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Document_Date&#34;`
-<span id="SalesOrder.RequestedDeliveryDate"></span>    RequestedDeliveryDate        <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Requested_Delivery_Date&#34;`
-<span id="SalesOrder.PromisedDeliveryDate"></span>    PromisedDeliveryDate         <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Promised_Delivery_Date&#34;`
-<span id="SalesOrder.ExternalDocumentNo"></span>    ExternalDocumentNo           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;External_Document_No&#34;`
-<span id="SalesOrder.SalespersonCode"></span>    SalespersonCode              <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Salesperson_Code&#34;`
-<span id="SalesOrder.AssignedUserID"></span>    AssignedUserID               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Assigned_User_ID&#34;`
-<span id="SalesOrder.JobQueueStatus"></span>    JobQueueStatus               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Job_Queue_Status&#34;`
-<span id="SalesOrder.Status"></span>    Status                       <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Status&#34;`
-<span id="SalesOrder.WhsShipmentLinesExists"></span>    WhsShipmentLinesExists       <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>                  `json:&#34;Whs_Shipment_Lines_Exists&#34;`
-<span id="SalesOrder.BillToName"></span>    BillToName                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_Name&#34;`
-<span id="SalesOrder.BillToAddress"></span>    BillToAddress                <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_Address&#34;`
-<span id="SalesOrder.BillToPostCode"></span>    BillToPostCode               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_Post_Code&#34;`
-<span id="SalesOrder.BillToCity"></span>    BillToCity                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Bill_to_City&#34;`
-<span id="SalesOrder.ShortcutDimension2Code"></span>    ShortcutDimension2Code       <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Shortcut_Dimension_2_Code&#34;`
-<span id="SalesOrder.DueDate"></span>    DueDate                      <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Due_Date&#34;`
-<span id="SalesOrder.PaymentDiscountPercent"></span>    PaymentDiscountPercent       <a href="http://localhost:6060/pkg/builtin/#float32">float32</a>               `json:&#34;Payment_Discount_Percent&#34;`
-<span id="SalesOrder.PmtDiscountDate"></span>    PmtDiscountDate              <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Pmt_Discount_Date&#34;`
-<span id="SalesOrder.PaymentMethodCode"></span>    PaymentMethodCode            <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Payment_Method_Code&#34;`
-<span id="SalesOrder.PricesIncludingVAT"></span>    PricesIncludingVAT           <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>                  `json:&#34;Prices_Including_VAT&#34;`
-<span id="SalesOrder.VATBusPostingGroup"></span>    VATBusPostingGroup           <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;VAT_Bus_Posting_Group&#34;`
-<span id="SalesOrder.ShipToName"></span>    ShipToName                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Name&#34;`
-<span id="SalesOrder.ShipToAddress"></span>    ShipToAddress                <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Address&#34;`
-<span id="SalesOrder.ShipToAddress2"></span>    ShipToAddress2               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Address_2&#34;`
-<span id="SalesOrder.ShipToPostCode"></span>    ShipToPostCode               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Post_Code&#34;`
-<span id="SalesOrder.ShipToCity"></span>    ShipToCity                   <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_City&#34;`
-<span id="SalesOrder.ShipToCountryRegionCode"></span>    ShipToCountryRegionCode      <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Ship_to_Country_Region_Code&#34;`
-<span id="SalesOrder.LocationCode"></span>    LocationCode                 <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Location_Code&#34;`
-<span id="SalesOrder.LateOrderShipping"></span>    LateOrderShipping            <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>                  `json:&#34;Late_Order_Shipping&#34;`
-<span id="SalesOrder.ShipmentDate"></span>    ShipmentDate                 <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Shipment_Date&#34;`
-<span id="SalesOrder.ShippingAdvice"></span>    ShippingAdvice               <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Shipping_Advice&#34;`
-<span id="SalesOrder.CurrencyCode"></span>    CurrencyCode                 <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Currency_Code&#34;`
-<span id="SalesOrder.EU3PartyTrade"></span>    EU3PartyTrade                <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>                  `json:&#34;EU_3_Party_Trade&#34;`
-<span id="SalesOrder.PrepaymentPercent"></span>    PrepaymentPercent            <a href="http://localhost:6060/pkg/builtin/#float32">float32</a>               `json:&#34;Prepayment_Percent&#34;`
-<span id="SalesOrder.CompressPrepayment"></span>    CompressPrepayment           <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>                  `json:&#34;Compress_Prepayment&#34;`
-<span id="SalesOrder.PrepaymentDueDate"></span>    PrepaymentDueDate            <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Prepayment_Due_Date&#34;`
-<span id="SalesOrder.PrepmtPaymentDiscountPercent"></span>    PrepmtPaymentDiscountPercent <a href="http://localhost:6060/pkg/builtin/#float32">float32</a>               `json:&#34;Prepmt_Payment_Discount_Percent&#34;`
-<span id="SalesOrder.PrepmtPmtDiscountDate"></span>    PrepmtPmtDiscountDate        <a href="http://localhost:6060/pkg/builtin/#string">string</a>                `json:&#34;Prepmt_Pmt_Discount_Date&#34;`
-<span id="SalesOrder.SalesLines"></span>    SalesLines                   []<a href="../salesline/index.html">salesline</a>.<a href="../salesline/index.html#SalesLine">SalesLine</a> `json:&#34;Sales_Lines&#34;`
+<span id="Response.Value"></span>    Value []<a href="index.html#Model">Model</a> `json:&#34;value&#34;`
 }
 </pre>
 
