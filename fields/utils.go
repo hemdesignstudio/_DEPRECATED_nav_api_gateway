@@ -62,7 +62,7 @@ Example request to Microsoft Navision:
 	https://[ENDPOINT-BASE-URI]/Assembly_Bom?$select=No,Parent_Item_No,Quantity_per
 	'''
 */
-func resolveFields(params graphql.ResolveParams, selections []ast.Selection) ([]string, error) {
+func resolveField(params graphql.ResolveParams, selections []ast.Selection) ([]string, error) {
 	var selected []string
 	for _, s := range selections {
 		switch t := s.(type) {
@@ -74,7 +74,7 @@ func resolveFields(params graphql.ResolveParams, selections []ast.Selection) ([]
 			if !ok {
 				return nil, fmt.Errorf("getSelectedFields: no fragment found with name %v", n)
 			}
-			sel, err := resolveFields(params, frag.GetSelectionSet().Selections)
+			sel, err := resolveField(params, frag.GetSelectionSet().Selections)
 			if err != nil {
 				return nil, err
 			}
@@ -107,7 +107,7 @@ queryFields creates GraphQL Type fields for GraphQl query's
 			}
 
 */
-func queryFields(field fieldType) *graphql.Field {
+func queryField(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
@@ -120,7 +120,7 @@ func queryFields(field fieldType) *graphql.Field {
 			if len(fieldASTs) == 0 {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
-			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
+			fields, _ := resolveField(p, fieldASTs[0].SelectionSet.Selections)
 
 			field.SetArgs(p.Args)
 			field.SetFields(fields)
@@ -152,7 +152,7 @@ createFields creates GraphQL Type fields for GraphQl mutation related to creatin
 			}
 			'''
 */
-func createFields(field fieldType) *graphql.Field {
+func createField(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
@@ -166,7 +166,7 @@ func createFields(field fieldType) *graphql.Field {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
 
-			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
+			fields, _ := resolveField(p, fieldASTs[0].SelectionSet.Selections)
 
 			field.SetArgs(p.Args)
 			field.SetFields(fields)
@@ -195,7 +195,7 @@ updateFields creates GraphQL Type fields for GraphQl mutation related to updatin
 		}
 		'''
 */
-func updateFields(field fieldType) *graphql.Field {
+func updateField(field fieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
@@ -209,7 +209,7 @@ func updateFields(field fieldType) *graphql.Field {
 				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
 			}
 
-			fields, _ := resolveFields(p, fieldASTs[0].SelectionSet.Selections)
+			fields, _ := resolveField(p, fieldASTs[0].SelectionSet.Selections)
 
 			field.SetArgs(p.Args)
 			field.SetFields(fields)
