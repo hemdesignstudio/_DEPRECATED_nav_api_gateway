@@ -49,7 +49,7 @@ func (r *Request) GetAll() (interface{}, error) {
 }
 
 // Filter retrieves a filtered list of AssemblyBom objects based of key-value pair.
-// Funtion takes a list of fields to be returned by Microsoft Navision.
+// Function takes a list of fields to be returned by Microsoft Navision.
 // Function takes filter arguments which are required for filtering results in Navision
 func (r *Request) Filter() (interface{}, error) {
 	r.Object.Endpoint = endpoint
