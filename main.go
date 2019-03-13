@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/hem-nav-gateway/config"
+	"github.com/hem-nav-gateway/inventory"
 	"github.com/hem-nav-gateway/roothandler"
 
 	"log"
@@ -18,6 +19,7 @@ type RequestObject struct {
 }
 
 func main() {
+	inventory.GetAll()
 	path := config.Endpoint + config.Version
 	router := mux.NewRouter().StrictSlash(true)
 	handler := roothandler.RootEndpoint
