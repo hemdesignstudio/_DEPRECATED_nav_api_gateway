@@ -7,29 +7,31 @@ package salesinvoice
 import (
 	"github.com/graphql-go/graphql"
 	"github.com/hem-nav-gateway/salesline"
-	"github.com/hem-nav-gateway/types"
 )
 
 // typeList Creates a Sales Line GraphQl Type which will
 // be used as a nested field for Sales Invoice
-var typeList = map[string]*graphql.Object{
-	"salesLine": salesline.CreateType("Invoice_SalesLines"),
-}
+var _salesLine = salesline.Request{}
+var salesLineType = *_salesLine.NewType("Invoice_SalesLines")
 
 // getSalesLinesFields creates a Salesline field objects
 // which will be used as a nested field for Sales Invoice
 func getSalesLinesFields() *graphql.Field {
+
 	field := &graphql.Field{
-		Type: graphql.NewList(typeList["salesLine"]),
+		Type: graphql.NewList(&salesLineType),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			salesInvoice, ok := p.Source.(map[string]interface{})
+			salesOrder, ok := p.Source.(map[string]interface{})
+
 			if ok == true {
 				p.Args["key"] = "Document_No"
-				p.Args["value"] = salesInvoice["No"]
-				obj := types.RequestObject{Args: p.Args}
-				return salesline.Filter(obj)
+				p.Args["value"] = salesOrder["No"]
+
+				_salesLine.Object.Args = p.Args
+				return _salesLine.Filter()
 			}
 			return nil, nil
+
 		},
 	}
 	return field
