@@ -9,6 +9,7 @@ import (
 	"github.com/graphql-go/graphql"
 	"github.com/hem-nav-gateway/assemblybom"
 	"github.com/hem-nav-gateway/customer"
+	"github.com/hem-nav-gateway/inventory"
 	"github.com/hem-nav-gateway/item"
 	"github.com/hem-nav-gateway/postship"
 	"github.com/hem-nav-gateway/salesinvoice"
@@ -56,6 +57,7 @@ func QueryType(company string) *graphql.Object {
 			"SalesLine":           queryField(&salesline.Request{Company: company}),
 			"PostedSalesShipment": queryField(&postship.Request{Company: company}),
 			"SalesInvoice":        queryField(&salesinvoice.Request{Company: company}),
+			"Inventory":           queryField(&inventory.Request{Company: company}),
 		},
 	}
 	return graphql.NewObject(query)
