@@ -2,12 +2,14 @@ package inventory
 
 import (
 	"fmt"
+	"github.com/vjeantet/jodaTime"
 	"strings"
 	"time"
 )
 
 func getDate() string {
-	return time.Now().Format("2019-03-08")
+	date := jodaTime.Format("YYYY-MM-dd", time.Now())
+	return date
 }
 
 func getPayload(args map[string]interface{}) []byte {
