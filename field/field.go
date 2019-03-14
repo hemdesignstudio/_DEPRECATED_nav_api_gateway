@@ -30,6 +30,7 @@ QueryType creates the root query with all of its nested fields
 			"SalesLine",
 			"PostedSalesShipment",
 			"SalesInvoice",
+			"Inventory"
 
 		queryFields("assemblyBom", assemblybom.GetAll, assemblybom.Filter) would resolve to
 
