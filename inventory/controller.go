@@ -43,9 +43,9 @@ func (r *Request) SetFields(fields []string) {
 // GetAll retrieves a List of all Inventory Items available Microsoft Navision .
 // Function takes a list of fields to be returned by Microsoft Navision.
 func (r *Request) GetAll() (interface{}, error) {
+
 	r.SoapObject.Company = r.Company
 	r.SoapObject.Payload = getPayload(nil)
-
 	return soapRequest(r.SoapObject)
 }
 
