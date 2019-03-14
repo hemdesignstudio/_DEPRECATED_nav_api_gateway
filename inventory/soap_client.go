@@ -4,19 +4,29 @@ import (
 	"bytes"
 	"crypto/tls"
 	"encoding/xml"
+	"fmt"
 	"github.com/hem-nav-gateway/config"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 )
 
-const (
-	HTTP_METHOD  = "POST"
-	SOAP_ACTION  = "urn:GetInventory"
-	ENDPOINT_URI = "https://wsmyway182.navmoln.se:18201/MyWay182Services/WS/Hem%20TEST/Codeunit/GetInventory"
-)
+func formatUri(company string) string {
+	_type := "Codeunit"
+	uri := fmt.Sprintf("%s/%s/%s%s", baseUrl, company, _type, endpoint)
+	return uri
+}
 
-func soapRequest(payload []byte) (interface{}, error) {
-	req, err := http.NewRequest(HTTP_METHOD, ENDPOINT_URI, bytes.NewReader(payload))
+func soapRequest(obj SoapObject) (interface{}, error) {
+
+	uri := formatUri(obj.Company)
+	u, err := url.Parse(uri)
+	if err != nil {
+		panic(err)
+	}
+	u.RawQuery = u.Query().Encode()
+
+	req, err := http.NewRequest(HTTP_METHOD, u.String(), bytes.NewReader(obj.Payload))
 	if err != nil {
 		return nil, err
 	}
