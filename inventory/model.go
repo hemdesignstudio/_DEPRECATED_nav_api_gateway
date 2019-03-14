@@ -1,11 +1,48 @@
+// Copyright 2019 Hem Design Studio. All rights reserved.
+// Use of this source code is governed by a
+// license that can be found in the LICENSE file.
+
+/*
+Package inventory implements a simple package for handling all graphql
+operations related to Microsoft Navision Inventory Code unit.
+
+Package has a type "Inventory" where all the fields related to Inventory are defined.
+
+	Example:
+		'''
+		type Response struct {
+			Body struct {
+				GetInventoryResult struct {
+					RetValues struct {
+						InventoryLine []Model `xml:"InventoryLine"`
+			...
+		}
+		'''
+
+
+GraphQl Object Type along with its fields, arguments and attributes are generated
+from the Inventory type when "CreateType" method is invoked.
+*/
 package inventory
 
 import (
 	"github.com/graphql-go/graphql"
+	"github.com/hem-nav-gateway/config"
 	"github.com/hem-nav-gateway/types"
 )
 
-/*
+const (
+	HTTP_METHOD = "POST"
+	SOAP_ACTION = "urn:GetInventory"
+)
+
+var endpoint = config.InventoryEndpoint
+var baseUrl = config.SoapBaseUrl
+
+/*Response is utilized as Microsoft Navision returns a list of objects
+when requesting Inventory List, It is utilized for XML decoding
+
+Example response from Navision
 
 
 Example:
@@ -54,9 +91,9 @@ Example of GraphQl Object
 		graphql.NewObject(graphql.ObjectConfig{
 				Name: "Inventory",
 				Fields: graphql.Fields{
-					"No":					&graphql.Field{Type: graphql.String},
-					"Description":			&graphql.Field{Type: graphql.String},
-					"Base_Unit_of_Measure":	&graphql.Field{Type: graphql.String},
+					"ItemNo":		&graphql.Field{Type: graphql.String},
+					"Description":		&graphql.Field{Type: graphql.String},
+					"ReceiptDate":		&graphql.Field{Type: graphql.String},
 					...
 				},
 			})
@@ -78,9 +115,9 @@ Example of GraphQl Argument Object
 	Example:
 		'''
 		map[string]*graphql.ArgumentConfig{
-			"No":					&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-			"Description":			&graphql.ArgumentConfig{Type: graphql.String},
-			"Base_Unit_of_Measure":	&graphql.ArgumentConfig{Type: graphql.String},
+			"ItemNo":		&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
+			"Description":		&graphql.ArgumentConfig{Type: graphql.String},
+			"ReceiptDate":		&graphql.ArgumentConfig{Type: graphql.String},
 			...
 		}
 		'''
