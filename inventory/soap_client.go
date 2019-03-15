@@ -14,8 +14,7 @@ import (
 )
 
 const (
-	TYPE    = "Codeunit"
-	CA_CERT = "./cert/CA.pem"
+	TYPE = "Codeunit"
 )
 
 func formatUri(company string) string {
@@ -31,9 +30,9 @@ func handleTls() *http.Transport {
 		rootCAs = x509.NewCertPool()
 	}
 
-	certs, err := ioutil.ReadFile(CA_CERT)
+	certs, err := ioutil.ReadFile(config.CA_CERT)
 	if err != nil {
-		log.Fatalf("Failed to append %q to RootCAs: %v", CA_CERT, err)
+		log.Fatalf("Failed to append %q to RootCAs: %v", config.CA_CERT, err)
 	}
 
 	if ok := rootCAs.AppendCertsFromPEM(certs); !ok {
