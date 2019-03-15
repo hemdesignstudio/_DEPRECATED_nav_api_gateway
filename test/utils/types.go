@@ -7,6 +7,7 @@ type ErrorMessage struct {
 type QueryType struct {
 	AssemblyBom  string
 	CustomerCard string
+	Inventory    string
 	ItemCard     string
 	SalesOrder   string
 	SalesInvoice string
@@ -31,6 +32,7 @@ type MutationType struct {
 var Query = QueryType{
 	AssemblyBom:  "AssemblyBom",
 	CustomerCard: "CustomerCard",
+	Inventory:    "Inventory",
 	ItemCard:     "ItemCard",
 	SalesOrder:   "SalesOrder",
 	SalesInvoice: "SalesInvoice",
