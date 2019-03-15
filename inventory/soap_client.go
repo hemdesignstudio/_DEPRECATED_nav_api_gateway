@@ -6,18 +6,21 @@ import (
 	"encoding/xml"
 	"fmt"
 	"github.com/hem-nav-gateway/config"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 )
 
+const (
+	TYPE = "Codeunit"
+)
+
 func formatUri(company string) string {
-	_type := "Codeunit"
-	uri := fmt.Sprintf("%s/%s/%s%s", baseUrl, company, _type, endpoint)
+
+	uri := fmt.Sprintf("%s/%s/%s%s", baseUrl, company, TYPE, endpoint)
 	return uri
 }
 
-func soapRequest(obj SoapObject) (interface{}, error) {
+func soapRequest(obj *SoapObject) (interface{}, error) {
 
 	uri := formatUri(obj.Company)
 	u, err := url.Parse(uri)
@@ -48,16 +51,8 @@ func soapRequest(obj SoapObject) (interface{}, error) {
 
 	}
 
-	//err = xml.NewDecoder(res.Body).Decode(&r.Response)
-	byteValue, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		return nil, err
-
-	}
-
-	//byteValue = exampleXML
 	var response Response
-	err = xml.Unmarshal(byteValue, &response)
+	err = xml.NewDecoder(res.Body).Decode(&response)
 
 	if err != nil {
 		return nil, err

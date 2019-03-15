@@ -6,7 +6,6 @@ import (
 )
 
 var _type = createType()
-var _args = createArgs()
 
 type Request struct {
 	Company    string
@@ -15,8 +14,9 @@ type Request struct {
 }
 
 type SoapObject struct {
-	Company string
-	Payload []byte
+	Company    string
+	SoapAction string
+	Payload    []byte
 }
 
 func (*Request) CreateType() *graphql.Object {
@@ -24,7 +24,7 @@ func (*Request) CreateType() *graphql.Object {
 }
 
 func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig {
-	return _args
+	return nil
 }
 
 func (r *Request) GetCompany() string {
@@ -46,13 +46,16 @@ func (r *Request) GetAll() (interface{}, error) {
 
 	r.SoapObject.Company = r.Company
 	r.SoapObject.Payload = getPayload(nil)
-	return soapRequest(r.SoapObject)
+	r.SoapObject.SoapAction = SOAP_ACTION
+	return soapRequest(&r.SoapObject)
 }
 
 func (r *Request) Filter() (interface{}, error) {
+
 	r.SoapObject.Company = r.Company
 	r.SoapObject.Payload = getPayload(r.Object.Args)
-	return soapRequest(r.SoapObject)
+	r.SoapObject.SoapAction = SOAP_ACTION
+	return soapRequest(&r.SoapObject)
 }
 
 func (r *Request) Create() (interface{}, error) {

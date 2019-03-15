@@ -75,10 +75,10 @@ type Response struct {
 }
 
 type Model struct {
-	ItemNo        string `xml:"ItemNo" json:"ItemNo"`
-	Description   string `xml:"Description" json:"Description"`
-	ReceiptDate   string `xml:"ReceiptDate" json:"ReceiptDate"`
-	AvailableDate string `xml:"AvailableDate" json:"AvailableDate"`
+	ItemNo            string `xml:"ItemNo" json:"ItemNo"`
+	Description       string `xml:"Description" json:"Description"`
+	ReceiptDate       string `xml:"ReceiptDate" json:"ReceiptDate"`
+	QuantityAvailable string `xml:"AvailableDate" json:"QuantityAvailable"`
 }
 
 /*
@@ -105,39 +105,4 @@ The returned GraphQl Object Type will be used as a part of the main query
 */
 func createType() *graphql.Object {
 	return types.GenerateGraphQlType("Inventory", Model{}, nil)
-}
-
-/*
-CreateArgs function creates a GraphQl Object Type from the 'Inventory'
-
-Example of GraphQl Argument Object
-
-	Example:
-		'''
-		map[string]*graphql.ArgumentConfig{
-			"ItemNo":		&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-			"Description":		&graphql.ArgumentConfig{Type: graphql.String},
-			"ReceiptDate":		&graphql.ArgumentConfig{Type: graphql.String},
-			...
-		}
-		'''
-
-	Hint:
-		Arguments are used to create or update entities,
-		some arguments are required and hence in the Inventory type,
-		tags can be noticed
-
-Example of required fields
-
-	No	string `json:"No" required:"true"`
-
-and this will be translated to
-
-	"No":	&graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
-
-
-The returned GraphQl arguments will be used as a part of the main mutation
-*/
-func createArgs() map[string]*graphql.ArgumentConfig {
-	return types.GenerateGraphQlArgs(Model{}, nil)
 }
