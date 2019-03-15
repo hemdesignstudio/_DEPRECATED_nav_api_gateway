@@ -10,15 +10,24 @@ package request
 
 import (
 	"bytes"
+	"crypto/tls"
+	"crypto/x509"
+	"flag"
 	"github.com/hem-nav-gateway/config"
 	"github.com/hem-nav-gateway/errorhandler"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 )
 
+const (
+	localCertFile = "./cert/CA.pem"
+)
+
 // headers contain request headers to Microsft Navision
 func headers(uri string, method string, body interface{}) *http.Request {
+
 	u, err := url.Parse(uri)
 	if err != nil {
 		panic(err)
@@ -46,9 +55,39 @@ func headers(uri string, method string, body interface{}) *http.Request {
 
 }
 
+func handleTls() *http.Transport {
+	insecure := flag.Bool("insecure-ssl", false, "Accept/Ignore all server SSL certificates")
+
+	rootCAs, _ := x509.SystemCertPool()
+	if rootCAs == nil {
+		rootCAs = x509.NewCertPool()
+	}
+
+	certs, err := ioutil.ReadFile(localCertFile)
+	if err != nil {
+		log.Fatalf("Failed to append %q to RootCAs: %v", localCertFile, err)
+	}
+
+	if ok := rootCAs.AppendCertsFromPEM(certs); !ok {
+		log.Println("No certs appended, using system certs only")
+	}
+
+	conf := &tls.Config{
+		InsecureSkipVerify: *insecure,
+		RootCAs:            rootCAs,
+	}
+
+	tr := &http.Transport{TLSClientConfig: conf}
+
+	return tr
+}
+
 // clientRequest handles all requests to Microsft Navision
 func clientRequest(req *http.Request, method string) (int, interface{}, error) {
-	client := &http.Client{}
+
+	tr := handleTls()
+	client := &http.Client{Transport: tr}
+
 	resp, err := client.Do(req)
 	if err != nil {
 		return resp.StatusCode, nil, err
