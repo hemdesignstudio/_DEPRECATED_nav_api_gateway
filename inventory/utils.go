@@ -20,7 +20,7 @@ func getPayload(args map[string]interface{}) []byte {
 	startDate := "<tns:startDate>" + getDate() + "</tns:startDate>"
 
 	if args != nil {
-		if args["key"].(string) == "ItemNo" {
+		if args["key"].(string) == "No" {
 			item = fmt.Sprintf("<tns:itemFilter>%v</tns:itemFilter>", args["value"])
 		}
 	}

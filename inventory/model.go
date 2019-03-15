@@ -75,10 +75,10 @@ type Response struct {
 }
 
 type Model struct {
-	ItemNo            string `xml:"ItemNo" json:"ItemNo"`
+	ItemNo            string `xml:"ItemNo" json:"No"`
 	Description       string `xml:"Description" json:"Description"`
-	ReceiptDate       string `xml:"ReceiptDate" json:"ReceiptDate"`
-	QuantityAvailable string `xml:"AvailableDate" json:"QuantityAvailable"`
+	ReceiptDate       string `xml:"ReceiptDate" json:"Receipt_Date"`
+	QuantityAvailable string `xml:"AvailableDate" json:"Quantity_Available"`
 }
 
 /*
