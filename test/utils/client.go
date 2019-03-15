@@ -11,6 +11,7 @@ import (
 )
 
 func Client(method, query string, body interface{}) (int, []byte) {
+	config.CA_CERT = "../cert/CA.pem"
 	jsonBody, _ := json.Marshal(body)
 	request, _ := http.NewRequest(method, query, bytes.NewBuffer(jsonBody))
 	response := httptest.NewRecorder()
