@@ -12,7 +12,6 @@ import (
 	"bytes"
 	"crypto/tls"
 	"crypto/x509"
-	"flag"
 	"github.com/hem-nav-gateway/config"
 	"github.com/hem-nav-gateway/errorhandler"
 	"io/ioutil"
@@ -22,7 +21,7 @@ import (
 )
 
 const (
-	localCertFile = "./cert/CA.pem"
+	CA_CERT = "./cert/CA.pem"
 )
 
 // headers contain request headers to Microsft Navision
@@ -56,16 +55,15 @@ func headers(uri string, method string, body interface{}) *http.Request {
 }
 
 func handleTls() *http.Transport {
-	insecure := flag.Bool("insecure-ssl", false, "Accept/Ignore all server SSL certificates")
 
 	rootCAs, _ := x509.SystemCertPool()
 	if rootCAs == nil {
 		rootCAs = x509.NewCertPool()
 	}
 
-	certs, err := ioutil.ReadFile(localCertFile)
+	certs, err := ioutil.ReadFile(CA_CERT)
 	if err != nil {
-		log.Fatalf("Failed to append %q to RootCAs: %v", localCertFile, err)
+		log.Fatalf("Failed to append %q to RootCAs: %v", CA_CERT, err)
 	}
 
 	if ok := rootCAs.AppendCertsFromPEM(certs); !ok {
@@ -73,7 +71,7 @@ func handleTls() *http.Transport {
 	}
 
 	conf := &tls.Config{
-		InsecureSkipVerify: *insecure,
+		InsecureSkipVerify: false,
 		RootCAs:            rootCAs,
 	}
 
