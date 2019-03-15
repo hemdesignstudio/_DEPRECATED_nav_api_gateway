@@ -10,13 +10,6 @@ import (
 	"net/http"
 )
 
-type RequestObject struct {
-	Endpoint string
-	Company  string
-	Fields   []string
-	Args     map[string]interface{}
-}
-
 func main() {
 	path := config.Endpoint + config.Version
 	router := mux.NewRouter().StrictSlash(true)
@@ -31,5 +24,5 @@ func main() {
 	router.HandleFunc(path+"/{company:[a-zA-Z]+}", handler)
 	fmt.Println("Server started at http://localhost:6789/graphql/v0.1.0/test")
 	http.Handle("/", router)
-	go log.Fatal(http.ListenAndServe(config.Host, nil))
+	log.Fatal(http.ListenAndServe(config.Host, nil))
 }

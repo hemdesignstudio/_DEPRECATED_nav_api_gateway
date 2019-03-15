@@ -61,6 +61,14 @@
   revision = "ffdc059bfe9ce6a4e144ba849dbedead332c6053"
   version = "v1.3.0"
 
+[[projects]]
+  branch = "master"
+  digest = "1:5cacbcca4b9d7dc5892e335e291bc1f2070172cbfb811945bb84b5adf9d4ca1d"
+  name = "github.com/vjeantet/jodaTime"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "be924ce213fb35f66c810b61e051965eb78b82d0"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
@@ -70,6 +78,7 @@
     "github.com/graphql-go/graphql-go-handler",
     "github.com/graphql-go/graphql/language/ast",
     "github.com/stretchr/testify/assert",
+    "github.com/vjeantet/jodaTime",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
