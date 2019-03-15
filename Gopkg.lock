@@ -69,6 +69,42 @@
   pruneopts = "UT"
   revision = "be924ce213fb35f66c810b61e051965eb78b82d0"
 
+[[projects]]
+  branch = "master"
+  digest = "1:a7e7d4a2763c58f27ccd9c712d073b3972ee8ba2780e652a8e918c7ef43149bf"
+  name = "golang.org/x/net"
+  packages = [
+    "http/httpguts",
+    "http2",
+    "http2/hpack",
+    "idna",
+  ]
+  pruneopts = "UT"
+  revision = "9f648a60d9775ef5c977e7669d1673a7a67bef33"
+
+[[projects]]
+  digest = "1:a2ab62866c75542dd18d2b069fec854577a20211d7c0ea6ae746072a1dccdd18"
+  name = "golang.org/x/text"
+  packages = [
+    "collate",
+    "collate/build",
+    "internal/colltab",
+    "internal/gen",
+    "internal/tag",
+    "internal/triegen",
+    "internal/ucd",
+    "language",
+    "secure/bidirule",
+    "transform",
+    "unicode/bidi",
+    "unicode/cldr",
+    "unicode/norm",
+    "unicode/rangetable",
+  ]
+  pruneopts = "UT"
+  revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
+  version = "v0.3.0"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
@@ -79,6 +115,7 @@
     "github.com/graphql-go/graphql/language/ast",
     "github.com/stretchr/testify/assert",
     "github.com/vjeantet/jodaTime",
+    "golang.org/x/net/http2",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

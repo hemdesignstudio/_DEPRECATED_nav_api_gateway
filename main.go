@@ -5,7 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/hem-nav-gateway/config"
 	"github.com/hem-nav-gateway/roothandler"
-
+	"golang.org/x/net/http2"
 	"log"
 	"net/http"
 )
@@ -22,7 +22,13 @@ func main() {
 	router.PathPrefix(path + "/godoc/").Handler(http.StripPrefix(path+"/godoc/", codeDoc))
 
 	router.HandleFunc(path+"/{company:[a-zA-Z]+}", handler)
-	fmt.Println("Server started at http://localhost:6789/graphql/v0.1.0/test")
-	http.Handle("/", router)
-	log.Fatal(http.ListenAndServe(config.Host, nil))
+	fmt.Println("Server started at https://localhost:6789/graphql/v0.1.0/test")
+
+	var srv http.Server
+
+	srv.Addr = config.Host
+	srv.Handler = router
+
+	http2.ConfigureServer(&srv, nil)
+	log.Fatal(srv.ListenAndServeTLS(config.SSL_Cert, config.SSL_Key))
 }

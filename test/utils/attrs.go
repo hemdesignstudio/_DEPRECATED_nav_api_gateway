@@ -14,6 +14,16 @@ func GetAssemblyBomAttrs() Attr {
 	return attrs
 }
 
+func GetInventoryAttrs() Attr {
+	attrs := Attr{
+		"No",
+		"Description",
+		"Receipt_Date",
+		"Quantity_Available",
+	}
+	return attrs
+}
+
 func GetCustomerCardAttrs() Attr {
 	attrs := Attr{
 		"No",

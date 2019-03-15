@@ -19,6 +19,17 @@ func GetAssemblyBomArgs() Args {
 	return args
 }
 
+func GetInventoryArgs() Args {
+	var id = "10005"
+	args := Args{}
+	args.FilterArgs = ArgType{
+		"key":   "No",
+		"value": id,
+	}
+
+	return args
+}
+
 func GetCustomerCardArgs() Args {
 	var id = "12233"
 	args := Args{}

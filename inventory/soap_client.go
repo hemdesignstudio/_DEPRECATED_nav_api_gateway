@@ -3,9 +3,12 @@ package inventory
 import (
 	"bytes"
 	"crypto/tls"
+	"crypto/x509"
 	"encoding/xml"
 	"fmt"
 	"github.com/hem-nav-gateway/config"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 )
@@ -18,6 +21,32 @@ func formatUri(company string) string {
 
 	uri := fmt.Sprintf("%s/%s/%s%s", baseUrl, company, TYPE, endpoint)
 	return uri
+}
+
+func handleTls() *http.Transport {
+
+	rootCAs, _ := x509.SystemCertPool()
+	if rootCAs == nil {
+		rootCAs = x509.NewCertPool()
+	}
+
+	certs, err := ioutil.ReadFile(config.CA_CERT)
+	if err != nil {
+		log.Fatalf("Failed to append %q to RootCAs: %v", config.CA_CERT, err)
+	}
+
+	if ok := rootCAs.AppendCertsFromPEM(certs); !ok {
+		log.Println("No certs appended, using system certs only")
+	}
+
+	conf := &tls.Config{
+		InsecureSkipVerify: false,
+		RootCAs:            rootCAs,
+	}
+
+	tr := &http.Transport{TLSClientConfig: conf}
+
+	return tr
 }
 
 func soapRequest(obj *SoapObject) (interface{}, error) {
@@ -37,13 +66,8 @@ func soapRequest(obj *SoapObject) (interface{}, error) {
 	req.Header.Set("SOAPAction", SOAP_ACTION)
 	req.SetBasicAuth(config.Username, config.Passwd)
 
-	client := &http.Client{
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
-			},
-		},
-	}
+	tr := handleTls()
+	client := &http.Client{Transport: tr}
 
 	res, err := client.Do(req)
 	if err != nil {
