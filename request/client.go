@@ -18,6 +18,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 // headers contain request headers to Microsft Navision
@@ -80,7 +81,11 @@ func handleTls() *http.Transport {
 func clientRequest(req *http.Request, method string) (int, interface{}, error) {
 
 	tr := handleTls()
-	client := &http.Client{Transport: tr}
+
+	client := &http.Client{
+		Transport: tr,
+		Timeout:   10 * time.Second,
+	}
 
 	resp, err := client.Do(req)
 	if err != nil {
