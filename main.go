@@ -22,7 +22,6 @@ func main() {
 	router.PathPrefix(path + "/godoc/").Handler(http.StripPrefix(path+"/godoc/", codeDoc))
 
 	router.HandleFunc(path+"/{company:[a-zA-Z]+}", handler)
-	fmt.Println("Server started at https://localhost:6789/graphql/v0.1.0/test")
 
 	var srv http.Server
 
@@ -30,5 +29,14 @@ func main() {
 	srv.Handler = router
 
 	http2.ConfigureServer(&srv, nil)
-	log.Fatal(srv.ListenAndServeTLS(config.SSL_Cert, config.SSL_Key))
+
+	if config.DEV {
+		fmt.Println("ENV = DEV")
+		fmt.Println("Server started at https://localhost:6789/graphql/v0.1.0/test")
+		log.Fatal(srv.ListenAndServeTLS(config.SSL_Cert, config.SSL_Key))
+	} else {
+		fmt.Println("Server started at http://localhost:6789/graphql/v0.1.0/test")
+		log.Fatal(srv.ListenAndServe())
+	}
+
 }
