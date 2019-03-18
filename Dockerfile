@@ -4,9 +4,9 @@ RUN apk --no-cache add curl git gcc musl-dev
 
 RUN curl -fsSL -o /usr/local/bin/dep https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64 && chmod +x /usr/local/bin/dep
 
-RUN mkdir -p /go/src/github.com/nav-api-gateway
-ADD . /go/src/github.com/nav-api-gateway/
-WORKDIR /go/src/github.com/nav-api-gateway
+RUN mkdir -p /go/src/github.com/hem-nav-gateway
+ADD . /go/src/github.com/hem-nav-gateway/
+WORKDIR /go/src/github.com/hem-nav-gateway
 
 RUN dep ensure -vendor-only
 
@@ -27,7 +27,6 @@ COPY --from=builder /go/src/github.com/hem-nav-gateway/main /
 COPY --from=builder /go/src/github.com/hem-nav-gateway/cert /cert/
 COPY --from=builder /go/src/github.com/hem-nav-gateway/codeDoc /codeDoc/
 COPY --from=builder /go/src/github.com/hem-nav-gateway/doc /doc/
-
 
 EXPOSE 6789
 
