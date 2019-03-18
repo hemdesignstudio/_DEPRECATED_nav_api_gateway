@@ -1,3 +1,9 @@
+#!/bin/bash
+
+#---------- root CA commands ---------- #
+openssl x509 -req -in nginx.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out nginx.crt -days 500 -sha256
+
+openssl x509 -in nginx.crt -text -noout
 
 openssl genrsa -out localhost.key 2048
 
@@ -28,7 +34,3 @@ openssl req -new -sha256 \
     -out nginx.csr
 
 openssl req -in nginx.csr -noout -text
-
-openssl x509 -req -in nginx.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out nginx.crt -days 500 -sha256
-
-openssl x509 -in nginx.crt -text -noout
