@@ -20,7 +20,6 @@ tags:
     description: GraphQl Query and mutation
 schemes:
   - https
-  - http
 
 
 paths:
@@ -28,6 +27,8 @@ paths:
     get:
       summary: Get All values or Filter values for An entity
       operationId: getEntityByQuery
+      security:
+        - api_key: []
       parameters:
         - in: query
           name: query
@@ -52,6 +53,9 @@ paths:
     post:
       summary: Creates or updates an Entity
       operationId: createOrUpdateEntity
+      security:
+        - api_key: []
+        - service_1: []
       consumes:
         - application/json
       parameters:
@@ -81,9 +85,6 @@ paths:
                 type: integer
                 example: 10
 
-security:
-  - api_key: []
-    service_1: []
 
 securityDefinitions:
   # This section configures basic authentication with an API key.
