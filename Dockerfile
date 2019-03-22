@@ -24,9 +24,6 @@ FROM alpine
 RUN apk --no-cache --update add ca-certificates
 
 COPY --from=builder /go/src/github.com/hem-nav-gateway/main /
-COPY --from=builder /go/src/github.com/hem-nav-gateway/cert /cert/
-COPY --from=builder /go/src/github.com/hem-nav-gateway/codeDoc /codeDoc/
-COPY --from=builder /go/src/github.com/hem-nav-gateway/doc /doc/
 
 EXPOSE 6789
 

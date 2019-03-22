@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: 'GraphQl API endpoint for Microsoft Navision  '
+  description: 'GraphQl API endpoint for Microsoft Navision'
   version: 0.1.0
   title: Nav-API-Gateway
   termsOfService: ''
@@ -9,10 +9,10 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-host: nav-api.endpoints.staging-217409.cloud.goog
+host: nav-api.endpoints.production-217408.cloud.goog
 x-google-endpoints:
-  - name: 'nav-api.endpoints.staging-217409.cloud.goog'
-    target: '173.255.116.139'
+  - name: 'nav-api.endpoints.production-217408.cloud.goog'
+    target: '35.204.39.196'
 
 basePath: /
 tags:
@@ -20,7 +20,6 @@ tags:
     description: GraphQl Query and mutation
 schemes:
   - https
-  - http
 
 
 paths:
@@ -83,7 +82,7 @@ paths:
 
 security:
   - api_key: []
-    service_1: []
+    default_service: []
 
 securityDefinitions:
   # This section configures basic authentication with an API key.
@@ -92,10 +91,10 @@ securityDefinitions:
     name: "key"
     in: "query"
 
-  service_1:
+  default_service:
     authorizationUrl: ""
     flow: "implicit"
     type: "oauth2"
-    x-google-issuer: "nav-api-gateway@staging-217409.iam.gserviceaccount.com"
-    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/nav-api-gateway@staging-217409.iam.gserviceaccount.com"
+    x-google-issuer: "nav-api@production-217408.iam.gserviceaccount.com"
+    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/nav-api@production-217408.iam.gserviceaccount.com"
 

@@ -1,36 +1,42 @@
 #!/bin/bash
 
-#---------- root CA commands ---------- #
-openssl x509 -req -in nginx.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out nginx.crt -days 500 -sha256
-
-openssl x509 -in nginx.crt -text -noout
+#---------- localhost commands ---------- #
 
 openssl genrsa -out localhost.key 2048
 
-openssl req -new -sha256 \
-    -key localhost.key \
-    -subj "/C=SE/ST=Stockholm/O=Hem Design Studio, Inc./CN=localhost" \
-    -reqexts SAN \
-    -config <(cat /etc/ssl/openssl.cnf \
-        <(printf "\n[SAN]\nsubjectAltName=DNS:localhost,DNS:127.0.0.1")) \
-    -out localhost.csr
+openssl req -new -key localhost.key -out localhost.csr
 
 openssl req -in localhost.csr -noout -text
 
-openssl x509 -req -in localhost.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out localhost.crt -days 500 -sha256
+openssl x509 -req -in localhost.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out localhost.crt -days 1825 -sha256 -extfile localhost.ext
 
 openssl x509 -in localhost.crt -text -noout
 
-#------------ nginx -------------------#
+
+
+#------------ nginx test-------------------#
+
+openssl genrsa -out test.key 2048
+
+openssl req -new -key test.key -out test.csr
+
+openssl req -in test.csr -noout -text
+
+openssl x509 -req -in test.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out test.crt -days 1825 -sha256 -extfile test.ext
+
+openssl x509 -in nginx.crt -text -noout
+
+#------------ nginx prod-------------------#
 
 openssl genrsa -out nginx.key 2048
 
-openssl req -new -sha256 \
-    -key nginx.key \
-    -subj "/C=SE/ST=Stockholm/O=Hem Design Studio, Inc./CN=nav-api.endpoints.staging-217409.cloud.goog" \
-    -reqexts SAN \
-    -config <(cat /etc/ssl/openssl.cnf \
-        <(printf "\n[SAN]\nsubjectAltName=DNS:nav-api.endpoints.staging-217409.cloud.goog,DNS:www.nav-api.endpoints.staging-217409.cloud.goog")) \
-    -out nginx.csr
+openssl req -new -key nginx.key -out nginx.csr
 
 openssl req -in nginx.csr -noout -text
+
+openssl x509 -req -in nginx.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out nginx.crt -days 1825 -sha256 -extfile nginx.ext
+
+openssl x509 -in nginx.crt -text -noout
+
+#--------- cloud secret creation -----------#
+kubectl create secret generic nginx-ssl --from-file=./nginx.crt --from-file=./nginx.key

@@ -1,0 +1,102 @@
+swagger: '2.0'
+info:
+  description: 'GraphQl API endpoint for Microsoft Navision  '
+  version: 0.1.0
+  title: Nav-API-Gateway
+  termsOfService: ''
+  contact:
+    email: ahmed@hem.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: nav-api.endpoints.staging-217409.cloud.goog
+x-google-endpoints:
+  - name: 'nav-api.endpoints.staging-217409.cloud.goog'
+    target: '173.255.116.139'
+
+basePath: /
+tags:
+  - name: /graphql/v0.1.0
+    description: GraphQl Query and mutation
+schemes:
+  - https
+
+
+paths:
+  /graphql/v0.1.0/test:
+    get:
+      summary: Get All values or Filter values for An entity
+      operationId: getEntityByQuery
+      security:
+        - api_key: []
+      parameters:
+        - in: query
+          name: query
+          type: string
+          description: '{Entity(key:"string",value:"string"){return fields}}'
+          default: string
+          required: true
+      responses:
+        '200':
+          description: Success response
+          schema:
+            type: object
+            description:
+              fields requested in the query will be returned with their correspoding values
+            properties:
+              field1:
+                type: string
+                example: string
+              field2:
+                type: integer
+                example: 10
+    post:
+      summary: Creates or updates an Entity
+      operationId: createOrUpdateEntity
+      security:
+        - api_key: []
+        - service_1: []
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: query
+          description: GraphQl mutation can be added here
+          schema:
+            type: object
+            required:
+              - query
+            properties:
+              query:
+                type: string
+                example: 'mutation{UpdateCustomerCard(No:"112233",Name:"Test_name"){No Name}}}'
+
+      responses:
+        '200':
+          description: Success response for Updating or Creating an Entity
+          schema:
+            type: object
+            description: fields requested in the query will be returned with their correspoding values
+            properties:
+              field1:
+                type: string
+                example: string
+              field2:
+                type: integer
+                example: 10
+
+
+securityDefinitions:
+  # This section configures basic authentication with an API key.
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+
+  service_1:
+    authorizationUrl: ""
+    flow: "implicit"
+    type: "oauth2"
+    x-google-issuer: "nav-api-gateway@staging-217409.iam.gserviceaccount.com"
+    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/nav-api-gateway@staging-217409.iam.gserviceaccount.com"
+
