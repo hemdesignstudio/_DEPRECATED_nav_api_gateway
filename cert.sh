@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#---- Root CA----------#
+openssl genrsa -des3 -out rootCA.key 2048
+
+openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1825 -out rootCA.pem
+
+
 #---------- localhost commands ---------- #
 
 openssl genrsa -out localhost.key 2048
@@ -24,7 +30,7 @@ openssl req -in test.csr -noout -text
 
 openssl x509 -req -in test.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out test.crt -days 1825 -sha256 -extfile test.ext
 
-openssl x509 -in nginx.crt -text -noout
+openssl x509 -in test.crt -text -noout
 
 #------------ nginx prod-------------------#
 
