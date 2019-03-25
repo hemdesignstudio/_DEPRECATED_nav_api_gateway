@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#---- Root CA----------#
+openssl genrsa -des3 -out rootCA.key 2048
+
+openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1825 -out rootCA.pem
+
+
 #---------- localhost commands ---------- #
 
 openssl genrsa -out localhost.key 2048
