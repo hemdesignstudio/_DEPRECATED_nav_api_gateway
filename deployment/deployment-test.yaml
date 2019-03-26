@@ -32,6 +32,9 @@ spec:
         - name: nginx-ssl
           secret:
             secretName: nginx-ssl
+        - name: nav-credentials
+          secret:
+            secretName: nav-credentials
       containers:
         # [START esp]
         - name: esp
@@ -50,6 +53,9 @@ spec:
           volumeMounts:
             - mountPath: /etc/nginx/ssl
               name: nginx-ssl
+              readOnly: true
+            - mountPath: /etc/hem_nav_gateway/
+              name: nav-credentials
               readOnly: true
         - name: nav-api
           image: gcr.io/staging-217409/nav-api:latest
