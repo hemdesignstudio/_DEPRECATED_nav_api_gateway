@@ -40,7 +40,8 @@ func headers(uri string, method string, body interface{}) *http.Request {
 	req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(_body))
 
 	// Basic authentication is added to header
-	req.SetBasicAuth(config.Username, config.Passwd)
+	username, password := config.NAVCredentials()
+	req.SetBasicAuth(username, password)
 
 	// others header values are defined here
 	req.Header.Add("If-Match", "*")
