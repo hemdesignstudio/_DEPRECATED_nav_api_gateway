@@ -1,4 +1,4 @@
-config/*
+config/credentials.json
 .idea
 vendor/*
 ca/*

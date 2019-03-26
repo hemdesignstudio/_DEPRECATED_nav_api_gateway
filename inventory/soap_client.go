@@ -62,9 +62,10 @@ func soapRequest(obj *SoapObject) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+	username, password := config.NAVCredentials()
 	req.Header.Set("Content-type", "text/xml")
 	req.Header.Set("SOAPAction", SOAP_ACTION)
-	req.SetBasicAuth(config.Username, config.Passwd)
+	req.SetBasicAuth(username, password)
 
 	tr := handleTls()
 	client := &http.Client{Transport: tr}
