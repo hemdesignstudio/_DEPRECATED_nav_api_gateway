@@ -31,3 +31,14 @@ func removeField(name string, fields interface{}) interface{} {
 
 	return _fields
 }
+
+func addFieldIfNotExist(name string, fields interface{}) interface{} {
+	_fields := fields.([]string)
+	for _, _name := range _fields {
+		if name == _name {
+			return fields
+		}
+	}
+
+	return append(_fields, name)
+}

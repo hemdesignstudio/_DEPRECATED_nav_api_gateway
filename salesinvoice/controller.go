@@ -48,6 +48,7 @@ func (r *Request) GetAll() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	_salesLine.Company = r.Company
+	r.Object.Fields = addFieldIfNotExist("No", r.Object.Fields)
 
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 	r.Object.Response = Response{}
@@ -68,6 +69,7 @@ func (r *Request) Filter() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	_salesLine.Company = r.Company
+	r.Object.Fields = addFieldIfNotExist("No", r.Object.Fields)
 
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 	r.Object.Response = Response{}
