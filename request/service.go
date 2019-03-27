@@ -28,17 +28,18 @@ func GetAll(obj types.RequestObject) (interface{}, error) {
 // takes args --> filter arguments
 // returns a list of filtered object values
 func Filter(obj types.RequestObject) (interface{}, error) {
-
 	resValue, resError := filterByArgs(obj)
 	if resError != nil {
 		return nil, resError
 	}
+
 	err := json.Unmarshal(resValue.([]byte), &obj.Response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
 	}
 	res := obj.Response.(map[string]interface{})
 	values := res["value"].([]interface{})
+
 	if len(values) == 0 {
 		return nil, errorhandler.ValueIsNotCorrect(obj.Args)
 	}
