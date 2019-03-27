@@ -54,7 +54,7 @@ spec:
             - mountPath: /etc/nginx/ssl
               name: nginx-ssl
               readOnly: true
-            - mountPath: /etc
+            - mountPath: /etc/nav
               name: nav-credentials
               readOnly: true
         - name: nav-api
