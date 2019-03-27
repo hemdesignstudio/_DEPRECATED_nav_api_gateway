@@ -44,7 +44,7 @@ spec:
             "--ssl_port", "443",
             "--backend", "127.0.0.1:6789",
             "--service", "nav-api.endpoints.staging-217409.cloud.goog",
-            "--version", "2019-03-27r0",
+            "--version", "2019-03-27r1",
           ]
           # [END esp]
           ports:
@@ -54,15 +54,13 @@ spec:
             - mountPath: /etc/nginx/ssl
               name: nginx-ssl
               readOnly: true
-            - mountPath: /etc
-              name: nav-credentials
-              readOnly: true
-          command:
-            - ls
-            - "-l"
-            - "/etc/secret-volume"
+
         - name: nav-api
           image: gcr.io/staging-217409/hem-nav-gateway:latest
           ports:
             - containerPort: 6789
+          volumeMounts:
+            - mountPath: /etc/nav
+              name: nav-credentials
+              readOnly: true
 ---
