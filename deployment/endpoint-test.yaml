@@ -12,7 +12,7 @@ info:
 host: nav-api.endpoints.staging-217409.cloud.goog
 x-google-endpoints:
   - name: 'nav-api.endpoints.staging-217409.cloud.goog'
-    target: '173.255.116.139'
+    target: '35.222.23.233'
 
 basePath: /
 tags:

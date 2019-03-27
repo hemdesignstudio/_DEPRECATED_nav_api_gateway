@@ -15,7 +15,7 @@ var (
 
 func init() {
 	viper.SetConfigName("credentials") // name of config file (without extension)
-	viper.AddConfigPath("/etc/hem_nav_gateway/")
+	viper.AddConfigPath("/etc/")
 	viper.AddConfigPath("./config/")
 	viper.AddConfigPath(".") // optionally look for config in the working directory
 
