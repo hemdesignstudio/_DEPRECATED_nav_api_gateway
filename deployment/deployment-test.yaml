@@ -44,7 +44,7 @@ spec:
             "--ssl_port", "443",
             "--backend", "127.0.0.1:6789",
             "--service", "nav-api.endpoints.staging-217409.cloud.goog",
-            "--version", "2019-03-21r1",
+            "--version", "2019-03-27r0",
           ]
           # [END esp]
           ports:

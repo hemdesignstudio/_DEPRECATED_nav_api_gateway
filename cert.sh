@@ -46,3 +46,5 @@ openssl x509 -in nginx.crt -text -noout
 
 #--------- cloud secret creation -----------#
 kubectl create secret generic nginx-ssl --from-file=./nginx.crt --from-file=./nginx.key
+
+kubectl create secret generic nav-credentials --from-file=./credentials.json
