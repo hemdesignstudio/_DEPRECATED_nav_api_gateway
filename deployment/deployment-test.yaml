@@ -54,9 +54,13 @@ spec:
             - mountPath: /etc/nginx/ssl
               name: nginx-ssl
               readOnly: true
-            - mountPath: /etc/nav
+            - mountPath: /etc
               name: nav-credentials
               readOnly: true
+          command:
+            - ls
+            - "-l"
+            - "/etc/secret-volume"
         - name: nav-api
           image: gcr.io/staging-217409/hem-nav-gateway:latest
           ports:
