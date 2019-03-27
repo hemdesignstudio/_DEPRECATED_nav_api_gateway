@@ -22,7 +22,7 @@ func removeField(name string, fields interface{}) interface{} {
 			// some elements with values are still referenced by slice a and
 			// thus can not be collected.
 			// although we are dealing with a []string,
-			// It is still better to be oin the safe side and implement it this way
+			// It is still better to be on the safe side and implement it this way
 			copy(_fields[index:], _fields[index+1:])
 			_fields[len(_fields)-1] = ""
 			_fields = _fields[:len(_fields)-1]
@@ -30,4 +30,15 @@ func removeField(name string, fields interface{}) interface{} {
 	}
 
 	return _fields
+}
+
+func addFieldIfNotExist(name string, fields interface{}) interface{} {
+	_fields := fields.([]string)
+	for _, _name := range _fields {
+		if name == _name {
+			return fields
+		}
+	}
+
+	return append(_fields, name)
 }

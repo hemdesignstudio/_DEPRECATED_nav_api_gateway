@@ -47,8 +47,9 @@ func (r *Request) GetAll() (interface{}, error) {
 	// and should not be sent to Navision
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
+	_salesLine.Company = r.Company
+	r.Object.Fields = addFieldIfNotExist("No", r.Object.Fields)
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
-
 	r.Object.Response = Response{}
 
 	return request.GetAll(r.Object)
@@ -66,6 +67,9 @@ func (r *Request) Filter() (interface{}, error) {
 	// and should not be sent to Navision
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
+	_salesLine.Company = r.Company
+	r.Object.Fields = addFieldIfNotExist("No", r.Object.Fields)
+
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 
 	r.Object.Response = Response{}
@@ -85,7 +89,6 @@ func (r *Request) Create() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
-
 	r.Object.Response = Response{}
 
 	return request.Create(r.Object)
@@ -109,7 +112,6 @@ func (r *Request) Update() (interface{}, error) {
 	r.Object.Properties["docType"] = "Order"
 
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
-
 	r.Object.Response = Response{}
 
 	return request.Update(r.Object)
