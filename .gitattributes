@@ -1,2 +1,2 @@
-doc/* linguist-vendored
-codeDoc/* linguist-vendored
+docs/* linguist-vendored
+graphql_doc/* linguist-vendored

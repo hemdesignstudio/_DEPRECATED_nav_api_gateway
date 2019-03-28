@@ -22,7 +22,10 @@ func main() {
 	srv.Addr = config.Host
 	srv.Handler = router
 
-	http2.ConfigureServer(&srv, nil)
+	err := http2.ConfigureServer(&srv, nil)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 
 	if config.DEV {
 		fmt.Println("ENV = DEV")
