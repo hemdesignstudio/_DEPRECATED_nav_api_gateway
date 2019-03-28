@@ -15,12 +15,6 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	handler := roothandler.RootEndpoint
 
-	doc := http.FileServer(http.Dir("./docs/"))
-	router.PathPrefix(path + "/doc/").Handler(http.StripPrefix(path+"/doc/", doc))
-
-	codeDoc := http.FileServer(http.Dir("./codeDoc/"))
-	router.PathPrefix(path + "/godoc/").Handler(http.StripPrefix(path+"/godoc/", codeDoc))
-
 	router.HandleFunc(path+"/{company:[a-zA-Z]+}", handler)
 
 	var srv http.Server
