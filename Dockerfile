@@ -11,8 +11,8 @@ WORKDIR /go/src/github.com/hem-nav-gateway
 RUN dep ensure -vendor-only
 
 # Tester
-# FROM dependencies as tester
-# RUN go test ./... -v
+FROM dependencies as tester
+RUN go test ./... -v
 
 # Builder
 FROM dependencies as builder
