@@ -21,17 +21,38 @@ func getSalesLinesFields() *graphql.Field {
 	field := &graphql.Field{
 		Type: graphql.NewList(&salesLineType),
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			salesOrder, ok := p.Source.(map[string]interface{})
-
-			if ok == true {
-				p.Args["key"] = "Document_No"
-				p.Args["value"] = salesOrder["No"]
-
-				_salesLine.Object.Args = p.Args
-				return _salesLine.Filter()
+			type result struct {
+				data interface{}
+				err  error
 			}
-			return nil, nil
+			ch := make(chan *result, 1)
+			go func() {
+				defer close(ch)
 
+				salesOrder, ok := p.Source.(map[string]interface{})
+
+				if ok == true {
+					p.Args["key"] = "Document_No"
+					p.Args["value"] = salesOrder["No"]
+
+					_salesLine.Object.Args = p.Args
+					data, err := _salesLine.Filter()
+					if err != nil {
+						ch <- &result{data: nil, err: err}
+
+					} else {
+						ch <- &result{data: data, err: nil}
+					}
+
+				} else {
+					ch <- &result{data: nil, err: nil}
+
+				}
+			}()
+			return func() (interface{}, error) {
+				r := <-ch
+				return r.data, r.err
+			}, nil
 		},
 	}
 	return field
