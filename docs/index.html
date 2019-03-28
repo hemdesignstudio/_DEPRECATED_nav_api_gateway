@@ -1,220 +1,281 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="./styles/graphdoc.css" />
-    <title>Graphql schema documentation</title>
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700" rel="stylesheet"><link type="text/css" rel="stylesheet" href="./assets/code.css" /><link type="text/css" rel="stylesheet" href="./assets/require-by.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>hem-nav-gateway - The Go Programming Language</title>
+
+<link type="text/css" rel="stylesheet" href="lib/godoc/style.css">
+
+<link rel="stylesheet" href="lib/godoc/jquery.treeview.css">
+<script>window.initFuncs = [];</script>
+
+<script src="lib/godoc/jquery.js" defer></script>
+<script src="lib/godoc/jquery.treeview.js" defer></script>
+<script src="lib/godoc/jquery.treeview.edit.js" defer></script>
+
+
+<script>var goVersion = "go1.11.4";</script>
+<script src="lib/godoc/godocs.js" defer></script>
 </head>
-<body class="slds-scrollable--y">
-    <nav class="slds-grid slds-grid--vertical slds-col--rule-right">
-        <header class="slds-p-around--medium slds-col slds-shrik slds-grow-none">
-            <button class="slds-button slds-button--icon slds-float--right js-toggle-navigation less-than-medium">
-                <i class="material-icons">close</i>
-            </button>
-                <h3 class="slds-text-heading--medium"><a href="./">GraphQL Schema</a></h3>
-            <div class="slds-p-top--small">
-                <input id="type-search" type="text" placeholder="Search a type" autofocus="" class="slds-input" />
-            </div>
-        </header>
-        <div id="navication-scroll" class="slds-scrollable--y slds-col slds-grow">
-<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
-    <h4 class="slds-text-title--caps slds-p-around--medium">Schema</h4>
-    <ul>
-        <li  title="RootQuery">
-            <a href="rootquery.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                RootQuery
-            </a>
-        </li>
-        <li  title="RootMutation">
-            <a href="rootmutation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                RootMutation
-            </a>
-        </li>
-    </ul>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Command hem-nav-gateway
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		
+	
+
+	
+
+
+
+
+
+	
+	
+		<h2 id="pkg-subdirectories">Subdirectories</h2>
+	
+	<div class="pkg-dir">
+		<table>
+			<tr>
+				<th class="pkg-name">Name</th>
+				<th class="pkg-synopsis">Synopsis</th>
+			</tr>
+
+			
+			<tr>
+				<td colspan="2"><a href="http://localhost:6060/pkg/github.com/">..</a></td>
+			</tr>
+			
+
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="assemblybom/index.html">assemblybom</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package assemblybom implements a simple package for handling all graphql operations related to Microsoft Navision Assembly_Bom page.
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="config/index.html">config</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="customer/index.html">customer</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package customer implements a simple package for handling all graphql operations related to Microsoft Navision CustomerCardWS page.
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="errorhandler/index.html">errorhandler</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package errorhandler implements a simple package for handling errors related to Hem Nav API Gateway Handler type defined in this package is used to decode JSON coming from Microsft Navision In case of errors Example Error Response from Microsoft Navision: Example: &#39;&#39;&#39; { &#34;error&#34;: { &#34;code&#34;: &#34;BadRequest&#34;, &#34;message&#34;: &#34;Could not find a property named &#39;hello&#39; on type &#39;NAV.CustomerCardWS&#39;.&#34; } } &#39;&#39;&#39; The way of decoding JSON error message Example: handler := Handler{} err := json.Unmarshal(errorBody, &amp;handler)
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="field/index.html">field</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package fields implements a simple package for handling GraphQl fields.
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="item/index.html">item</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package item implements a simple package for handling all graphql operations related to Microsoft Navision ItemCard page.
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="postship/index.html">postship</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package postship implements a simple package for handling all graphql operations related to Microsoft Navision WebSalesShipment or Posted Sales Shipment page.
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="request/index.html">request</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package request implements a simple package for handling HTTP requests to Microsoft Navision
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="roothandler/index.html">roothandler</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package roothandler implements a simple package for HTTP Handler functions.
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="salesinvoice/index.html">salesinvoice</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package salesinvoice implements a simple package for handling all graphql operations related to Microsoft Navision SalesInvoice page.
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="salesline/index.html">salesline</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package salesline implements a simple package for handling all graphql operations related to Microsoft Navision SalesLine page.
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="salesorder/index.html">salesorder</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package SalesOrder implements a simple package for handling all graphql operations related to Microsoft Navision SalesOrder page.
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="test/index.html">test</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="test/utils/index.html">utils</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="types/index.html">types</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package types implements a package generating GraphQL Types and Mutation Arguments.
+					</td>
+				</tr>
+			
+		</table>
+	</div>
+
+
+
+<div id="footer">
+Build version go1.11.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:6060/LICENSE">BSD license</a>.<br>
+<a href="http://localhost:6060/doc/tos.html">Terms of Service</a> |
+<a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
 </div>
-<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
-    <h4 class="slds-text-title--caps slds-p-around--medium">Scalars</h4>
-    <ul>
-        <li  title="Boolean">
-            <a href="boolean.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                Boolean
-            </a>
-        </li>
-        <li  title="Float">
-            <a href="float.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                Float
-            </a>
-        </li>
-        <li  title="Int">
-            <a href="int.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                Int
-            </a>
-        </li>
-        <li  title="String">
-            <a href="string.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                String
-            </a>
-        </li>
-    </ul>
-</div>
-<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
-    <h4 class="slds-text-title--caps slds-p-around--medium">Enums</h4>
-    <ul>
-        <li  title="__DirectiveLocation">
-            <a href="directivelocation.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                __DirectiveLocation
-            </a>
-        </li>
-        <li  title="__TypeKind">
-            <a href="typekind.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                __TypeKind
-            </a>
-        </li>
-    </ul>
-</div>
-<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
-    <h4 class="slds-text-title--caps slds-p-around--medium">Objects</h4>
-    <ul>
-        <li  title="AssemblyBom">
-            <a href="assemblybom.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                AssemblyBom
-            </a>
-        </li>
-        <li  title="CustomerCard">
-            <a href="customercard.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                CustomerCard
-            </a>
-        </li>
-        <li  title="Invoice_SalesLines">
-            <a href="invoice_saleslines.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                Invoice_SalesLines
-            </a>
-        </li>
-        <li  title="ItemCard">
-            <a href="itemcard.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                ItemCard
-            </a>
-        </li>
-        <li  title="Order_SalesLines">
-            <a href="order_saleslines.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                Order_SalesLines
-            </a>
-        </li>
-        <li  title="PostShip">
-            <a href="postship.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                PostShip
-            </a>
-        </li>
-        <li  title="SalesInvoice">
-            <a href="salesinvoice.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SalesInvoice
-            </a>
-        </li>
-        <li  title="SalesLine">
-            <a href="salesline.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SalesLine
-            </a>
-        </li>
-        <li  title="SalesOrder">
-            <a href="salesorder.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SalesOrder
-            </a>
-        </li>
-        <li  title="__Directive">
-            <a href="directive.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                __Directive
-            </a>
-        </li>
-        <li  title="__EnumValue">
-            <a href="enumvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                __EnumValue
-            </a>
-        </li>
-        <li  title="__Field">
-            <a href="field.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                __Field
-            </a>
-        </li>
-        <li  title="__InputValue">
-            <a href="inputvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                __InputValue
-            </a>
-        </li>
-        <li  title="__Schema">
-            <a href="schema.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                __Schema
-            </a>
-        </li>
-        <li  title="__Type">
-            <a href="type.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                __Type
-            </a>
-        </li>
-    </ul>
-</div>
-<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
-    <h4 class="slds-text-title--caps slds-p-around--medium">Directives</h4>
-    <ul>
-        <li  title="deprecated">
-            <a href="deprecated.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                deprecated
-            </a>
-        </li>
-        <li  title="include">
-            <a href="include.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                include
-            </a>
-        </li>
-        <li  title="skip">
-            <a href="skip.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                skip
-            </a>
-        </li>
-    </ul>
-</div>
-        </div>
-    </nav>
-    <main><section class="title slds-theme--inverse">
-    <div class="container slds-grid">
-        <div>
-        <button class="slds-button js-toggle-navigation less-than-medium">
-            <i class="material-icons slds-button__icon slds-button__icon--left">menu</i>
-            <span class="slds-text-title--caps">Types<span>
-        </button>
-        </div>
-        </div>
-    </div>
-    <div class="container">
-        
-        <h1 class="slds-text-heading--large">Graphql schema documentation</h1>
-        <div class="slds-text-body--regular"></div>
-    </div>
-</section>
-<section>
-    <div class="container">
-        <h2 id="graphql-schema-definition" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
-            <a href="#graphql-schema-definition">
-                <i class="material-icons">link</i>
-            </a>
-            GraphQL Schema definition
-        </h2>
-        <code class="highlight"><ul class="code" style="padding-left:28px"><li><span class="keyword operator ts">schema</span> {</li><li></li><li><span class="tab"><span class="meta">query</span>: <a class="support type" href="rootquery.doc.html">RootQuery</a></span></li><li></li><li><span class="tab"><span class="meta">mutation</span>: <a class="support type" href="rootmutation.doc.html">RootMutation</a></span></li><li>}</li></ul></code>
-    </div>
-</section>
-<footer>
-<div class="container slds-p-around--large">
-    <p class="slds-text-align--right slds-text-title--caps">
-        Generated with <a href="https://github.com/2fd/graphdoc#readme" target="_blank">graphdoc 2.4.0</a>
-    </p>
-</div>
-</footer>
-</main>
-    <script src="./scripts/focus-active.js"></script>
-    <script src="./scripts/filter-types.js"></script>
-    <script src="./scripts/toggle-navigation.js"></script>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
 </body>
+</html>
+
