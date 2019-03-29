@@ -115,20 +115,40 @@ func queryField(field fieldType) *graphql.Field {
 		Args: filterArgs,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 
-			fieldASTs := p.Info.FieldASTs
-
-			if len(fieldASTs) == 0 {
-				return nil, fmt.Errorf("getSelectedFields: ResolveParams has no fields")
+			type result struct {
+				data interface{}
+				err  error
 			}
-			fields, _ := resolveField(p, fieldASTs[0].SelectionSet.Selections)
+			ch := make(chan *result, 1)
+			go func() {
+				defer close(ch)
 
-			field.SetArgs(p.Args)
-			field.SetFields(fields)
+				fieldASTs := p.Info.FieldASTs
 
-			if len(p.Args) != 2 {
-				return field.GetAll()
-			}
-			return field.Filter()
+				if len(fieldASTs) == 0 {
+					ch <- &result{
+						data: nil,
+						err:  fmt.Errorf("getSelectedFields: ResolveParams has no fields"),
+					}
+				} else {
+					fields, _ := resolveField(p, fieldASTs[0].SelectionSet.Selections)
+
+					field.SetArgs(p.Args)
+					field.SetFields(fields)
+
+					if len(p.Args) != 2 {
+						data, err := field.GetAll()
+						ch <- &result{data: data, err: err}
+					} else {
+						data, err := field.Filter()
+						ch <- &result{data: data, err: err}
+					}
+				}
+			}()
+			return func() (interface{}, error) {
+				r := <-ch
+				return r.data, r.err
+			}, nil
 		},
 	}
 	return _field
