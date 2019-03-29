@@ -153,7 +153,6 @@ createFields creates GraphQL Type fields for GraphQl mutation related to creatin
 			'''
 */
 func createField(field fieldType) *graphql.Field {
-
 	_field := &graphql.Field{
 
 		Type: field.CreateType(),
