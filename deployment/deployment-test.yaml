@@ -56,7 +56,7 @@ spec:
               readOnly: true
 
         - name: nav-api
-          image: gcr.io/staging-217409/hem-nav-gateway:latest
+          image: gcr.io/staging-217409/hem-nav-gateway:2c342b819d2c0d7de0a778bb14d3c23b8d368900
           ports:
             - containerPort: 6789
           volumeMounts:
