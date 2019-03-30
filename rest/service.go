@@ -2,7 +2,7 @@
 // Use of this source code is governed by a
 // license that can be found in the LICENSE file.
 
-package request
+package rest
 
 import (
 	"encoding/json"
@@ -10,11 +10,19 @@ import (
 	"github.com/hem-nav-gateway/types"
 )
 
+func newController() *controller {
+	return &controller{}
+}
+
+type Service struct {
+}
+
 // GetAll handles getting all entities for a specified object types (customer, item ... etc)
 // takes fields --> fields to be returned from Navision
 // returns a list of requests object values
-func GetAll(obj types.RequestObject) (interface{}, error) {
-	resValue := getAllEntities(obj)
+func (*Service) GetAll(obj types.RequestObject) (interface{}, error) {
+	c := newController()
+	resValue := c.getAllEntities(obj)
 	err := json.Unmarshal(resValue.([]byte), &obj.Response)
 	if err != nil {
 		return nil, errorhandler.CouldNotUnmarshalData()
@@ -27,8 +35,9 @@ func GetAll(obj types.RequestObject) (interface{}, error) {
 // takes fields --> fields to be returned from Navision
 // takes args --> filter arguments
 // returns a list of filtered object values
-func Filter(obj types.RequestObject) (interface{}, error) {
-	resValue, resError := filterByArgs(obj)
+func (*Service) Filter(obj types.RequestObject) (interface{}, error) {
+	c := newController()
+	resValue, resError := c.filterByArgs(obj)
 	if resError != nil {
 		return nil, resError
 	}
@@ -50,10 +59,10 @@ func Filter(obj types.RequestObject) (interface{}, error) {
 // takes fields --> fields to be returned from Navision
 // takes args --> arguments are object values to be created
 // returns the created object with its return fields
-func Create(obj types.RequestObject) (interface{}, error) {
-
+func (*Service) Create(obj types.RequestObject) (interface{}, error) {
+	c := newController()
 	body, _ := json.Marshal(obj.Args)
-	resValue, resError := createEntity(obj, body)
+	resValue, resError := c.createEntity(obj, body)
 	if resError != nil {
 		return nil, resError
 	}
@@ -68,8 +77,8 @@ func Create(obj types.RequestObject) (interface{}, error) {
 // takes fields --> fields to be returned from Navision
 // takes args --> arguments are object values to be updated
 // returns the created object with its return fields
-func Update(obj types.RequestObject) (interface{}, error) {
-
+func (*Service) Update(obj types.RequestObject) (interface{}, error) {
+	c := newController()
 	var resValue interface{}
 	var resError error
 
@@ -82,19 +91,19 @@ func Update(obj types.RequestObject) (interface{}, error) {
 		// In this specific case "Document_No" acts as id
 		// this is related to how Microsoft Navision works
 		if _, ok := obj.Args["Line_No"]; ok {
-			resValue, resError = updateEntitybyDocumentTypeAndIDAndLineNo(obj, body)
+			resValue, resError = c.updateEntitybyDocumentTypeAndIDAndLineNo(obj, body)
 
 			// In order to update SalesOrder or SalesInvoice
 			// it is required to specify its "No" which acts as its id
 			// and "Document_type" which specifies if it is "Order" or "Invoice"
 		} else {
-			resValue, resError = updateEntitybyDocumentTypeAndID(obj, body)
+			resValue, resError = c.updateEntitybyDocumentTypeAndID(obj, body)
 		}
 
 		// This is the case for most entities to be updated
 		// "No" which acts as id is all what it required to update an entity
 	} else {
-		resValue, resError = updateEntitybyId(obj, body)
+		resValue, resError = c.updateEntitybyId(obj, body)
 	}
 
 	if resError != nil {
@@ -111,6 +120,7 @@ func Update(obj types.RequestObject) (interface{}, error) {
 // takes args --> arguments used to get entity to be deleted
 // returns the response code
 func Delete(endpoint string, args map[string]interface{}, docType interface{}) (interface{}, error) {
+	c := newController()
 
 	var resCode int
 	var resError error
@@ -125,21 +135,21 @@ func Delete(endpoint string, args map[string]interface{}, docType interface{}) (
 		if lineNo, ok := args["Line_No"]; ok {
 			id := args["Document_No"].(string)
 			lineNo := lineNo.(int)
-			resCode, resError = deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, lineNo)
+			resCode, resError = c.deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType, lineNo)
 
 			// In order to delete SalesOrder or SalesInvoice
 			// it is required to specify its "No" which acts as its id
 			// and "Document_type" which specifies if it is "Order" or "Invoice"
 		} else {
 			id := args["No"].(string)
-			resCode, resError = deleteEntitybyDocumentTypeAndID(endpoint, id, docType)
+			resCode, resError = c.deleteEntitybyDocumentTypeAndID(endpoint, id, docType)
 		}
 
 		// This is the case for most entities to be deleted
 		// "No" which acts as id is all what it required to delete an entity
 	} else {
 		id := args["No"].(string)
-		resCode, resError = deleteEntitybyId(endpoint, id)
+		resCode, resError = c.deleteEntitybyId(endpoint, id)
 	}
 
 	if resError != nil {

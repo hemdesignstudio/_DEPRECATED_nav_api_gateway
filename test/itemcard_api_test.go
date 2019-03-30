@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/hem-nav-gateway/config"
 	"github.com/hem-nav-gateway/item"
-	"github.com/hem-nav-gateway/request"
+	"github.com/hem-nav-gateway/rest"
 	"github.com/hem-nav-gateway/test/utils"
 
 	"github.com/stretchr/testify/assert"
@@ -89,7 +89,7 @@ func TestFilterItemCard(t *testing.T) {
 	}
 
 	args["No"] = args["value"]
-	responseCode, _ := request.Delete(config.ItemCardEndpoint, args, nil)
+	responseCode, _ := rest.Delete(config.ItemCardEndpoint, args, nil)
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
@@ -103,7 +103,7 @@ func TestCreateItemCard(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	responseCode, _ := request.Delete(config.ItemCardEndpoint, args, nil)
+	responseCode, _ := rest.Delete(config.ItemCardEndpoint, args, nil)
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
@@ -118,7 +118,7 @@ func TestUpdateItemCard(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	responseCode, _ := request.Delete(config.ItemCardEndpoint, args, nil)
+	responseCode, _ := rest.Delete(config.ItemCardEndpoint, args, nil)
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
