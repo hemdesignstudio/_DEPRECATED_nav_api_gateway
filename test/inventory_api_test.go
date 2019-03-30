@@ -58,5 +58,4 @@ func TestInventoryFilter(t *testing.T) {
 	assert.Equal(t, "10005", resBody.Data.Inventory[0].No, "Expected No = 10005")
 	assert.Equal(t, "Hai Chair Mosaic Charcoal", resBody.Data.Inventory[0].Description, "Hai Chair Mosaic Charcoal")
 	assert.Equal(t, "25.00", resBody.Data.Inventory[0].QuantityAvailable, "Expected 25.00")
-	assert.Equal(t, "2019-03-15", resBody.Data.Inventory[0].ReceiptDate, "Expected 2019-03-15")
 }

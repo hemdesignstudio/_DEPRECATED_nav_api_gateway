@@ -88,7 +88,7 @@ func (c *restClient) clientRequest(req *http.Request, method string) (int, inter
 
 	client := &http.Client{
 		Transport: tr,
-		Timeout:   10 * time.Second,
+		Timeout:   60 * time.Second,
 	}
 
 	resp, err := client.Do(req)
