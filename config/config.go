@@ -6,6 +6,7 @@ package config
 
 import (
 	"fmt"
+
 	"github.com/spf13/viper"
 )
 
@@ -27,14 +28,14 @@ func init() {
 }
 
 func NAVCredentials() (string, string) {
-	username := viper.GetString("username")
-	password := viper.GetString("password")
+	username := viper.GetString("USER")
+	password := viper.GetString("PWD")
 	return username, password
 }
 
 var (
-	BaseUrl                = "https://odatamyway182.navmoln.se:18202/MyWay182Services/ODataV4"
-	SoapBaseUrl            = "https://wsmyway182.navmoln.se:18201/MyWay182Services/WS"
+	BaseUrl                = viper.GetString("BASEURL")
+	SoapBaseUrl            = viper.GetString("SOAPBASEURL")
 	Endpoint               = "/graphql"
 	Version                = "/v0.1.0"
 	CompanyEndpoint        = "/Company"
@@ -47,9 +48,9 @@ var (
 	PostShipEndpoint       = "/WebSalesShipment"
 	InventoryEndpoint      = "/GetInventory"
 	Host                   = ":6789"
-	TestCompany            = "Hem TEST"
-	EUCompany              = "Hem FAL Sweden AB"
-	USCompany              = "Hem FAL Inc"
+	TestCompany            = viper.GetString("TEST_STORE")
+	EUCompany              = viper.GetString("EU_STORE")
+	USCompany              = viper.GetString("US_STORE")
 	SSL_Cert               = "./cert/localhost.crt"
 	SSL_Key                = "./cert/localhost.key"
 )

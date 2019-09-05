@@ -6,7 +6,7 @@ package postship
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/hem-nav-gateway/request"
+	"github.com/hem-nav-gateway/rest"
 	"github.com/hem-nav-gateway/types"
 )
 
@@ -17,12 +17,12 @@ type Request struct {
 	Object  types.RequestObject
 }
 
-func (*Request) CreateType() *graphql.Object {
-	return _type
+func newRestService() *rest.Service {
+	return &rest.Service{}
 }
 
-func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig {
-	return nil
+func (*Request) CreateType() *graphql.Object {
+	return _type
 }
 
 func (r *Request) GetCompany() string {
@@ -43,8 +43,8 @@ func (r *Request) GetAll() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Response = Response{}
-
-	return request.GetAll(r.Object)
+	s := newRestService()
+	return s.GetAll(r.Object)
 
 }
 
@@ -55,15 +55,8 @@ func (r *Request) Filter() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Response = Response{}
+	s := newRestService()
 
-	return request.Filter(r.Object)
+	return s.Filter(r.Object)
 
-}
-
-func (r *Request) Create() (interface{}, error) {
-	return nil, nil
-}
-
-func (r *Request) Update() (interface{}, error) {
-	return nil, nil
 }

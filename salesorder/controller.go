@@ -6,7 +6,7 @@ package salesorder
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/hem-nav-gateway/request"
+	"github.com/hem-nav-gateway/rest"
 	"github.com/hem-nav-gateway/types"
 )
 
@@ -18,23 +18,33 @@ type Request struct {
 	Object  types.RequestObject
 }
 
+func newRestService() *rest.Service {
+
+	return &rest.Service{}
+}
+
 func (*Request) CreateType() *graphql.Object {
+
 	return _type
 }
 
 func (*Request) CreateArgs() map[string]*graphql.ArgumentConfig {
+
 	return _args
 }
 
 func (r *Request) GetCompany() string {
+
 	return r.Company
 }
 
 func (r *Request) SetArgs(args map[string]interface{}) {
+
 	r.Object.Args = args
 }
 
 func (r *Request) SetFields(fields []string) {
+
 	r.Object.Fields = fields
 }
 
@@ -51,8 +61,9 @@ func (r *Request) GetAll() (interface{}, error) {
 
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 	r.Object.Response = Response{}
+	s := newRestService()
 
-	return request.GetAll(r.Object)
+	return s.GetAll(r.Object)
 }
 
 // Filter retrieves a list of filtered SalesOrders
@@ -70,10 +81,10 @@ func (r *Request) Filter() (interface{}, error) {
 	r.Object.Fields = addFieldIfNotExist("No", r.Object.Fields)
 
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
-
 	r.Object.Response = Response{}
+	s := newRestService()
 
-	return request.Filter(r.Object)
+	return s.Filter(r.Object)
 }
 
 // Create creates a SalesOrder objects based on arguments added by the requester
@@ -89,9 +100,11 @@ func (r *Request) Create() (interface{}, error) {
 	r.Object.Company = r.Company
 
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
-	r.Object.Response = Response{}
 
-	return request.Create(r.Object)
+	r.Object.Response = Response{}
+	s := newRestService()
+
+	return s.Create(r.Object)
 }
 
 // Update modifies a certain SalesOrder Object Microsoft Navision.
@@ -113,6 +126,7 @@ func (r *Request) Update() (interface{}, error) {
 
 	r.Object.Fields = removeField("Sales_Lines", r.Object.Fields)
 	r.Object.Response = Response{}
+	s := newRestService()
 
-	return request.Update(r.Object)
+	return s.Update(r.Object)
 }

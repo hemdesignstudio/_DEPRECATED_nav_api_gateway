@@ -6,7 +6,7 @@ package customer
 
 import (
 	"github.com/graphql-go/graphql"
-	"github.com/hem-nav-gateway/request"
+	"github.com/hem-nav-gateway/rest"
 	"github.com/hem-nav-gateway/types"
 )
 
@@ -16,6 +16,10 @@ var _args = createArgs()
 type Request struct {
 	Company string
 	Object  types.RequestObject
+}
+
+func newRestService() *rest.Service {
+	return &rest.Service{}
 }
 
 func (*Request) CreateType() *graphql.Object {
@@ -44,8 +48,8 @@ func (r *Request) GetAll() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Response = Response{}
-
-	return request.GetAll(r.Object)
+	s := newRestService()
+	return s.GetAll(r.Object)
 }
 
 // Filter retrieves a list of filtered CustomerCards based on a key-value pair added by the requester
@@ -55,8 +59,9 @@ func (r *Request) Filter() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Response = Response{}
+	s := newRestService()
 
-	return request.Filter(r.Object)
+	return s.Filter(r.Object)
 
 }
 
@@ -66,8 +71,9 @@ func (r *Request) Create() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Response = Response{}
+	s := newRestService()
 
-	return request.Create(r.Object)
+	return s.Create(r.Object)
 
 }
 
@@ -79,7 +85,8 @@ func (r *Request) Update() (interface{}, error) {
 	r.Object.Endpoint = endpoint
 	r.Object.Company = r.Company
 	r.Object.Response = Response{}
+	s := newRestService()
 
-	return request.Update(r.Object)
+	return s.Update(r.Object)
 
 }

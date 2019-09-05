@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/hem-nav-gateway/config"
-	"github.com/hem-nav-gateway/request"
+	"github.com/hem-nav-gateway/rest"
 	"github.com/hem-nav-gateway/salesline"
 	"github.com/hem-nav-gateway/test/utils"
 
@@ -94,7 +94,7 @@ func TestFilterSalesLine(t *testing.T) {
 	docType := resBody.Data.CreateSalesLine.DocumentType
 	args["Document_No"] = resBody.Data.CreateSalesLine.DocumentNo
 	args["Line_No"] = resBody.Data.CreateSalesLine.LineNo
-	responseCode, _ := request.Delete(config.SalesLineEndpoint, args, docType)
+	responseCode, _ := rest.Delete(config.SalesLineEndpoint, args, docType)
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
@@ -110,7 +110,7 @@ func TestCreateSalesLine(t *testing.T) {
 		assert.NotNil(t, val)
 	}
 	docType := args["Document_Type"]
-	responseCode, _ := request.Delete(config.SalesLineEndpoint, args, docType)
+	responseCode, _ := rest.Delete(config.SalesLineEndpoint, args, docType)
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
@@ -127,6 +127,6 @@ func TestUpdateSalesLine(t *testing.T) {
 		assert.NotNil(t, val)
 	}
 	docType := args["Document_Type"]
-	responseCode, _ := request.Delete(config.SalesLineEndpoint, args, docType)
+	responseCode, _ := rest.Delete(config.SalesLineEndpoint, args, docType)
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 }

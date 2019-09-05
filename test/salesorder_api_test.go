@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/hem-nav-gateway/config"
-	"github.com/hem-nav-gateway/request"
+	"github.com/hem-nav-gateway/rest"
 	"github.com/hem-nav-gateway/salesorder"
 	"github.com/hem-nav-gateway/test/utils"
 	"github.com/stretchr/testify/assert"
@@ -86,7 +86,7 @@ func TestFilterSalesOrder(t *testing.T) {
 	navNo := args["value"]
 	assert.Equal(t, navNo, elements[0].No, fmt.Sprintf("Expected No = %s", navNo))
 	args["No"] = args["value"]
-	responseCode, _ := request.Delete(config.SalesOrderEndpoint, args, "Order")
+	responseCode, _ := rest.Delete(config.SalesOrderEndpoint, args, "Order")
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
@@ -102,7 +102,7 @@ func TestCreateSalesOrder(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	responseCode, _ := request.Delete(config.SalesOrderEndpoint, args, "Order")
+	responseCode, _ := rest.Delete(config.SalesOrderEndpoint, args, "Order")
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
@@ -119,6 +119,6 @@ func TestUpdateSalesOrder(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	responseCode, _ := request.Delete(config.SalesOrderEndpoint, args, "Order")
+	responseCode, _ := rest.Delete(config.SalesOrderEndpoint, args, "Order")
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 }

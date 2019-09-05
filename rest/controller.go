@@ -2,7 +2,7 @@
 // Use of this source code is governed by a
 // license that can be found in the LICENSE file.
 
-package request
+package rest
 
 import (
 	"fmt"
@@ -12,6 +12,13 @@ import (
 	"strings"
 )
 
+type controller struct {
+}
+
+func newUtils() *utils {
+	return &utils{}
+}
+
 // resolveFields creates the URL query for
 // return fields from Microsoft Navision
 // Function takes fields --> []string
@@ -19,7 +26,7 @@ import (
 // Example :
 // 			fields = ["No", "Name", "Address"]
 // 			Return "$select=No,Name,Adress"
-func resolveFields(fields interface{}) string {
+func (*controller) resolveFields(fields interface{}) string {
 	if fields == nil {
 		return ""
 	}
@@ -29,7 +36,7 @@ func resolveFields(fields interface{}) string {
 }
 
 // resolveBaseUrl resolves the base URL for endpoint and company name
-func resolveBaseUrl(endpoint, companyName string) string {
+func (*controller) resolveBaseUrl(endpoint, companyName string) string {
 
 	uri := config.BaseUrl +
 		config.CompanyEndpoint +
@@ -49,7 +56,7 @@ func resolveBaseUrl(endpoint, companyName string) string {
 // $filter=No eq 1001 --> type of 1001 is integer or number since no quotes are used
 // Navision does not accept double quotes
 // $filter=No eq "1001" --> does not work
-func resolveFilterArgs(args interface{}) string {
+func (*controller) resolveFilterArgs(args interface{}) string {
 
 	_args := args.(map[string]interface{})
 
@@ -67,51 +74,54 @@ func resolveFilterArgs(args interface{}) string {
 }
 
 // getAllEntities gets all required entities
-func getAllEntities(object interface{}) interface{} {
+func (c *controller) getAllEntities(object interface{}) interface{} {
 
 	obj := object.(types.RequestObject)
-	baseUri := resolveBaseUrl(obj.Endpoint, obj.Company)
-	returnFields := resolveFields(obj.Fields)
+	baseUri := c.resolveBaseUrl(obj.Endpoint, obj.Company)
+	returnFields := c.resolveFields(obj.Fields)
 	uri := baseUri + "?" + returnFields
 
-	_, respBody, _ := get(uri)
+	utils := newUtils()
+	_, respBody, _ := utils.get(uri)
 	return respBody
 }
 
 // createEntity creates a specific entity
-func createEntity(object, body interface{}) (interface{}, error) {
+func (c *controller) createEntity(object, body interface{}) (interface{}, error) {
 
 	obj := object.(types.RequestObject)
-	baseUri := resolveBaseUrl(obj.Endpoint, obj.Company)
-	returnFields := resolveFields(obj.Fields)
+	baseUri := c.resolveBaseUrl(obj.Endpoint, obj.Company)
+	returnFields := c.resolveFields(obj.Fields)
 	uri := baseUri + "?" + returnFields
 
-	_, respBody, err := post(uri, body)
+	utils := newUtils()
+	_, respBody, err := utils.post(uri, body)
 	return respBody, err
 
 }
 
 // filterByArgs gets a list of entities based on a filter
-func filterByArgs(object interface{}) (interface{}, error) {
+func (c *controller) filterByArgs(object interface{}) (interface{}, error) {
 
 	obj := object.(types.RequestObject)
-	baseUri := resolveBaseUrl(obj.Endpoint, obj.Company)
-	filter := resolveFilterArgs(obj.Args)
-	returnFields := resolveFields(obj.Fields)
+	baseUri := c.resolveBaseUrl(obj.Endpoint, obj.Company)
+	filter := c.resolveFilterArgs(obj.Args)
+	returnFields := c.resolveFields(obj.Fields)
 	uri := baseUri + "?" + filter + "&" + returnFields
 
-	_, respBody, err := get(uri)
+	utils := newUtils()
+	_, respBody, err := utils.get(uri)
 	return respBody, err
 }
 
 // updateEntitybyId updates a specific entity
 // takes the unique id of the entity
 // and fields to be returned after update
-func updateEntitybyId(object, body interface{}) (interface{}, error) {
+func (c *controller) updateEntitybyId(object, body interface{}) (interface{}, error) {
 
 	obj := object.(types.RequestObject)
-	baseUri := resolveBaseUrl(obj.Endpoint, obj.Company)
-	returnFields := resolveFields(obj.Fields)
+	baseUri := c.resolveBaseUrl(obj.Endpoint, obj.Company)
+	returnFields := c.resolveFields(obj.Fields)
 
 	selector := fmt.Sprintf(
 		"('%v')",
@@ -120,7 +130,8 @@ func updateEntitybyId(object, body interface{}) (interface{}, error) {
 
 	uri := baseUri + selector + "?" + returnFields
 
-	_, respBody, err := patch(uri, body)
+	utils := newUtils()
+	_, respBody, err := utils.patch(uri, body)
 	return respBody, err
 
 }
@@ -128,11 +139,11 @@ func updateEntitybyId(object, body interface{}) (interface{}, error) {
 // updateEntitybyDocumentTypeAndID updates a specific entity
 // takes the unique id and document_type of the entity
 // and fields to be returned after update
-func updateEntitybyDocumentTypeAndID(object, body interface{}) (interface{}, error) {
+func (c *controller) updateEntitybyDocumentTypeAndID(object, body interface{}) (interface{}, error) {
 
 	obj := object.(types.RequestObject)
-	baseUri := resolveBaseUrl(obj.Endpoint, obj.Company)
-	returnFields := resolveFields(obj.Fields)
+	baseUri := c.resolveBaseUrl(obj.Endpoint, obj.Company)
+	returnFields := c.resolveFields(obj.Fields)
 
 	selector := fmt.Sprintf(
 		"('%v','%v')",
@@ -142,7 +153,8 @@ func updateEntitybyDocumentTypeAndID(object, body interface{}) (interface{}, err
 
 	uri := baseUri + selector + "?" + returnFields
 
-	_, respBody, err := patch(uri, body)
+	utils := newUtils()
+	_, respBody, err := utils.patch(uri, body)
 	return respBody, err
 
 }
@@ -150,11 +162,11 @@ func updateEntitybyDocumentTypeAndID(object, body interface{}) (interface{}, err
 // updateEntitybyDocumentTypeAndIDAndLineNo updates a specific entity, mostly utilized for updating SalesLines
 // takes the unique id, document_type and Line_no of the entity
 // and fields to be returned after update
-func updateEntitybyDocumentTypeAndIDAndLineNo(object interface{}, body interface{}) (interface{}, error) {
+func (c *controller) updateEntitybyDocumentTypeAndIDAndLineNo(object interface{}, body interface{}) (interface{}, error) {
 
 	obj := object.(types.RequestObject)
-	baseUri := resolveBaseUrl(obj.Endpoint, obj.Company)
-	returnFields := resolveFields(obj.Fields)
+	baseUri := c.resolveBaseUrl(obj.Endpoint, obj.Company)
+	returnFields := c.resolveFields(obj.Fields)
 
 	selector := fmt.Sprintf(
 		"('%v','%v',%v)",
@@ -165,7 +177,8 @@ func updateEntitybyDocumentTypeAndIDAndLineNo(object interface{}, body interface
 
 	uri := baseUri + selector + "?" + returnFields
 
-	_, respBody, err := patch(uri, body)
+	utils := newUtils()
+	_, respBody, err := utils.patch(uri, body)
 	return respBody, err
 
 }
@@ -173,22 +186,26 @@ func updateEntitybyDocumentTypeAndIDAndLineNo(object interface{}, body interface
 // deleteEntitybyId deletes a specific entity
 // takes the unique id of the entity
 // and fields to be returned after update
-func deleteEntitybyId(endpoint, id string) (int, error) {
-	baseUri := resolveBaseUrl(endpoint, config.TestCompany)
+func (c *controller) deleteEntitybyId(endpoint, id string) (int, error) {
+	baseUri := c.resolveBaseUrl(endpoint, config.TestCompany)
 	selector := fmt.Sprintf("('%s')", id)
 	uri := baseUri + selector
-	resCode, _, err := delete(uri, nil)
+
+	utils := newUtils()
+	resCode, _, err := utils.delete(uri, nil)
 	return resCode, err
 }
 
 // deleteEntitybyDocumentTypeAndID delets a specific entity
 // takes the unique id and document_type of the entity
 // and fields to be returned after update
-func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) {
-	baseUri := resolveBaseUrl(endpoint, config.TestCompany)
+func (c *controller) deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) {
+	baseUri := c.resolveBaseUrl(endpoint, config.TestCompany)
 	selector := fmt.Sprintf("('%s','%s')", docType, id)
 	uri := baseUri + selector
-	resCode, _, err := delete(uri, nil)
+
+	utils := newUtils()
+	resCode, _, err := utils.delete(uri, nil)
 	return resCode, err
 
 }
@@ -196,11 +213,13 @@ func deleteEntitybyDocumentTypeAndID(endpoint, id, docType string) (int, error) 
 // deleteEntitybyDocumentTypeAndIDAndLineNo deletes a specific entity, mostly utilized for updating SalesLines
 // takes the unique id, document_type and Line_no of the entity
 // and fields to be returned after update
-func deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, lineNo int) (int, error) {
-	baseUri := resolveBaseUrl(endpoint, config.TestCompany)
+func (c *controller) deleteEntitybyDocumentTypeAndIDAndLineNo(endpoint, id, docType string, lineNo int) (int, error) {
+	baseUri := c.resolveBaseUrl(endpoint, config.TestCompany)
 	selector := fmt.Sprintf("('%s','%s',%d)", docType, id, lineNo)
 	uri := baseUri + selector
-	resCode, _, err := delete(uri, nil)
+
+	utils := newUtils()
+	resCode, _, err := utils.delete(uri, nil)
 	return resCode, err
 
 }

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/hem-nav-gateway/config"
 	"github.com/hem-nav-gateway/customer"
-	"github.com/hem-nav-gateway/request"
+	"github.com/hem-nav-gateway/rest"
 	"github.com/hem-nav-gateway/test/utils"
 
 	"github.com/stretchr/testify/assert"
@@ -88,7 +88,7 @@ func TestFilterCustomerCard(t *testing.T) {
 	assert.Equal(t, navNo, elements[0].No, fmt.Sprintf("Expected No = %s", navNo))
 
 	args["No"] = args["value"]
-	responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, args, nil)
+	responseCode, _ := rest.Delete(config.CustomerCardWSEndpoint, args, nil)
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
@@ -102,7 +102,7 @@ func TestCreateCustomerCard(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, args, nil)
+	responseCode, _ := rest.Delete(config.CustomerCardWSEndpoint, args, nil)
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
@@ -117,6 +117,6 @@ func TestUpdateCustomerCard(t *testing.T) {
 	for _, val := range values {
 		assert.NotNil(t, val)
 	}
-	responseCode, _ := request.Delete(config.CustomerCardWSEndpoint, args, nil)
+	responseCode, _ := rest.Delete(config.CustomerCardWSEndpoint, args, nil)
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 }

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/hem-nav-gateway/config"
-	"github.com/hem-nav-gateway/request"
+	"github.com/hem-nav-gateway/rest"
 	"github.com/hem-nav-gateway/salesinvoice"
 	"github.com/hem-nav-gateway/test/utils"
 
@@ -89,7 +89,7 @@ func TestFilterSalesInvoice(t *testing.T) {
 	assert.Equal(t, navNo, elements[0].No, fmt.Sprintf("Expected No = %s", navNo))
 
 	args["No"] = args["value"]
-	responseCode, _ := request.Delete(config.SalesInvoiceEndpoint, args, "Invoice")
+	responseCode, _ := rest.Delete(config.SalesInvoiceEndpoint, args, "Invoice")
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
@@ -106,7 +106,7 @@ func TestCreateSalesInvoice(t *testing.T) {
 		assert.NotNil(t, val)
 	}
 	args["No"] = resBody.Data.CreateSalesInvoice.No
-	responseCode, _ := request.Delete(config.SalesInvoiceEndpoint, args, "Invoice")
+	responseCode, _ := rest.Delete(config.SalesInvoiceEndpoint, args, "Invoice")
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 
 }
@@ -125,6 +125,6 @@ func TestUpdateSalesInvoice(t *testing.T) {
 		assert.NotNil(t, val)
 	}
 	args["No"] = createResBody.Data.CreateSalesInvoice.No
-	responseCode, _ := request.Delete(config.SalesInvoiceEndpoint, args, "Invoice")
+	responseCode, _ := rest.Delete(config.SalesInvoiceEndpoint, args, "Invoice")
 	assert.Equal(t, 204, responseCode, "Could not delete entity")
 }

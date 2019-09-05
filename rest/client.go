@@ -6,7 +6,7 @@
 Package request implements a simple package for handling HTTP requests to Microsoft Navision
 
 */
-package request
+package rest
 
 import (
 	"bytes"
@@ -21,8 +21,11 @@ import (
 	"time"
 )
 
+type restClient struct {
+}
+
 // headers contain request headers to Microsft Navision
-func headers(uri string, method string, body interface{}) *http.Request {
+func (c *restClient) headers(uri string, method string, body interface{}) *http.Request {
 
 	u, err := url.Parse(uri)
 	if err != nil {
@@ -52,7 +55,7 @@ func headers(uri string, method string, body interface{}) *http.Request {
 
 }
 
-func handleTls() *http.Transport {
+func (c *restClient) handleTls() *http.Transport {
 
 	rootCAs, _ := x509.SystemCertPool()
 	if rootCAs == nil {
@@ -79,13 +82,13 @@ func handleTls() *http.Transport {
 }
 
 // clientRequest handles all requests to Microsft Navision
-func clientRequest(req *http.Request, method string) (int, interface{}, error) {
+func (c *restClient) clientRequest(req *http.Request, method string) (int, interface{}, error) {
 
-	tr := handleTls()
+	tr := c.handleTls()
 
 	client := &http.Client{
 		Transport: tr,
-		Timeout:   10 * time.Second,
+		Timeout:   60 * time.Second,
 	}
 
 	resp, err := client.Do(req)
@@ -114,7 +117,7 @@ func clientRequest(req *http.Request, method string) (int, interface{}, error) {
 }
 
 // request handles the http request and response to Microsoft Navision
-func request(uri string, method string, body interface{}) (int, interface{}, error) {
-	req := headers(uri, method, body)
-	return clientRequest(req, method)
+func (c *restClient) request(uri string, method string, body interface{}) (int, interface{}, error) {
+	req := c.headers(uri, method, body)
+	return c.clientRequest(req, method)
 }

@@ -16,14 +16,21 @@ var filterArgs = map[string]*graphql.ArgumentConfig{
 	"value": {Type: graphql.String},
 }
 
-type fieldType interface {
+type queryFieldType interface {
+	GetCompany() string
+	CreateType() *graphql.Object
+	SetArgs(map[string]interface{})
+	SetFields([]string)
+	GetAll() (interface{}, error)
+	Filter() (interface{}, error)
+}
+
+type mutationFieldType interface {
 	GetCompany() string
 	CreateType() *graphql.Object
 	CreateArgs() map[string]*graphql.ArgumentConfig
 	SetArgs(map[string]interface{})
 	SetFields([]string)
-	GetAll() (interface{}, error)
-	Filter() (interface{}, error)
 	Update() (interface{}, error)
 	Create() (interface{}, error)
 }
@@ -107,7 +114,7 @@ queryFields creates GraphQL Type fields for GraphQl query's
 			}
 
 */
-func queryField(field fieldType) *graphql.Field {
+func queryField(field queryFieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
@@ -152,7 +159,7 @@ createFields creates GraphQL Type fields for GraphQl mutation related to creatin
 			}
 			'''
 */
-func createField(field fieldType) *graphql.Field {
+func createField(field mutationFieldType) *graphql.Field {
 	_field := &graphql.Field{
 
 		Type: field.CreateType(),
@@ -194,7 +201,7 @@ updateFields creates GraphQL Type fields for GraphQl mutation related to updatin
 		}
 		'''
 */
-func updateField(field fieldType) *graphql.Field {
+func updateField(field mutationFieldType) *graphql.Field {
 
 	_field := &graphql.Field{
 
