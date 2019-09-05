@@ -11,17 +11,6 @@ GraphQL API Gateway for Microsoft Navision Written in GO
 ![alt Google Cloud](./res/googlecloud.png)
 ![alt Microsoft Navision](./res/nav.png)
 
-## Getting Started
-Microsoft NAV web client
-```
-https://webmyway182.navmoln.se/myway182/
-```
-
-Microsoft NAV Odata API
-
-```
-https://odatamyway182.navmoln.se:18202/MyWay182Services/ODataV4
-```
 
 ### Prerequisites
 
@@ -35,9 +24,7 @@ dep version: 0.5.0
 ### Installing and running
 
 ```
-git clone https://github.com/hemdesignstudio/hem-nav-gateway.git
-
-cd hem-nav-gateway
+clone
 
 dep ensure
 
