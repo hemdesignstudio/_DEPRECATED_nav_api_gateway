@@ -55,12 +55,9 @@ Deployment requires docker ...
 * [graphql-go](https://github.com/graphql-go/graphql) - Graphql Library for Go
 
 
-## Graphql documentation for NAV API Gateway is hosted here
-[https://hemdesignstudio.github.io/hem-nav-gateway-doc/](https://hemdesignstudio.github.io/hem-nav-gateway-doc/)
-
 
 ## Documentation for Go Code is hosted here
-[https://hemdesignstudio.github.io/hem-nav-gateway/](https://hemdesignstudio.github.io/hem-nav-gateway/)
+[https://hemdesignstudio.github.io/nav_api_gateway/](https://hemdesignstudio.github.io/nav_api_gateway/)
 
 ## Authors
 
